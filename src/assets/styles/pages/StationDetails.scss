@@ -1,0 +1,51 @@
+.station-details {
+  padding: 1em;
+  color: white;
+
+  img.station-img {
+    width: 12em;
+    height: 12em;
+    border-radius: 4px;
+  }
+
+  .station-details-header {
+    gap: 1em;
+  }
+
+  h1 {
+    display: flex;
+    align-items: center;
+    font-size: 5em;
+    margin: 0;
+    height: max-content;
+  }
+  h4 {
+    font-weight: 200;
+    margin: 0;
+  }
+
+  .created-by {
+    color: white;
+    gap: 0.4em;
+    font-size: em(13px);
+
+    .fullname {
+      font-weight: 700;
+    }
+    .station-length {
+      font-weight: 200;
+    }
+    img {
+      width: 1.5em;
+      height: 1.5em;
+      border-radius: 50%;
+    }
+    h4 {
+      margin: 0;
+    }
+    .circle-divider {
+      font-size: 0.3em;
+      height: 0.8em;
+    }
+  }
+}

@@ -1,15 +1,19 @@
+import { useState } from 'react'
 import { userService } from '../services/user'
 import { StationPreview } from './StationPreview'
+import { stationService } from '../services/station/station.service.local'
 
-export function StationList({ stations}) {
+export function StationList() {
+    const [stations, setStations] = useState([])
 
-    // function shouldShowActionBtns(station) {
-    //     const user = userService.getLoggedinUser()
+    useEffect(() => {
 
-    //     if (!user) return false
-    //     if (user.isAdmin) return true
-    //     return station.owner?._id === user._id
-    // }
+    }, [])
+    
+    async function fetchData() {
+
+    }
+
 
     return <section>
         <ul className="list">
