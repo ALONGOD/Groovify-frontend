@@ -19,34 +19,30 @@ export const stationService = {
 
 window.cs = stationService
 
-initializeDemoData() // Call this function on initialization
-
 export async function initializeDemoData() {
-
-  let stations = await storageService.query(STORAGE_KEY)
-  console.table(stations)
-  if (!stations || !stations.length) {
-    stations = demoStations
-    await localStorage.setItem(STORAGE_KEY, JSON.stringify(stations))
-    console.log('Demo stations initialized in local storage.')
-  }
+  const stations = demoStations
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(stations))
+  console.log('Demo stations initialized in local storage.')
+  return stations
 }
 
 async function query(filterBy = { txt: '' }) {
   var stations = await storageService.query(STORAGE_KEY)
-  const { txt, minSpeed, maxPrice, sortField, sortDir } = filterBy
+  if (!stations || !stations.length) {
+    initializeDemoData()
+  }
 
   if (txt) {
     const regex = new RegExp(filterBy.txt, 'i')
-    stations = stations.filter(station => regex.test(station.vendor))
+    stations = stations.filter(station => regex.test(station.name))
 
-    stations = stations.map(({ _id, vendor, price, speed, owner }) => ({
-      _id,
-      vendor,
-      price,
-      speed,
-      owner,
-    }))
+    // stations = stations.map(({ _id, vendor, price, speed, owner }) => ({
+    //   _id,
+    //   tags,
+    //   songs,
+    //   name: stations.name,
+    //   owner,
+    // }))
     return stations
   }
 }
