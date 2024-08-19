@@ -18,11 +18,12 @@ const stations = [
 	{
 		_id: '5cksxjas89xjsa8xjsa8jxs01',
 		name: 'Chill Vibes',
+		imgUrl: 'https://res.cloudinary.com/dh73ujhyv/image/upload/v1724082806/jevy3fwzckfd94pnyifz.webp',
 		tags: ['Chill', 'Relaxing'],
 		createdBy: {
 			id: 'u102',
 			fullname: 'Sam Smith',
-			imgUrl: 'https://res.cloudinary.com/dh73ujhyv/image/upload/v1724082806/jevy3fwzckfd94pnyifz.webp',
+			imgUrl: 'https://i.imgur.com/6OLS5bF.jpeg',
 		},
 		likedByUsers: ['{user-id1}', '{user-id2}'],
 		songs: [
@@ -51,11 +52,12 @@ const stations = [
 	{
 		_id: '5cksxjas89xjsa8xjsa8jxs02',
 		name: 'Workout Energy',
+		imgUrl: 'https://res.cloudinary.com/dh73ujhyv/image/upload/v1724083027/rfft1keoyporqtgpv8w8.webp',
 		tags: ['Workout', 'Energetic'],
 		createdBy: {
 			id: 'u103',
 			fullname: 'Jane Doe',
-			imgUrl: 'https://res.cloudinary.com/dh73ujhyv/image/upload/v1724083027/rfft1keoyporqtgpv8w8.webp',
+			imgUrl: 'https://i.imgur.com/5ZMXSYg.jpeg',
 		},
 		likedByUsers: ['{user-id3}', '{user-id4}'],
 		songs: [
@@ -84,11 +86,12 @@ const stations = [
 	{
 		_id: '5cksxjas89xjsa8xjsa8jxs03',
 		name: 'Party Hits',
+		imgUrl: 'https://res.cloudinary.com/dh73ujhyv/image/upload/v1724083048/mtoempa1met6lv2tc6bh.webp',
 		tags: ['Party', 'Upbeat'],
 		createdBy: {
 			id: 'u104',
 			fullname: 'John Doe',
-			imgUrl: 'https://res.cloudinary.com/dh73ujhyv/image/upload/v1724083048/mtoempa1met6lv2tc6bh.webp',
+			imgUrl: 'https://i.imgur.com/TRVS3gj.jpeg',
 		},
 		likedByUsers: ['{user-id5}', '{user-id6}'],
 		songs: [
