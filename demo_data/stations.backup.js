@@ -33,6 +33,7 @@ var stations = [{
         addedBy: '{minimal-user}',
         likedBy: ['{minimal-user}'],
         addedAt: 162521765262,
+        duration: '3:30',
       },
       {
         id: 'mUkfiLjooxs',
@@ -41,6 +42,8 @@ var stations = [{
         imgUrl: 'https://i.ytimg.com/vi/mUkfiLjooxs/mqdefault.jpg',
         addedBy: '{minimal-user}',
         likedBy: ['{minimal-user}'],
+        addedAt: 162521765262,
+        duration: '3:30',
       },
     ],
     msgs: [

@@ -33,6 +33,7 @@ const stations = [
 				imgUrl: 'https://i.ytimg.com/vi/S3r5TRU-M-o/mqdefault.jpg',
 				addedBy: '{minimal-user1}',
 				addedAt: 162521765263,
+				duration: '3:30',
 			},
 			{
 				id: 'chill1002',
@@ -41,6 +42,7 @@ const stations = [
 				imgUrl: 'https://i.ytimg.com/vi/O8mco7B1gIg/mqdefault.jpg',
 				addedBy: '{minimal-user1}',
 				addedAt: 162521765263,
+				duration: '2:45',
 			},
 		],
 	},
@@ -62,6 +64,7 @@ const stations = [
 				imgUrl: 'https://i.ytimg.com/vi/btPJPFnesV4/mqdefault.jpg',
 				addedBy: '{minimal-user2}',
 				addedAt: 162521765264,
+				duration: '4:15',
 			},
 			{
 				id: 'energy1002',
@@ -70,6 +73,7 @@ const stations = [
 				imgUrl: 'https://i.ytimg.com/vi/_Yhyp-_hX2s/mqdefault.jpg',
 				addedBy: '{minimal-user2}',
 				addedAt: 162521765264,
+				duration: '3:10',
 			},
 		],
 	},
@@ -91,6 +95,7 @@ const stations = [
 				imgUrl: 'https://i.ytimg.com/vi/FGBhQbmPwH8/mqdefault.jpg',
 				addedBy: '{minimal-user3}',
 				addedAt: 162521765265,
+				duration: '2:50',
 			},
 			{
 				id: 'party1002',
@@ -99,6 +104,7 @@ const stations = [
 				imgUrl: 'https://i.ytimg.com/vi/KQ6zr6kCPj8/mqdefault.jpg',
 				addedBy: '{minimal-user3}',
 				addedAt: 162521765265,
+				duration: '3:30',
 			},
 		],
 	},
