@@ -16,7 +16,10 @@
     > *.full {
         flex: 1;
     }
-    &.column {
+    &.flex-column {
+        flex-direction: column;
+    }
+    &.flex-row {
         flex-direction: column;
     }
     &.justify-center {
