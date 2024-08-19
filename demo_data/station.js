@@ -14,35 +14,96 @@
 // StationDetails - Make it amazing
 // D & D Later....
 
-var stations = [{
-	_id: '5cksxjas89xjsa8xjsa8jxs09',
-	name: 'Funky Monks',
-	tags: ['Funk', 'Happy'],
-	createdBy: {
-		id: 'u101',
-		fullname: 'Puki Ben David',
-		imgUrl: '',
+const stations = [
+	{
+		_id: '5cksxjas89xjsa8xjsa8jxs01',
+		name: 'Chill Vibes',
+		tags: ['Chill', 'Relaxing'],
+		createdBy: {
+			id: 'u102',
+			fullname: 'Sam Smith',
+			imgUrl: 'https://res.cloudinary.com/dh73ujhyv/image/upload/v1724082806/jevy3fwzckfd94pnyifz.webp',
+		},
+		likedByUsers: ['{user-id1}', '{user-id2}'],
+		songs: [
+			{
+				id: 'chill1001',
+				title: 'Bonobo - Kiara',
+				url: 'https://youtu.be/L-kyRh7N-kE',
+				imgUrl: 'https://i.ytimg.com/vi/S3r5TRU-M-o/mqdefault.jpg',
+				addedBy: '{minimal-user1}',
+				addedAt: 162521765263,
+			},
+			{
+				id: 'chill1002',
+				title: 'Tycho - A Walk',
+				url: 'https://youtu.be/SDNA934EEVk',
+				imgUrl: 'https://i.ytimg.com/vi/O8mco7B1gIg/mqdefault.jpg',
+				addedBy: '{minimal-user1}',
+				addedAt: 162521765263,
+			},
+		],
 	},
-	likedByUsers: ['{user-id}', '{user-id}'],
-	songs: [
-		{
-			id: 's1001',
-			title: 'The Meters - Cissy Strut',
-			url: 'youtube/song.mp4',
-			imgUrl: 'https://i.ytimg.com/vi/4_iC0MyIykM/mqdefault.jpg',
-			addedBy: '{minimal-user}',
-			addedAt: 162521765262,
+	{
+		_id: '5cksxjas89xjsa8xjsa8jxs02',
+		name: 'Workout Energy',
+		tags: ['Workout', 'Energetic'],
+		createdBy: {
+			id: 'u103',
+			fullname: 'Jane Doe',
+			imgUrl: 'https://res.cloudinary.com/dh73ujhyv/image/upload/v1724083027/rfft1keoyporqtgpv8w8.webp',
 		},
-		{
-			id: 'mUkfiLjooxs',
-			title: "The JB's - Pass The Peas",
-			url: 'youtube/song.mp4',
-			imgUrl: 'https://i.ytimg.com/vi/mUkfiLjooxs/mqdefault.jpg',
-			addedBy: '{minimal-user}',
-			addedAt: 162521765262,
+		likedByUsers: ['{user-id3}', '{user-id4}'],
+		songs: [
+			{
+				id: 'energy1001',
+				title: 'Survivor - Eye of the Tiger',
+				url: 'https://www.youtube.com/watch?v=btPJPFnesV4',
+				imgUrl: 'https://i.ytimg.com/vi/btPJPFnesV4/mqdefault.jpg',
+				addedBy: '{minimal-user2}',
+				addedAt: 162521765264,
+			},
+			{
+				id: 'energy1002',
+				title: 'Eminem - Lose Yourself',
+				url: 'https://www.youtube.com/watch?v=_Yhyp-_hX2s',
+				imgUrl: 'https://i.ytimg.com/vi/_Yhyp-_hX2s/mqdefault.jpg',
+				addedBy: '{minimal-user2}',
+				addedAt: 162521765264,
+			},
+		],
+	},
+	{
+		_id: '5cksxjas89xjsa8xjsa8jxs03',
+		name: 'Party Hits',
+		tags: ['Party', 'Upbeat'],
+		createdBy: {
+			id: 'u104',
+			fullname: 'John Doe',
+			imgUrl: 'https://res.cloudinary.com/dh73ujhyv/image/upload/v1724083048/mtoempa1met6lv2tc6bh.webp',
 		},
-	],
-}]
+		likedByUsers: ['{user-id5}', '{user-id6}'],
+		songs: [
+			{
+				id: 'party1001',
+				title: 'Daft Punk - One More Time',
+				url: 'https://www.youtube.com/watch?v=FGBhQbmPwH8',
+				imgUrl: 'https://i.ytimg.com/vi/FGBhQbmPwH8/mqdefault.jpg',
+				addedBy: '{minimal-user3}',
+				addedAt: 162521765265,
+			},
+			{
+				id: 'party1002',
+				title: 'LMFAO - Party Rock Anthem',
+				url: 'https://www.youtube.com/watch?v=KQ6zr6kCPj8',
+				imgUrl: 'https://i.ytimg.com/vi/KQ6zr6kCPj8/mqdefault.jpg',
+				addedBy: '{minimal-user3}',
+				addedAt: 162521765265,
+			},
+		],
+	},
+];
+
 
 const user = {
 	_id: 'u102',
@@ -139,5 +200,6 @@ const user = {
 	],
 }
 
+export { stations, user };
 
 // function isLikedByUser(songId){}
