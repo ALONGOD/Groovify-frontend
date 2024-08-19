@@ -45,8 +45,8 @@
     justify-content: center;
     align-items: center;
     font-size: 1.2em;
-    width: 1.8em;
-    height: 1.8em;
+    width: 1.7em;
+    height: 1.7em;
     color: white;
     // padding: 0.3em;
     background-color: black;
@@ -55,7 +55,9 @@
 }
 
 .app-header img {
-    width: 1.8em;
+    width: 2em;
     margin-left: 0.5em;
+    padding: 0.2em;
+    background-color: black;
     cursor: pointer;
 }
