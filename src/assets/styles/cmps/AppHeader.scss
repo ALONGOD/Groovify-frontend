@@ -1,7 +1,61 @@
 .app-header {
-    height: 5em;
+    height: $height-header;
+    padding: 0.7em;
 }
 
 .app {
     gap: 0.5em;
+}
+
+.app-header .left .action-nav-btns{
+    gap: 0.3em;
+    margin-inline-end: 0.5em;
+}
+
+.app-header input[type="text"]::placeholder {
+    font-weight: 200;
+    color: rgb(96, 96, 96);
+}
+.app-header input[type="text"] {
+    background-color: #242424;
+    border: 0;
+    border-radius: 2em;
+    height: 3.5em;
+    padding-inline: 2em;
+    color: rgb(77, 77, 77);
+    font-size: 0.75em;
+}
+
+.app-header .search-bar {
+    position: relative;
+}
+
+.app-header .search-bar svg {
+    color: rgb(146, 146, 146);
+    position: absolute;
+    top: 50%;
+    left: 8px;
+    font-weight: 100;
+    font-size: 0.8em;
+    transform: translateY(-50%);
+}
+
+.react-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+    width: 1.8em;
+    height: 1.8em;
+    color: white;
+    // padding: 0.3em;
+    background-color: black;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.app-header img {
+    width: 1.8em;
+    margin-left: 0.5em;
+    cursor: pointer;
 }
