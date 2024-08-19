@@ -10,21 +10,21 @@ import { AppIndex } from './pages/AppIndex.jsx'
 import { Homepage } from './pages/HomePage.jsx'
 import { SearchPage } from './pages/SearchPage.jsx'
 
-
 export function RootCmp() {
   return (
-      <div className="app">
-        <MenuSidebar />
-        <UserMsg />
-        <main>
-          <Routes>
-            <Route path="/" element={<AppIndex />} />
+    <div className="app">
+      <MenuSidebar />
+      <UserMsg />
+      <main>
+        <Routes>
+          <Route path="/" element={<AppIndex />}>
             <Route path="/home" element={<Homepage />} />
             <Route path="/station/:stationId" element={<StationDetails />} />
             <Route path="/search" element={<SearchPage />} />
-          </Routes>
-        </main>
-        <AppFooter />
-      </div>
+          </Route>
+        </Routes>
+      </main>
+      <AppFooter />
+    </div>
   )
 }
