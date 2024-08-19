@@ -1,23 +1,26 @@
-import { Link, NavLink } from 'react-router-dom'
-import { useNavigate } from 'react-router'
+import { Link, NavLink, useSearchParams } from 'react-router-dom'
+import {  useLocation, useNavigate } from 'react-router'
 import { useSelector } from 'react-redux'
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 import { FaRegBell } from 'react-icons/fa'
 
 export function AppHeader() {
   const user = useSelector(storeState => storeState.userModule.user)
-  const navigate = useNavigate()
+  const location = useLocation()
+  const isSearchPage = location.pathname.includes('/search')
+
+  
 
   return (
-    <header className="app-header flex flex-row justify-between">
-      <div className="right">
+    <header className="app-header flex flex-row justify-between align-center">
+      <div className="right flex flex-row align-center">
         <IoIosArrowBack />
         <IoIosArrowForward />
-        <input
+        {isSearchPage && <input
           type="text"
           name="search"
           placeholder="What do you want to play?"
-        />
+        />}
       </div>
       <div className="left flex flex-row align-center">
         <FaRegBell />
