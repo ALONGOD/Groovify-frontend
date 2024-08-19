@@ -20,7 +20,7 @@
         flex-direction: column;
     }
     &.flex-row {
-        flex-direction: column;
+        flex-direction: row;
     }
     &.justify-center {
         justify-content: center;
@@ -31,6 +31,10 @@
     &.justify-between {
         justify-content: space-between;
     }
+}
+
+.rounded-full {
+    border-radius: 50%;
 }
 
 // Media helpers
