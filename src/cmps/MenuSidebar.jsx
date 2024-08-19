@@ -1,4 +1,8 @@
 export function MenuSidebar() {
      
-    return 
+    return (
+        <aside>
+            
+        </aside>
+    )
 }

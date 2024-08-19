@@ -22,8 +22,10 @@
 @import "pages/UserDetails";
 @import "pages/TaskDetails";
 @import "pages/LoginSignup";
+@import "pages/AppIndex";
 
 // Components
+@import "cmps/MenuSidebar";
 @import "cmps/list";
 @import "cmps/preview";
 
