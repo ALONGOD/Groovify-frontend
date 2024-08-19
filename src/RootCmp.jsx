@@ -3,12 +3,12 @@ import { Routes, Route, Router } from 'react-router'
 
 import { HomePage } from './pages/HomePage'
 import { AboutUs, AboutTeam, AboutVision } from './pages/AboutUs'
-import { CarIndex } from './pages/CarIndex.jsx'
+import { StationIndex } from './pages/StationIndex.jsx'
 import { ReviewIndex } from './pages/ReviewIndex.jsx'
 import { ChatApp } from './pages/Chat.jsx'
 import { AdminIndex } from './pages/AdminIndex.jsx'
 
-import { CarDetails } from './pages/CarDetails'
+import { StationDetails } from './pages/StationDetails'
 import { UserDetails } from './pages/UserDetails'
 
 import { AppHeader } from './cmps/AppHeader'
