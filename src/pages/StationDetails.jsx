@@ -12,7 +12,7 @@ export function StationDetails() {
 
   console.log('station:', station)
 
-  const { name, createdBy, songs } = station
+  const { name, createdBy, songs, imgUrl } = station
 
   useEffect(() => {
     loadStation(stationId)
@@ -32,7 +32,7 @@ export function StationDetails() {
   return (
     <section className="station-details">
       <div className="station-details-header flex flex-row">
-        <img src='https://res.cloudinary.com/dh73ujhyv/image/upload/v1724082806/jevy3fwzckfd94pnyifz.webp' alt="station-name" className='station-img' />
+        <img src={imgUrl} alt="station-name" className='station-img' />
         <div className="flex flex-column">
           <h4>Playlist</h4>
           <h1>{name}</h1>
