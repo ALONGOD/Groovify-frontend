@@ -1,27 +1,26 @@
-import { Link, NavLink, useSearchParams } from 'react-router-dom'
 import { useLocation, useNavigate } from 'react-router'
-import { useSelector } from 'react-redux'
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 import { FaRegBell } from 'react-icons/fa'
 import { FaMagnifyingGlass } from 'react-icons/fa6'
-import { useState } from 'react'
 
 export function AppHeader() {
-  const user = useSelector(storeState => storeState.userModule.user)
+  const navigate = useNavigate()
   const location = useLocation()
   const isSearchPage = location.pathname.includes('/search')
 
-  
+  function navigation(direction) {
+    navigate(direction)
+  }
 
   return (
     <header className="app-header flex flex-row justify-between align-center">
       <div className="left flex flex-row align-center">
         <div className="action-nav-btns flex flex-row">
           <div className="react-icon" >
-            <IoIosArrowBack title='Go back'/>
+            <IoIosArrowBack title='Go back'onClick={() => navigation(-1)}/>
           </div>
           <div className="react-icon" >
-            <IoIosArrowForward title='Go forward'/>
+            <IoIosArrowForward title='Go forward'onClick={() => navigation(1)}/>
           </div>
         </div>
         {isSearchPage && (
