@@ -19,11 +19,11 @@ var stations = [{
   name: 'Funky Monks',
   tags: ['Funk', 'Happy'],
   createdBy: {
-    _id: 'u101',
+    id: 'u101',
     fullname: 'Puki Ben David',
     imgUrl: '',
   },
-  likedByUsers: ['{minimal-user}', '{minimal-user}'],
+  likedByUsers: ['{user-id}', '{user-id}'],
   songs: [
     {
       id: 's1001',
@@ -42,15 +42,8 @@ var stations = [{
 	  addedAt: 162521765262,
     },
   ],
-//   msgs: [
-//     {
-//       id: 'm101',
-//       from: '{mini-user}',
-//       txt: 'Manish?',
-//     },
-//   ],
-}
-]
+}]
+
 const user = {
 	_id: '',
 	username: '',
@@ -99,14 +92,14 @@ const user = {
 	],
 	likedStations: [
 		{
-			_id: '5cksxjas89xjsa8xjsa8jxs09',
+			id: '5cksxjas89xjsa8xjsa8jxs09',
 			name: 'Moody',
 			creator: 'Puki Ben David',
 			album: 'Moody',
 			img: ['default-img'],
 		},
 		{
-			_id: 's102',
+			id: 's102',
 			name: 'Funky Monks',
 			creator: 'Puki Ben David',
 			album: 'Funky Monks',

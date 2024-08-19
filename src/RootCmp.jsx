@@ -1,5 +1,5 @@
 import React from 'react'
-import { Routes, Route } from 'react-router'
+import { Routes, Route, Router } from 'react-router'
 
 import { HomePage } from './pages/HomePage'
 import { AboutUs, AboutTeam, AboutVision } from './pages/AboutUs'
@@ -18,26 +18,26 @@ import { LoginSignup } from './pages/LoginSignup.jsx'
 import { Login } from './pages/Login.jsx'
 import { Signup } from './pages/Signup.jsx'
 
-
 export function RootCmp() {
-    return (
+  return (
+    <Router>
       <div className="app">
         <MenuSidebar />
         <DetailsSidebar />
         <UserMsg />
-        
+
         <main>
-          <AppHeader />
           <Routes>
+            <AppHeader />
             <Route path="/" element={<AppIndex />}>
               <Route path="/home" element={<Homepage />} />
-              <Route path="/liked" element={<LikedSongsStation />} />
-              <Route path="/station/:id" element={<StationList />} />
+              <Route path="/station/:id" element={<StationDetails />} />
               <Route path="/search" element={<Search />} />
             </Route>
           </Routes>
         </main>
         <AppFooter />
       </div>
-    )
-  }
+    </Router>
+  )
+}
