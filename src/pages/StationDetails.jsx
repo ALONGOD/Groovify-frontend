@@ -17,7 +17,8 @@ export function StationDetails() {
 
   return (
     <section className="station-details">
-      
+      station detailsss
+
     </section>
   )
 }
