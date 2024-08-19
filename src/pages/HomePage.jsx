@@ -1,8 +1,6 @@
-export function HomePage() {
+export function Homepage() {
     return (
-        <section>
-            <h1>Home sweet Home</h1>
-        </section >
+            <h1></h1>
     )
 }
 

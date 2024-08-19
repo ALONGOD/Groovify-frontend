@@ -1,43 +1,30 @@
 import React from 'react'
-import { Routes, Route, Router } from 'react-router'
-
-import { HomePage } from './pages/HomePage'
-import { AboutUs, AboutTeam, AboutVision } from './pages/AboutUs'
-import { StationIndex } from './pages/StationIndex.jsx'
-import { ReviewIndex } from './pages/ReviewIndex.jsx'
-import { ChatApp } from './pages/Chat.jsx'
-import { AdminIndex } from './pages/AdminIndex.jsx'
+import { Routes, Route } from 'react-router-dom'
 
 import { StationDetails } from './pages/StationDetails'
-import { UserDetails } from './pages/UserDetails'
 
-import { AppHeader } from './cmps/AppHeader'
 import { AppFooter } from './cmps/AppFooter'
 import { UserMsg } from './cmps/UserMsg.jsx'
-import { LoginSignup } from './pages/LoginSignup.jsx'
-import { Login } from './pages/Login.jsx'
-import { Signup } from './pages/Signup.jsx'
+import { MenuSidebar } from './cmps/MenuSidebar.jsx'
+import { AppIndex } from './pages/AppIndex.jsx'
+import { Homepage } from './pages/HomePage.jsx'
+import { SearchPage } from './pages/SearchPage.jsx'
+
 
 export function RootCmp() {
   return (
-    <Router>
       <div className="app">
         <MenuSidebar />
-        <DetailsSidebar />
         <UserMsg />
-
         <main>
           <Routes>
-            <AppHeader />
-            <Route path="/" element={<AppIndex />}>
-              <Route path="/home" element={<Homepage />} />
-              <Route path="/station/:id" element={<StationDetails />} />
-              <Route path="/search" element={<Search />} />
-            </Route>
+            <Route path="/" element={<AppIndex />} />
+            <Route path="/home" element={<Homepage />} />
+            <Route path="/station/:stationId" element={<StationDetails />} />
+            <Route path="/search" element={<SearchPage />} />
           </Routes>
         </main>
         <AppFooter />
       </div>
-    </Router>
   )
 }
