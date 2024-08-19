@@ -15,39 +15,39 @@
 // D & D Later....
 
 var stations = [{
-  _id: '5cksxjas89xjsa8xjsa8jxs09',
-  name: 'Funky Monks',
-  tags: ['Funk', 'Happy'],
-  createdBy: {
-    id: 'u101',
-    fullname: 'Puki Ben David',
-    imgUrl: '',
-  },
-  likedByUsers: ['{user-id}', '{user-id}'],
-  songs: [
-    {
-      id: 's1001',
-      title: 'The Meters - Cissy Strut',
-      url: 'youtube/song.mp4',
-      imgUrl: 'https://i.ytimg.com/vi/4_iC0MyIykM/mqdefault.jpg',
-      addedBy: '{minimal-user}',
-      addedAt: 162521765262,
-    },
-    {
-      id: 'mUkfiLjooxs',
-      title: "The JB's - Pass The Peas",
-      url: 'youtube/song.mp4',
-      imgUrl: 'https://i.ytimg.com/vi/mUkfiLjooxs/mqdefault.jpg',
-	  addedBy: '{minimal-user}',
-	  addedAt: 162521765262,
-    },
-  ],
+	_id: '5cksxjas89xjsa8xjsa8jxs09',
+	name: 'Funky Monks',
+	tags: ['Funk', 'Happy'],
+	createdBy: {
+		id: 'u101',
+		fullname: 'Puki Ben David',
+		imgUrl: '',
+	},
+	likedByUsers: ['{user-id}', '{user-id}'],
+	songs: [
+		{
+			id: 's1001',
+			title: 'The Meters - Cissy Strut',
+			url: 'youtube/song.mp4',
+			imgUrl: 'https://i.ytimg.com/vi/4_iC0MyIykM/mqdefault.jpg',
+			addedBy: '{minimal-user}',
+			addedAt: 162521765262,
+		},
+		{
+			id: 'mUkfiLjooxs',
+			title: "The JB's - Pass The Peas",
+			url: 'youtube/song.mp4',
+			imgUrl: 'https://i.ytimg.com/vi/mUkfiLjooxs/mqdefault.jpg',
+			addedBy: '{minimal-user}',
+			addedAt: 162521765262,
+		},
+	],
 }]
 
 const user = {
-	_id: '',
-	username: '',
-	img: '',
+	_id: 'u102',
+	username: 'musicLover123',
+	img: 'https://example.com/user-img.jpg',
 	likedSongs: [
 		{
 			id: 's1001',
@@ -57,7 +57,7 @@ const user = {
 			url: 'youtube/song.mp4',
 			imgUrl: ['https://i.ytimg.com/vi/4_iC0MyIykM/mqdefault.jpg'],
 			addedAt: 162521765262,
-			duration: '3:00', // Add duration property
+			duration: '3:00',
 		},
 		{
 			id: 'mUkfiLjo1xs',
@@ -67,7 +67,7 @@ const user = {
 			url: 'youtube/song.mp4',
 			imgUrl: ['https://i.ytimg.com/vi/mUkfiLjooxs/mqdefault.jpg'],
 			addedAt: 162521765262,
-			duration: '4:00', // Add duration property
+			duration: '4:00',
 		},
 		{
 			id: 'mUkfiLj2oxs',
@@ -77,7 +77,7 @@ const user = {
 			url: 'youtube/song.mp4',
 			imgUrl: ['https://i.ytimg.com/vi/mUkfiLjooxs/mqdefault.jpg'],
 			addedAt: 162521765262,
-			duration: '2:30', // Add duration property
+			duration: '2:30',
 		},
 		{
 			id: 'mUkfiLj5oxs',
@@ -87,7 +87,38 @@ const user = {
 			url: 'youtube/song.mp4',
 			imgUrl: ['https://i.ytimg.com/vi/mUkfiLjooxs/mqdefault.jpg'],
 			addedAt: 162521765262,
-			duration: '2:30', // Add duration property
+			duration: '2:30',
+		},
+		{
+			id: 'qJ5F2P5tYmE',
+			title: 'Superstition',
+			artist: 'Stevie Wonder',
+			album: 'Talking Book',
+			url: 'youtube/song.mp4',
+			imgUrl: ['https://i.ytimg.com/vi/qJ5F2P5tYmE/mqdefault.jpg'],
+			addedAt: 162521775262,
+			duration: '4:26',
+		},
+
+		{
+			id: 'l8A7O4u4L9w',
+			title: 'Give Up the Funk',
+			artist: 'Parliament',
+			album: 'Mothership Connection',
+			url: 'youtube/song.mp4',
+			imgUrl: ['https://i.ytimg.com/vi/l8A7O4u4L9w/mqdefault.jpg'],
+			addedAt: 162521785262,
+			duration: '5:45',
+		},
+		{
+			id: 'WwSRA2p4He0',
+			title: 'Dance to the Music',
+			artist: 'Sly & The Family Stone',
+			album: 'Dance to the Music',
+			url: 'youtube/song.mp4',
+			imgUrl: ['https://i.ytimg.com/vi/WwSRA2p4He0/mqdefault.jpg'],
+			addedAt: 162521795262,
+			duration: '3:00',
 		},
 	],
 	likedStations: [
@@ -107,5 +138,6 @@ const user = {
 		},
 	],
 }
+
 
 // function isLikedByUser(songId){}
