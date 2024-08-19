@@ -1,5 +1,4 @@
 export const SET_STATIONS = 'SET_STATIONS'
-export const SET_STATION = 'SET_STATION'
 export const REMOVE_STATION = 'REMOVE_STATION'
 export const ADD_STATION = 'ADD_STATION'
 export const UPDATE_STATION = 'UPDATE_STATION'
@@ -7,7 +6,7 @@ export const ADD_STATION_MSG = 'ADD_STATION_MSG'
 
 const initialState = {
     stations: [],
-    station: null
+    songPlaying: null
 }
 
 export function stationReducer(state = initialState, action) {
