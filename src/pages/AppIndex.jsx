@@ -7,7 +7,9 @@ export function AppIndex() {
     <>
       <AppHeader />
       <DetailsSidebar />
-      <Outlet />
+      <div className="main-section flex flex-column">
+        <Outlet />
+      </div>
     </>
   )
 }

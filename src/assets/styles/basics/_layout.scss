@@ -1,3 +1,32 @@
+body {
+    margin: 0;
+    padding: 0;
+    
+}
+
+.app {
+    height: 100vh;
+    width: 100vw;
+
+    display: grid;
+    grid-template-columns: 20% 1fr;
+
+    background-color: $bg-main;
+
+    margin: 0;
+    padding: 0.5em;
+}
+
+main {
+    @include component-layout;
+    border-radius: 0.6em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    grid-column: 2;
+    height: $height-main;
+}
+
 .main-container {
     display: grid;
     grid-template-columns: 1rem 1fr 1rem;

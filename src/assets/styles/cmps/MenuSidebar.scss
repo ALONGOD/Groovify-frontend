@@ -1,0 +1,5 @@
+aside {
+    @include component-layout;
+    grid-column: 1;
+    height: $height-main;
+}

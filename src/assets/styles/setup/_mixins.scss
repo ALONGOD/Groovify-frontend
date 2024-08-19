@@ -1,5 +1,10 @@
 /* Breakpoint mixins */
 
+@mixin component-layout {
+    background-color: $bg-secondary;
+    border-radius: 0.6em;
+}
+
 @mixin for-mobile-layout {
     @media (max-width: calc($mobile-breakpoint + 40px)) {
         @content;
