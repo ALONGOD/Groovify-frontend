@@ -82,18 +82,14 @@ export function MenuSidebar() {
                 )}
                 <NavLink
                     to='/playlists'
-                    className={({ isActive }) =>
-                        `sub-link ${isActive && selected === 'playlists' ? 'active' : ''}`
-                    }
+                    className={() => `sub-link ${selected === 'playlists' ? 'active' : ''}`}
                     onClick={() => handleSelect('playlists')}
                 >
                     Playlists
                 </NavLink>
                 <NavLink
                     to='/artists'
-                    className={({ isActive }) =>
-                        `sub-link ${isActive && selected === 'artists' ? 'active' : ''}`
-                    }
+                    className={() => `sub-link ${selected === 'artists' ? 'active' : ''}`}
                     onClick={() => handleSelect('artists')}
                 >
                     Artists
