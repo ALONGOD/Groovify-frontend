@@ -28,5 +28,11 @@ aside {
         &.active {
             color: #fff;
         }
+        &.library {
+            justify-content: space-between;
+        }
+    }
+    .ml-auto {
+        margin-left: auto;
     }
 }
