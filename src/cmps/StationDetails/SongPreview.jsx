@@ -2,16 +2,12 @@ import { useState } from 'react'
 import { IoIosPlay } from 'react-icons/io'
 import { getTimeOfSent } from '../../services/util.service'
 import { BsThreeDots } from 'react-icons/bs'
-import { Modal } from '../Modal'
+import { Modal } from '../cmps/Modal/Modal'
 
 export function SongPreview({ song, idx, modalOpen, onToggleModal }) {
   const [onSongHover, setOnSongHover] = useState(false)
-  
+
   const { addedAt, duration, imgUrl, title, artist, album } = song
-
-  console.log(modalOpen);
-  
-
 
   return (
     <li
@@ -30,9 +26,14 @@ export function SongPreview({ song, idx, modalOpen, onToggleModal }) {
       <h4>{album ? album : 'Album'}</h4>
       <h4>{getTimeOfSent(addedAt)}</h4>
       <div className="duration relative flex justify-start align-center">
-      <h4>{duration}</h4>
-        {onSongHover && <BsThreeDots className="dots" onClick={(ev) => onToggleModal(ev,song.id)}/> }
-        {modalOpen === song.id && <Modal />}
+        <h4>{duration}</h4>
+        {onSongHover && (
+          <BsThreeDots
+            className="dots"
+            onClick={ev => onToggleModal(ev, song.id)}
+          />
+        )}
+        {modalOpen === song.id && <Modal modalType={'songOptions'}/>}
       </div>
     </li>
   )

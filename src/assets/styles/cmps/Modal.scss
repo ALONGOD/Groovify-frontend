@@ -4,9 +4,19 @@
   right: em(25px);
   border-radius: $spotify-border-radius;
   z-index: 20;
+  height: max-content;
   background-color: #282828;
   width: max-content;
   color: rgb(231, 231, 231);
+
+  &.playlist-modal {
+    top: 0;
+    // bottom: -200%;
+    right: 100%;
+    z-index: 100;
+    background-color: #282828;
+    
+  }
   .row {
     align-items: center;
     padding: 0.5em;
