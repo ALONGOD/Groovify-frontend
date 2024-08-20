@@ -1,8 +1,8 @@
-// src/cmps/MenuSidebar.jsx
 import { NavLink } from 'react-router-dom'
-import { VscLibrary } from 'react-icons/vsc'
-import { GoHomeFill, GoPlus, GoArrowRight } from 'react-icons/go'
-import { FiSearch } from 'react-icons/fi'
+import { GoHomeFill, GoHome, GoPlus, GoArrowRight } from 'react-icons/go'
+import { FiSearchOutline } from 'react-icons/fi'
+import { RiSearchFill } from 'react-icons/ri'
+import { IoLibrary, IoLibraryOutline } from 'react-icons/io5'
 
 export function MenuSidebar() {
     const MainMenu = () => (
@@ -11,27 +11,54 @@ export function MenuSidebar() {
                 to='/'
                 className={({ isActive }) => `nav-link flex ${isActive ? 'active' : ''}`}
             >
-                <GoHomeFill className='icon text-2xl' />
-                <span>Home</span>
+                {({ isActive }) => (
+                    <>
+                        {isActive ? (
+                            <GoHomeFill className='icon text-2xl' />
+                        ) : (
+                            <GoHome className='icon text-2xl' />
+                        )}
+                        <span>Home</span>
+                    </>
+                )}
             </NavLink>
 
             <NavLink
                 to='/search'
                 className={({ isActive }) => `nav-link flex ${isActive ? 'active' : ''}`}
             >
-                <FiSearch className='icon text-2xl' />
-                <span>Search</span>
+                {({ isActive }) => (
+                    <>
+                        {isActive ? (
+                            <RiSearchFill className='icon text-2xl' />
+                        ) : (
+                            <FiSearchOutline className='icon text-2xl' />
+                        )}
+                        <span>Search</span>
+                    </>
+                )}
             </NavLink>
         </div>
     )
 
     const LibraryMenu = () => (
-        <div className='library-menu nav-link flex'>
-            <VscLibrary className='icon text-2xl' />
-            <span>Your Library</span>
-            <GoPlus className='ml-auto icon text-2xl' />
-            <GoArrowRight className='icon text-2xl' />
-        </div>
+        <NavLink
+            to='/library'
+            className={({ isActive }) => `nav-link flex ${isActive ? 'active' : ''}`}
+        >
+            {({ isActive }) => (
+                <>
+                    {isActive ? (
+                        <IoLibrary className='icon text-2xl' />
+                    ) : (
+                        <IoLibraryOutline className='icon text-2xl' />
+                    )}
+                    <span>Your Library</span>
+                    <GoPlus className='ml-auto icon text-2xl' />
+                    <GoArrowRight className='icon text-2xl' />
+                </>
+            )}
+        </NavLink>
     )
 
     const SubMenu = () => (
