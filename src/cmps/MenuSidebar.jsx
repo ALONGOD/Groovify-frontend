@@ -10,33 +10,25 @@ export function MenuSidebar() {
     const [selected, setSelected] = useState(null)
 
     const MainMenu = () => (
-        <div className='main-menu flex flex-column'>
-            <NavLink
-                to='/'
-                className={({ isActive }) => `nav-link flex ${isActive ? 'active' : ''}`}
-            >
+        <div className='main-menu'>
+            <NavLink to='/' className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
                 {({ isActive }) => (
                     <>
-                        {isActive ? (
-                            <GoHomeFill className='icon text-2xl' />
-                        ) : (
-                            <GoHome className='icon text-2xl' />
-                        )}
+                        {isActive ? <GoHomeFill className='icon' /> : <GoHome className='icon' />}
                         {!isCollapsed && <span>Home</span>}
                     </>
                 )}
             </NavLink>
-
             <NavLink
                 to='/search'
-                className={({ isActive }) => `nav-link flex ${isActive ? 'active' : ''}`}
+                className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
             >
                 {({ isActive }) => (
                     <>
                         {isActive ? (
-                            <RiSearchFill className='icon text-2xl' />
+                            <RiSearchFill className='icon' />
                         ) : (
-                            <FiSearchOutline className='icon text-2xl' />
+                            <FiSearchOutline className='icon' />
                         )}
                         {!isCollapsed && <span>Search</span>}
                     </>
@@ -46,41 +38,27 @@ export function MenuSidebar() {
     )
 
     const LibraryMenu = () => (
-        <div
-            className={`nav-link flex ${selected === 'library' ? 'active' : ''}`}
-            onClick={() => setIsCollapsed(!isCollapsed)}
-            style={{ cursor: 'pointer' }}
-            as
-            a
-            fallback
-        >
-            <>
-                {selected === 'library' ? (
-                    <IoLibrary className='icon text-2xl' />
+        <>
+            <div
+                className={`nav-link ${selected === 'library' ? 'active' : ''}`}
+                onClick={() => setIsCollapsed(!isCollapsed)}
+                style={{ cursor: 'pointer' }}
+            >
+                {isCollapsed ? (
+                    <IoLibraryOutline className='icon' />
                 ) : (
-                    <IoLibraryOutline className='icon text-2xl' />
+                    <IoLibrary className='icon' />
                 )}
                 {!isCollapsed && <span>Your Library</span>}
                 {!isCollapsed && (
                     <>
-                        <GoPlus
-                            className='ml-auto icon text-2xl'
-                            style={{ cursor: 'pointer' }}
-                            onClick={e => {
-                                e.stopPropagation()
-                            }}
-                        />
-                        <GoArrowRight
-                            className='icon text-2xl'
-                            style={{ cursor: 'pointer' }}
-                            onClick={e => {
-                                e.stopPropagation()
-                            }}
-                        />
+                        <GoPlus className='ml-auto icon' onClick={e => e.stopPropagation()} />
+                        <GoArrowRight className='icon' onClick={e => e.stopPropagation()} />
                     </>
                 )}
-            </>
-        </div>
+            </div>
+            {!isCollapsed && <SubMenu />}
+        </>
     )
 
     const SubMenu = () => {
@@ -125,7 +103,6 @@ export function MenuSidebar() {
         <aside className={`menu-sidebar flex flex-column ${isCollapsed ? 'collapsed' : ''}`}>
             <MainMenu />
             <LibraryMenu />
-            {!isCollapsed && <SubMenu />}
         </aside>
     )
 }
