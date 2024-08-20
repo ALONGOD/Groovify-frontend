@@ -1,3 +1,4 @@
+// src/cmps/MenuSidebar.jsx
 import { NavLink } from 'react-router-dom'
 import { VscLibrary } from 'react-icons/vsc'
 import { GoHomeFill, GoPlus, GoArrowRight } from 'react-icons/go'
@@ -33,10 +34,28 @@ export function MenuSidebar() {
         </div>
     )
 
+    const SubMenu = () => (
+        <div className='sub-menu flex'>
+            <NavLink
+                to='/playlists'
+                className={({ isActive }) => `sub-link ${isActive ? 'active' : ''}`}
+            >
+                Playlists
+            </NavLink>
+            <NavLink
+                to='/artists'
+                className={({ isActive }) => `sub-link ${isActive ? 'active' : ''}`}
+            >
+                Artists
+            </NavLink>
+        </div>
+    )
+
     return (
         <aside className='menu-sidebar flex flex-column'>
             <MainMenu />
             <LibraryMenu />
+            <SubMenu />
         </aside>
     )
 }
