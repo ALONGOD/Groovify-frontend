@@ -7,16 +7,14 @@ import { RiRepeat2Line } from 'react-icons/ri'
 import { TiArrowShuffle } from 'react-icons/ti'
 import { useSelector } from 'react-redux'
 
-
 export function AppFooter() {
-
-  const count = useSelector(storeState => storeState.userModule.count)
+  
   const songPlaying = useSelector(
     storeState => storeState.stationModule.songPlaying
   )
 
-  const percentage = 10
-  // const { title, imgUrl, artist, duration } = songPlaying
+  
+  
   return (
     <footer className="app-footer full flex flex-row align-center justify-between">
       <div className="details flex flex-row align-center">
@@ -53,12 +51,15 @@ export function AppFooter() {
           <RiRepeat2Line />
         </div>
 
-        <div className="bottom flex flex-row align-center"></div>
+        <div className="bottom flex flex-row align-center">
+          <input type="range" name="" className="youtube-player" />
+        </div>
       </div>
       <div className="other-options flex flex-row align-center">
         <IoPlayCircleOutline />
         <HiOutlineQueueList />
         <AiOutlineSound />
+        <input type="range" name="" className="youtube-player sound" />
       </div>
     </footer>
   )
