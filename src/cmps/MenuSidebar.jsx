@@ -1,8 +1,9 @@
 import { NavLink } from 'react-router-dom'
-import { GoHomeFill, GoHome, GoPlus, GoArrowRight } from 'react-icons/go'
-import { FiSearchOutline } from 'react-icons/fi'
+import { GoHomeFill, GoHome, GoPlus, GoArrowRight, GoX } from 'react-icons/go'
+import { FiSearch as FiSearchOutline } from 'react-icons/fi'
 import { RiSearchFill } from 'react-icons/ri'
 import { IoLibrary, IoLibraryOutline } from 'react-icons/io5'
+import { useState } from 'react'
 
 export function MenuSidebar() {
     const MainMenu = () => (
@@ -61,22 +62,45 @@ export function MenuSidebar() {
         </NavLink>
     )
 
-    const SubMenu = () => (
-        <div className='sub-menu flex'>
-            <NavLink
-                to='/playlists'
-                className={({ isActive }) => `sub-link ${isActive ? 'active' : ''}`}
-            >
-                Playlists
-            </NavLink>
-            <NavLink
-                to='/artists'
-                className={({ isActive }) => `sub-link ${isActive ? 'active' : ''}`}
-            >
-                Artists
-            </NavLink>
-        </div>
-    )
+    const SubMenu = () => {
+        const [selected, setSelected] = useState(null)
+
+        const handleSelect = item => {
+            setSelected(item)
+        }
+
+        const handleDeselect = () => {
+            setSelected(null)
+        }
+
+        return (
+            <div className='sub-menu flex'>
+                {selected && (
+                    <button className='sub-link clear-selection' onClick={handleDeselect}>
+                        X
+                    </button>
+                )}
+                <NavLink
+                    to='/playlists'
+                    className={({ isActive }) =>
+                        `sub-link ${isActive && selected === 'playlists' ? 'active' : ''}`
+                    }
+                    onClick={() => handleSelect('playlists')}
+                >
+                    Playlists
+                </NavLink>
+                <NavLink
+                    to='/artists'
+                    className={({ isActive }) =>
+                        `sub-link ${isActive && selected === 'artists' ? 'active' : ''}`
+                    }
+                    onClick={() => handleSelect('artists')}
+                >
+                    Artists
+                </NavLink>
+            </div>
+        )
+    }
 
     return (
         <aside className='menu-sidebar flex flex-column'>
