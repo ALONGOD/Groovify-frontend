@@ -6,14 +6,25 @@ import { SongPreview } from '../cmps/StationDetails/SongPreview'
 import { SongListHeader } from '../cmps/StationDetails/SongListHeader'
 
 import { StationDetailsHeader } from '../cmps/StationDetails/StationDetailsHeader'
+import { useSelector } from 'react-redux'
+import { toggleModal } from '../store/actions/station.actions'
 
 export function StationDetails() {
   const { stationId } = useParams()
   const [station, setStation] = useState({})
+  const modal = useSelector(state => state.stationModule.modal)
+
+  console.log(modal);
+  
 
   useEffect(() => {
     loadStation(stationId)
   }, [stationId])
+
+  function onToggleModal(event, songId) {
+    event.stopPropagation();
+    toggleModal(songId)
+  }
 
   async function loadStation(stationId) {
     try {
@@ -34,7 +45,9 @@ export function StationDetails() {
         <hr className="custom-divider" />
         {station.songs &&
           station.songs.map((song, idx) => {
-            return <SongPreview song={song} idx={idx} key={song.id} />
+            
+            
+            return <SongPreview song={song} idx={idx} key={song.id} modalOpen={modal?.songId} onToggleModal={onToggleModal} />
           })}
       </ul>
     </section>

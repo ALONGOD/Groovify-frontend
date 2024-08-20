@@ -9,10 +9,11 @@ import { MenuSidebar } from './cmps/MenuSidebar.jsx'
 import { AppIndex } from './pages/AppIndex.jsx'
 import { Homepage } from './pages/HomePage.jsx'
 import { SearchPage } from './pages/SearchPage.jsx'
+import { toggleModal } from './store/actions/station.actions.js'
 
 export function RootCmp() {
   return (
-    <div className="app">
+    <div className="app" onClick={toggleModal}>
       <MenuSidebar />
       <UserMsg />
       <main>
