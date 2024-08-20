@@ -13,7 +13,6 @@ export async function loadStations(filterBy) {
 }
 
 export function toggleModal(songId) {
-    console.log(songId);
     const prevSongId = store.getState().stationModule.modal.songId
     const newState = songId === prevSongId ? '' : songId
     
