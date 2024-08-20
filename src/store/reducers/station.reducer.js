@@ -6,7 +6,8 @@ export const ADD_STATION_MSG = 'ADD_STATION_MSG'
 
 const initialState = {
     stations: [],
-    songPlaying: null
+    currSong: null,
+    player: {status: 'paused', volume: 0.5, progress: 0}
 }
 
 export function stationReducer(state = initialState, action) {
@@ -32,7 +33,6 @@ export function stationReducer(state = initialState, action) {
     return newState
 }
 
-// unitTestReducer()
 
 function unitTestReducer() {
     var state = initialState

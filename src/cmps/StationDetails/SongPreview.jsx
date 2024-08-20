@@ -1,15 +1,20 @@
-import { useState } from "react";
-import { FaPlay } from "react-icons/fa";
-import { IoIosPlay } from "react-icons/io";
+import { useState } from 'react'
+import { IoIosPlay } from 'react-icons/io'
+import { getTimeOfSent } from '../../services/util.service'
+import { BsThreeDots } from 'react-icons/bs'
 
 export function SongPreview({ song, idx }) {
-  const [onSongHover, setOnSongHover] = useState(false);
-  const { addedAt, duration, imgUrl, title, artist, album } = song;
-  
+  const [onSongHover, setOnSongHover] = useState(false)
+  const { addedAt, duration, imgUrl, title, artist, album } = song
+
   return (
-    <li className="flex flex-row align-center" onMouseEnter={() => setOnSongHover(true)} onMouseLeave={() => setOnSongHover(false)}>
+    <li
+      className="flex flex-row align-center"
+      onMouseEnter={() => setOnSongHover(true)}
+      onMouseLeave={() => setOnSongHover(false)}
+    >
       <h4 className="idx">{onSongHover ? <IoIosPlay /> : idx + 1}</h4>
-      <div className="flex flex-row align-center">
+      <div className="main-details flex flex-row align-center">
         <img src={imgUrl} alt="song-img" />
         <div className="song-details flex flex-column">
           <h4 className="title">{title}</h4>
@@ -17,8 +22,11 @@ export function SongPreview({ song, idx }) {
         </div>
       </div>
       <h4>{album ? album : 'Album'}</h4>
-      <h4>{addedAt}</h4>
+      <h4>{getTimeOfSent(addedAt)}</h4>
+      <div className="duration flex justify-start align-center">
       <h4>{duration}</h4>
+        {onSongHover && <BsThreeDots className="dots" /> }
+      </div>
     </li>
   )
 }

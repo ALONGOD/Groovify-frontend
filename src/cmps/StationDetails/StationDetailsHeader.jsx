@@ -1,10 +1,10 @@
 import { FaCircle } from 'react-icons/fa'
 
-export function StationDetailsHeader({station}) {
+export function StationDetailsHeader({ station }) {
   const { name, createdBy, songs, imgUrl } = station
 
   return (
-    <div className="station-details-header flex flex-row">
+    <div className="station-details-header flex flex-row align-end">
       <img src={imgUrl} alt="station-name" className="station-img" />
       <div className="flex flex-column">
         <h4>Playlist</h4>
@@ -12,9 +12,9 @@ export function StationDetailsHeader({station}) {
         <div className="created-by flex flex-row align-center">
           <img src={createdBy && createdBy.imgUrl} />
           <h4 className="fullname">{createdBy && createdBy.fullname}</h4>
-          <div className="circle-divider">
-            <FaCircle />
-          </div>
+          
+            <span className="divider">&#9679;</span>
+          
           {station.songs && (
             <h4 className="station-length"> {station.songs.length} songs</h4>
           )}

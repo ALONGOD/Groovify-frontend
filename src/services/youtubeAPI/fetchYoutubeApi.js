@@ -3,9 +3,6 @@ import axios from 'axios';
 const API_KEY = 'AIzaSyDqTgt_N3MSGncWUccH-LbSYRtkdv_mXbw';
 const BASE_URL = 'https://www.googleapis.com/youtube/v3';
 
-// Cache object to store API responses
-const cache = {};
-
 export const YouTubeAPIService = {
     searchVideos,
     getVideoDetails,
@@ -17,10 +14,11 @@ function searchVideos(query, maxResults = 10) {
     // Create a cache key based on the query and maxResults
     const cacheKey = `${query}_${maxResults}`;
 
-    // Check if the result is already in the cache
-    if (cache[cacheKey]) {
+    // Check if the result is already in the localStorage cache
+    const cachedData = localStorage.getItem(cacheKey);
+    if (cachedData) {
         console.log('Returning cached data for query:', query);
-        return Promise.resolve(cache[cacheKey]);
+        return Promise.resolve(JSON.parse(cachedData));
     }
 
     const url = `${BASE_URL}/search`;
@@ -46,8 +44,8 @@ function searchVideos(query, maxResults = 10) {
                 };
             });
 
-            // Store the result in the cache
-            cache[cacheKey] = videoItems;
+            // Store the result in localStorage
+            localStorage.setItem(cacheKey, JSON.stringify(videoItems));
 
             return videoItems;
         })
