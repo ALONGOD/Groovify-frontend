@@ -44,10 +44,10 @@ export function MenuSidebar() {
                 onClick={() => setIsCollapsed(!isCollapsed)}
                 style={{ cursor: 'pointer' }}
             >
-                {selected === 'library' ? (
-                    <IoLibrary className='icon' />
-                ) : (
+                {isCollapsed ? (
                     <IoLibraryOutline className='icon' />
+                ) : (
+                    <IoLibrary className='icon' />
                 )}
                 {!isCollapsed && <span>Your Library</span>}
                 {!isCollapsed && (
