@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react'
-import { userService } from '../services/user'
+import { useEffect } from 'react'
 import { StationPreview } from './StationPreview'
 import { stationService } from '../services/station/station.service.local'
+import { useDispatch, useSelector } from 'react-redux'
+import { SET_STATIONS } from '../store/reducers/station.reducer'
 
 export function StationList() {
-  const [stations, setStations] = useState([])
+  const dispatch = useDispatch()
+  const stations = useSelector(state => state.stationModule.stations)
 
   useEffect(() => {
     fetchData()
@@ -13,7 +15,7 @@ export function StationList() {
   async function fetchData() {
     try {
       const stations = await stationService.query()
-      setStations(stations)
+      dispatch({type: SET_STATIONS, stations})
     } catch (err) {
       console.log('Cannot load stations', err)
       throw err

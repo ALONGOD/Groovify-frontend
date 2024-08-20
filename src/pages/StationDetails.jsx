@@ -47,7 +47,7 @@ export function StationDetails() {
           station.songs.map((song, idx) => {
             
             
-            return <SongPreview song={song} idx={idx} key={song.id} modalOpen={modal?.songId} onToggleModal={onToggleModal} />
+            return <SongPreview key={song.id} song={song} idx={idx} modalOpen={modal?.songId} onToggleModal={onToggleModal} />
           })}
       </ul>
     </section>
