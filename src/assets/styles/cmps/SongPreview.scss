@@ -30,13 +30,14 @@ ul.song-list {
     div.duration {
       grid-column: 5;
       width: 5em;
-      svg {
+      svg.dots {
         display: flex;
         justify-content: center;
         align-items: center;
         gap: 0.5em;
         font-size: 1em;
         color: white;
+        z-index: 10;
       }
     }
   }

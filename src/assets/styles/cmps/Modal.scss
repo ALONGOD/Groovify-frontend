@@ -1,0 +1,30 @@
+.modal {
+  padding: 0.3em;
+  bottom: em(40px);
+  right: em(20px);
+  border-radius: $spotify-border-radius;
+  z-index: 20;
+  background-color: #282828;
+  width: max-content;
+  color: rgb(231, 231, 231);
+  .row {
+    align-items: center;
+    padding: 0.5em;
+    h3 {
+        font-family: 'gotham-book';
+        // letter-spacing: 0.5px;
+      font-size: em(13.5px);
+      margin: 0;
+      color: rgb(225, 225, 225);
+      
+    }
+    svg {
+      font-size: em(16px);
+      margin-right: 0.5em;
+      font-weight: 200;
+    }
+    &:hover {
+      background-color: rgb(62, 62, 62);
+    }
+  }
+}
