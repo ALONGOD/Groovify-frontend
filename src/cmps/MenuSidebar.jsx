@@ -1,11 +1,14 @@
 import { NavLink } from 'react-router-dom'
-import { GoHomeFill, GoHome, GoPlus, GoArrowRight, GoX } from 'react-icons/go'
+import { GoHomeFill, GoHome, GoPlus, GoArrowRight } from 'react-icons/go'
 import { FiSearch as FiSearchOutline } from 'react-icons/fi'
 import { RiSearchFill } from 'react-icons/ri'
 import { IoLibrary, IoLibraryOutline } from 'react-icons/io5'
 import { useState } from 'react'
 
 export function MenuSidebar() {
+    const [isCollapsed, setIsCollapsed] = useState(false)
+    const [selected, setSelected] = useState(null)
+
     const MainMenu = () => (
         <div className='main-menu flex flex-column'>
             <NavLink
@@ -19,7 +22,7 @@ export function MenuSidebar() {
                         ) : (
                             <GoHome className='icon text-2xl' />
                         )}
-                        <span>Home</span>
+                        {!isCollapsed && <span>Home</span>}
                     </>
                 )}
             </NavLink>
@@ -35,7 +38,7 @@ export function MenuSidebar() {
                         ) : (
                             <FiSearchOutline className='icon text-2xl' />
                         )}
-                        <span>Search</span>
+                        {!isCollapsed && <span>Search</span>}
                     </>
                 )}
             </NavLink>
@@ -43,28 +46,44 @@ export function MenuSidebar() {
     )
 
     const LibraryMenu = () => (
-        <NavLink
-            to='/library'
-            className={({ isActive }) => `nav-link flex ${isActive ? 'active' : ''}`}
+        <div
+            className={`nav-link flex ${selected === 'library' ? 'active' : ''}`}
+            onClick={() => setIsCollapsed(!isCollapsed)}
+            style={{ cursor: 'pointer' }}
+            as
+            a
+            fallback
         >
-            {({ isActive }) => (
-                <>
-                    {isActive ? (
-                        <IoLibrary className='icon text-2xl' />
-                    ) : (
-                        <IoLibraryOutline className='icon text-2xl' />
-                    )}
-                    <span>Your Library</span>
-                    <GoPlus className='ml-auto icon text-2xl' />
-                    <GoArrowRight className='icon text-2xl' />
-                </>
-            )}
-        </NavLink>
+            <>
+                {selected === 'library' ? (
+                    <IoLibrary className='icon text-2xl' />
+                ) : (
+                    <IoLibraryOutline className='icon text-2xl' />
+                )}
+                {!isCollapsed && <span>Your Library</span>}
+                {!isCollapsed && (
+                    <>
+                        <GoPlus
+                            className='ml-auto icon text-2xl'
+                            style={{ cursor: 'pointer' }}
+                            onClick={e => {
+                                e.stopPropagation()
+                            }}
+                        />
+                        <GoArrowRight
+                            className='icon text-2xl'
+                            style={{ cursor: 'pointer' }}
+                            onClick={e => {
+                                e.stopPropagation()
+                            }}
+                        />
+                    </>
+                )}
+            </>
+        </div>
     )
 
     const SubMenu = () => {
-        const [selected, setSelected] = useState(null)
-
         const handleSelect = item => {
             setSelected(item)
         }
@@ -76,33 +95,37 @@ export function MenuSidebar() {
         return (
             <div className='sub-menu flex'>
                 {selected && (
-                    <button className='sub-link clear-selection' onClick={handleDeselect}>
+                    <button
+                        className='sub-link clear-selection'
+                        onClick={handleDeselect}
+                        style={{ cursor: 'pointer' }}
+                    >
                         X
                     </button>
                 )}
-                <NavLink
-                    to='/playlists'
-                    className={() => `sub-link ${selected === 'playlists' ? 'active' : ''}`}
+                <div
+                    className={`sub-link ${selected === 'playlists' ? 'active' : ''}`}
                     onClick={() => handleSelect('playlists')}
+                    style={{ cursor: 'pointer' }}
                 >
                     Playlists
-                </NavLink>
-                <NavLink
-                    to='/artists'
-                    className={() => `sub-link ${selected === 'artists' ? 'active' : ''}`}
+                </div>
+                <div
+                    className={`sub-link ${selected === 'artists' ? 'active' : ''}`}
                     onClick={() => handleSelect('artists')}
+                    style={{ cursor: 'pointer' }}
                 >
                     Artists
-                </NavLink>
+                </div>
             </div>
         )
     }
 
     return (
-        <aside className='menu-sidebar flex flex-column'>
+        <aside className={`menu-sidebar flex flex-column ${isCollapsed ? 'collapsed' : ''}`}>
             <MainMenu />
             <LibraryMenu />
-            <SubMenu />
+            {!isCollapsed && <SubMenu />}
         </aside>
     )
 }

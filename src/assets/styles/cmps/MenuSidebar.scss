@@ -4,6 +4,24 @@ aside {
     height: $height-main;
     padding-left: 1em;
     color: #d1d1d1;
+    transition: width 0.3s ease;
+
+    &.collapsed {
+        width: 60px;
+        .nav-link {
+            justify-content: center;
+            .icon {
+                margin-right: 0;
+            }
+            span {
+                display: none;
+            }
+        }
+
+        .sub-menu {
+            display: none;
+        }
+    }
 
     .nav-link {
         display: flex;
