@@ -7,15 +7,9 @@ import { RiRepeat2Line } from 'react-icons/ri'
 import { TiArrowShuffle } from 'react-icons/ti'
 import { useSelector } from 'react-redux'
 
+
 export function AppFooter() {
-  // id: 'party1001',
-  // 			title: 'One More Time',
-  // 			artist: 'Daft Punk',
-  // 			album: 'Discovery',
-  // 			url: 'https://www.youtube.com/watch?v=FGBhQbmPwH8',
-  // 			imgUrl: ['https://i.ytimg.com/vi/FGBhQbmPwH8/mqdefault.jpg'],
-  // 			addedAt: 162521795266,
-  // 			duration: '5:20',
+
   const count = useSelector(storeState => storeState.userModule.count)
   const songPlaying = useSelector(
     storeState => storeState.stationModule.songPlaying
@@ -46,7 +40,7 @@ export function AppFooter() {
               : 'Metro Boomin, A$AP Rocky, Takeoff'}
           </h4>
         </div>
-      <FaCircleCheck />
+        <FaCircleCheck />
       </div>
       <div className="player flex flex-column justify-center align-center">
         <div className="top flex flex-row align-center">
@@ -65,7 +59,6 @@ export function AppFooter() {
         <IoPlayCircleOutline />
         <HiOutlineQueueList />
         <AiOutlineSound />
-        <progress min="0" max="100" value={percentage} />
       </div>
     </footer>
   )
