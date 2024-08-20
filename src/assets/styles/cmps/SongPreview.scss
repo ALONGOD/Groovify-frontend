@@ -11,7 +11,7 @@ ul.song-list {
     img {
       width: 1.7em;
       height: 1.7em;
-      border-radius: 4px;
+      border-radius: $spotify-border-radius;
     }
     h4 {
       margin: 0;
