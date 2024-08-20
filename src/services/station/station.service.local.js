@@ -26,25 +26,13 @@ export async function initializeDemoData() {
   return stations
 }
 
-async function query(filterBy = { txt: '' }) {
+async function query() {
   var stations = await storageService.query(STORAGE_KEY)
   if (!stations || !stations.length) {
     initializeDemoData()
   }
 
-  if (txt) {
-    const regex = new RegExp(filterBy.txt, 'i')
-    stations = stations.filter(station => regex.test(station.name))
-
-    // stations = stations.map(({ _id, vendor, price, speed, owner }) => ({
-    //   _id,
-    //   tags,
-    //   songs,
-    //   name: stations.name,
-    //   owner,
-    // }))
-    return stations
-  }
+  return stations
 }
 
 function getById(stationId) {
