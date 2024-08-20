@@ -1,59 +1,41 @@
 ul.song-list {
-    display: grid;
-    grid-template-columns: 3fr 17fr 10fr 10fr 3fr;
-    gap: 0.5em;
-    padding-inline: 1em;
-}
+  display: grid;
+  grid-template-columns: 3fr 17fr 10fr 10fr 3fr;
+  gap: 0.5em;
+  padding-inline: 1em;
 
-.song-header, .song-list li > div {
-    grid-column: 2;
-}
-.song-header, .song-list li {
-    display: contents;
-}
-
-
-.song-header, .song-list li * {
-    
-    font-weight: 200;
-    color: #AAAAAB;
-    font-size: em(16px);
-    cursor: pointer;
-}
-
-.song-header h4{
+  li {
+    & > div {
+      gap: 1em;
+    }
+    img {
+      width: 1.7em;
+      height: 1.7em;
+      border-radius: 4px;
+    }
+    h4 {
+      margin: 0;
+      display: flex;
+      font-size: 0.9em;
+      align-items: center;
+    }
+    .idx {
+      font-size: 1em;
+    }
+    .title {
+      color: white;
+    }
+  }
+  .list-header h4 {
     display: flex;
     justify-content: start;
     font-size: 14px;
-    font-weight:200;
+    font-weight: 200;
     color: #bfbfbf;
     margin: 0;
-}
+  }
 
-.song-list li h4 {
-    margin: 0;
-    display: flex;
-    font-size: 0.9em;
-    align-items: center;
-}
-
-.song-list li .idx{
-    font-size: 1em;
-}
-.song-list li .title {
-    color: white;
-}
-.song-header, .song-list li img {
-    width: 1.7em;
-    height: 1.7em;
-    border-radius: 4px;
-}
-
-.song-list li > div {
-    gap: 1em;
-}
-
-.custom-divider {
+  .custom-divider {
     border: none;
     height: 1px;
     background-color: #4a4a4a;
@@ -61,16 +43,34 @@ ul.song-list {
     width: 100%;
     grid-column: 1 / -1;
   }
+}
+
+.list-header,
+.song-list li > div {
+  grid-column: 2;
+}
+
+.list-header,
+.song-list li {
+  display: contents;
+}
+
+.list-header,
+.song-list li * {
+  font-weight: 200;
+  color: #aaaaab;
+  font-size: em(16px);
+  cursor: pointer;
+}
 
 @media (max-width: 768px) {
-    .song-list {
-      grid-template-columns: 30px 1fr 1fr;
-    }
-    .header-item:nth-child(4),
-    .header-item:nth-child(5),
-    .song-item:nth-child(4),
-    .song-item:nth-child(5) {
-      display: none;
-    }
+  .song-list {
+    grid-template-columns: 30px 1fr 1fr;
   }
-  
+  .header-item:nth-child(4),
+  .header-item:nth-child(5),
+  .song-item:nth-child(4),
+  .song-item:nth-child(5) {
+    display: none;
+  }
+}

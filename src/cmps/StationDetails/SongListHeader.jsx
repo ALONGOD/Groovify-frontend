@@ -1,7 +1,7 @@
 export function SongListHeader() {
      
     return (
-        <div className="song-header flex">
+        <div className="list-header flex">
             <h4>#</h4>
             <h4>Title</h4>
             <h4>Album</h4>
