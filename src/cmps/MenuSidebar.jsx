@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { MainMenu } from './MainMenu'
 import { LibraryMenu } from './LibraryMenu'
+import { StationList } from './StationList'
 
 export function MenuSidebar() {
     const [isCollapsed, setIsCollapsed] = useState(false)
@@ -15,6 +16,7 @@ export function MenuSidebar() {
                 selected={selected}
                 setSelected={setSelected}
             />
+            <StationList />
         </aside>
     )
 }
