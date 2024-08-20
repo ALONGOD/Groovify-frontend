@@ -6,7 +6,7 @@ import {
   user as demoUser,
 } from '../../../demo_data/station.js'
 
-const STORAGE_KEY = 'station'
+const STORAGE_KEY = 'stationDB'
 
 export const stationService = {
   query,
@@ -29,6 +29,8 @@ export async function initializeDemoData() {
 async function query() {
   var stations = await storageService.query(STORAGE_KEY)
   if (!stations || !stations.length) {
+    console.log('hi');
+    
     initializeDemoData()
   }
 
