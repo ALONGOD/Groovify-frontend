@@ -1,4 +1,5 @@
 .station-details {
+  
   padding: 1em;
   color: white;
 
@@ -10,9 +11,16 @@
 
   .station-details-header {
     gap: 1em;
+    .divider {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.7em;
+    }
   }
 
   h1 {
+    font-family: 'gotham-medium';
     display: flex;
     align-items: center;
     font-size: 5em;
@@ -20,6 +28,7 @@
     height: max-content;
   }
   h4 {
+    font-family: 'gotham-light';
     font-weight: 200;
     margin: 0;
   }
@@ -28,11 +37,13 @@
     color: white;
     gap: 0.4em;
     font-size: em(13px);
-
+    
     .fullname {
+      font-family: 'gotham-book';
       font-weight: 700;
     }
     .station-length {
+      font-family: 'gotham-light';
       font-weight: 200;
     }
     img {

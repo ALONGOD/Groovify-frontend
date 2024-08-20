@@ -1,6 +1,6 @@
 ul.song-list {
   display: grid;
-  grid-template-columns: 3fr 17fr 10fr 10fr 3fr;
+  grid-template-columns: 2fr 17fr 10fr 10fr 3fr;
   gap: 0.5em;
   padding-inline: 1em;
 
@@ -25,6 +25,20 @@ ul.song-list {
     .title {
       color: white;
     }
+
+    
+    div.duration {
+      grid-column: 5;
+      width: 5em;
+      svg {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5em;
+        font-size: 1em;
+        color: white;
+      }
+    }
   }
   .list-header h4 {
     display: flex;
@@ -46,7 +60,7 @@ ul.song-list {
 }
 
 .list-header,
-.song-list li > div {
+.song-list li .main-details {
   grid-column: 2;
 }
 
@@ -56,7 +70,7 @@ ul.song-list {
 }
 
 .list-header,
-.song-list li * {
+.song-list li *:not(.dots) {
   font-weight: 200;
   color: #aaaaab;
   font-size: em(16px);

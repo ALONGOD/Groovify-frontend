@@ -11,8 +11,6 @@ export function StationDetails() {
   const { stationId } = useParams()
   const [station, setStation] = useState({})
 
-  console.log('station:', station)
-
   useEffect(() => {
     loadStation(stationId)
   }, [stationId])
@@ -29,7 +27,7 @@ export function StationDetails() {
 
   if (!station) return <h1>Loading...</h1>
   return (
-    <section className="station-details">
+    <section className="station-details flex flex-column">
       <StationDetailsHeader station={station} />
       <ul className="song-list flex flex-column">
         <SongListHeader />

@@ -1,3 +1,5 @@
+import { FaRegClock } from "react-icons/fa";
+
 export function SongListHeader() {
      
     return (
@@ -6,7 +8,7 @@ export function SongListHeader() {
             <h4>Title</h4>
             <h4>Album</h4>
             <h4>Added At</h4>
-            <h4>Duration</h4>
+            <h4><FaRegClock /></h4>
         </div>
     )
 }
