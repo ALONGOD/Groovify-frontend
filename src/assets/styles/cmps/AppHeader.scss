@@ -1,22 +1,12 @@
 .app-header {
-    height: $height-header;
-    padding: 0.7em;
-}
+  height: $height-header;
+  padding: 0.7em;
 
-.app {
-    gap: 0.5em;
-}
-
-.app-header .left .action-nav-btns{
+  .left .action-nav-btns {
     gap: 0.3em;
     margin-inline-end: 0.5em;
-}
-
-.app-header input[type="text"]::placeholder {
-    font-weight: 200;
-    color: rgb(96, 96, 96);
-}
-.app-header input[type="text"] {
+  }
+  input[type='text'] {
     background-color: #242424;
     border: 0;
     border-radius: 2em;
@@ -24,23 +14,25 @@
     padding-inline: 2em;
     color: rgb(77, 77, 77);
     font-size: 0.75em;
-}
 
-.app-header .search-bar {
+    &::placeholder {
+      font-weight: 200;
+      color: rgb(96, 96, 96);
+    }
+  }
+  .search-bar {
     position: relative;
-}
-
-.app-header .search-bar svg {
-    color: rgb(146, 146, 146);
-    position: absolute;
-    top: 50%;
-    left: 8px;
-    font-weight: 100;
-    font-size: 0.8em;
-    transform: translateY(-50%);
-}
-
-.react-icon {
+    svg {
+      color: rgb(146, 146, 146);
+      position: absolute;
+      top: 50%;
+      left: 8px;
+      font-weight: 100;
+      font-size: 0.8em;
+      transform: translateY(-50%);
+    }
+  }
+  .react-icon {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -51,12 +43,12 @@
     background-color: black;
     border-radius: 50%;
     cursor: pointer;
-}
-
-.app-header img {
+  }
+  img {
     width: 2em;
     margin-left: 0.5em;
     padding: 0.2em;
     background-color: black;
     cursor: pointer;
+  }
 }
