@@ -9,9 +9,9 @@ export function StationPreview({ station }) {
       <div className="flex flex-column">
         <h3>{station.name}</h3>
         <div className='station-details flex flex-row'>
-          <div>
+          {/* <div>
             <BsFillPinAngleFill />
-          </div>
+          </div> */}
           <span>Playlist</span>
           <span className='divider'>&#9679;</span>
           <span>{station.songs.length} songs</span>

@@ -1,5 +1,13 @@
 li.station-preview {
     gap: 0.7em;
+    cursor: pointer;
+    border-radius: 4px;
+    padding-inline: 0.5em;
+    padding-block: 0.3em;
+
+    &:hover {
+       background-color: $modal-row-hover; 
+    }
     
     img {
         width: 2.7em;

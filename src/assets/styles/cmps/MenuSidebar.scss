@@ -1,11 +1,31 @@
 aside {
-    @include component-layout;
+    gap: 0.5em;
     grid-column: 1;
     height: $height-main;
-    padding-left: 1em;
     color: #d1d1d1;
     transition: width 0.3s ease;
+    & > div {
+        @include component-layout;
+        width: 100%;
+    }
+    .navigation {
+        // padding-inline: 0.8em;
+        padding: 0.6em 0.8em ;
+    }
+    .library-menu .nav-link {
+        padding-inline: 1em;
+        margin-top: 15px;
+    }
+    .library-menu {
+        // padding: 0.4em;
+        height: 100%;
 
+    }
+    .main-menu {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+    }
     &.collapsed {
         width: 60px;
         .nav-link {
@@ -32,7 +52,7 @@ aside {
         font-size: 1em;
         transition: color 0.2s ease;
         width: 100%;
-        margin-top: 1em;
+        
 
         .icon {
             margin-right: 0.75em;
