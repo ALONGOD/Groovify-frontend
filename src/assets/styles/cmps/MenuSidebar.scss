@@ -57,20 +57,21 @@ aside {
 
     .sub-menu {
         display: flex;
-        gap: 0.5em;
         margin-top: 1em;
 
         .sub-link {
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 0.25em 0.5em;
+            padding: 0.5em 0.7em;
             border-radius: 1.25em;
             background-color: #333;
             color: #d1d1d1;
             font-size: 0.875em;
             text-decoration: none;
             transition: background-color 0.2s ease, color 0.2s ease;
+            border: none;
+            cursor: pointer;
 
             &:hover {
                 background-color: #444;

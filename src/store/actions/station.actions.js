@@ -43,6 +43,13 @@ export async function removeStation(stationId) {
   }
 }
 
+export function setSearchResults(results) {
+    store.dispatch({
+        type: SET_SEARCH_RESULTS,
+        results
+    });
+}
+
 export async function addStation(station) {
   try {
     const savedStation = await stationService.save(station)
