@@ -36,13 +36,7 @@ export function StationDetails() {
   return (
     <section className="station-details flex flex-column">
       <StationDetailsHeader station={station} searchQuery={searchQuery} handleSearch={handleSearch}/>
-
-
-      <ul className="song-list flex flex-column">
-        <SongListHeader />
-        <hr className="custom-divider" />
-        {station.songs && <SongList songs={station.songs} />}
-      </ul>
+        {station.songs && <SongList songs={station.songs} type='list-table'/>}
     </section>
   )
 }
