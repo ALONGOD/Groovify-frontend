@@ -4,10 +4,11 @@ import { getTimeOfSent } from '../../services/util.service'
 import { BsThreeDots } from 'react-icons/bs'
 import { Modal } from '../cmps/Modal/Modal'
 
-export function SongPreview({ song, idx, modalOpen, onToggleModal }) {
+export function SongPreview({ song, idx, songModal, onToggleModal }) {
   const [onSongHover, setOnSongHover] = useState(false)
 
   const { addedAt, duration, imgUrl, title, artist, album } = song
+  
 
   return (
     <li
@@ -30,10 +31,10 @@ export function SongPreview({ song, idx, modalOpen, onToggleModal }) {
         {onSongHover && (
           <BsThreeDots
             className="dots"
-            onClick={ev => onToggleModal(ev, song.id)}
+            onClick={ev => onToggleModal(ev, song)}
           />
         )}
-        {modalOpen === song.id && <Modal modalType={'songOptions'}/>}
+        {songModal?.id === song?.id && <Modal modalType={'songOptions'}/>}
       </div>
     </li>
   )

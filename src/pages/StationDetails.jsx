@@ -12,11 +12,10 @@ import { toggleModal } from '../store/actions/station.actions'
 export function StationDetails() {
   const { stationId } = useParams()
   const [station, setStation] = useState({})
-  const modal = useSelector(state => state.stationModule.modal)
+  const songModal = useSelector(state => state.stationModule.modalSong)
 
-  console.log(modal);
+  console.log(songModal);
   
-
   useEffect(() => {
     loadStation(stationId)
   }, [stationId])
@@ -45,9 +44,9 @@ export function StationDetails() {
         <hr className="custom-divider" />
         {station.songs &&
           station.songs.map((song, idx) => {
+            console.log(song);
             
-            
-            return <SongPreview key={song.id} song={song} idx={idx} modalOpen={modal?.songId} onToggleModal={onToggleModal} />
+            return <SongPreview key={song.id} song={song} idx={idx} songModal={songModal} onToggleModal={onToggleModal} />
           })}
       </ul>
     </section>

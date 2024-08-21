@@ -8,8 +8,8 @@ export const SET_MODAL = 'SET_MODAL'
 const initialState = {
     stations: [],
     currSong: null,
-    player: {status: 'paused', volume: 0.5, progress: 0},
-    modal: {songId: ''}
+  player: { status: 'paused', volume: 0.5, progress: 0 },
+  modalSong: {},
 }
 
 export function stationReducer(state = initialState, action) {
