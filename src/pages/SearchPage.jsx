@@ -2,7 +2,8 @@ import { useSelector } from 'react-redux';
 
 export function SearchPage() {
   const searchResults = useSelector(state => state.stationModule.searchResults);
-
+  console.log('searchResults:', searchResults)
+  
   return (
     <div className="search-page">
       {searchResults.map(result => (

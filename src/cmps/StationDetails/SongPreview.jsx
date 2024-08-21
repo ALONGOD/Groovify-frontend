@@ -4,17 +4,23 @@ import { getTimeOfSent } from '../../services/util.service'
 import { BsThreeDots } from 'react-icons/bs'
 import { Modal } from '../cmps/Modal/Modal'
 
-export function SongPreview({ song, idx, modalOpen, onToggleModal }) {
+export function SongPreview({ song, idx, songModal, onToggleModal, onRemoveSongFromStation }) {
   const [onSongHover, setOnSongHover] = useState(false)
 
-  const { addedAt, duration, imgUrl, title, artist, album } = song
+  console.log(songModal);
+  
 
+  const { addedAt, duration, imgUrl, title, artist, album } = song
+  
+console.log('songModal?.id:', songModal?.id)
+  console.log('song?.id:', song?.id)
   return (
     <li
       className="flex flex-row align-center"
       onMouseEnter={() => setOnSongHover(true)}
       onMouseLeave={() => setOnSongHover(false)}
     >
+
       <h4 className="idx">{onSongHover ? <IoIosPlay /> : idx + 1}</h4>
       <div className="main-details flex flex-row align-center">
         <img src={imgUrl} alt="song-img" />
@@ -30,11 +36,12 @@ export function SongPreview({ song, idx, modalOpen, onToggleModal }) {
         {onSongHover && (
           <BsThreeDots
             className="dots"
-            onClick={ev => onToggleModal(ev, song.id)}
+            onClick={ev => onToggleModal(ev, song)}
           />
         )}
-        {modalOpen === song.id && <Modal modalType={'songOptions'}/>}
+        {songModal?.id === song?.id && <Modal modalType={'songOptions'} onRemoveSongFromStation={onRemoveSongFromStation} />}
       </div>
+
     </li>
   )
 }

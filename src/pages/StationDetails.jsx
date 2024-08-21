@@ -2,28 +2,23 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { stationService } from '../services/station/station.service.local'
-import { SongPreview } from '../cmps/StationDetails/SongPreview'
 import { SongListHeader } from '../cmps/StationDetails/SongListHeader'
 
 import { StationDetailsHeader } from '../cmps/StationDetails/StationDetailsHeader'
-import { useSelector } from 'react-redux'
-import { toggleModal } from '../store/actions/station.actions'
+import { SongList } from '../cmps/SongList'
+import { removeSongFromStation } from '../store/actions/station.actions'
 
 export function StationDetails() {
   const { stationId } = useParams()
   const [station, setStation] = useState({})
-  const modal = useSelector(state => state.stationModule.modal)
-
-  console.log(modal);
-  
 
   useEffect(() => {
     loadStation(stationId)
   }, [stationId])
 
-  function onToggleModal(event, songId) {
-    event.stopPropagation();
-    toggleModal(songId)
+  async function onRemoveSongFromStation() {
+    if (!station) return
+    return await removeSongFromStation(stationId)
   }
 
   async function loadStation(stationId) {
@@ -43,12 +38,7 @@ export function StationDetails() {
       <ul className="song-list flex flex-column">
         <SongListHeader />
         <hr className="custom-divider" />
-        {station.songs &&
-          station.songs.map((song, idx) => {
-            
-            
-            return <SongPreview key={song.id} song={song} idx={idx} modalOpen={modal?.songId} onToggleModal={onToggleModal} />
-          })}
+        {station.songs && <SongList songs={station.songs} onRemoveSongFromStation={onRemoveSongFromStation}/>}
       </ul>
     </section>
   )

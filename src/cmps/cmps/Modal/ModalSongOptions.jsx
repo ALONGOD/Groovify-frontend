@@ -3,9 +3,14 @@ import { AiOutlinePlus } from "react-icons/ai"
 import { FaCaretRight, FaRegTrashAlt } from "react-icons/fa"
 import { GoPlusCircle } from "react-icons/go"
 import { Modal } from "./Modal"
+import { removeSongFromStation } from "../../../store/actions/station.actions"
+import { useParams } from "react-router"
 
-export function ModalSongOptions() {
+export function ModalSongOptions({onRemoveSongFromStation}) {
+  const params = useParams()
+  
     const [isPlaylistModalOpen, setIsPlaylistModalOpen] = useState(false)
+
     return (
       <>
         <div className="row relative flex flex-row justify-between" onMouseEnter={() => setIsPlaylistModalOpen(true)} onMouseLeave={() => setIsPlaylistModalOpen(false)}>
@@ -18,7 +23,7 @@ export function ModalSongOptions() {
         </div>
         <div className="row flex flex-row">
           <FaRegTrashAlt />
-          <h3>Remove from playlist</h3>
+          <h3 onClick={onRemoveSongFromStation}>Remove from playlist</h3>
         </div>
         <div className="row flex flex-row">
           <GoPlusCircle />
