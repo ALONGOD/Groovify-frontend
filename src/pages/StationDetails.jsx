@@ -12,10 +12,11 @@ export function StationDetails() {
   const dispatch = useDispatch()
   const { stationId } = useParams()
   const station = useSelector(state => state.stationModule.stationDetails)
+  const [searchQuery, setSearchQuery] = useState('')
 
   useEffect(() => {
     loadStation(stationId)
-  }, [stationId]) 
+  }, [stationId])
 
   async function loadStation(stationId) {
     try {
@@ -25,6 +26,10 @@ export function StationDetails() {
       console.log('Cannot load station', err)
       throw err
     }
+  }
+
+  function handleSearch({ target }) {
+    setSearchQuery(target.value)
   }
 
   if (!station) return <h1>Loading...</h1>
@@ -43,7 +48,7 @@ export function StationDetails() {
       <ul className="song-list flex flex-column">
         <SongListHeader />
         <hr className="custom-divider" />
-        {station.songs && <SongList songs={station.songs}/>}
+        {station.songs && <SongList songs={station.songs} />}
       </ul>
     </section>
   )
