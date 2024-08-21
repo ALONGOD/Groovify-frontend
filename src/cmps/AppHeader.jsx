@@ -11,7 +11,8 @@ export function AppHeader() {
   const navigate = useNavigate()
   const location = useLocation()
   const isSearchPage = location.pathname.includes('/search')
-  const isStationDetailsPage = location.pathname.includes('/station')
+  const isStationDetailsPage = false
+  // location.pathname.includes('/station')
 
   function navigation(direction) {
     navigate(direction)

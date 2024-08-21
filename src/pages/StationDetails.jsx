@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom'
 
 import { stationService } from '../services/station/station.service.local'
 import { SongListHeader } from '../cmps/StationDetails/SongListHeader'
-
 import { StationDetailsHeader } from '../cmps/StationDetails/StationDetailsHeader'
 import { SongList } from '../cmps/SongList'
 import { useDispatch, useSelector } from 'react-redux'
@@ -32,6 +31,15 @@ export function StationDetails() {
   return (
     <section className="station-details flex flex-column">
       <StationDetailsHeader station={station} />
+
+      <input
+        type="text"
+        placeholder="Search songs..."
+        value={searchQuery}
+        onChange={handleSearch}
+        className="search-bar"
+      />
+
       <ul className="song-list flex flex-column">
         <SongListHeader />
         <hr className="custom-divider" />
