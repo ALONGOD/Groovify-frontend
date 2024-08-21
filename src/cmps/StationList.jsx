@@ -15,7 +15,7 @@ export function StationList() {
   async function fetchData() {
     try {
       const stations = await stationService.query()
-      dispatch({type: SET_STATIONS, stations})
+      dispatch({ type: SET_STATIONS, stations })
     } catch (err) {
       console.log('Cannot load stations', err)
       throw err

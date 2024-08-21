@@ -1,14 +1,16 @@
 import { useSelector } from "react-redux";
-import { toggleModal } from "../store/actions/station.actions";
+import { removeSongFromStation, toggleModal } from "../store/actions/station.actions";
 import { SongPreview } from "./StationDetails/SongPreview";
 
-export function SongList({ songs, onRemoveSongFromStation }) {
+export function SongList({ songs }) {
     const songModal = useSelector(state => state.stationModule.modalSong)
 
     function onToggleModal(event, song) {
         event.stopPropagation();
         toggleModal(song)
       }
+
+      
 
   return songs.map((song, idx) => {
     return (
@@ -18,7 +20,6 @@ export function SongList({ songs, onRemoveSongFromStation }) {
         idx={idx}
         songModal={songModal}
         onToggleModal={onToggleModal}
-        onRemoveSongFromStation={onRemoveSongFromStation}
       />
     )
   })

@@ -4,16 +4,13 @@ import { getTimeOfSent } from '../../services/util.service'
 import { BsThreeDots } from 'react-icons/bs'
 import { Modal } from '../cmps/Modal/Modal'
 
-export function SongPreview({ song, idx, songModal, onToggleModal, onRemoveSongFromStation }) {
+export function SongPreview({ song, idx, songModal, onToggleModal }) {
   const [onSongHover, setOnSongHover] = useState(false)
 
-  console.log(songModal);
   
 
   const { addedAt, duration, imgUrl, title, artist, album } = song
   
-console.log('songModal?.id:', songModal?.id)
-  console.log('song?.id:', song?.id)
   return (
     <li
       className="flex flex-row align-center"
@@ -39,7 +36,7 @@ console.log('songModal?.id:', songModal?.id)
             onClick={ev => onToggleModal(ev, song)}
           />
         )}
-        {songModal?.id === song?.id && <Modal modalType={'songOptions'} onRemoveSongFromStation={onRemoveSongFromStation} />}
+        {songModal?.id === song?.id && <Modal modalType={'songOptions'}  />}
       </div>
 
     </li>

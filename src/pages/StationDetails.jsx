@@ -6,25 +6,22 @@ import { SongListHeader } from '../cmps/StationDetails/SongListHeader'
 
 import { StationDetailsHeader } from '../cmps/StationDetails/StationDetailsHeader'
 import { SongList } from '../cmps/SongList'
-import { removeSongFromStation } from '../store/actions/station.actions'
+import { useDispatch, useSelector } from 'react-redux'
+import { SET_STATION_DETAILS } from '../store/reducers/station.reducer'
 
 export function StationDetails() {
+  const dispatch = useDispatch()
   const { stationId } = useParams()
-  const [station, setStation] = useState({})
+  const station = useSelector(state => state.stationModule.stationDetails)
 
   useEffect(() => {
     loadStation(stationId)
-  }, [stationId])
-
-  async function onRemoveSongFromStation() {
-    if (!station) return
-    return await removeSongFromStation(stationId)
-  }
+  }, [stationId]) 
 
   async function loadStation(stationId) {
     try {
       const stationToSave = await stationService.getById(stationId)
-      setStation(stationToSave)
+      dispatch({ type: SET_STATION_DETAILS, station: stationToSave })
     } catch (err) {
       console.log('Cannot load station', err)
       throw err
@@ -38,7 +35,7 @@ export function StationDetails() {
       <ul className="song-list flex flex-column">
         <SongListHeader />
         <hr className="custom-divider" />
-        {station.songs && <SongList songs={station.songs} onRemoveSongFromStation={onRemoveSongFromStation}/>}
+        {station.songs && <SongList songs={station.songs}/>}
       </ul>
     </section>
   )
