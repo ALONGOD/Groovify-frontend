@@ -35,22 +35,15 @@ export function stationReducer(state = initialState, action) {
       newState = { ...state, stations: [...state.stations, action.station] }
       break
     case UPDATE_STATION:
+      console.log('UPDATE_STATION:', action.updatedStation);
+      
       stations = state.stations.map(station =>
-        station._id === action.station._id ? action.station : station
+        station._id === action.updatedStation._id ? action.updatedStation : station
       )
       newState = { ...state, stations }
       break
-    case ADD_SONG_TO_STATION: {
-      stations = state.stations.map(station =>
-        station._id === action.updatedStation._id
-          ? action.updatedStation
-          : station
-      )
-
-      newState = { ...state, stations }
-    }
     case SET_MODAL:
-      newState = { ...state, modal: { songId: action.songId } }
+      newState = { ...state, modalSong: action.song}
     default:
   }
   return newState

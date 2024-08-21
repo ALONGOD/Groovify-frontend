@@ -4,7 +4,8 @@ export const storageService = {
   post,
   put,
   remove,
-  updateStation
+  addSongToStation,
+  removeSongFromStation
 }
 
 function query(entityType, delay = 500) {
@@ -48,12 +49,22 @@ function put(entityType, updatedEntity) {
   })
 }
 
-async function updateStation(songToAdd, stationId) {
+async function addSongToStation(songToAdd, stationId) {
   const stations = await query('stationDB')
   const idx = stations.findIndex(station => station._id === stationId)
   const hasId = stations[idx].songs.some(song => song.id === songToAdd.id)
   if (hasId) throw 'Song already exists in station'
   stations[idx].songs.push(songToAdd)
+  _save('stationDB', stations)
+  return stations[idx]
+}
+
+async function removeSongFromStation(songId, stationId) {
+  const stations = await query('stationDB')
+  const idx = stations.findIndex(station => station._id === stationId)
+  const songIdx = stations[idx].songs.findIndex(song => song.id === songId)
+  if (songIdx < 0) throw 'Song not found in station'
+  stations[idx].songs.splice(songIdx, 1)
   _save('stationDB', stations)
   return stations[idx]
 }

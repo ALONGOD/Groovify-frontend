@@ -10,7 +10,7 @@ export const YouTubeAPIService = {
     formatDuration, // Optional: If you want to expose this utility function
 };
 
-function searchVideos(query, maxResults = 10) {
+function searchVideos(query, maxResults = 5) {
     // Create a cache key based on the query and maxResults
     const cacheKey = `${query}_${maxResults}`;
 
@@ -35,6 +35,7 @@ function searchVideos(query, maxResults = 10) {
     return axios.get(url, { params })
         .then(response => {
             const videoItems = response.data.items.map(item => {
+                console.log(item)
                 return {
                     videoId: item.id.videoId,
                     title: item.snippet.title,

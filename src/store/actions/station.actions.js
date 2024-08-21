@@ -22,14 +22,23 @@ export async function loadStations(filterBy) {
   }
 }
 
-export async function addToStation(stationId, song) {
-  const updatedStation = await storageService.updateStation(song, stationId)
-  store.dispatch({ type: ADD_SONG_TO_STATION, updatedStation})
+export async function removeSongFromStation(stationId) {
+  const songId = store.getState().stationModule.modalSong?.id
+  const updatedStation = await storageService.removeSongFromStation(songId, stationId)
+  store.dispatch({ type: UPDATE_STATION, updatedStation})
 }
 
-export function toggleModal(songId) {
+export async function addToStation(song, stationId) {
+  const updatedStation = await storageService.addSongToStation(song, stationId)
+  store.dispatch({ type: UPDATE_STATION, updatedStation})
+}
+
+export function toggleModal(song) {
+  console.log(song);
+  
   const prevSongId = store.getState().stationModule.modalSong
-  const newState = songId === prevSongId ? '' : songId
+  const newState = song?.id === prevSongId?.id ? '' : song
+  console.log('newState:', newState)
 
   store.dispatch({ type: SET_MODAL, song: newState })
 }
