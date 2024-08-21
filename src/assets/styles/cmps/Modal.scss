@@ -11,19 +11,38 @@
 
   &.playlist-modal {
     top: 0;
-    // bottom: -200%;
     right: 100%;
     z-index: 100;
     background-color: #282828;
-    
+    .searchbar {
+      position: relative;
+      svg {
+        position: absolute;
+        transform: translateY(-50%);
+        top: 50%;
+        left: 5px;
+        font-size: 1em;
+      }
+    }
+    input[type="text"] {
+      height: 2em;
+      width: 100%;
+      border: 0;
+      background-color: $modal-row-hover;
+      border-radius: $spotify-border-radius;
+      margin-bottom: em(4px);
+      padding-inline-start: 2em;
+      cursor: text;
+    }
   }
   .row {
     align-items: center;
-    padding: 0.5em;
+    padding: em(12px) em(8px) em(12px) em(12px);
+    height: em(40px);
     h3 {
         font-family: 'gotham-book';
         // letter-spacing: 0.5px;
-      font-size: em(13.5px);
+      font-size: em(14px);
       margin: 0;
       color: rgb(225, 225, 225);
       
@@ -34,7 +53,8 @@
       font-weight: 200;
     }
     &:hover {
-      background-color: rgb(62, 62, 62);
+      background-color: $modal-row-hover;
+      color: white;
     }
   }
 }
