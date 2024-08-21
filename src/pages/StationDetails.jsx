@@ -35,15 +35,8 @@ export function StationDetails() {
   if (!station) return <h1>Loading...</h1>
   return (
     <section className="station-details flex flex-column">
-      <StationDetailsHeader station={station} />
+      <StationDetailsHeader station={station} searchQuery={searchQuery} handleSearch={handleSearch}/>
 
-      <input
-        type="text"
-        placeholder="Search songs..."
-        value={searchQuery}
-        onChange={handleSearch}
-        className="search-bar"
-      />
 
       <ul className="song-list flex flex-column">
         <SongListHeader />

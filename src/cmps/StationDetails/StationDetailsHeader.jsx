@@ -1,9 +1,10 @@
 import { BsThreeDots } from 'react-icons/bs'
 import { CiCirclePlus } from 'react-icons/ci'
 import { FaCircle, FaListUl } from 'react-icons/fa'
+import { FaMagnifyingGlass } from 'react-icons/fa6'
 import { IoPlayCircle } from 'react-icons/io5'
 
-export function StationDetailsHeader({ station }) {
+export function StationDetailsHeader({ station, searchQuery, handleSearch }) {
   const { name, createdBy, songs, imgUrl } = station
 
   return (
@@ -29,9 +30,19 @@ export function StationDetailsHeader({ station }) {
           <CiCirclePlus />
           <BsThreeDots />
         </div>
-        <div className="list-style-diff flex flex-row">
-          <FaListUl />
-          <h4>List</h4>
+        <div className="flex flex-row">
+          <input
+            type="text"
+            placeholder="Search songs..."
+            value={searchQuery}
+            onChange={handleSearch}
+            className="search-bar"
+          />
+          <FaMagnifyingGlass />
+          <div className="list-style-change flex flex-row">
+            <FaListUl />
+            <h4>List</h4>
+          </div>
         </div>
       </div>
     </div>
