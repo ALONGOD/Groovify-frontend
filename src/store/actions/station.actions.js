@@ -8,6 +8,7 @@ import {
   ADD_STATION_MSG,
   SET_MODAL,
   ADD_SONG_TO_STATION,
+  SET_SEARCH_RESULTS,
 } from '../reducers/station.reducer'
 import { storageService } from '../../services/async-storage.service.js'
 
