@@ -4,7 +4,7 @@ import { FaCircle, FaListUl } from 'react-icons/fa'
 import { FaMagnifyingGlass } from 'react-icons/fa6'
 import { IoPlayCircle } from 'react-icons/io5'
 
-export function StationDetailsHeader({ station, searchQuery, handleSearch }) {
+export function StationDetailsHeader({ station }) {
   const { name, createdBy, songs, imgUrl } = station
 
   return (
@@ -24,6 +24,7 @@ export function StationDetailsHeader({ station, searchQuery, handleSearch }) {
           </div>
         </div>
       </div>
+      
       <div className="station-header-actions flex flex-row justify-between">
         <div className="flex flex-row">
           <IoPlayCircle />
@@ -31,13 +32,6 @@ export function StationDetailsHeader({ station, searchQuery, handleSearch }) {
           <BsThreeDots />
         </div>
         <div className="flex flex-row">
-          <input
-            type="text"
-            placeholder="Search songs..."
-            value={searchQuery}
-            onChange={handleSearch}
-            className="search-bar"
-          />
           <FaMagnifyingGlass />
           <div className="list-style-change flex flex-row">
             <FaListUl />

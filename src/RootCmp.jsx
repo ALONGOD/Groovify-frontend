@@ -16,7 +16,7 @@ export function RootCmp() {
     <div className="app" onClick={toggleModal}>
       <MenuSidebar />
       <UserMsg />
-      <main>
+      
         <Routes>
           <Route path="/" element={<AppIndex />}>
             <Route path="/" element={<Homepage />} />
@@ -24,7 +24,7 @@ export function RootCmp() {
             <Route path="/search" element={<SearchPage />} />
           </Route>
         </Routes>
-      </main>
+
       <AppFooter />
     </div>
   )
