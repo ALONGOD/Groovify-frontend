@@ -18,20 +18,20 @@ export function SubMenu({ selected, setSelected }) {
                     X
                 </button>
             )}
-            <div
+            <button
                 className={`sub-link ${selected === 'playlists' ? 'active' : ''}`}
                 onClick={() => handleSelect('playlists')}
                 style={{ cursor: 'pointer' }}
             >
                 Playlists
-            </div>
-            <div
+            </button>
+            <button
                 className={`sub-link ${selected === 'artists' ? 'active' : ''}`}
                 onClick={() => handleSelect('artists')}
                 style={{ cursor: 'pointer' }}
             >
                 Artists
-            </div>
+            </button>
         </div>
     )
 }
