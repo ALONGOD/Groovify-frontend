@@ -11,10 +11,8 @@ export const YouTubeAPIService = {
 };
 
 function searchVideos(query, maxResults = 5) {
-    // Create a cache key based on the query and maxResults
     const cacheKey = `${query}_${maxResults}`;
 
-    // Check if the result is already in the localStorage cache
     const cachedData = localStorage.getItem(cacheKey);
     if (cachedData) {
         console.log('Returning cached data for query:', query);
@@ -26,7 +24,7 @@ function searchVideos(query, maxResults = 5) {
         part: 'snippet',
         q: query,
         maxResults,
-        type: 'video',  // Ensure only videos are returned
+        type: 'video',
         key: API_KEY,
     };
 
@@ -35,17 +33,28 @@ function searchVideos(query, maxResults = 5) {
     return axios.get(url, { params })
         .then(response => {
             const videoItems = response.data.items.map(item => {
-                console.log(item)
+                // Extract video ID and other properties from the item
+                const videoId = item.id.videoId;
+                const title = item.snippet.title;
+                const description = item.snippet.description;
+                const thumbnailUrl = item.snippet.thumbnails.default.url;
+                const channelTitle = item.snippet.channelTitle;
+
+                // Use the video ID to create the URL for the video
+                const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
+
                 return {
-                    videoId: item.id.videoId,
-                    title: item.snippet.title,
-                    description: item.snippet.description,
-                    thumbnailUrl: item.snippet.thumbnails.default.url,
-                    channelTitle: item.snippet.channelTitle,
+                    id: videoId,
+                    title: title,
+                    artist: channelTitle, // Assuming channelTitle as the artist
+                    album: '', // Album data is typically not available via YouTube API
+                    url: videoUrl,
+                    imgUrl: [thumbnailUrl],
+                    addedAt: Date.now(), // Using the current timestamp as addedAt
+                    duration: '', // Duration will be added later in getVideoDetails
                 };
             });
 
-            // Store the result in localStorage
             localStorage.setItem(cacheKey, JSON.stringify(videoItems));
 
             return videoItems;
