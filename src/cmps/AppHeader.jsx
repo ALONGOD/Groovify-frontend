@@ -11,6 +11,7 @@ export function AppHeader() {
   const navigate = useNavigate()
   const location = useLocation()
   const isSearchPage = location.pathname.includes('/search')
+  const isStationDetailsPage = location.pathname.includes('/station')
 
   function navigation(direction) {
     navigate(direction)
@@ -27,7 +28,7 @@ export function AppHeader() {
             <IoIosArrowForward title='Go forward' onClick={() => navigation(1)} />
           </div>
         </div>
-        {isSearchPage && (
+        {(isSearchPage || isStationDetailsPage) && (
           <div className='search-bar'>
             <SearchBar />
           </div>
