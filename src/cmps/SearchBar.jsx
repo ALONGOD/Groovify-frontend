@@ -1,9 +1,12 @@
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 import { YouTubeAPIService } from '../services/youtubeAPI/fetchYoutubeApi.js';
 import { useState, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { setSearchResults } from '../store/actions/station.actions.js';
 
 export function SearchBar() {
     const [searchTerm, setSearchTerm] = useState('');
+    const dispatch = useDispatch();
 
     function debounce(func, delay) {
         let timer;
@@ -20,13 +23,13 @@ export function SearchBar() {
             if (query) {
                 try {
                     const results = await YouTubeAPIService.searchVideos(query);
-                    console.log(results);
+                    dispatch(setSearchResults(results));
                 } catch (error) {
                     console.error('Error fetching YouTube API:', error);
                 }
             }
         }, 800),
-        []
+        [dispatch]
     );
 
     const handleChange = (event) => {

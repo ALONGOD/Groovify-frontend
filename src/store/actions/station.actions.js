@@ -1,6 +1,6 @@
 import { stationService } from '../../services/station/station.service.local.js'
 import { store } from '../store'
-import { ADD_STATION, REMOVE_STATION, SET_STATIONS, UPDATE_STATION, ADD_STATION_MSG, SET_MODAL } from '../reducers/station.reducer'
+import { SET_SEARCH_RESULTS, ADD_STATION, REMOVE_STATION, SET_STATIONS, UPDATE_STATION, ADD_STATION_MSG, SET_MODAL } from '../reducers/station.reducer'
 
 export async function loadStations(filterBy) {
     try {
@@ -15,7 +15,7 @@ export async function loadStations(filterBy) {
 export function toggleModal(songId) {
     const prevSongId = store.getState().stationModule.modal.songId
     const newState = songId === prevSongId ? '' : songId
-    
+
     store.dispatch({ type: SET_MODAL, songId: newState })
 }
 
@@ -28,6 +28,13 @@ export async function removeStation(stationId) {
         console.log('Cannot remove station', err)
         throw err
     }
+}
+
+export function setSearchResults(results) {
+    store.dispatch({
+        type: SET_SEARCH_RESULTS,
+        results
+    });
 }
 
 export async function addStation(station) {

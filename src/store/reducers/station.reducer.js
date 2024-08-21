@@ -4,12 +4,14 @@ export const ADD_STATION = 'ADD_STATION'
 export const UPDATE_STATION = 'UPDATE_STATION'
 export const ADD_STATION_MSG = 'ADD_STATION_MSG'
 export const SET_MODAL = 'SET_MODAL'
+export const SET_SEARCH_RESULTS = 'SET_SEARCH_RESULTS';
 
 const initialState = {
     stations: [],
     currSong: null,
-    player: {status: 'paused', volume: 0.5, progress: 0},
-    modal: {songId: ''}
+    player: { status: 'paused', volume: 0.5, progress: 0 },
+    modal: { songId: '' },
+    searchResults: []
 }
 
 export function stationReducer(state = initialState, action) {
@@ -23,6 +25,9 @@ export function stationReducer(state = initialState, action) {
             stations = state.stations.filter(station => station._id !== action.stationId)
             newState = { ...state, stations }
             break
+        case SET_SEARCH_RESULTS:
+            newState = { ...state, searchResults: action.results };
+            break;
         case ADD_STATION:
             newState = { ...state, stations: [...state.stations, action.station] }
             break
@@ -31,7 +36,7 @@ export function stationReducer(state = initialState, action) {
             newState = { ...state, stations }
             break
         case SET_MODAL:
-            newState = { ...state, modal:{songId: action.songId} }
+            newState = { ...state, modal: { songId: action.songId } }
         default:
     }
     return newState
