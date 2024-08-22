@@ -1,8 +1,9 @@
 import { useSelector } from 'react-redux'
 import { ModalSongOptions } from './ModalSongOptions'
 import { AddToStationModal } from './AddToStationModal'
+import { AddStationModal } from './AddStationModal'
 
-export function Modal({ modalType,  }) {
+export function Modal({ modalType, }) {
   const stations = useSelector(state => state.stationModule.stations)
 
   return (
@@ -16,11 +17,14 @@ export function Modal({ modalType,  }) {
   )
 }
 
-function DynamicModal({ modalType, stations,  }) {
+function DynamicModal({ modalType, stations, }) {
   switch (modalType) {
     case 'songOptions':
       return <ModalSongOptions />
     case 'playlists':
-      return <AddToStationModal stations={stations}/>
+      return <AddToStationModal stations={stations} />
+    case 'library':
+      return <AddStationModal />
   }
+
 }
