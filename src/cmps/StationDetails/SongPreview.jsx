@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { IoIosPlay } from 'react-icons/io'
 import { getTimeOfSent } from '../../services/util.service'
 import { BsThreeDots } from 'react-icons/bs'
-import { Modal } from '../cmps/Modal/Modal'
+import { Modal } from '../Modal/Modal'
 
 export function SongPreview({ song, idx, songModal, onToggleModal, type }) {
   const [onSongHover, setOnSongHover] = useState(false)

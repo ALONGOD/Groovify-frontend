@@ -7,6 +7,7 @@ import { RiRepeat2Line } from 'react-icons/ri'
 import { TiArrowShuffle } from 'react-icons/ti'
 import { useDispatch, useSelector } from 'react-redux'
 import { TOGGLE_DETAILS_SIDEBAR } from '../store/reducers/system.reducer'
+import { MusicPlayer } from './MusicPlayer'
 
 export function AppFooter() {
   const dispatch = useDispatch()
@@ -55,7 +56,7 @@ export function AppFooter() {
         </div>
 
         <div className="bottom flex flex-row align-center">
-          <input type="range" name="" className="youtube-player" />
+          <MusicPlayer />
         </div>
       </div>
       <div className="other-options flex flex-row align-center">
