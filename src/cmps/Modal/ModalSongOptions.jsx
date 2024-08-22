@@ -3,10 +3,10 @@ import { AiOutlinePlus } from "react-icons/ai"
 import { FaCaretRight, FaRegTrashAlt } from "react-icons/fa"
 import { GoPlusCircle } from "react-icons/go"
 import { Modal } from "./Modal"
-import { removeSongFromStation } from "../../../store/actions/station.actions"
+import { removeSongFromStation } from "../../store/actions/station.actions"
 import { useParams } from "react-router"
 import { useDispatch } from "react-redux"
-import { SET_STATION_DETAILS } from "../../../store/reducers/station.reducer"
+import { SET_STATION_DETAILS } from "../../store/reducers/station.reducer"
 
 export function ModalSongOptions({}) {
   const dispatch = useDispatch()
