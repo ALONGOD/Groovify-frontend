@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { IoLibrary, IoLibraryOutline } from 'react-icons/io5';
 import { GoPlus, GoArrowRight } from 'react-icons/go';
 import { SubMenu } from './SubMenu';
-import { Modal } from './cmps/Modal/Modal.jsx';
+import { Modal } from './Modal/Modal';
 
 
 export function LibraryMenu({ isCollapsed, setIsCollapsed, selected, setSelected }) {

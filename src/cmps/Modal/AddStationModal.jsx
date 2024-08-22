@@ -1,7 +1,7 @@
 import { AiOutlinePlus } from 'react-icons/ai';
-import { stationService } from '../../../services/station/station.service.local.js';
+import { stationService } from '../../services/station/station.service.local.js';
 import { useDispatch } from 'react-redux';
-import { ADD_STATION } from '../../../store/reducers/station.reducer.js';
+import { ADD_STATION } from '../../store/reducers/station.reducer.js';
 
 export function AddStationModal() {
     const dispatch = useDispatch();
