@@ -15,7 +15,7 @@ export function SongList({ songs, type }) {
   }
 
   return (
-    <ul className="song-list flex flex-column">
+    <ul className={`song-list ${type} flex flex-column`}>
       {type === 'list-table' && (
         <>
           <SongListHeader />
@@ -27,6 +27,7 @@ export function SongList({ songs, type }) {
           <SongPreview
             key={song.id}
             song={song}
+            type={type}
             idx={idx}
             songModal={songModal}
             onToggleModal={onToggleModal}
