@@ -7,7 +7,7 @@ export const SET_MODAL = 'SET_MODAL'
 export const SET_SEARCH_RESULTS = 'SET_SEARCH_RESULTS'
 export const ADD_SONG_TO_STATION = 'ADD_SONG_TO_STATION'
 export const SET_STATION_DETAILS = 'SET_STATION_DETAILS'
-export const SET_DETAILS_STATE = 'SET_DETAILS_STATE'
+
 
 const initialState = {
   stations: [],
@@ -16,16 +16,17 @@ const initialState = {
   modalSong: {},
   searchResults: [],
   stationDetails: {},
-  isDetailsOpen: false,
 }
 
 export function stationReducer(state = initialState, action) {
   var newState = state
   var stations
+  
   switch (action.type) {
     case SET_STATIONS:
       newState = { ...state, stations: action.stations }
       break
+
     case REMOVE_STATION:
       stations = state.stations.filter(
         station => station._id !== action.stationId

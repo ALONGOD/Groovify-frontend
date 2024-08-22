@@ -5,15 +5,18 @@ import { HiOutlineQueueList } from 'react-icons/hi2'
 import { IoPlayCircleOutline } from 'react-icons/io5'
 import { RiRepeat2Line } from 'react-icons/ri'
 import { TiArrowShuffle } from 'react-icons/ti'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { TOGGLE_DETAILS_SIDEBAR } from '../store/reducers/system.reducer'
 
 export function AppFooter() {
-  
+  const dispatch = useDispatch()
   const songPlaying = useSelector(
     storeState => storeState.stationModule.songPlaying
   )
 
-  
+  function toggleDetailsSidebar() {
+    dispatch({ type: TOGGLE_DETAILS_SIDEBAR})
+  }
   
   return (
     <footer className="app-footer full flex flex-row align-center justify-between">
@@ -56,7 +59,7 @@ export function AppFooter() {
         </div>
       </div>
       <div className="other-options flex flex-row align-center">
-        <IoPlayCircleOutline />
+        <IoPlayCircleOutline onClick={toggleDetailsSidebar}/>
         <HiOutlineQueueList />
         <AiOutlineSound />
         <input type="range" name="" className="youtube-player sound" />

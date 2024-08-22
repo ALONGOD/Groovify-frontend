@@ -5,10 +5,10 @@ import { stationService } from '../services/station/station.service.local'
 import { useSelector } from 'react-redux'
 
 export function AppIndex() {
-  const isDetailsOpen = useSelector(state => state.stationModule.isDetailsOpen)
+  const isDetailsOpen = useSelector(state => state.systemModule.isDetailsOpen)
 
   return (
-    <main>
+    <main className={isDetailsOpen ? 'open' : ''}>
       <AppHeader />
       <DetailsSidebar />
       <div className="main-section flex flex-column">

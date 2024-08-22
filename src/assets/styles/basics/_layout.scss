@@ -20,7 +20,7 @@ body {
   padding: 0.5em;
 
   &:has(main.open) {
-    grid-template-columns: 20% 1fr 35%;
+    grid-template-columns: 20% 1fr 25%;
   }
 
   &:has(aside.collapsed) {
