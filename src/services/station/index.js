@@ -5,13 +5,19 @@ import { getRandomIntInclusive, makeId } from '../util.service'
 import { stationService as local } from './station.service.local'
 import { stationService as remote } from './station.service.remote'
 
-function getEmptyStation() {
+export function getEmptyStation() {
     return {
-        vendor: makeId(),
-        speed: getRandomIntInclusive(80, 240),
-        msgs: [],
+        _id: makeId(),
+        name: 'New Playlist',
+        imgUrl: 'https://via.placeholder.com/150', // Default placeholder image
+        tags: [], // You can add default tags if needed
+        createdBy: null, // No user data since there's no logged-in user
+        likedByUsers: [],
+        songs: [],
     }
 }
+
+
 
 function getDefaultFilter() {
     return {
