@@ -4,18 +4,20 @@ import { stationService } from '../services/station/station.service.local'
 import { useDispatch, useSelector } from 'react-redux'
 import { SET_STATIONS } from '../store/reducers/station.reducer'
 
-export function StationList() {
+export function StationList({isCollapsed}) {
   const dispatch = useDispatch()
   const stations = useSelector(state => state.stationModule.stations)
 
-  useEffect(() => {
-    fetchData()
-  }, [])
 
-  async function fetchData() {
+  useEffect(() => {
+    fetchStations()
+  }, [])
+  
+  async function fetchStations() {
     try {
       const stations = await stationService.query()
-      dispatch({ type: SET_STATIONS, stations })
+      const likedSongsStation = await stationService.fetchLikedSongs()
+      dispatch({ type: SET_STATIONS, stations: [likedSongsStation, ...stations] })
     } catch (err) {
       console.log('Cannot load stations', err)
       throw err
@@ -28,8 +30,9 @@ export function StationList() {
   return (
     <section className="station-list">
       <ul>
+        
         {stations.map(station => (
-          <StationPreview station={station} key={station._id} />
+          <StationPreview station={station} key={station._id} isCollapsed={isCollapsed}/>
         ))}
       </ul>
     </section>

@@ -14,7 +14,8 @@ export const stationService = {
   save,
   remove,
   addStationMsg,
-  initializeDemoData, // Add this method
+  initializeDemoData,
+  fetchLikedSongs
 }
 
 window.cs = stationService
@@ -35,7 +36,12 @@ async function query() {
   return stations
 }
 
+async function fetchLikedSongs() {
+  if (demoUser) return demoUser.likedSongsStation
+}
+
 function getById(stationId) {
+  if (stationId === 'liked-songs') return fetchLikedSongs()
   return storageService.get(STORAGE_KEY, stationId)
 }
 
