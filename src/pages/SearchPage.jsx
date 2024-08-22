@@ -8,8 +8,12 @@ export function SearchPage() {
   return (
     <div className="search-page">
       <div className="songs-resutls">
-        <h1>Songs</h1>
-        <SongList songs={searchResults} type="search-results" />
+        {searchResults.length && (
+          <>
+            <h1>Songs</h1>
+            <SongList songs={searchResults} type="search-results" />
+          </>
+        )}
       </div>
     </div>
   )
