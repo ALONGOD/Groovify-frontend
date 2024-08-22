@@ -1,44 +1,43 @@
 // Setup
-@import "setup/variables";
-@import "setup/functions";
-@import "setup/mixins";
-@import "setup/typography";
+@import 'setup/variables';
+@import 'setup/functions';
+@import 'setup/mixins';
+@import 'setup/typography';
 
 // Basics
-@import "basics/helpers";
-@import "basics/layout";
-@import "basics/base";
-@import "basics/links";
-@import "basics/forms";
-
+@import 'basics/helpers';
+@import 'basics/layout';
+@import 'basics/base';
+@import 'basics/links';
+@import 'basics/forms';
 
 // pages
-@import "RootCmp";
+@import 'RootCmp';
 
-@import "pages/AboutUs";
-@import "pages/HomePage";
-@import "pages/StationIndex";
-@import "pages/UserDetails";
-@import "pages/LoginSignup";
-@import "pages/AppIndex";
-@import "pages/SearchPage";
+@import 'pages/AboutUs';
+@import 'pages/HomePage';
+@import 'pages/StationIndex';
+@import 'pages/UserDetails';
+@import 'pages/LoginSignup';
+@import 'pages/AppIndex';
+@import 'pages/SearchPage';
 
-@import "pages/StationDetails";
+@import 'pages/StationDetails';
 
 // Components
-@import "cmps/MenuSidebar";
-@import "cmps/list";
-@import "cmps/SongPreview";
-@import "cmps/StationPreview";
-@import "cmps/StationList";
-@import "cmps/SongList.scss";
-@import "cmps/Modal";
-@import "cmps/MusicPlayer";
+@import 'cmps/MenuSidebar';
+@import 'cmps/DetailsSidebar';
+@import 'cmps/list';
+@import 'cmps/SongPreview';
+@import 'cmps/StationPreview';
+@import 'cmps/StationList';
+@import 'cmps/SongList.scss';
+@import 'cmps/Modal';
+@import 'cmps/MusicPlayer';
 
-@import "cmps/AppHeader";
-@import "cmps/AppFooter";
-@import "cmps/UserMsg";
-
+@import 'cmps/AppHeader';
+@import 'cmps/AppFooter';
+@import 'cmps/UserMsg';
 
 // @import "cmps/StationList";
 // @import "cmps/StationPreview";
