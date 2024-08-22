@@ -4,13 +4,16 @@ import { getTimeOfSent } from '../../services/util.service'
 import { BsThreeDots } from 'react-icons/bs'
 import { Modal } from '../cmps/Modal/Modal'
 
-export function SongPreview({ song, idx, songModal, onToggleModal }) {
+export function SongPreview({ song, idx, songModal, onToggleModal, type }) {
   const [onSongHover, setOnSongHover] = useState(false)
 
   
 
   const { addedAt, duration, imgUrl, title, artist, album } = song
-  
+
+  const isSearchResults = type === 'search-results'
+  const isListTable = type === 'list-table'
+
   return (
     <li
       className="flex flex-row align-center"
@@ -18,7 +21,7 @@ export function SongPreview({ song, idx, songModal, onToggleModal }) {
       onMouseLeave={() => setOnSongHover(false)}
     >
 
-      <h4 className="idx">{onSongHover ? <IoIosPlay /> : idx + 1}</h4>
+     {isListTable && <h4 className="idx">{onSongHover ? <IoIosPlay /> : idx + 1}</h4>}
       <div className="main-details flex flex-row align-center">
         <img src={imgUrl} alt="song-img" />
         <div className="song-details flex flex-column">
@@ -26,7 +29,7 @@ export function SongPreview({ song, idx, songModal, onToggleModal }) {
           <h4>{artist ? artist : 'Artist'}</h4>
         </div>
       </div>
-      <h4>{album ? album : 'Album'}</h4>
+      {isListTable && <h4>{album ? album : 'Album'}</h4>}
       <h4>{getTimeOfSent(addedAt)}</h4>
       <div className="duration relative flex justify-start align-center">
         <h4>{duration}</h4>

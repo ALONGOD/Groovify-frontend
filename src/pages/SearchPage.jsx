@@ -1,14 +1,16 @@
-import { useSelector } from 'react-redux';
-import { SongList } from '../cmps/SongList.jsx';
+import { useSelector } from 'react-redux'
+import { SongList } from '../cmps/SongList.jsx'
 
 export function SearchPage() {
-  const searchResults = useSelector(state => state.stationModule.searchResults);
-  console.log('searchResults:', searchResults);
+  const searchResults = useSelector(state => state.stationModule.searchResults)
+  console.log('searchResults:', searchResults)
 
   return (
     <div className="search-page">
-      {/* Pass the search results to the SongList component */}
-      <SongList songs={searchResults} type={'list-table'} />
+      <div className="songs-resutls">
+        <h1>Songs</h1>
+        <SongList songs={searchResults} type="search-results" />
+      </div>
     </div>
-  );
+  )
 }
