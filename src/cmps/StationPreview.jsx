@@ -2,7 +2,6 @@ import { BsFillPinAngleFill } from 'react-icons/bs'
 import { useNavigate } from 'react-router'
 
 export function StationPreview({ station, isCollapsed }) {
-  console.log('station:', station)
   const navigate = useNavigate()
 
   const {_id, imgUrl, name, songs} = station

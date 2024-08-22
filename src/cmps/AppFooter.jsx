@@ -11,9 +11,11 @@ import { MusicPlayer } from './MusicPlayer'
 
 export function AppFooter() {
   const dispatch = useDispatch()
-  const songPlaying = useSelector(
-    storeState => storeState.stationModule.songPlaying
+  
+  const currSong = useSelector(
+    storeState => storeState.stationModule.currSong
   )
+  console.log('songPlaying:', currSong)
 
   function toggleDetailsSidebar() {
     dispatch({ type: TOGGLE_DETAILS_SIDEBAR})
@@ -24,41 +26,27 @@ export function AppFooter() {
       <div className="details flex flex-row align-center">
         <img
           src={
-            songPlaying
-              ? songPlaying.imgUrl
+            currSong
+              ? currSong.imgUrl
               : 'https://i.ytimg.com/vi/WwSRA2p4He0/mqdefault.jpg'
           }
           alt="song-img"
         />
         <div className="flex flex-column">
           <h3>
-            {songPlaying
-              ? songPlaying.title
+            {currSong
+              ? currSong.title
               : 'Feel the Fiyaaah (with A$AP Rocky & feat. Takeoff)'}
           </h3>
           <h4>
-            {songPlaying
-              ? songPlaying.artist
+            {currSong
+              ? currSong.artist
               : 'Metro Boomin, A$AP Rocky, Takeoff'}
           </h4>
         </div>
         <FaCircleCheck />
       </div>
-      <div className="player flex flex-column justify-center align-center">
-        <div className="top flex flex-row align-center">
-          <TiArrowShuffle />
-          <div className="song-actions flex flex-row align-center">
-            <FaBackwardStep />
-            <FaPauseCircle />
-            <FaForwardStep />
-          </div>
-          <RiRepeat2Line />
-        </div>
-
-        <div className="bottom flex flex-row align-center">
-          <MusicPlayer />
-        </div>
-      </div>
+      <MusicPlayer />
       <div className="other-options flex flex-row align-center">
         <IoPlayCircleOutline onClick={toggleDetailsSidebar}/>
         <HiOutlineQueueList />
