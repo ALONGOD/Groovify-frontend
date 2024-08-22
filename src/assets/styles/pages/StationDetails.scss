@@ -1,5 +1,5 @@
 .station-details {
-  padding: 2em;
+  padding: $station-details-margin;
   color: white;
 
   img.station-img {
@@ -9,6 +9,7 @@
   }
 
   .station-details-header {
+
     gap: 1em;
     .divider {
       display: flex;
@@ -56,6 +57,9 @@
         height: 0.8em;
       }
     }
+  }
+  .station-details-container {
+    height: $station-details-header;
   }
 }
 .station-header-actions { 

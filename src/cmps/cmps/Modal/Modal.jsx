@@ -22,7 +22,5 @@ function DynamicModal({ modalType, stations,  }) {
       return <ModalSongOptions />
     case 'playlists':
       return <AddToStationModal stations={stations}/>
-
   }
-  
 }

@@ -4,6 +4,9 @@ ul.song-list {
   display: grid;
   grid-template-columns: 2fr 17fr 10fr 10fr 3fr;
   gap: 0.5em;
+  max-height: $height-station-details-songlist;
+  overflow-y:unset;
+  margin: 0;
   // padding-inline: 1em;
 
   li {

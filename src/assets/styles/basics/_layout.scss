@@ -32,6 +32,7 @@ main {
   gap: 0.5em;
   grid-column: 2;
   height: $height-main;
+  overflow-y: auto;
 }
 
 .main-container {
