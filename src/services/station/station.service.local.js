@@ -50,25 +50,36 @@ async function remove(stationId) {
 }
 
 async function save(station) {
-  var savedStation
+  var savedStation;
   if (station._id) {
+    // Update existing station
     const stationToSave = {
       _id: station._id,
-      price: station.price,
-      speed: station.speed,
-    }
-    savedStation = await storageService.put(STORAGE_KEY, stationToSave)
+      name: station.name,
+      imgUrl: station.imgUrl,
+      tags: station.tags,
+      createdBy: station.createdBy,
+      likedByUsers: station.likedByUsers,
+      songs: station.songs,
+    };
+    savedStation = await storageService.put(STORAGE_KEY, stationToSave);
   } else {
+    // Create a new station
     const stationToSave = {
-      vendor: station.vendor,
-      price: station.price,
-      speed: station.speed,
-      owner: userService.getLoggedinUser(),
-      msgs: [],
-    }
-    savedStation = await storageService.post(STORAGE_KEY, stationToSave)
+      name: station.name,
+      imgUrl: station.imgUrl,
+      tags: station.tags,
+      createdBy: {
+        id: userService.getLoggedinUser().id,
+        fullname: userService.getLoggedinUser().fullname,
+        imgUrl: userService.getLoggedinUser().imgUrl,
+      },
+      likedByUsers: [],
+      songs: station.songs || [],
+    };
+    savedStation = await storageService.post(STORAGE_KEY, stationToSave);
   }
-  return savedStation
+  return savedStation;
 }
 
 async function addStationMsg(stationId, txt) {
