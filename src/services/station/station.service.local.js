@@ -5,7 +5,7 @@ import {
   stations as demoStations,
   user as demoUser,
 } from '../../../demo_data/station.js'
-
+import { getEmptyStation } from './index.js'
 const STORAGE_KEY = 'stationDB'
 
 export const stationService = {
@@ -15,7 +15,8 @@ export const stationService = {
   remove,
   addStationMsg,
   initializeDemoData,
-  fetchLikedSongs
+  fetchLikedSongs,
+  addNewStation
 }
 
 window.cs = stationService
@@ -47,6 +48,36 @@ function getById(stationId) {
 
 async function remove(stationId) {
   await storageService.remove(STORAGE_KEY, stationId)
+}
+
+async function addNewStation(dispatchAddStation) {
+  const loggedinUser = userService.getLoggedinUser();
+
+  const newStation = {
+    _id: makeId(), // Generate a new unique ID
+    name: 'New Playlist', // Default name
+    imgUrl: 'https://via.placeholder.com/150', // Default placeholder image
+    tags: [], // Default tags
+    createdBy: loggedinUser ? {
+      id: loggedinUser.id,
+      fullname: loggedinUser.fullname,
+      imgUrl: loggedinUser.imgUrl,
+    } : null, // Set to null if no user is logged in
+    likedByUsers: [],
+    songs: [],
+  };
+
+  try {
+    // Directly post the new station to storage
+    await storageService.post(STORAGE_KEY, newStation);
+    if (dispatchAddStation) {
+      dispatchAddStation(newStation);
+    }
+    return newStation;
+  } catch (err) {
+    console.error('Cannot add station', err);
+    throw err;
+  }
 }
 
 async function save(station) {
