@@ -1,6 +1,5 @@
 .station-details {
-  
-  padding: 1em;
+  padding: 2em;
   color: white;
 
   img.station-img {
@@ -17,46 +16,73 @@
       align-items: center;
       font-size: 0.7em;
     }
-    
-      h1 {
-        font-family: 'gotham-medium';
-        display: flex;
-        align-items: center;
-        font-size: 5em;
-        margin: 0;
-        height: max-content;
+
+    h1 {
+      font-family: 'gotham-medium';
+      display: flex;
+      align-items: center;
+      font-size: 5em;
+      margin: 0;
+      height: max-content;
+    }
+    h4 {
+      font-family: 'gotham-light';
+      font-weight: 200;
+      margin: 0;
+    }
+    .created-by {
+      color: white;
+      gap: 0.4em;
+      font-size: em(13px);
+
+      .fullname {
+        font-family: 'gotham-book';
+        font-weight: 700;
       }
-      h4 {
+      .station-length {
         font-family: 'gotham-light';
         font-weight: 200;
+      }
+      img {
+        width: 1.5em;
+        height: 1.5em;
+        border-radius: 50%;
+      }
+      h4 {
         margin: 0;
       }
-      .created-by {
-        color: white;
-        gap: 0.4em;
-        font-size: em(13px);
-        
-        .fullname {
-          font-family: 'gotham-book';
-          font-weight: 700;
-        }
-        .station-length {
-          font-family: 'gotham-light';
-          font-weight: 200;
-        }
-        img {
-          width: 1.5em;
-          height: 1.5em;
-          border-radius: 50%;
-        }
-        h4 {
-          margin: 0;
-        }
-        .circle-divider {
-          font-size: 0.3em;
-          height: 0.8em;
-        }
+      .circle-divider {
+        font-size: 0.3em;
+        height: 0.8em;
       }
+    }
   }
-  
+}
+.station-header-actions { 
+  & * {
+    cursor: pointer;
+  }
+  height: 8em;
+  .play-circle {
+    color: $spotify-green;
+    font-size: 5em;
+  }
+  .plus-circle {
+    font-size: 3em;
+  }
+  .three-dots {
+    font-size: 2em;
+  }
+  .list-style-change {
+    h4 {
+      font-size: em(14px);
+      color: #ffffff;
+      opacity: 70%;
+    }
+    svg {
+      font-size: em(13.333px);
+      color: #ffffff;
+      opacity: 70%;
+    }
+  }
 }

@@ -1,16 +1,21 @@
-import { BsThreeDots } from 'react-icons/bs'
-import { CiCirclePlus } from 'react-icons/ci'
-import { FaCircle, FaListUl } from 'react-icons/fa'
-import { FaMagnifyingGlass } from 'react-icons/fa6'
-import { IoPlayCircle } from 'react-icons/io5'
+
+import { DetailsHeaderActions } from './DetailsHeaderActions'
+import { useEffect, useRef, useState } from 'react'
 
 export function StationDetailsHeader({ station }) {
   const { name, createdBy, songs, imgUrl } = station
+  const [averageColor, setAverageColor] = useState(null)
+  const imgRef = useRef(null)
+
+  console.log(averageColor)
+
+
+
 
   return (
     <div className="station-details-container flex flex-column">
       <div className="station-details-header flex flex-row align-end">
-        <img src={imgUrl} alt="station-name" className="station-img" />
+      <img src={imgUrl} ref={imgRef} alt="station-name" className="station-img" />
         <div className="flex flex-column">
           <h4>Playlist</h4>
           <h1>{name}</h1>
@@ -24,21 +29,8 @@ export function StationDetailsHeader({ station }) {
           </div>
         </div>
       </div>
-      
-      <div className="station-header-actions flex flex-row justify-between">
-        <div className="flex flex-row">
-          <IoPlayCircle />
-          <CiCirclePlus />
-          <BsThreeDots />
-        </div>
-        <div className="flex flex-row">
-          <FaMagnifyingGlass />
-          <div className="list-style-change flex flex-row">
-            <FaListUl />
-            <h4>List</h4>
-          </div>
-        </div>
-      </div>
+
+      <DetailsHeaderActions />
     </div>
   )
 }
