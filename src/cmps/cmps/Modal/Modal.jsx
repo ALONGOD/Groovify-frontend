@@ -25,5 +25,6 @@ function DynamicModal({ modalType, stations, }) {
       return <AddToStationModal stations={stations} />
     case 'library':
       return <AddStationModal />
-
   }
+
+}
