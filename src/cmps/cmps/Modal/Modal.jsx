@@ -27,5 +27,3 @@ function DynamicModal({ modalType, stations, }) {
       return <AddStationModal />
 
   }
-
-}

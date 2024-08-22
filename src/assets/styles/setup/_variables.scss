@@ -21,10 +21,18 @@ $modal-row-hover: rgb(62, 62, 62);
 $bg-main: black;
 $bg-secondary: #121212;
 
+// SIZES
+
 $height-footer: 4em;
 $height-header: 4em;
 
+$station-details-header: 19.687em;
 $height-main: calc(100vh - (0.5em * 3 + $height-footer));
+$height-station-details-songlist: calc($height-main - $station-details-header - $height-header - $height-footer);
+
+// MARGINS
+
+$station-details-margin: 2em;
 
 // Breakpoints
 $mobile-breakpoint: 460px;
