@@ -15,7 +15,7 @@ export function SongList({ songs, type }) {
   }
 
   return (
-    <ul className={`song-list ${type} flex flex-column`}>
+    <ul className={`song-list ${type}`}>
       {type === 'list-table' && (
         <>
           <SongListHeader />

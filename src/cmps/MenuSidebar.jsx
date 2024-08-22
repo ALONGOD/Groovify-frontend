@@ -23,7 +23,7 @@ export function MenuSidebar() {
           selected={selected}
           setSelected={setSelected}
         />
-        <StationList />
+        <StationList isCollapsed={isCollapsed}/>
       </div>
     </aside>
   )

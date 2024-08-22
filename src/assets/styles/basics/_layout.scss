@@ -22,6 +22,14 @@ body {
   &:has(main.open) {
     grid-template-columns: 20% 1fr 35%;
   }
+
+  &:has(aside.collapsed) {
+    grid-template-columns: 60px 1fr;
+  }
+
+  &:has(aside.collapsed):has(main.open) {
+    grid-template-columns: 60px 1fr 35%;
+  }
 }
 
 main {

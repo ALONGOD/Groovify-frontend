@@ -1,13 +1,34 @@
-
-
 ul.song-list {
   display: grid;
-  grid-template-columns: 2fr 17fr 10fr 10fr 3fr;
   gap: 0.5em;
   padding-inline: 1em;
 
-  .list-header, li {
-    display: contents;
+  &.list-table {
+    grid-template-columns: 2fr 17fr 10fr 10fr 3fr;
+
+    .list-header,
+    li {
+      display: contents;
+    }
+  }
+
+  &.search-results {
+    padding-inline: 0;
+    grid-template-rows: repeat(auto-fill, max-content);    // grid-template-columns: 7fr 1fr;
+    grid-template-columns: 7fr 1fr;
+    li {
+      display: contents;
+      .main-details {
+        grid-column: 1;
+      }
+      .duration {
+        grid-column: 2;
+      }
+      img {
+        width: 2.3em;
+        height: 2.3em;
+      }
+    }
   }
 
   li {
@@ -32,7 +53,6 @@ ul.song-list {
       color: white;
     }
 
-    
     div.duration {
       grid-column: 5;
       width: 5em;

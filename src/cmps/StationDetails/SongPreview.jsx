@@ -7,8 +7,6 @@ import { Modal } from '../cmps/Modal/Modal'
 export function SongPreview({ song, idx, songModal, onToggleModal, type }) {
   const [onSongHover, setOnSongHover] = useState(false)
 
-  
-
   const { addedAt, duration, imgUrl, title, artist, album } = song
 
   const isSearchResults = type === 'search-results'
@@ -20,8 +18,9 @@ export function SongPreview({ song, idx, songModal, onToggleModal, type }) {
       onMouseEnter={() => setOnSongHover(true)}
       onMouseLeave={() => setOnSongHover(false)}
     >
-
-     {isListTable && <h4 className="idx">{onSongHover ? <IoIosPlay /> : idx + 1}</h4>}
+      {isListTable && (
+        <h4 className="idx">{onSongHover ? <IoIosPlay /> : idx + 1}</h4>
+      )}
       <div className="main-details flex flex-row align-center">
         <img src={imgUrl} alt="song-img" />
         <div className="song-details flex flex-column">
@@ -29,19 +28,22 @@ export function SongPreview({ song, idx, songModal, onToggleModal, type }) {
           <h4>{artist ? artist : 'Artist'}</h4>
         </div>
       </div>
-      {isListTable && <h4>{album ? album : 'Album'}</h4>}
-      <h4>{getTimeOfSent(addedAt)}</h4>
+      {isListTable && (
+        <>
+          <h4>{album ? album : 'Album'}</h4>
+          <h4>{getTimeOfSent(addedAt)}</h4>
+        </>
+      )}
       <div className="duration relative flex justify-start align-center">
-        <h4>{duration}</h4>
+        <h4>{duration ? duration : '3:30'}</h4>
         {onSongHover && (
           <BsThreeDots
             className="dots"
             onClick={ev => onToggleModal(ev, song)}
           />
         )}
-        {songModal?.id === song?.id && <Modal modalType={'songOptions'}  />}
+        {songModal?.id === song?.id && <Modal modalType={'songOptions'} />}
       </div>
-
     </li>
   )
 }
