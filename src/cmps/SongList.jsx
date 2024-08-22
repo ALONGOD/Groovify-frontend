@@ -25,7 +25,7 @@ export function SongList({ songs, type }) {
       {songs.map((song, idx) => {
         return (
           <SongPreview
-            key={song.id}
+            key={`${song.id}-${idx}`}
             song={song}
             type={type}
             idx={idx}
