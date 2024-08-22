@@ -8,7 +8,7 @@ export function SearchPage() {
   return (
     <div className="search-page">
       {/* Pass the search results to the SongList component */}
-      <SongList songs={searchResults} />
+      <SongList songs={searchResults} type={'list-table'} />
     </div>
   );
 }
