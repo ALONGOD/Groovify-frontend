@@ -24,17 +24,43 @@ export async function loadStations(filterBy) {
 
 export async function removeSongFromStation(stationId) {
   const songId = store.getState().stationModule.modalSong?.id
-  const updatedStation = await storageService.removeSongFromStation(songId, stationId)
-  store.dispatch({ type: UPDATE_STATION, updatedStation})
-  return updatedStation
+  const stations = await storageService.query('stationDB')
+  const idx = stations.findIndex(station => station._id === stationId)
+  const songIdx = stations[idx].songs.findIndex(song => song.id === songId)
+  if (songIdx < 0) throw 'Song not found in station'
+  stations[idx].songs.splice(songIdx, 1)
+  await storageService.save('stationDB', stations)
+  console.log(stations[idx]);
+  
+  store.dispatch({ type: UPDATE_STATION, updatedStation: stations[idx] })
+  return stations[idx]
 }
 
-export async function addToStation(stationId, song) {
-  const updatedStation = await storageService.addSongToStation(song, stationId)
-  store.dispatch({ type: UPDATE_STATION, updatedStation})
-}
+// export async function removeSongFromStation(stationId) {
+//   const songId = store.getState().stationModule.modalSong?.id
+//   const updatedStation = await storageService.removeSongFromStation(
+//     songId,
+//     stationId
+//   )
+//   store.dispatch({ type: UPDATE_STATION, updatedStation })
+//   return updatedStation
+// }
 
-export function toggleModal(song) {  
+export async function addToStation(stationId, songToAdd) {
+  const stations = await storageService.query('stationDB')
+  const idx = stations.findIndex(station => station._id === stationId)
+  const hasId = stations[idx].songs.some(song => song.id === songToAdd.id)
+  if (hasId) throw 'Song already exists in station'
+  stations[idx].songs.push(songToAdd)
+  await storageService.save('stationDB', stations)
+  store.dispatch({ type: UPDATE_STATION, updatedStation: stations[idx]})
+}
+// export async function addToStation(stationId, song) {
+//   const updatedStation = await storageService.addSongToStation(song, stationId)
+//   store.dispatch({ type: UPDATE_STATION, updatedStation})
+// }
+
+export function toggleModal(song) {
   const prevSongId = store.getState().stationModule.modalSong
   const newState = song?.id === prevSongId?.id ? '' : song
 
@@ -52,10 +78,10 @@ export async function removeStation(stationId) {
 }
 
 export function setSearchResults(results) {
-    store.dispatch({
-        type: SET_SEARCH_RESULTS,
-        results
-    });
+  store.dispatch({
+    type: SET_SEARCH_RESULTS,
+    results,
+  })
 }
 
 export async function addStation(station) {
