@@ -3,12 +3,13 @@ import { IoIosPlay } from 'react-icons/io'
 import { getTimeOfSent } from '../../services/util.service'
 import { BsThreeDots } from 'react-icons/bs'
 import { Modal } from '../Modal/Modal'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { SET_CURRENT_SONG } from '../../store/reducers/station.reducer'
 
 export function SongPreview({ song, idx, songModal, onToggleModal, type }) {
   const dispatch = useDispatch()
   const [onSongHover, setOnSongHover] = useState(false)
+  const currSong = useSelector(state => state.stationModule.currSong)
 
   const { addedAt, duration, imgUrl, title, artist, album } = song
 
@@ -16,14 +17,12 @@ export function SongPreview({ song, idx, songModal, onToggleModal, type }) {
   const isListTable = type === 'list-table'
 
   function playSong() {
-    console.log(song);
-    
     dispatch({ type: SET_CURRENT_SONG, songToPlay: song })
   }
 
   return (
     <li
-      className="flex flex-row align-center"
+      className={`flex flex-row align-center ${currSong?.id === song?.id ? 'active' : ''}`}
       onMouseEnter={() => setOnSongHover(true)}
       onMouseLeave={() => setOnSongHover(false)}
     >

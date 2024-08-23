@@ -32,6 +32,11 @@ ul.song-list {
   }
 
   li {
+    &.active {
+      h4.title {
+        color: $spotify-green;
+      }
+    }
     & > div {
       gap: 1em;
     }

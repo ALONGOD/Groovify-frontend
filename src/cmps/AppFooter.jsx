@@ -23,7 +23,7 @@ export function AppFooter() {
     }
 
     return (
-        <footer className='app-footer full flex flex-row align-center justify-between'>
+        <footer className='app-footer relative full flex flex-row align-center justify-between'>
             <div className='details flex flex-row align-center'>
                 <img
                     src={
