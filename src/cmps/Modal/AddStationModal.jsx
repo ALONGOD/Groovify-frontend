@@ -2,9 +2,12 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import { stationService } from '../../services/station/station.service.local.js';
 import { useDispatch } from 'react-redux';
 import { ADD_STATION } from '../../store/reducers/station.reducer.js';
+import { useNavigate } from 'react-router-dom';
+
 
 export function AddStationModal() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     async function onAddNewPlaylist() {
         try {
@@ -12,6 +15,7 @@ export function AddStationModal() {
                 dispatch({ type: ADD_STATION, station });
             });
             console.log('New playlist added:', newStation);
+            navigate(`/station/${newStation._id}`);
         } catch (err) {
             console.error('Failed to add new playlist:', err);
         }
