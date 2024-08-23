@@ -26,6 +26,13 @@ $bg-secondary: #121212;
 $height-footer: 4em;
 $height-header: 4em;
 
+$navigation-bar-height: 8em;
+$library-link-height: 4.5em;
+$sub-menu-height:4.5em;
+
+$station-list-bar-height: calc(100vh - $navigation-bar-height - $library-link-height - $sub-menu-height - $height-footer - (0.5em * 4));
+// $height
+
 $station-details-header: 19.687em;
 $height-main: calc(100vh - (0.5em * 3 + $height-footer));
 $height-station-details-songlist: calc($height-main - $station-details-header - $height-header - $height-footer);
