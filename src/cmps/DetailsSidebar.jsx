@@ -1,6 +1,8 @@
+import { useSelector } from "react-redux"
+
 export function DetailsSidebar() {
     return (
-        <aside className='details-sidebar'>
+        <aside className={`details-sidebar`}>
             <header className='details-header'>
                 <h3>AC/DC</h3>
                 <div className='header-actions'>

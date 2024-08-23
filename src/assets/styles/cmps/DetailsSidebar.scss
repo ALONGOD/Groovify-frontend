@@ -1,11 +1,15 @@
 .details-sidebar {
     @include component-layout;
     padding: 1em;
-    display: flex;
     flex-direction: column;
+    display: none;
     gap: 1em;
     grid-column: 3;
     overflow-y: auto;
+    
+    .app:has(main.open) & {
+        display: flex;
+    }
 
     .details-header {
         display: flex;
