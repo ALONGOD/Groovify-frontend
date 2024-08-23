@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { AiOutlineSound } from 'react-icons/ai'
 import { FaPauseCircle } from 'react-icons/fa'
 import { FaBackwardStep, FaCircleCheck, FaForwardStep } from 'react-icons/fa6'
@@ -10,61 +11,48 @@ import { TOGGLE_DETAILS_SIDEBAR } from '../store/reducers/system.reducer'
 import { MusicPlayer } from './MusicPlayer'
 
 export function AppFooter() {
-  const dispatch = useDispatch()
-  const songPlaying = useSelector(
-    storeState => storeState.stationModule.songPlaying
-  )
+    const dispatch = useDispatch()
+    const [isActive, setIsActive] = useState(false)
 
-  function toggleDetailsSidebar() {
-    dispatch({ type: TOGGLE_DETAILS_SIDEBAR})
-  }
-  
-  return (
-    <footer className="app-footer full flex flex-row align-center justify-between">
-      <div className="details flex flex-row align-center">
-        <img
-          src={
-            songPlaying
-              ? songPlaying.imgUrl
-              : 'https://i.ytimg.com/vi/WwSRA2p4He0/mqdefault.jpg'
-          }
-          alt="song-img"
-        />
-        <div className="flex flex-column">
-          <h3>
-            {songPlaying
-              ? songPlaying.title
-              : 'Feel the Fiyaaah (with A$AP Rocky & feat. Takeoff)'}
-          </h3>
-          <h4>
-            {songPlaying
-              ? songPlaying.artist
-              : 'Metro Boomin, A$AP Rocky, Takeoff'}
-          </h4>
-        </div>
-        <FaCircleCheck />
-      </div>
-      <div className="player flex flex-column justify-center align-center">
-        <div className="top flex flex-row align-center">
-          <TiArrowShuffle />
-          <div className="song-actions flex flex-row align-center">
-            <FaBackwardStep />
-            <FaPauseCircle />
-            <FaForwardStep />
-          </div>
-          <RiRepeat2Line />
-        </div>
+    const currSong = useSelector(storeState => storeState.stationModule.currSong)
+    console.log('songPlaying:', currSong)
 
-        <div className="bottom flex flex-row align-center">
-          <MusicPlayer />
-        </div>
-      </div>
-      <div className="other-options flex flex-row align-center">
-        <IoPlayCircleOutline onClick={toggleDetailsSidebar}/>
-        <HiOutlineQueueList />
-        <AiOutlineSound />
-        <input type="range" name="" className="youtube-player sound" />
-      </div>
-    </footer>
-  )
+    function toggleDetailsSidebar() {
+        setIsActive(prevState => !prevState)
+        dispatch({ type: TOGGLE_DETAILS_SIDEBAR })
+    }
+
+    return (
+        <footer className='app-footer full flex flex-row align-center justify-between'>
+            <div className='details flex flex-row align-center'>
+                <img
+                    src={
+                        currSong
+                            ? currSong.imgUrl
+                            : 'https://i.ytimg.com/vi/WwSRA2p4He0/mqdefault.jpg'
+                    }
+                    alt='song-img'
+                />
+                <div className='flex flex-column'>
+                    <h3>
+                        {currSong
+                            ? currSong.title
+                            : 'Feel the Fiyaaah (with A$AP Rocky & feat. Takeoff)'}
+                    </h3>
+                    <h4>{currSong ? currSong.artist : 'Metro Boomin, A$AP Rocky, Takeoff'}</h4>
+                </div>
+                <FaCircleCheck />
+            </div>
+            <MusicPlayer />
+            <div className='other-options flex flex-row align-center'>
+                <IoPlayCircleOutline
+                    onClick={toggleDetailsSidebar}
+                    style={{ color: isActive ? '#00ba5c' : 'inherit' }}
+                />
+                <HiOutlineQueueList />
+                <AiOutlineSound />
+                <input type='range' name='' className='youtube-player sound' />
+            </div>
+        </footer>
+    )
 }

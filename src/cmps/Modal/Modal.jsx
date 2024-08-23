@@ -8,7 +8,7 @@ export function Modal({ modalType, }) {
 
   return (
     <>
-      <div className={`modal ${modalType === 'playlists' ? 'playlist-modal' : ''} absolute`}>
+      <div className={`modal ${modalType} absolute`}>
         <div className="modal-content">
           <DynamicModal modalType={modalType} stations={stations} />
         </div>

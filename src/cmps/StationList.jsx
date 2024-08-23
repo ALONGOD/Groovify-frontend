@@ -24,7 +24,6 @@ export function StationList({isCollapsed}) {
     }
   }
 
-  console.log(stations)
 
   if (!stations) return <h1>Loading...</h1>
   return (

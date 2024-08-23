@@ -7,7 +7,6 @@ export function StationDetailsHeader({ station }) {
   const [averageColor, setAverageColor] = useState(null)
   const imgRef = useRef(null)
 
-  console.log(averageColor)
 
 
 

@@ -9,7 +9,12 @@
   width: max-content;
   color: rgb(231, 231, 231);
 
-  &.playlist-modal {
+  &.library {
+    top: em(30px);
+    right: 10px;
+  }
+
+  &.playlists {
     top: 0;
     right: 100%;
     z-index: 100;

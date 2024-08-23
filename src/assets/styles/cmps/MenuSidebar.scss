@@ -43,6 +43,11 @@ aside {
         }
     }
 
+    .add-playlist-modal {
+        width: max-content;
+        height: max-content;
+    }
+
     .nav-link {
         display: flex;
         align-items: center;
@@ -53,6 +58,9 @@ aside {
         transition: color 0.2s ease;
         width: 100%;
         
+        span {
+            margin-right: 2em;
+        }
 
         .icon {
             margin-right: 0.75em;

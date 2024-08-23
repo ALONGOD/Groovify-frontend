@@ -1,13 +1,15 @@
 export const SET_STATIONS = 'SET_STATIONS'
-export const REMOVE_STATION = 'REMOVE_STATION'
 export const ADD_STATION = 'ADD_STATION'
 export const UPDATE_STATION = 'UPDATE_STATION'
-export const ADD_STATION_MSG = 'ADD_STATION_MSG'
-export const SET_MODAL = 'SET_MODAL'
-export const SET_SEARCH_RESULTS = 'SET_SEARCH_RESULTS'
+export const REMOVE_STATION = 'REMOVE_STATION'
 export const ADD_SONG_TO_STATION = 'ADD_SONG_TO_STATION'
-export const SET_STATION_DETAILS = 'SET_STATION_DETAILS'
+export const ADD_STATION_MSG = 'ADD_STATION_MSG'
 
+export const SET_MODAL = 'SET_MODAL'
+
+export const SET_SEARCH_RESULTS = 'SET_SEARCH_RESULTS'
+export const SET_STATION_DETAILS = 'SET_STATION_DETAILS'
+export const SET_CURRENT_SONG = 'SET_CURRENT_SONG'
 
 const initialState = {
   stations: [],
@@ -26,7 +28,6 @@ export function stationReducer(state = initialState, action) {
     case SET_STATIONS:
       newState = { ...state, stations: action.stations }
       break
-
     case REMOVE_STATION:
       stations = state.stations.filter(
         station => station._id !== action.stationId
@@ -37,11 +38,13 @@ export function stationReducer(state = initialState, action) {
       newState = { ...state, searchResults: action.results }
       break
     case ADD_STATION:
-      newState = { ...state, stations: [...state.stations, action.station] };
-      break;
+      newState = { ...state, stations: [...state.stations, action.station] }
+      break
     case UPDATE_STATION:
       stations = state.stations.map(station =>
-        station._id === action.updatedStation._id ? action.updatedStation : station
+        station._id === action.updatedStation._id
+          ? action.updatedStation
+          : station
       )
       newState = { ...state, stations }
       break
@@ -50,7 +53,13 @@ export function stationReducer(state = initialState, action) {
       break
     case SET_MODAL:
       newState = { ...state, modalSong: action.song }
+      break
+    case SET_CURRENT_SONG:
+      // console.log(action.songToPlay)
+      newState = { ...state, currSong: action.songToPlay }
+      break
     default:
+      return newState
   }
   return newState
 }
