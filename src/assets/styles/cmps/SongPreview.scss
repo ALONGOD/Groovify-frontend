@@ -4,7 +4,26 @@ ul.song-list {
   padding-inline: 1em;
 
   &.list-table {
-    grid-template-columns: 2fr 17fr 10fr 10fr 3fr;
+    grid-template-columns: 2fr 17fr 10fr 7fr 3fr 7fr;
+
+    div:has(svg.like-song-btn) {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .like-song-btn {
+      font-size: 1.2em;
+      grid-column: 5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &.hidden {
+        display: none;
+      }
+    }
 
     .list-header,
     li {
@@ -63,13 +82,14 @@ ul.song-list {
     }
     .idx {
       font-size: 1em;
+      grid-column: 1;
     }
     .title {
       color: white;
     }
 
     div.duration {
-      grid-column: 5;
+      grid-column: 6;
       width: 5em;
       svg.dots {
         display: flex;

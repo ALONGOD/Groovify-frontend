@@ -6,6 +6,7 @@ import { Modal } from '../Modal/Modal'
 import { useDispatch, useSelector } from 'react-redux'
 import { SET_CURRENT_SONG } from '../../store/reducers/station.reducer'
 import { FaPlay } from 'react-icons/fa'
+import { LikeSongBtn } from '../LikeSongBtn'
 
 export function SongPreview({ song, idx, songModal, onToggleModal, type }) {
   const dispatch = useDispatch()
@@ -46,6 +47,7 @@ export function SongPreview({ song, idx, songModal, onToggleModal, type }) {
           <h4>{getTimeOfSent(addedAt)}</h4>
         </>
       )}
+      <LikeSongBtn song={song} onHover={onSongHover}/>
       <div className="duration relative flex justify-start align-center">
         <h4>{duration ? duration : '3:30'}</h4>
         {onSongHover && (
