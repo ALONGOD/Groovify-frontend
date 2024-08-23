@@ -18,32 +18,35 @@ export function MusicPlayer({}) {
   
   let videoElement = null
   const opts = {
-    height: '390',
-    width: '640',
+    // height: '390',
+    // width: '640',
+    height: '200',
+    width: '200',
     playerVars: {
       autoplay: 0,
     },
   }
 
   useEffect(() => {
-    soundPlay()
+    setIsPlaying(false)
   }, [currSong])
   
 
   function onPlayerReady(event) {
     setPlayer(event.target)
     console.log(player);
+    event.target.setPlaybackQuality('small')
     event.target.playVideo()
   }
 
-  function soundPlay() {
-    if (player) {
-      console.log(player);
+  // function soundPlay() {
+  //   if (player) {
+  //     console.log(player);
       
-      player.playVideo()
-      setIsPlaying(true)
-    }
-  }
+  //     player.playVideo()
+  //     setIsPlaying(true)
+  //   }
+  // }
 
   function toggleSoundPlay() {
     if (player) {
