@@ -18,8 +18,18 @@ ul.song-list {
     grid-template-columns: 7fr 1fr;
     li {
       display: contents;
+      &:hover img {
+        opacity: 0.4;
+      }
       .main-details {
         grid-column: 1;
+        .play-btn {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          opacity: 1;
+        }
       }
       .duration {
         grid-column: 2;

@@ -5,6 +5,7 @@ import { BsThreeDots } from 'react-icons/bs'
 import { Modal } from '../Modal/Modal'
 import { useDispatch, useSelector } from 'react-redux'
 import { SET_CURRENT_SONG } from '../../store/reducers/station.reducer'
+import { FaPlay } from 'react-icons/fa'
 
 export function SongPreview({ song, idx, songModal, onToggleModal, type }) {
   const dispatch = useDispatch()
@@ -30,7 +31,10 @@ export function SongPreview({ song, idx, songModal, onToggleModal, type }) {
         <h4 onClick={playSong} className="idx">{onSongHover ? <IoIosPlay /> : idx + 1}</h4>
       )}
       <div className="main-details flex flex-row align-center">
-        <img src={imgUrl} alt="song-img" />
+        <div className='relative'>
+          <img src={imgUrl} alt="song-img" />
+          {!isListTable && onSongHover && <FaPlay onClick={playSong} className='play-btn'/>}
+        </div>
         <div className="song-details flex flex-column">
           <h4 className="title">{title}</h4>
           <h4>{artist ? artist : 'Artist'}</h4>
