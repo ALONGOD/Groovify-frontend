@@ -4,8 +4,9 @@ export const storageService = {
   post,
   put,
   remove,
-  addSongToStation,
-  removeSongFromStation
+  // addSongToStation,
+  // removeSongFromStation,
+  save
 }
 
 function query(entityType, delay = 500) {
@@ -30,7 +31,7 @@ function post(entityType, newEntity) {
   }
   return query(entityType).then(entities => {
     entities.push(newEntity)
-    _save(entityType, entities)
+    save(entityType, entities)
     return newEntity
   })
 }
@@ -44,30 +45,30 @@ function put(entityType, updatedEntity) {
       )
     const entityToUpdate = { ...entities[idx], ...updatedEntity }
     entities.splice(idx, 1, entityToUpdate)
-    _save(entityType, entities)
+    save(entityType, entities)
     return entityToUpdate
   })
 }
 
-async function addSongToStation(songToAdd, stationId) {
-  const stations = await query('stationDB')
-  const idx = stations.findIndex(station => station._id === stationId)
-  const hasId = stations[idx].songs.some(song => song.id === songToAdd.id)
-  if (hasId) throw 'Song already exists in station'
-  stations[idx].songs.push(songToAdd)
-  _save('stationDB', stations)
-  return stations[idx]
-}
+// async function addSongToStation(songToAdd, stationId) {
+//   const stations = await query('stationDB')
+//   const idx = stations.findIndex(station => station._id === stationId)
+//   const hasId = stations[idx].songs.some(song => song.id === songToAdd.id)
+//   if (hasId) throw 'Song already exists in station'
+//   stations[idx].songs.push(songToAdd)
+//   save('stationDB', stations)
+//   return stations[idx]
+// }
 
-async function removeSongFromStation(songId, stationId) {
-  const stations = await query('stationDB')
-  const idx = stations.findIndex(station => station._id === stationId)
-  const songIdx = stations[idx].songs.findIndex(song => song.id === songId)
-  if (songIdx < 0) throw 'Song not found in station'
-  stations[idx].songs.splice(songIdx, 1)
-  _save('stationDB', stations)
-  return stations[idx]
-}
+// async function removeSongFromStation(songId, stationId) {
+//   const stations = await query('stationDB')
+//   const idx = stations.findIndex(station => station._id === stationId)
+//   const songIdx = stations[idx].songs.findIndex(song => song.id === songId)
+//   if (songIdx < 0) throw 'Song not found in station'
+//   stations[idx].songs.splice(songIdx, 1)
+//   save('stationDB', stations)
+//   return stations[idx]
+// }
 
 function remove(entityType, entityId) {
   return query(entityType).then(entities => {
@@ -77,13 +78,13 @@ function remove(entityType, entityId) {
         `Remove failed, cannot find entity with id: ${entityId} in: ${entityType}`
       )
     entities.splice(idx, 1)
-    _save(entityType, entities)
+    save(entityType, entities)
   })
 }
 
 // Private functions
 
-function _save(entityType, entities) {
+function save(entityType, entities) {
   localStorage.setItem(entityType, JSON.stringify(entities))
 }
 
