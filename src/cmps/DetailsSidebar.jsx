@@ -1,9 +1,25 @@
-import { useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { DetailsSidebarClose } from './DetailsSidebarClose'
+import { TOGGLE_DETAILS_SIDEBAR } from '../store/reducers/system.reducer'
 
 export function DetailsSidebar() {
     const currSong = useSelector(state => state.stationModule.currSong)
     const isDetailsOpen = useSelector(state => state.systemModule.isDetailsOpen)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth < 900 && isDetailsOpen) {
+                dispatch({ type: TOGGLE_DETAILS_SIDEBAR })
+            }
+        }
+
+        window.addEventListener('resize', handleResize)
+        return () => {
+            window.removeEventListener('resize', handleResize)
+        }
+    }, [dispatch, isDetailsOpen])
 
     return (
         <aside className={`details-sidebar ${isDetailsOpen ? 'open' : 'closed'}`}>
