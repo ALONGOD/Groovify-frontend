@@ -19,17 +19,17 @@ body {
 
     // Both sidebars open
     &:has(aside.menu-sidebar:not(.collapsed)):has(aside.details-sidebar.open) {
-        grid-template-columns: minmax(200px, 20%) 1fr minmax(300px, 25%);
+        grid-template-columns: minmax(300px, 15%) 1fr minmax(300px, 15%);
     }
 
     // Menu sidebar collapsed, details sidebar open
     &:has(aside.menu-sidebar.collapsed):has(aside.details-sidebar.open) {
-        grid-template-columns: 60px 1fr minmax(300px, 25%);
+        grid-template-columns: 60px 1fr minmax(300px, 15%);
     }
 
     // Details sidebar closed, menu sidebar open
     &:has(aside.menu-sidebar:not(.collapsed)):has(aside.details-sidebar.closed) {
-        grid-template-columns: minmax(200px, 20%) 1fr;
+        grid-template-columns: minmax(300px, 15%) 1fr;
     }
 
     // Both sidebars collapsed
