@@ -25,26 +25,24 @@ export function AppFooter() {
     return (
         <footer className='app-footer relative full flex flex-row align-center justify-between'>
             <div className='details flex flex-row align-center'>
-                <img
-                    src={
-                        currSong
-                            ? currSong.imgUrl
-                            : 'https://i.ytimg.com/vi/WwSRA2p4He0/mqdefault.jpg'
-                    }
-                    alt='song-img'
-                />
-                <div className='flex flex-column'>
-                    <h3>
-                        {currSong
-                            ? currSong.title
-                            : 'Feel the Fiyaaah (with A$AP Rocky & feat. Takeoff)'}
-                    </h3>
-                    <h4>{currSong ? currSong.artist : 'Metro Boomin, A$AP Rocky, Takeoff'}</h4>
-                </div>
-                <FaCircleCheck />
+                {currSong &&
+                    <>
+                        <img
+                            src={currSong.imgUrl}
+                            alt='song-img'
+                        />
+                        <div className='flex flex-column'>
+                            <h3>
+                                {currSong.title}
+                            </h3>
+                            <h4>{currSong.artist}</h4>
+                        </div>
+                        <FaCircleCheck />
+                    </>
+                }
             </div>
             <MusicPlayer />
-            <div className='other-options flex flex-row align-center'>
+            {currSong && <div className='other-options flex flex-row align-center'>
                 <IoPlayCircleOutline
                     onClick={toggleDetailsSidebar}
                     style={{ color: isActive ? '#00ba5c' : 'inherit' }}
@@ -52,7 +50,7 @@ export function AppFooter() {
                 <HiOutlineQueueList />
                 <AiOutlineSound />
                 <input type='range' name='' className='youtube-player sound' />
-            </div>
+            </div>}
         </footer>
     )
 }
