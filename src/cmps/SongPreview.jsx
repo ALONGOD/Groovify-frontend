@@ -1,26 +1,24 @@
 import { useState } from 'react'
 import { IoIosPlay } from 'react-icons/io'
-import { getTimeOfSent } from '../../services/util.service'
+import { getTimeOfSent } from '../services/util.service'
 import { BsThreeDots } from 'react-icons/bs'
-import { Modal } from '../Modal/Modal'
+import { Modal } from './Modal/Modal'
 import { useDispatch, useSelector } from 'react-redux'
-import { SET_CURRENT_SONG } from '../../store/reducers/station.reducer'
-import { FaPlay } from 'react-icons/fa'
-import { LikeSongBtn } from '../LikeSongBtn'
 
-export function SongPreview({ song, idx, songModal, onToggleModal, type }) {
+import { FaPlay } from 'react-icons/fa'
+import { LikeSongBtn } from './LikeSongBtn'
+
+export function SongPreview({ playSong, currSong, song, idx, songModal, onToggleModal, type }) {
   const dispatch = useDispatch()
   const [onSongHover, setOnSongHover] = useState(false)
-  const currSong = useSelector(state => state.stationModule.currSong)
 
   const { addedAt, duration, imgUrl, title, artist, album } = song
 
   // const isSearchResults = type === 'search-results'
   const isListTable = type === 'list-table'
 
-  function playSong() {
-    dispatch({ type: SET_CURRENT_SONG, songToPlay: song })
-  }
+
+
 
   return (
     <li
@@ -29,12 +27,12 @@ export function SongPreview({ song, idx, songModal, onToggleModal, type }) {
       onMouseLeave={() => setOnSongHover(false)}
     >
       {isListTable && (
-        <h4 onClick={playSong} className="idx">{onSongHover ? <IoIosPlay /> : idx + 1}</h4>
+        <h4 onClick={() => playSong(song)} className="idx">{onSongHover ? <IoIosPlay /> : idx + 1}</h4>
       )}
       <div className="main-details flex flex-row align-center">
         <div className='relative'>
           <img src={imgUrl} alt="song-img" />
-          {!isListTable && onSongHover && <FaPlay onClick={playSong} className='play-btn'/>}
+          {!isListTable && onSongHover && <FaPlay onClick={(e) => playSong(song)} className='play-btn'/>}
         </div>
         <div className="song-details flex flex-column">
           <h4 className="title">{title}</h4>
