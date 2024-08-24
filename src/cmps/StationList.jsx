@@ -30,7 +30,9 @@ export function StationList({ isCollapsed }) {
   if (!stations) return <h1>Loading...</h1>;
   return (
     <section className="station-list">
-      <div><SearchBar searchType={'station'} /></div>
+      {!isCollapsed && (
+        <div><SearchBar searchType={'station'} placeholder={"Search in Playlists"} /></div>
+      )}
 
       <ul>
         {stations.map(station => (
