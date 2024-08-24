@@ -10,20 +10,11 @@ ul.song-list {
       height: 100%;
       width: 100%;
       display: flex;
-      justify-content: center;
+      justify-content: start;
       align-items: center;
     }
 
-    .like-song-btn {
-      font-size: 1.2em;
-      grid-column: 5;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      &.hidden {
-        display: none;
-      }
-    }
+ 
 
     .list-header,
     li {
