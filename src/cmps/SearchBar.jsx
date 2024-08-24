@@ -1,11 +1,11 @@
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 import { YouTubeAPIService } from '../services/youtubeAPI/fetchYoutubeApi.js';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setSearchResults } from '../store/actions/station.actions.js';
+import { setSearchResults, setSearchTerm } from '../store/actions/station.actions.js';
 
-export function SearchBar() {
-    const [searchTerm, setSearchTerm] = useState('');
+export function SearchBar({ searchType = 'youtube', placeholder = "What do you want to play?" }) {
+    const [searchTerm, setSearchTermState] = useState('');
     const dispatch = useDispatch();
 
     function debounce(func, delay) {
@@ -20,21 +20,31 @@ export function SearchBar() {
 
     const handleSearch = useCallback(
         debounce(async (query) => {
-            if (query) {
+            if (!query) {
+                if (searchType === 'station') {
+                    dispatch(setSearchTerm('')); // Reset the search term if the query is empty
+                }
+                return;
+            }
+
+            if (searchType === 'youtube') {
                 try {
                     const results = await YouTubeAPIService.searchVideos(query);
                     dispatch(setSearchResults(results));
                 } catch (error) {
                     console.error('Error fetching YouTube API:', error);
                 }
+            } else if (searchType === 'station') {
+                console.log('Dispatching search term:', query);
+                dispatch(setSearchTerm(query));
             }
         }, 800),
-        [dispatch]
+        [dispatch, searchType]
     );
 
     const handleChange = (event) => {
         const value = event.target.value;
-        setSearchTerm(value);
+        setSearchTermState(value);
         handleSearch(value);
     };
 
@@ -44,7 +54,7 @@ export function SearchBar() {
             <input
                 type="text"
                 name="search"
-                placeholder="What do you want to play?"
+                placeholder={placeholder}
                 value={searchTerm}
                 onChange={handleChange}
             />

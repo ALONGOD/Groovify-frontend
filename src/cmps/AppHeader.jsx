@@ -31,7 +31,7 @@ export function AppHeader() {
         </div>
         {(isSearchPage || isStationDetailsPage) && (
           <div className='search-bar'>
-            <SearchBar />
+            <SearchBar searchType={'youtube'} />
           </div>
         )}
       </div>

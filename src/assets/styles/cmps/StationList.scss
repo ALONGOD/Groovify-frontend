@@ -6,4 +6,37 @@
         height: $station-list-bar-height;
         overflow-y: auto;
     }
-} 
+
+    .search-bar {
+        position: relative;
+        margin-bottom: 1em; // Adjust margin as needed to fit the design of your station list
+
+        input[type='text'] {
+            background-color: #242424;
+            border: 0;
+            border-radius: 2em;
+            height: 3.5em;
+            padding-inline: 2em;
+            color: rgb(77, 77, 77);
+            font-size: 0.75em;
+            width: 100%; // Ensures it takes up the full width of its container
+
+            &::placeholder {
+                font-weight: 200;
+                color: rgb(96, 96, 96);
+            }
+        }
+
+        svg {
+            color: rgb(146, 146, 146);
+            position: absolute;
+            top: 50%;
+            left: 16px; // Adjust this to match the padding of the input field
+            font-weight: 100;
+            font-size: 0.8em;
+            transform: translateY(-50%);
+        }
+    }
+
+
+}
