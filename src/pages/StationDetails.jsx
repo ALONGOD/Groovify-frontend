@@ -11,22 +11,24 @@ import { SET_STATION_DETAILS } from '../store/reducers/station.reducer'
 export function StationDetails() {
   const dispatch = useDispatch()
   const { stationId } = useParams()
-  const station = useSelector(state => state.stationModule.stationDetails)
+  const stations = useSelector(state => state.stationModule.stations)
+  const [station, setStation] = useState({})
   const [searchQuery, setSearchQuery] = useState('')
 
   useEffect(() => {
-    loadStation(stationId)
-  }, [stationId])
+    setStation(stations.find(station => station._id === stationId))
+    // loadStation(stationId)
+  }, [stationId, stations])
 
-  async function loadStation(stationId) {
-    try {
-      const stationToSave = await stationService.getById(stationId)
-      dispatch({ type: SET_STATION_DETAILS, station: stationToSave })
-    } catch (err) {
-      console.log('Cannot load station', err)
-      throw err
-    }
-  }
+  // async function loadStation(stationId) {
+  //   try {
+  //     const stationToSave = await stationService.getById(stationId)
+  //     dispatch({ type: SET_STATION_DETAILS, station: stationToSave })
+  //   } catch (err) {
+  //     console.log('Cannot load station', err)
+  //     throw err
+  //   }
+  // }
 
   function handleSearch({ target }) {
     setSearchQuery(target.value)

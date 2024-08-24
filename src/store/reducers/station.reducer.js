@@ -14,10 +14,9 @@ export const SET_CURRENT_SONG = 'SET_CURRENT_SONG'
 const initialState = {
   stations: [],
   currSong: null,
-  player: { status: 'paused', volume: 0.5, progress: 0 },
+  // player: { status: 'paused', volume: 0.5, progress: 0 },
   modalSong: {},
   searchResults: [],
-  stationDetails: {},
 }
 
 export function stationReducer(state = initialState, action) {
@@ -43,17 +42,10 @@ export function stationReducer(state = initialState, action) {
     case UPDATE_STATION:
       stations = state.stations.map(station =>
       {
-        console.log(station._id === action.updatedStation._id);
-        console.log(action.updatedStation);
-        console.log(station);
-        
         return station._id === action.updatedStation._id ? action.updatedStation : station
       }
       )
       newState = { ...state, stations }
-      break
-    case SET_STATION_DETAILS:
-      newState = { ...state, stationDetails: action.station }
       break
     case SET_MODAL:
       newState = { ...state, modalSong: action.song }
