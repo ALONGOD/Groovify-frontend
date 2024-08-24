@@ -38,7 +38,9 @@ async function query() {
 }
 
 async function fetchLikedSongs() {
-  if (demoUser) return demoUser.likedSongsStation
+  const likedSongsStation = JSON.parse(localStorage.getItem('loggedinUser')).likedSongsStation
+  console.log('likedSongsStation:', likedSongsStation)
+  return likedSongsStation
 }
 
 function getById(stationId) {
