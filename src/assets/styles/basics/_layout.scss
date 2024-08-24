@@ -17,17 +17,30 @@ body {
     margin: 0;
     padding: 0.5em;
 
-    &:has(main.open) {
-        grid-template-columns: minmax(300px, 20%) 1fr minmax(350px, 25%);
+    // Both sidebars open
+    &:has(aside.menu-sidebar:not(.collapsed)):has(aside.details-sidebar.open) {
+        grid-template-columns: minmax(200px, 20%) 1fr minmax(300px, 25%);
     }
 
-    &:has(aside.collapsed) {
-        grid-template-columns: 60px 1fr minmax(350px, 25%);
+    // Menu sidebar collapsed, details sidebar open
+    &:has(aside.menu-sidebar.collapsed):has(aside.details-sidebar.open) {
+        grid-template-columns: 60px 1fr minmax(300px, 25%);
     }
 
-    &:has(aside.collapsed):has(main.open) {
-        grid-template-columns: 60px 1fr 25%;
+    // Details sidebar closed, menu sidebar open
+    &:has(aside.menu-sidebar:not(.collapsed)):has(aside.details-sidebar.closed) {
+        grid-template-columns: minmax(200px, 20%) 1fr;
     }
+
+    // Both sidebars collapsed
+    &:has(aside.menu-sidebar.collapsed):has(aside.details-sidebar.closed) {
+        grid-template-columns: 60px 1fr;
+    }
+
+    // Menu sidebar collapsed and no details sidebar at all (legacy/mobile)
+    // &:has(aside.menu-sidebar.collapsed):not(:has(aside.details-sidebar)) {
+    //     grid-template-columns: 60px 1fr;
+    // }
 }
 
 main {
