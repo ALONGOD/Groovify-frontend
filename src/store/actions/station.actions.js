@@ -9,6 +9,7 @@ import {
   SET_MODAL,
   ADD_SONG_TO_STATION,
   SET_SEARCH_RESULTS,
+  SET_SEARCH_TERM
 } from '../reducers/station.reducer'
 import { storageService } from '../../services/async-storage.service.js'
 import { SET_USER } from '../reducers/user.reducer.js'
@@ -16,26 +17,26 @@ import { SET_USER } from '../reducers/user.reducer.js'
 export async function addToLikedSongs(songToAdd) {
   const user = await storageService.query('loggedinUser')
   const { likedSongsStation } = user
-  
+
   const hasId = isSongInStation(likedSongsStation, songToAdd)
   if (hasId) throw 'Song already exists in station'
   likedSongsStation.songs.unshift(songToAdd)
   storageService.save('loggedinUser', user)
 
-  store.dispatch({ type: SET_USER, user})
+  store.dispatch({ type: SET_USER, user })
   store.dispatch({ type: UPDATE_STATION, updatedStation: likedSongsStation })
 }
 
 export async function removeFromLikedSongs(songId) {
   const user = await storageService.query('loggedinUser')
   const { likedSongsStation } = user
-  
+
   const songIdx = likedSongsStation.songs.findIndex(song => song.id === songId)
   if (songIdx < 0) throw 'Song not found in station'
   likedSongsStation.songs.splice(songIdx, 1)
   await storageService.save('loggedinUser', user)
-  
-  store.dispatch({ type: SET_USER, user})
+
+  store.dispatch({ type: SET_USER, user })
   console.log('likedSongsStation:', likedSongsStation)
   store.dispatch({ type: UPDATE_STATION, updatedStation: likedSongsStation })
 }
@@ -59,7 +60,7 @@ export async function removeSongFromStation(stationId) {
   stations[idx].songs.splice(songIdx, 1)
   await storageService.save('stationDB', stations)
   console.log(stations[idx]);
-  
+
   store.dispatch({ type: UPDATE_STATION, updatedStation: stations[idx] })
   return stations[idx]
 }
@@ -81,7 +82,7 @@ export async function addToStation(stationId, songToAdd) {
   if (hasId) throw 'Song already exists in station'
   stations[idx].songs.push(songToAdd)
   await storageService.save('stationDB', stations)
-  store.dispatch({ type: UPDATE_STATION, updatedStation: stations[idx]})
+  store.dispatch({ type: UPDATE_STATION, updatedStation: stations[idx] })
 }
 // export async function addToStation(stationId, song) {
 //   const updatedStation = await storageService.addSongToStation(song, stationId)
@@ -178,6 +179,13 @@ function getCmdAddStationMsg(msg) {
   return {
     type: ADD_STATION_MSG,
     msg,
+  }
+}
+
+export function setSearchTerm(searchTerm) {
+  return {
+    type: SET_SEARCH_TERM,
+    searchTerm,
   }
 }
 

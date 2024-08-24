@@ -6,6 +6,7 @@ import {
   user as demoUser,
 } from '../../../demo_data/station.js'
 import { getEmptyStation } from './index.js'
+import { useSelector } from 'react-redux'; // Import useSelector
 const STORAGE_KEY = 'stationDB'
 
 export const stationService = {
@@ -27,11 +28,20 @@ export async function initializeDemoData() {
   console.log('Demo stations initialized in local storage.')
   return stations
 }
+// console.log(query())
+// console.log(query())
 
-async function query() {
-  var stations = await storageService.query(STORAGE_KEY)
+async function query(filterBy = {}) {
+  console.log('filterBy:', filterBy)
+  let stations = await storageService.query(STORAGE_KEY)
+
   if (!stations || !stations.length) {
-    initializeDemoData()
+    stations = initializeDemoData() // Assuming this function returns demo data
+  }
+
+  if (filterBy.searchTerm) {
+    const regex = new RegExp(filterBy.searchTerm, 'i')
+    stations = stations.filter(station => regex.test(station.name))
   }
 
   return stations
