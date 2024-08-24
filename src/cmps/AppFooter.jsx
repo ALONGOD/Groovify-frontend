@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { AiOutlineSound } from 'react-icons/ai'
 import { FaPauseCircle } from 'react-icons/fa'
 import { FaBackwardStep, FaCircleCheck, FaForwardStep } from 'react-icons/fa6'
@@ -16,14 +16,19 @@ export function AppFooter() {
 
     const currSong = useSelector(storeState => storeState.stationModule.currSong)
     console.log('songPlaying:', currSong)
+    const isDetailsOpen = useSelector(storeState => storeState.systemModule.isDetailsOpen)
 
     function toggleDetailsSidebar() {
         setIsActive(prevState => !prevState)
         dispatch({ type: TOGGLE_DETAILS_SIDEBAR })
     }
 
+    useEffect(() => {
+        setIsActive(isDetailsOpen)
+    }, [isDetailsOpen])
+
     return (
-        <footer className='app-footer relative full flex flex-row align-center justify-between'>
+        <footer className='app-footer full flex flex-row align-center justify-between'>
             <div className='details flex flex-row align-center'>
                 {currSong &&
                     <>
