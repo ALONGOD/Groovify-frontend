@@ -8,7 +8,7 @@ body {
     width: 100vw;
 
     display: grid;
-    grid-template-columns: 20% 1fr;
+    grid-template-columns: minmax(200px, 20%) 1fr;
 
     background-color: $bg-main;
 
@@ -18,11 +18,11 @@ body {
     padding: 0.5em;
 
     &:has(main.open) {
-        grid-template-columns: 20% 1fr 25%;
+        grid-template-columns: minmax(300px, 20%) 1fr minmax(350px, 25%);
     }
 
     &:has(aside.collapsed) {
-        grid-template-columns: 60px 1fr;
+        grid-template-columns: 60px 1fr minmax(350px, 25%);
     }
 
     &:has(aside.collapsed):has(main.open) {
