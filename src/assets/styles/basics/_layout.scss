@@ -19,7 +19,7 @@ body {
 
     // Both sidebars open
     &:has(aside.menu-sidebar:not(.collapsed)):has(aside.details-sidebar.open) {
-        grid-template-columns: minmax(300px, 20%) minmax(500px, 1fr) minmax(300px, 20%);
+        grid-template-columns: minmax(180px, 320px) minmax(500px, 1fr) minmax(300px, 20%);
     }
 
     // Menu sidebar collapsed, details sidebar open
@@ -29,7 +29,7 @@ body {
 
     // Details sidebar closed, menu sidebar open
     &:has(aside.menu-sidebar:not(.collapsed)):has(aside.details-sidebar.closed) {
-        grid-template-columns: minmax(300px, 20%) minmax(500px, 1fr);
+        grid-template-columns: minmax(180px, 320px) minmax(500px, 1fr);
     }
 
     // Both sidebars collapsed
@@ -41,7 +41,7 @@ body {
     @media (max-width: 768px) {
         // Both sidebars open, narrower details sidebar
         &:has(aside.menu-sidebar:not(.collapsed)):has(aside.details-sidebar.open) {
-            grid-template-columns: minmax(10%, 15%) minmax(500px, 1fr) minmax(250px, 15%);
+            grid-template-columns: minmax(180px, 320px) minmax(500px, 1fr) minmax(250px, 15%);
         }
 
         // Menu sidebar collapsed, details sidebar open, narrower details sidebar
@@ -51,7 +51,7 @@ body {
 
         // Details sidebar closed, menu sidebar open
         &:has(aside.menu-sidebar:not(.collapsed)):has(aside.details-sidebar.closed) {
-            grid-template-columns: minmax(10%, 15%) minmax(500px, 1fr);
+            grid-template-columns: minmax(180px, 320px) minmax(500px, 1fr);
         }
 
         // Both sidebars collapsed
