@@ -31,7 +31,9 @@ export function StationList({ isCollapsed }) {
   return (
     <section className="station-list">
       {!isCollapsed && (
-        <div><SearchBar searchType={'station'} placeholder={"Search in Playlists"} /></div>
+        <div className="search-bar-container">
+          <div><SearchBar searchType={'station'} placeholder={"Search in Playlists"} /></div>
+        </div>
       )}
 
       <ul>
