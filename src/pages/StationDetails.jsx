@@ -1,44 +1,36 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-
-import { stationService } from '../services/station/station.service.local'
-import { SongListHeader } from '../cmps/StationDetails/SongListHeader'
 import { StationDetailsHeader } from '../cmps/StationDetails/StationDetailsHeader'
 import { SongList } from '../cmps/SongList'
 import { useDispatch, useSelector } from 'react-redux'
-import { SET_STATION_DETAILS } from '../store/reducers/station.reducer'
+import { Modal } from '../cmps/Modal/Modal'
+import { SET_EDIT_MODAL } from '../store/reducers/station.reducer'
 
 export function StationDetails() {
   const dispatch = useDispatch()
   const { stationId } = useParams()
   const stations = useSelector(state => state.stationModule.stations)
   const [station, setStation] = useState({})
-  const [searchQuery, setSearchQuery] = useState('')
+  const editOpen = useSelector(state => state.stationModule.editStationModal)
+  console.log('editOpen:', editOpen)
+  
 
   useEffect(() => {
     setStation(stations.find(station => station._id === stationId))
-    // loadStation(stationId)
   }, [stationId, stations])
 
-  // async function loadStation(stationId) {
-  //   try {
-  //     const stationToSave = await stationService.getById(stationId)
-  //     dispatch({ type: SET_STATION_DETAILS, station: stationToSave })
-  //   } catch (err) {
-  //     console.log('Cannot load station', err)
-  //     throw err
-  //   }
-  // }
-
-  function handleSearch({ target }) {
-    setSearchQuery(target.value)
+  function toggleEditStation() {
+    console.log(editOpen);
+    
+    dispatch({ type: SET_EDIT_MODAL, isOpen: true })
   }
 
   if (!station) return <h1>Loading...</h1>
   return (
     <section className="station-details flex flex-column">
-      <StationDetailsHeader station={station} searchQuery={searchQuery} handleSearch={handleSearch}/>
+      <StationDetailsHeader station={station}  toggleEditStation={toggleEditStation}/>
         {station.songs && <SongList songs={station.songs} type='list-table'/>}
+        {editOpen && <Modal modalType='editStation'/>}
     </section>
   )
 }

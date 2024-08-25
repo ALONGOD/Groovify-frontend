@@ -2,8 +2,8 @@
 import { DetailsHeaderActions } from './DetailsHeaderActions'
 import { useEffect, useRef, useState } from 'react'
 
-export function StationDetailsHeader({ station }) {
-  const { name, createdBy, songs, imgUrl } = station
+export function StationDetailsHeader({ station, toggleEditStation }) {
+  const { name, createdBy, songs, imgUrl, description } = station
   const [averageColor, setAverageColor] = useState(null)
   const imgRef = useRef(null)
 
@@ -17,7 +17,8 @@ export function StationDetailsHeader({ station }) {
       <img src={imgUrl} ref={imgRef} alt="station-name" className="station-img" />
         <div className="flex flex-column">
           <h4>Playlist</h4>
-          <h1>{name}</h1>
+          <h1 onClick={toggleEditStation}>{name}</h1>
+          {description && <p onClick={toggleEditStation}>{description}</p>}
           <div className="created-by flex flex-row align-center">
             <img src={createdBy && createdBy.imgUrl} />
             <h4 className="fullname">{createdBy && createdBy.fullname}</h4>

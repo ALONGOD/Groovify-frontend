@@ -5,19 +5,16 @@ import { GoPlusCircle } from "react-icons/go"
 import { Modal } from "./Modal"
 import { removeSongFromStation } from "../../store/actions/station.actions"
 import { useParams } from "react-router"
-import { useDispatch } from "react-redux"
-import { SET_STATION_DETAILS } from "../../store/reducers/station.reducer"
+
 
 export function ModalSongOptions({}) {
-  const dispatch = useDispatch()
   const params = useParams()
   const stationId = params.stationId
   
     const [isPlaylistModalOpen, setIsPlaylistModalOpen] = useState(false)
 
     async function onRemoveSongFromStation() {
-      const stationToSave = await removeSongFromStation(stationId)
-      dispatch({ type: SET_STATION_DETAILS, station: stationToSave })
+      await removeSongFromStation(stationId)
     }
 
     return (

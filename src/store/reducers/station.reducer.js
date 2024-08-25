@@ -9,15 +9,15 @@ export const SET_SORT_BY = 'SET_SORT_BY';
 export const SET_MODAL = 'SET_MODAL'
 
 export const SET_SEARCH_RESULTS = 'SET_SEARCH_RESULTS'
-export const SET_STATION_DETAILS = 'SET_STATION_DETAILS'
 export const SET_CURRENT_SONG = 'SET_CURRENT_SONG'
+export const SET_EDIT_MODAL = 'SET_EDIT_MODAL'
 
 const initialState = {
   stations: [],
-  searchTerm: '', // Add searchTerm to the initial state
+  searchTerm: '', 
   currSong: null,
-  // player: { status: 'paused', volume: 0.5, progress: 0 },
   modalSong: {},
+  editStationModal: false,
   searchResults: [],
   sortBy: 'recents',
 }
@@ -62,6 +62,9 @@ export function stationReducer(state = initialState, action) {
     case SET_CURRENT_SONG:
       // console.log(action.songToPlay)
       newState = { ...state, currSong: action.songToPlay }
+      break
+    case SET_EDIT_MODAL:
+      newState = { ...state, editStationModal: action.isOpen }
       break
     default:
       return newState
