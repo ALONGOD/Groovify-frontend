@@ -14,38 +14,37 @@
     .search-bar {
         position: relative;
         margin-bottom: 1em;
-        width: 2.5em; // Initial width matching the circular icon
-        height: 2.5em; // Same height as width to create a circle
+        width: 2.5em;
+        height: 2.5em;
         overflow: hidden;
-        transition: width 1s ease, height 1s ease, border-radius 1s ease; // Transition for smooth expansion
+        transition: width 0.4s ease, height 0.4s ease, border-radius 0.4s ease; // Transition for smooth expansion
         cursor: pointer;
-        border-radius: 50%; // Make the search bar a circle initially
+        border-radius: 50%;
 
         &.expanded {
-            width: 70%; // Expand to full width on click
-            border-radius: 8px; // Change to a more square shape when expanded
-            background-color: #242424; // Background color after expansion
+            width: 70%;
+            border-radius: 8px;
+            background-color: #242424;
 
             input[type='text'] {
-                opacity: 1; // Make sure the input text is visible when expanded
+                opacity: 1;
             }
         }
 
         input[type='text'] {
-            background-color: transparent; // Matches the background of the search-bar
+            background-color: transparent;
             border: 0;
-            border-radius: 8px; // Same border-radius as the expanded state
-            height: 100%; // Full height of the container
-            padding: 0 0 0 2.5em; // Ensure text starts after the icon
+            border-radius: 8px;
+            height: 100%;
+            padding: 0 0 0 2.5em;
             color: rgb(200, 200, 200);
             font-size: 0.875em;
-            width: 100%; // Full width when expanded
-            opacity: 0; // Initially hidden
-            transition: opacity 1s ease; // Fade in effect
-            outline: none; // Remove white outline on focus
-
+            width: 100%;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            outline: none;
             &:focus {
-                box-shadow: none; // Remove any default focus shadow
+                box-shadow: none;
             }
 
             &::placeholder {
@@ -55,14 +54,14 @@
         }
 
         svg {
-            color: rgb(200, 200, 200); // Color of the search icon
+            color: rgb(200, 200, 200);
             position: absolute;
             top: 50%;
-            left: 4%; // Position the icon closer to the left edge
-            transform: translateY(-50%); // Center the icon vertically
+            left: 4%;
+            transform: translateY(-50%);
             font-weight: 100;
-            font-size: 1em; // Slightly larger icon
-            transition: left 1s ease; // Smooth transition when moving the icon
+            font-size: 1em;
+            transition: left 0.4s ease;
         }
     }
 }
