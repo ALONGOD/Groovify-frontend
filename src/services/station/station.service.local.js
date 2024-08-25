@@ -52,9 +52,13 @@ async function query(filterBy = {}) {
 }
 
 async function fetchLikedSongs() {
-  const likedSongsStation = JSON.parse(localStorage.getItem('loggedinUser')).likedSongsStation
-  console.log('likedSongsStation:', likedSongsStation)
-  return likedSongsStation
+  const user = JSON.parse(localStorage.getItem('loggedinUser'))
+  if (!user) {
+    localStorage.setItem('loggedinUser', JSON.stringify(demoUser))
+    return demoUser.likedSongsStation
+  }
+  console.log('likedSongsStation:', user.likedSongsStation)
+  return user.likedSongsStation
 }
 
 function getById(stationId) {
