@@ -30,8 +30,9 @@ $navigation-bar-height: 8em;
 $library-link-height: 4.5em;
 $sub-menu-height:4.5em;
 
-$station-list-bar-height: calc(100vh - $navigation-bar-height - $library-link-height - $sub-menu-height - $height-footer - (0.5em * 4));
-// $height
+// $station-list-bar-height: calc(100vh - $navigation-bar-height - $library-link-height - $sub-menu-height - $height-footer - (0.5em * 4)); // without the search component
+$station-list-bar-height: calc(100vh - 2.5em - $navigation-bar-height - $library-link-height - $sub-menu-height - $height-footer - (0.5em * 4)); // including the search component
+
 
 $station-details-header: 19.687em;
 $height-main: calc(100vh - (0.5em * 3 + $height-footer));
