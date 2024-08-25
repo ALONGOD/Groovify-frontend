@@ -1,12 +1,14 @@
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 import { YouTubeAPIService } from '../services/youtubeAPI/fetchYoutubeApi.js';
-import { useState, useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setSearchResults, setSearchTerm } from '../store/actions/station.actions.js';
 
 export function SearchBar({ searchType = 'youtube', placeholder = "What do you want to play?" }) {
     const [searchTerm, setSearchTermState] = useState('');
+    const [isExpanded, setIsExpanded] = useState(false);
     const dispatch = useDispatch();
+    const searchBarRef = useRef(null);
 
     function debounce(func, delay) {
         let timer;
@@ -48,8 +50,29 @@ export function SearchBar({ searchType = 'youtube', placeholder = "What do you w
         handleSearch(value);
     };
 
+    const handleExpand = () => {
+        setIsExpanded(true);
+    };
+
+    const handleClickOutside = (event) => {
+        if (searchBarRef.current && !searchBarRef.current.contains(event.target)) {
+            setIsExpanded(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
     return (
-        <div className="search-bar">
+        <div
+            ref={searchBarRef}
+            className={`search-bar ${isExpanded ? 'expanded' : ''}`}
+            onClick={handleExpand}
+        >
             <FaMagnifyingGlass />
             <input
                 type="text"
@@ -57,6 +80,7 @@ export function SearchBar({ searchType = 'youtube', placeholder = "What do you w
                 placeholder={placeholder}
                 value={searchTerm}
                 onChange={handleChange}
+                className={isExpanded ? 'visible' : ''}
             />
         </div>
     );

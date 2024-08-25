@@ -7,36 +7,62 @@
         overflow-y: auto;
     }
 
+    .search-bar-container {
+        margin-left: 4%;
+    }
+
     .search-bar {
         position: relative;
-        margin-bottom: 1em; // Adjust margin as needed to fit the design of your station list
+        margin-bottom: 1em;
+        width: 2.5em; // Initial width matching the circular icon
+        height: 2.5em; // Same height as width to create a circle
+        overflow: hidden;
+        transition: width 1s ease, height 1s ease, border-radius 1s ease; // Transition for smooth expansion
+        cursor: pointer;
+        border-radius: 50%; // Make the search bar a circle initially
+
+        &.expanded {
+            width: 70%; // Expand to full width on click
+            border-radius: 8px; // Change to a more square shape when expanded
+            background-color: #242424; // Background color after expansion
+
+            input[type='text'] {
+                opacity: 1; // Make sure the input text is visible when expanded
+            }
+        }
 
         input[type='text'] {
-            background-color: #242424;
+            background-color: transparent; // Matches the background of the search-bar
             border: 0;
-            border-radius: 2em;
-            height: 3.5em;
-            padding-inline: 2em;
-            color: rgb(77, 77, 77);
-            font-size: 0.75em;
-            width: 100%; // Ensures it takes up the full width of its container
+            border-radius: 8px; // Same border-radius as the expanded state
+            height: 100%; // Full height of the container
+            padding: 0 0 0 2.5em; // Ensure text starts after the icon
+            color: rgb(200, 200, 200);
+            font-size: 0.875em;
+            width: 100%; // Full width when expanded
+            opacity: 0; // Initially hidden
+            transition: opacity 1s ease; // Fade in effect
+            outline: none; // Remove white outline on focus
+
+            &:focus {
+                box-shadow: none; // Remove any default focus shadow
+            }
 
             &::placeholder {
-                font-weight: 200;
-                color: rgb(96, 96, 96);
+                font-weight: 400;
+                color: rgb(150, 150, 150);
             }
         }
 
         svg {
-            color: rgb(146, 146, 146);
+            color: rgb(200, 200, 200); // Color of the search icon
             position: absolute;
             top: 50%;
-            left: 16px; // Adjust this to match the padding of the input field
+            left: 4%; // Position the icon closer to the left edge
+            transform: translateY(-50%); // Center the icon vertically
             font-weight: 100;
-            font-size: 0.8em;
-            transform: translateY(-50%);
+            font-size: 1em; // Slightly larger icon
+            transition: left 1s ease; // Smooth transition when moving the icon
         }
     }
-
-
 }
