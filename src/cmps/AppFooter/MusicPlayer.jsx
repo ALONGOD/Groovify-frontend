@@ -12,13 +12,15 @@ import { TOGGLE_DETAILS_SIDEBAR } from '../../store/reducers/system.reducer'
 import { MusicPlayerActions } from './MusicPlayerActions'
 
 export function MusicPlayer({currSong}) {
-  // const YT_API_KEY = 'AIzaSyDqTgt_N3MSGncWUccH-LbSYRtkdv_mXbw'
   const playerRef = useRef(null)
+  const intervalRef = useRef(null)
   
   const [duration, setDuration] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+  
   const [volume, setVolume] = useState(50)
 
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
 
   const isDetailsOpen = useSelector(
     storeState => storeState.systemModule.isDetailsOpen
@@ -36,17 +38,15 @@ export function MusicPlayer({currSong}) {
   
   let videoElement = null
   const opts = {
-    // height: '390',
-    // width: '640',
     height: '200',
     width: '200',
     playerVars: {
-      autoplay: 0,
+      autoplay: 1,
     },
   }
 
   useEffect(() => {
-    setIsPlaying(false)
+    // setIsPlaying(false)
   }, [currSong])
 
   function formatTime(seconds) {
@@ -57,9 +57,11 @@ export function MusicPlayer({currSong}) {
   
 
   function onPlayerReady(event) {
+    setCurrentTime(0)
     playerRef.current = event.target;
-    playerRef.current.setVolume(volume)
 
+    
+    playerRef.current.setVolume(volume)
     const duration = playerRef.current.getDuration();
     setDuration(duration);
     
@@ -97,10 +99,25 @@ export function MusicPlayer({currSong}) {
       if (playerState === 1) {
         playerRef.current.pauseVideo()
         setIsPlaying(false)
+
+        intervalRef.current && clearInterval(intervalRef.current)
       } else {
         playerRef.current.playVideo()
         setIsPlaying(true)
+
+        intervalRef.current = setInterval(() => {
+          setCurrentTime(playerRef.current.getCurrentTime())
+        }, 1000)
       }
+    }
+  }
+
+  function handleTimeChange(ev) {
+    const newTime = parseInt(ev.target.value, 10)
+    setCurrentTime(newTime)
+
+    if (playerRef.current) {
+      playerRef.current.seekTo(newTime)
     }
   }
 
@@ -119,6 +136,8 @@ export function MusicPlayer({currSong}) {
           <RiRepeat2Line />
         </div>
 
+        
+
         <div className="bottom flex flex-row align-center">
           <YouTube
           className='hidden'
@@ -129,8 +148,8 @@ export function MusicPlayer({currSong}) {
             onReady={onPlayerReady}
           />
           <div className="music-player-container flex flex-row align-center">
-            <p className="music-current-time">0:00</p>
-            <input type="range" name="" className="youtube-player" />
+            <p className="music-current-time">{currentTime ? formatTime(currentTime) : '0:00'}</p>
+            <input type="range" name="" min={0} max={duration ? duration : 0} value={currentTime} className="youtube-player" onChange={handleTimeChange}/>
             <p className="music-total-length">{duration ? formatTime(duration) : '0:00'}</p>
           </div>
         </div>
