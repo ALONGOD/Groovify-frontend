@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux'
 import { ModalSongOptions } from './ModalSongOptions'
 import { AddToStationModal } from './AddToStationModal'
 import { AddStationModal } from './AddStationModal'
+import { SortByModal } from './SortByModal'
 
 export function Modal({ modalType, }) {
   const stations = useSelector(state => state.stationModule.stations)
@@ -25,5 +26,7 @@ function DynamicModal({ modalType, stations, }) {
       return <AddToStationModal stations={stations} />
     case 'library':
       return <AddStationModal />
+    case 'sortBy':
+      return <SortByModal />
   }
 }

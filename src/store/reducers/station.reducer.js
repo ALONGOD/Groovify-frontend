@@ -5,7 +5,7 @@ export const REMOVE_STATION = 'REMOVE_STATION'
 export const ADD_SONG_TO_STATION = 'ADD_SONG_TO_STATION'
 export const ADD_STATION_MSG = 'ADD_STATION_MSG'
 export const SET_SEARCH_TERM = 'SET_SEARCH_TERM';
-
+export const SET_SORT_BY = 'SET_SORT_BY';
 export const SET_MODAL = 'SET_MODAL'
 
 export const SET_SEARCH_RESULTS = 'SET_SEARCH_RESULTS'
@@ -19,6 +19,7 @@ const initialState = {
   // player: { status: 'paused', volume: 0.5, progress: 0 },
   modalSong: {},
   searchResults: [],
+  sortBy: 'recents',
 }
 
 export function stationReducer(state = initialState, action) {
@@ -32,6 +33,9 @@ export function stationReducer(state = initialState, action) {
     case SET_SEARCH_TERM:  // Add this case
       newState = { ...state, searchTerm: action.searchTerm }
       break
+    case SET_SORT_BY: // Handle sorting criteria
+      newState = { ...state, sortBy: action.sortBy };
+      break;
     case REMOVE_STATION:
       stations = state.stations.filter(
         station => station._id !== action.stationId

@@ -9,7 +9,8 @@ import {
   SET_MODAL,
   ADD_SONG_TO_STATION,
   SET_SEARCH_RESULTS,
-  SET_SEARCH_TERM
+  SET_SEARCH_TERM,
+  SET_SORT_BY
 } from '../reducers/station.reducer'
 import { storageService } from '../../services/async-storage.service.js'
 import { SET_USER } from '../reducers/user.reducer.js'
@@ -187,6 +188,16 @@ export function setSearchTerm(searchTerm) {
     type: SET_SEARCH_TERM,
     searchTerm,
   }
+}
+
+export function setSortBy(sortBy) {
+  return async (dispatch, getState) => {
+    const { stationModule } = getState();
+    const filterBy = { ...stationModule.filterBy, sortBy };
+    const stations = await stationService.query(filterBy);
+    dispatch({ type: SET_STATIONS, stations });
+    dispatch({ type: SET_SORT_BY, sortBy }); // Update the sortBy state
+  };
 }
 
 // unitTestActions()

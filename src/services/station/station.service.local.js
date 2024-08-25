@@ -44,6 +44,10 @@ async function query(filterBy = {}) {
     stations = stations.filter(station => regex.test(station.name))
   }
 
+  if (filterBy.sortBy === 'alphabetical') {
+    stations.sort((a, b) => a.name.localeCompare(b.name));
+  }
+
   return stations
 }
 
