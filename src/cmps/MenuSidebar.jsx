@@ -30,7 +30,7 @@ export function MenuSidebar() {
     }
 
     function handleResize() {
-        if (window.innerWidth < 768) {
+        if (window.innerWidth < 815) {
             setIsCollapsed(true)
             setIsBelowThreshold(true)
         } else {
