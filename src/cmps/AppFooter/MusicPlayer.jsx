@@ -6,7 +6,7 @@ import { HiOutlineQueueList } from 'react-icons/hi2'
 import { IoPlayCircleOutline } from 'react-icons/io5'
 import { RiRepeat2Line } from 'react-icons/ri'
 import { TiArrowShuffle } from 'react-icons/ti'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import YouTube from 'react-youtube'
 import { TOGGLE_DETAILS_SIDEBAR } from '../../store/reducers/system.reducer'
 import { MusicPlayerActions } from './MusicPlayerActions'
@@ -21,6 +21,9 @@ export function MusicPlayer({currSong}) {
   const [volume, setVolume] = useState(50)
 
   const [isPlaying, setIsPlaying] = useState(true);
+
+  const dispatch = useDispatch();
+
 
   const isDetailsOpen = useSelector(
     storeState => storeState.systemModule.isDetailsOpen
