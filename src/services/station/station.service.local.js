@@ -72,7 +72,7 @@ async function addNewStation(dispatchAddStation) {
   const newStation = {
     _id: makeId(), // Generate a new unique ID
     name: 'New Playlist', // Default name
-    imgUrl: 'https://via.placeholder.com/150', // Default placeholder image
+    imgUrl: 'https://res.cloudinary.com/dpoa9lual/image/upload/v1724570942/Spotify_playlist_photo_yjeurq.png', // Default placeholder image
     tags: [], // Default tags
     createdBy: loggedinUser ? {
       id: loggedinUser.id,
