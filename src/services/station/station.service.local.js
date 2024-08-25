@@ -57,7 +57,6 @@ async function fetchLikedSongs() {
     localStorage.setItem('loggedinUser', JSON.stringify(demoUser))
     return demoUser.likedSongsStation
   }
-  console.log('likedSongsStation:', user.likedSongsStation)
   return user.likedSongsStation
 }
 

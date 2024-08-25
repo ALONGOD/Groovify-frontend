@@ -18,7 +18,7 @@ export function StationDetailsHeader({ station, toggleEditStation }) {
         <div className="flex flex-column">
           <h4>Playlist</h4>
           <h1 onClick={toggleEditStation}>{name}</h1>
-          {description && <p onClick={toggleEditStation}>{description}</p>}
+          {description && <p className='description' onClick={toggleEditStation}>{description}</p>}
           <div className="created-by flex flex-row align-center">
             <img src={createdBy && createdBy.imgUrl} />
             <h4 className="fullname">{createdBy && createdBy.fullname}</h4>

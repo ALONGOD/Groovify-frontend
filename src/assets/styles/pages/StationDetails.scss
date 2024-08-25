@@ -10,7 +10,17 @@
 
   .station-details-header {
 
+    
     gap: 1em;
+
+    .description {
+      // font-family: ;
+      margin-bottom: 0.7em;
+      font-size: em(14px);
+      color: #ffffff;
+      opacity: 70%;
+    }
+
     .divider {
       display: flex;
       justify-content: center;
