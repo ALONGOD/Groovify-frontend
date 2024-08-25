@@ -1,5 +1,5 @@
 .like-song-container {
-    color: $spotify-green;
+    color: inherit;
 }
 
 div.main-section {
@@ -13,10 +13,10 @@ div.main-section {
     justify-content: start;
     align-items: center;
     &.hidden {
-      display: none;
+        display: none;
     }
-  }
+}
 
-div svg.like-song-btn.liked  {
+div svg.like-song-btn.liked {
     fill: $spotify-green;
 }
