@@ -5,9 +5,10 @@ import {
 import { SongPreview } from './SongPreview'
 import { SongListHeader } from './StationDetails/SongListHeader'
 import { SET_CURRENT_SONG } from '../store/reducers/station.reducer'
+import { SearchBar } from './SearchBar'
 
 export function SongList({ songs, type }) {
-  
+
   const dispatch = useDispatch()
   const songModal = useSelector(state => state.stationModule.modalSong)
   const currSong = useSelector(state => state.stationModule.currSong)
@@ -23,28 +24,36 @@ export function SongList({ songs, type }) {
   }
 
   return (
-    <ul className={`song-list ${type}`}>
-      {type === 'list-table' && (
-        <>
-          <SongListHeader />
-          <hr className="custom-divider" />
-        </>
+    <>
+      {songs.length === 0 && type === 'list-table' ? (
+        <div className="no-songs">
+          <h2>Let's find something for your playlist</h2>
+          <SearchBar searchType={'youtube'} placeholder={"Search for songs or episodes"} />
+        </div>
+      ) : (
+        <ul className={`song-list ${type}`}>
+          {type === 'list-table' && (
+            <>
+              <SongListHeader />
+              <hr className="custom-divider" />
+            </>
+          )}
+          {songs.map((song, idx) => {
+            return (
+              <SongPreview
+                currSong={currSong}
+                playSong={playSong}
+                key={`${song.id}-${idx}`}
+                song={song}
+                type={type}
+                idx={idx}
+                songModal={songModal}
+                onToggleModal={onToggleModal}
+              />
+            )
+          })}
+        </ul>
       )}
-      {songs.map((song, idx) => {
-        return (
-          <SongPreview
-            currSong={currSong}
-            playSong={playSong}
-            key={`${song.id}-${idx}`}
-            song={song}
-            type={type}
-            idx={idx}
-            songModal={songModal}
-            onToggleModal={onToggleModal}
-
-          />
-        )
-      })}
-    </ul>
+    </>
   )
 }

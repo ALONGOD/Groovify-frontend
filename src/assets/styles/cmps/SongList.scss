@@ -1,0 +1,42 @@
+.no-songs {
+    text-align: left; // Align the text to the left
+    padding: 20px;
+    color: #fff;
+
+    h2 {
+        color: #fff;
+        margin-bottom: 20px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-align: left; // Ensure the heading is also aligned to the left
+    }
+
+    .search-bar {
+        display: flex;
+        align-items: center;
+        background-color: #2a2a2a;
+        border-radius: 4px;
+        padding: 0.5rem 1rem;
+        max-width: 400px;
+        cursor: text;
+
+        svg {
+            color: #b3b3b3;
+            margin-right: 8px;
+        }
+
+        input {
+            flex-grow: 1;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            opacity: 0.7;
+
+            &::placeholder {
+                color: #b3b3b3;
+            }
+        }
+    }
+}
