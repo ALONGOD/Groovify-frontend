@@ -11,6 +11,7 @@ export function MenuSidebar() {
     const user = useSelector(state => state.userModule.user)
     console.log('user:', user)
     const [isCollapsed, setIsCollapsed] = useState(false)
+    const [isBelowThreshold, setIsBelowThreshold] = useState(false)
     const [selected, setSelected] = useState(null)
 
     useEffect(() => {
@@ -29,10 +30,12 @@ export function MenuSidebar() {
     }
 
     function handleResize() {
-        if (window.innerWidth < 1232) {
+        if (window.innerWidth < 768) {
             setIsCollapsed(true)
+            setIsBelowThreshold(true)
         } else {
-            setIsCollapsed(false)
+            // setIsCollapsed(false) // Auto-open menu sidebar when there's enough space
+            setIsBelowThreshold(false)
         }
     }
 
@@ -47,6 +50,7 @@ export function MenuSidebar() {
                     setIsCollapsed={setIsCollapsed}
                     selected={selected}
                     setSelected={setSelected}
+                    isBelowThreshold={isBelowThreshold}
                 />
                 <StationList isCollapsed={isCollapsed} />
             </div>
