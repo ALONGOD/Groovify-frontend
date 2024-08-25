@@ -18,6 +18,7 @@ export const stations = [
   {
     _id: '5cksxjas89xjsa8xjsa8jxs01',
     name: 'Chill Vibes',
+    description: 'A relaxing playlist perfect for unwinding and de-stressing. Calm your mind with ambient and chill tracks.',
     imgUrl:
       'https://res.cloudinary.com/dh73ujhyv/image/upload/v1724082806/jevy3fwzckfd94pnyifz.webp',
     tags: ['Chill', 'Relaxing'],
@@ -83,6 +84,7 @@ export const stations = [
   {
     _id: '5cksxjas89xjsa8xjsa8jxs02',
     name: 'Workout Energy',
+    description: 'Get pumped up with high-energy tracks that will keep you motivated during your workouts.',
     imgUrl:
       'https://res.cloudinary.com/dh73ujhyv/image/upload/v1724083027/rfft1keoyporqtgpv8w8.webp',
     tags: ['Workout', 'Energetic'],
@@ -218,6 +220,7 @@ export const stations = [
   {
     _id: '5cksxjas89xjsa8xjsa8jxs03',
     name: 'Party Hits',
+    description: 'Turn up the volume with these upbeat party anthems that will keep the dance floor moving all night long.',
     imgUrl:
       'https://res.cloudinary.com/dh73ujhyv/image/upload/v1724083048/mtoempa1met6lv2tc6bh.webp',
     tags: ['Party', 'Upbeat'],
@@ -313,6 +316,7 @@ export const stations = [
   {
     _id: '5cksxjas89xjsa8xjsa8jxs04',
     name: 'Acoustic Bliss',
+    description: 'Soothing acoustic tracks for a mellow and calming listening experience, perfect for relaxation or background music.',
     imgUrl:
       'https://res.cloudinary.com/dpoa9lual/image/upload/v1724575596/acoustic_music_bliss_nxakba.jpg',
     tags: ['Acoustic', 'Soothing'],
@@ -428,6 +432,7 @@ export const stations = [
   {
     _id: '5cksxjas89xjsa8xjsa8jxs07',
     name: '90s Music Mix',
+    description: 'A nostalgic collection of 90s hits, featuring classic tracks that defined an era of music.',
     imgUrl:
       'https://res.cloudinary.com/dpoa9lual/image/upload/v1724576310/90s_music_mix_acafql.jpg',
     tags: ['90s', 'Classic Hits'],
@@ -583,6 +588,7 @@ export const stations = [
   {
     _id: '5cksxjas89xjsa8xjsa8jxs06',
     name: 'Indie Mix',
+    description: 'A blend of indie and alternative tracks that will take you on a musical journey through the best of indie music.',
     imgUrl:
       'https://res.cloudinary.com/dpoa9lual/image/upload/v1724575612/indie-music-mix_x5vsog.jpg',
     tags: ['Indie', 'Alternative'],
