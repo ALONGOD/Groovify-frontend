@@ -9,13 +9,17 @@ import { TiArrowShuffle } from 'react-icons/ti'
 import { useSelector } from 'react-redux'
 import YouTube from 'react-youtube'
 import { TOGGLE_DETAILS_SIDEBAR } from '../../store/reducers/system.reducer'
+import { MusicPlayerActions } from './MusicPlayerActions'
 
 export function MusicPlayer({currSong}) {
   // const YT_API_KEY = 'AIzaSyDqTgt_N3MSGncWUccH-LbSYRtkdv_mXbw'
+  const playerRef = useRef(null)
+  
+  const [duration, setDuration] = useState(0);
+  const [volume, setVolume] = useState(50)
 
   const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolume] = useState(50)
-  const playerRef = useRef(null)
+
   const isDetailsOpen = useSelector(
     storeState => storeState.systemModule.isDetailsOpen
   )
@@ -44,11 +48,21 @@ export function MusicPlayer({currSong}) {
   useEffect(() => {
     setIsPlaying(false)
   }, [currSong])
+
+  function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+  }
   
 
   function onPlayerReady(event) {
     playerRef.current = event.target;
     playerRef.current.setVolume(volume)
+
+    const duration = playerRef.current.getDuration();
+    setDuration(duration);
+    
     event.target.setPlaybackQuality('small')
     event.target.playVideo()
     console.log(playerRef.current);
@@ -117,20 +131,12 @@ export function MusicPlayer({currSong}) {
           <div className="music-player-container flex flex-row align-center">
             <p className="music-current-time">0:00</p>
             <input type="range" name="" className="youtube-player" />
-            <p className="music-total-length">3:30</p>
+            <p className="music-total-length">{duration ? formatTime(duration) : '0:00'}</p>
           </div>
         </div>
       </div>
       {currSong && (
-        <div className="other-options flex flex-row align-center">
-          <IoPlayCircleOutline
-            onClick={toggleDetailsSidebar}
-            style={{ color: isActive ? '#00ba5c' : 'inherit' }}
-          />
-          <HiOutlineQueueList />
-          <AiOutlineSound />
-          <input type="range" min={0} max={100} step={1} value={volume} onChange={handleVolumeChange} className="youtube-player sound" />
-        </div>
+        <MusicPlayerActions volume={volume} handleVolumeChange={handleVolumeChange} toggleDetailsSidebar={toggleDetailsSidebar} isActive={isActive}/>
       )}
     </>
   )
