@@ -23,12 +23,14 @@ export function LikeSongBtn({ onHover, song }) {
                     className='like-song-btn liked'
                     onClick={onRemoveFromLikedSongs}
                     title='Remove from Liked Songs'
+                    style={{ cursor: 'pointer' }}
                 />
             ) : (
                 <CiCirclePlus
                     className='like-song-btn'
                     onClick={onAddToLikedSongs}
                     title='Add to Liked Songs'
+                    style={{ cursor: 'pointer' }}
                 />
             )}
         </div>

@@ -16,7 +16,7 @@ export function AppFooter() {
                             <h3>{currSong.title}</h3>
                             <h4>{currSong.artist}</h4>
                         </div>
-                        <LikeSongBtn song={currSong} />{' '}
+                        <LikeSongBtn song={currSong} />
                     </>
                 )}
             </div>

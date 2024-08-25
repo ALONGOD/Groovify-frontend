@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { DetailsSidebarClose } from './DetailsSidebarClose'
 import { TOGGLE_DETAILS_SIDEBAR } from '../store/reducers/system.reducer'
+import { LikeSongBtn } from './LikeSongBtn'
 
 export function DetailsSidebar() {
     const currSong = useSelector(state => state.stationModule.currSong)
@@ -45,7 +46,7 @@ export function DetailsSidebar() {
                     </h2>
                     <h4>{currSong ? currSong.artist : 'Metro Boomin, A$AP Rocky, Takeoff'}</h4>
                 </div>
-                <button className='add-btn'>+</button>
+                <LikeSongBtn song={currSong} />
             </div>
         </aside>
     )
