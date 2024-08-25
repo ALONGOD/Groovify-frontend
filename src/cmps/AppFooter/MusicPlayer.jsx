@@ -1,18 +1,32 @@
 import { useEffect, useRef, useState } from 'react'
+import { AiOutlineSound } from 'react-icons/ai'
 import { FaPauseCircle, FaPlayCircle } from 'react-icons/fa'
 import { FaBackwardStep, FaForwardStep } from 'react-icons/fa6'
+import { HiOutlineQueueList } from 'react-icons/hi2'
+import { IoPlayCircleOutline } from 'react-icons/io5'
 import { RiRepeat2Line } from 'react-icons/ri'
 import { TiArrowShuffle } from 'react-icons/ti'
 import { useSelector } from 'react-redux'
 import YouTube from 'react-youtube'
+import { TOGGLE_DETAILS_SIDEBAR } from '../../store/reducers/system.reducer'
 
-export function MusicPlayer({}) {
+export function MusicPlayer({currSong}) {
   // const YT_API_KEY = 'AIzaSyDqTgt_N3MSGncWUccH-LbSYRtkdv_mXbw'
-  const [player, setPlayer] = useState(null);
+
   const [isPlaying, setIsPlaying] = useState(false);
-  const [audioProgress, setAudioProgress] = useState(0)
+  const [volume, setVolume] = useState(50)
+  const playerRef = useRef(null)
+  const isDetailsOpen = useSelector(
+    storeState => storeState.systemModule.isDetailsOpen
+  )
+  const [isActive, setIsActive] = useState(false)
+
+  useEffect(() => {
+    setIsActive(isDetailsOpen)
+  }, [isDetailsOpen])
+
+
   
-  const currSong = useSelector(state => state.stationModule.currSong)
   
   console.log(currSong);
   
@@ -33,10 +47,24 @@ export function MusicPlayer({}) {
   
 
   function onPlayerReady(event) {
-    setPlayer(event.target)
-    console.log(player);
+    playerRef.current = event.target;
+    playerRef.current.setVolume(volume)
     event.target.setPlaybackQuality('small')
     event.target.playVideo()
+    console.log(playerRef.current);
+  }
+
+  function handleVolumeChange(event) {
+    const newVolume = parseInt(event.target.value, 10)
+    setVolume(newVolume)
+    if (playerRef.current) {
+      playerRef.current.setVolume(newVolume)
+    }
+  }
+
+  function toggleDetailsSidebar() {
+    setIsActive(prevState => !prevState)
+    dispatch({ type: TOGGLE_DETAILS_SIDEBAR })
   }
 
   // function soundPlay() {
@@ -49,21 +77,18 @@ export function MusicPlayer({}) {
   // }
 
   function toggleSoundPlay() {
-    if (player) {
-      const playerState = player.getPlayerState()
+    if (playerRef.current) {
+      const playerState = playerRef.current.getPlayerState()
       
       if (playerState === 1) {
-        player.pauseVideo()
+        playerRef.current.pauseVideo()
         setIsPlaying(false)
       } else {
-        player.playVideo()
+        playerRef.current.playVideo()
         setIsPlaying(true)
       }
     }
-      
-
   }
-  const currentAudio = useRef()
 
   return (
     <>
@@ -96,6 +121,17 @@ export function MusicPlayer({}) {
           </div>
         </div>
       </div>
+      {currSong && (
+        <div className="other-options flex flex-row align-center">
+          <IoPlayCircleOutline
+            onClick={toggleDetailsSidebar}
+            style={{ color: isActive ? '#00ba5c' : 'inherit' }}
+          />
+          <HiOutlineQueueList />
+          <AiOutlineSound />
+          <input type="range" min={0} max={100} step={1} value={volume} onChange={handleVolumeChange} className="youtube-player sound" />
+        </div>
+      )}
     </>
   )
 }

@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 
 import { StationDetails } from './pages/StationDetails'
 
-import { AppFooter } from './cmps/AppFooter'
+import { AppFooter } from './cmps/AppFooter/AppFooter.jsx'
 import { UserMsg } from './cmps/UserMsg.jsx'
 import { MenuSidebar } from './cmps/MenuSidebar.jsx'
 import { DetailsSidebar } from './cmps/DetailsSidebar.jsx'
