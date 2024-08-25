@@ -34,7 +34,7 @@ export function MenuSidebar() {
             setIsCollapsed(true)
             setIsBelowThreshold(true)
         } else {
-            setIsCollapsed(false)
+            // setIsCollapsed(false) // Auto-open menu sidebar when there's enough space
             setIsBelowThreshold(false)
         }
     }
