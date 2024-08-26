@@ -11,19 +11,17 @@ import YouTube from 'react-youtube'
 import { TOGGLE_DETAILS_SIDEBAR } from '../../store/reducers/system.reducer'
 import { MusicPlayerActions } from './MusicPlayerActions'
 
-export function MusicPlayer({currSong}) {
+export function MusicPlayer({ currSong }) {
+  const dispatch = useDispatch()
+
   const playerRef = useRef(null)
   const intervalRef = useRef(null)
-  
-  const [duration, setDuration] = useState(0);
-  const [currentTime, setCurrentTime] = useState(0);
-  
+
+  const [duration, setDuration] = useState(0)
+  const [currentTime, setCurrentTime] = useState(0)
   const [volume, setVolume] = useState(50)
 
-  const [isPlaying, setIsPlaying] = useState(true);
-
-  const dispatch = useDispatch();
-
+  const [isPlaying, setIsPlaying] = useState(true)
 
   const isDetailsOpen = useSelector(
     storeState => storeState.systemModule.isDetailsOpen
@@ -34,11 +32,8 @@ export function MusicPlayer({currSong}) {
     setIsActive(isDetailsOpen)
   }, [isDetailsOpen])
 
+  console.log(currSong)
 
-  
-  
-  console.log(currSong);
-  
   let videoElement = null
   const opts = {
     height: '200',
@@ -49,28 +44,30 @@ export function MusicPlayer({currSong}) {
   }
 
   useEffect(() => {
-    // setIsPlaying(false)
+    setIsPlaying(true)
   }, [currSong])
 
   function formatTime(seconds) {
-    const minutes = Math.floor(seconds / 60);
-    const secs = Math.floor(seconds % 60);
-    return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+    const minutes = Math.floor(seconds / 60)
+    const secs = Math.floor(seconds % 60)
+    return `${minutes}:${secs < 10 ? '0' : ''}${secs}`
   }
-  
 
   function onPlayerReady(event) {
     setCurrentTime(0)
-    playerRef.current = event.target;
+    intervalRef.current = setInterval(() => {
+      setCurrentTime(playerRef.current.getCurrentTime())
+    }, 1000)
 
-    
+    playerRef.current = event.target
+
     playerRef.current.setVolume(volume)
-    const duration = playerRef.current.getDuration();
-    setDuration(duration);
-    
+    const duration = playerRef.current.getDuration()
+    setDuration(duration)
+
     event.target.setPlaybackQuality('small')
     event.target.playVideo()
-    console.log(playerRef.current);
+    console.log(playerRef.current)
   }
 
   function handleVolumeChange(event) {
@@ -89,7 +86,7 @@ export function MusicPlayer({currSong}) {
   // function soundPlay() {
   //   if (player) {
   //     console.log(player);
-      
+
   //     player.playVideo()
   //     setIsPlaying(true)
   //   }
@@ -98,7 +95,7 @@ export function MusicPlayer({currSong}) {
   function toggleSoundPlay() {
     if (playerRef.current) {
       const playerState = playerRef.current.getPlayerState()
-      
+
       if (playerState === 1) {
         playerRef.current.pauseVideo()
         setIsPlaying(false)
@@ -132,33 +129,46 @@ export function MusicPlayer({currSong}) {
           <div className="song-actions flex flex-row align-center">
             <FaBackwardStep />
             <div onClick={toggleSoundPlay}>
-            {isPlaying ? <FaPauseCircle /> : <FaPlayCircle />}
+              {isPlaying ? <FaPauseCircle /> : <FaPlayCircle />}
             </div>
             <FaForwardStep />
           </div>
           <RiRepeat2Line />
         </div>
 
-        
-
         <div className="bottom flex flex-row align-center">
           <YouTube
-          className='hidden'
-            videoId={
-              currSong?.id
-            }
+            className="hidden"
+            videoId={currSong?.id}
             opts={opts}
             onReady={onPlayerReady}
           />
           <div className="music-player-container flex flex-row align-center">
-            <p className="music-current-time">{currentTime ? formatTime(currentTime) : '0:00'}</p>
-            <input type="range" name="" min={0} max={duration ? duration : 0} value={currentTime} className="youtube-player" onChange={handleTimeChange}/>
-            <p className="music-total-length">{duration ? formatTime(duration) : '0:00'}</p>
+            <p className="music-current-time">
+              {currentTime ? formatTime(currentTime) : '0:00'}
+            </p>
+            <input
+              type="range"
+              name=""
+              min={0}
+              max={duration ? duration : 0}
+              value={currentTime}
+              className="youtube-player"
+              onChange={handleTimeChange}
+            />
+            <p className="music-total-length">
+              {duration ? formatTime(duration) : '0:00'}
+            </p>
           </div>
         </div>
       </div>
       {currSong && (
-        <MusicPlayerActions volume={volume} handleVolumeChange={handleVolumeChange} toggleDetailsSidebar={toggleDetailsSidebar} isActive={isActive}/>
+        <MusicPlayerActions
+          volume={volume}
+          handleVolumeChange={handleVolumeChange}
+          toggleDetailsSidebar={toggleDetailsSidebar}
+          isActive={isActive}
+        />
       )}
     </>
   )
