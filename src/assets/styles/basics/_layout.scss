@@ -24,7 +24,7 @@ body {
 
     // Menu sidebar collapsed, details sidebar open
     &:has(aside.menu-sidebar.collapsed):has(aside.details-sidebar.open) {
-        grid-template-columns: 60px minmax(500px, 1fr) minmax(300px, 20%);
+        grid-template-columns: 72px minmax(500px, 1fr) minmax(300px, 20%);
     }
 
     // Details sidebar closed, menu sidebar open
@@ -34,7 +34,7 @@ body {
 
     // Both sidebars collapsed
     &:has(aside.menu-sidebar.collapsed):has(aside.details-sidebar.closed) {
-        grid-template-columns: 60px minmax(500px, 1fr);
+        grid-template-columns: 72px minmax(500px, 1fr);
     }
 
 
@@ -46,7 +46,7 @@ body {
 
         // Menu sidebar collapsed, details sidebar open, narrower details sidebar
         &:has(aside.menu-sidebar.collapsed):has(aside.details-sidebar.open) {
-            grid-template-columns: 60px minmax(500px, 1fr) minmax(250px, 15%);
+            grid-template-columns: 72px minmax(500px, 1fr) minmax(250px, 15%);
         }
 
         // Details sidebar closed, menu sidebar open
@@ -56,7 +56,7 @@ body {
 
         // Both sidebars collapsed
         &:has(aside.menu-sidebar.collapsed):has(aside.details-sidebar.closed) {
-            grid-template-columns: 60px minmax(500px, 1fr);
+            grid-template-columns: 72px minmax(500px, 1fr);
         }
     }
 }

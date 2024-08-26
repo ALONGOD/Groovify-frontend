@@ -4,40 +4,52 @@ aside {
     height: $height-main;
     color: #d1d1d1;
     transition: width 0.3s ease;
+
     & > div {
         @include component-layout;
         width: 100%;
     }
+
     .navigation {
-        // padding-inline: 0.8em;
-        padding: 0.6em 0.8em ;
-        height: $navigation-bar-height;
+        padding: 0.6em 0.8em;
     }
+
     .library-menu .nav-link {
         padding-inline: 1em;
-        padding-block: 1em;
-        height: $library-link-height;
+        padding-block: 1em 0;
     }
-    .library-menu {
-        // padding: 0.4em;
-        height: 100%;
 
+    .library-menu {
+        height: 100%;
     }
+
     .main-menu {
         display: flex;
         flex-direction: column;
         gap: 1em;
     }
+
     &.collapsed {
-        width: 60px;
+        width: 72px;
+
         .nav-link {
             justify-content: center;
+
             .icon {
                 margin-right: 0;
             }
+
             span {
                 display: none;
             }
+        }
+
+        // .library-menu .nav-link {
+        //     padding-inline: 0.5em;
+        // }
+
+        .library-menu img {
+            margin-left: 0.3em;
         }
 
         .sub-menu {
@@ -60,7 +72,7 @@ aside {
         font-size: 1em;
         transition: color 0.2s ease;
         width: 100%;
-        
+
         span {
             margin-right: 2em;
         }
@@ -82,6 +94,7 @@ aside {
             justify-content: space-between;
         }
     }
+
     .ml-auto {
         margin-left: auto;
     }
@@ -91,7 +104,6 @@ aside {
         flex-direction: row;
         align-items: center;
         padding-block: 0.5em;
-        // margin-top: 1em;
         height: $sub-menu-height;
 
         .sub-link {
