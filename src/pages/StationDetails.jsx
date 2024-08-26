@@ -28,7 +28,7 @@ export function StationDetails() {
   if (!station) return <h1>Loading...</h1>
   return (
     <section className="station-details flex flex-column">
-      <StationDetailsHeader station={station}  toggleEditStation={toggleEditStation}/>
+      <StationDetailsHeader station={station} setStation={setStation} toggleEditStation={toggleEditStation}/>
         {station.songs && <SongList songs={station.songs} type='list-table'/>}
         {editOpen && <Modal modalType='editStation'/>}
     </section>
