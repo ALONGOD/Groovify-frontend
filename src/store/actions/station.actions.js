@@ -8,7 +8,6 @@ import {
   ADD_STATION_MSG,
   SET_MODAL,
   ADD_SONG_TO_STATION,
-  SET_SEARCH_RESULTS,
   SET_SEARCH_TERM,
   SET_SORT_BY
 } from '../reducers/station.reducer'
@@ -111,12 +110,6 @@ export async function removeStation(stationId) {
   }
 }
 
-export function setSearchResults(results) {
-  store.dispatch({
-    type: SET_SEARCH_RESULTS,
-    results,
-  })
-}
 
 export async function addStation(station) {
   try {
