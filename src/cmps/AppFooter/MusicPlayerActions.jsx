@@ -1,8 +1,8 @@
-import { AiOutlineSound } from "react-icons/ai";
+import { AiOutlineAudioMuted, AiOutlineMuted, AiOutlineSound } from "react-icons/ai";
 import { HiOutlineQueueList } from "react-icons/hi2";
 import { IoPlayCircleOutline } from "react-icons/io5";
 
-export function MusicPlayerActions({volume, handleVolumeChange, toggleDetailsSidebar, isActive
+export function MusicPlayerActions({volume, handleVolumeChange, toggleDetailsSidebar, isActive, isVolumeMuted, toggleVolume
 }) {
   return (
     <div className="other-options flex flex-row align-center">
@@ -11,7 +11,7 @@ export function MusicPlayerActions({volume, handleVolumeChange, toggleDetailsSid
         style={{ color: isActive ? '#00ba5c' : 'inherit' }}
       />
       <HiOutlineQueueList />
-      <AiOutlineSound />
+      {isVolumeMuted ? <AiOutlineMuted onClick={toggleVolume}/> : <AiOutlineSound onClick={toggleVolume}/>}
       <input
         type="range"
         min={0}

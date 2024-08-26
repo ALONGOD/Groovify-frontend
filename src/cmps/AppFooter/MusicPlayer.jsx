@@ -25,6 +25,7 @@ export function MusicPlayer({ currSong }) {
   const [duration, setDuration] = useState(0)
   const [currentTime, setCurrentTime] = useState(0)
   const [volume, setVolume] = useState(50)
+  const isVolumeMuted = volume === 0
   const [isPlaying, setIsPlaying] = useState(true)
 
   const isDetailsOpen = useSelector(
@@ -155,6 +156,11 @@ export function MusicPlayer({ currSong }) {
     }
   }
 
+  function toggleVolume() {
+    isVolumeMuted ? setVolume(50) : setVolume(0)
+    playerRef.current.setVolume(volume)
+  }
+
   return (
     <>
       <div className="player flex flex-column justify-center align-center">
@@ -202,6 +208,8 @@ export function MusicPlayer({ currSong }) {
           handleVolumeChange={handleVolumeChange}
           toggleDetailsSidebar={toggleDetailsSidebar}
           isActive={isActive}
+          isVolumeMuted={isVolumeMuted}
+          toggleVolume={toggleVolume}
         />
       )}
     </>
