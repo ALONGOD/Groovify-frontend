@@ -12,6 +12,12 @@ export function SongList({ songs, type }) {
   const dispatch = useDispatch()
   const songModal = useSelector(state => state.stationModule.modalSong)
   const currSong = useSelector(state => state.stationModule.currSong)
+  const stations = useSelector(state => state.stationModule.stations)
+
+  const likedSongsStation = stations.find(
+    station => station._id === 'liked-songs'
+  )
+  const likedSongs = likedSongsStation ? likedSongsStation.songs : []
 
   function onToggleModal(event, song) {
     event.stopPropagation()
@@ -49,6 +55,7 @@ export function SongList({ songs, type }) {
                 idx={idx}
                 songModal={songModal}
                 onToggleModal={onToggleModal}
+                likedSongs={likedSongs}
               />
             )
           })}
