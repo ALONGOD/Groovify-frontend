@@ -16,11 +16,6 @@ export function SearchPage() {
   async function fetchSongsFromYouTube() {
     try {
       const results = await YouTubeAPIService.searchVideos(searchTerm)
-      results.map((song, idx) => {
-        song.nextSongId = results[idx + 1]?.id
-        song.prevSongId = results[idx - 1]?.id
-        return song
-      })
       setSearchResults(results)
     } catch (error) {
       console.error('Error fetching YouTube API:', error)
