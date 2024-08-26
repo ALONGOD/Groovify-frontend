@@ -1,13 +1,13 @@
-import { storageService } from '../async-storage.service'
-import { makeId } from '../util.service'
-import { userService } from '../user'
+import { storageService } from '../async-storage.service';
+import { makeId } from '../util.service';
+import { userService } from '../user';
 import {
   stations as demoStations,
   user as demoUser,
-} from '../../../demo_data/station.js'
-import { getEmptyStation } from './index.js'
-import { useSelector } from 'react-redux'; // Import useSelector
-const STORAGE_KEY = 'stationDB'
+} from '../../../demo_data/station.js';
+
+const STORAGE_KEY = 'stationDB';
+const ORDER_KEY = 'stationOrder';
 
 export const stationService = {
   query,
@@ -17,19 +17,18 @@ export const stationService = {
   addStationMsg,
   initializeDemoData,
   fetchLikedSongs,
-  addNewStation
-}
+  addNewStation,
+  saveCustomOrder,
+};
 
-window.cs = stationService
+window.cs = stationService;
 
 export async function initializeDemoData() {
-  const stations = demoStations
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(stations))
-  console.log('Demo stations initialized in local storage.')
-  return stations
+  const stations = demoStations;
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(stations));
+  console.log('Demo stations initialized in local storage.');
+  return stations;
 }
-// console.log(query())
-// console.log(query())
 
 async function query(filterBy = {}) {
   let stations = await storageService.query(STORAGE_KEY);
@@ -57,7 +56,15 @@ async function query(filterBy = {}) {
       stations.sort((a, b) => a.createdBy.fullname.localeCompare(b.createdBy.fullname));
       break;
     case 'customOrder':
-      // Implement custom ordering logic here if you have any
+      const customOrder = JSON.parse(localStorage.getItem(ORDER_KEY));
+      if (customOrder) {
+        // Sort the stations array according to the custom order stored in local storage
+        stations.sort((a, b) => {
+          const indexA = customOrder.findIndex(station => station._id === a._id);
+          const indexB = customOrder.findIndex(station => station._id === b._id);
+          return indexA - indexB;
+        });
+      }
       break;
     default:
       break;
@@ -66,23 +73,22 @@ async function query(filterBy = {}) {
   return stations;
 }
 
-
 async function fetchLikedSongs() {
-  const user = JSON.parse(localStorage.getItem('loggedinUser'))
+  const user = JSON.parse(localStorage.getItem('loggedinUser'));
   if (!user) {
-    localStorage.setItem('loggedinUser', JSON.stringify(demoUser))
-    return demoUser.likedSongsStation
+    localStorage.setItem('loggedinUser', JSON.stringify(demoUser));
+    return demoUser.likedSongsStation;
   }
-  return user.likedSongsStation
+  return user.likedSongsStation;
 }
 
 function getById(stationId) {
-  if (stationId === 'liked-songs') return fetchLikedSongs()
-  return storageService.get(STORAGE_KEY, stationId)
+  if (stationId === 'liked-songs') return fetchLikedSongs();
+  return storageService.get(STORAGE_KEY, stationId);
 }
 
 async function remove(stationId) {
-  await storageService.remove(STORAGE_KEY, stationId)
+  await storageService.remove(STORAGE_KEY, stationId);
 }
 
 async function addNewStation(dispatchAddStation) {
@@ -93,11 +99,13 @@ async function addNewStation(dispatchAddStation) {
     name: 'New Playlist', // Default name
     imgUrl: 'https://res.cloudinary.com/dpoa9lual/image/upload/v1724570942/Spotify_playlist_photo_yjeurq.png', // Default placeholder image
     tags: [], // Default tags
-    createdBy: loggedinUser ? {
-      id: loggedinUser.id,
-      fullname: loggedinUser.fullname,
-      imgUrl: loggedinUser.imgUrl,
-    } : null, // Set to null if no user is logged in
+    createdBy: loggedinUser
+      ? {
+        id: loggedinUser.id,
+        fullname: loggedinUser.fullname,
+        imgUrl: loggedinUser.imgUrl,
+      }
+      : null, // Set to null if no user is logged in
     likedByUsers: [],
     songs: [],
   };
@@ -149,14 +157,18 @@ async function save(station) {
 }
 
 async function addStationMsg(stationId, txt) {
-  const station = await getById(stationId)
+  const station = await getById(stationId);
   const msg = {
     id: makeId(),
     by: userService.getLoggedinUser(),
     txt,
-  }
-  station.msgs.push(msg)
-  await storageService.put(STORAGE_KEY, station)
+  };
+  station.msgs.push(msg);
+  await storageService.put(STORAGE_KEY, station);
 
-  return msg
+  return msg;
+}
+
+function saveCustomOrder(stations) {
+  localStorage.setItem(ORDER_KEY, JSON.stringify(stations));
 }
