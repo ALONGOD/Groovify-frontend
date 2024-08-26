@@ -7,6 +7,12 @@ export function SortByModal() {
     const currentSortBy = useSelector(state => state.stationModule.sortBy);
 
     const handleSortChange = async (sortBy) => {
+        if (sortBy === 'customOrder') {
+            const customOrder = JSON.parse(localStorage.getItem('stationOrder'));
+            if (customOrder) {
+                dispatch({ type: 'SET_STATIONS', stations: customOrder });
+            }
+        }
         const actions = await setSortBy(sortBy);
         actions.forEach(action => dispatch(action));
     };

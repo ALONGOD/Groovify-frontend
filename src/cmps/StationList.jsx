@@ -6,19 +6,29 @@ import { SET_STATIONS } from '../store/reducers/station.reducer';
 import { SearchBar } from './SearchBar.jsx';
 import { Modal } from './Modal/Modal.jsx';
 import { FaBars } from 'react-icons/fa6';
+import update from 'immutability-helper';
 
 export function StationList({ isCollapsed }) {
   const dispatch = useDispatch();
   const stations = useSelector(state => state.stationModule.stations);
   const searchTerm = useSelector(state => state.stationModule.searchTerm);
-  const sortBy = useSelector(state => state.stationModule.sortBy); // Get the current sortBy value
-  const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
-  const modalRef = useRef(null); // Create a ref to track the modal
+  const sortBy = useSelector(state => state.stationModule.sortBy);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const modalRef = useRef(null);
+  const [stationOrder, setStationOrder] = useState([]);
 
   useEffect(() => {
-    console.log('searchTerm changed:', searchTerm); // Log when useEffect is triggered
+    const storedOrder = JSON.parse(localStorage.getItem('stationOrder'));
+    if (storedOrder && sortBy === 'customOrder') {
+      setStationOrder(storedOrder);
+    } else {
+      setStationOrder(stations);
+    }
+  }, [stations, sortBy]);
+
+  useEffect(() => {
     fetchStations();
-  }, [searchTerm, sortBy]); // Re-fetch stations whenever searchTerm changes
+  }, [searchTerm, sortBy]);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -36,23 +46,33 @@ export function StationList({ isCollapsed }) {
   async function fetchStations() {
     try {
       const filterBy = {
-        searchTerm: searchTerm || '', // If searchTerm is not provided, default to an empty string
-        sortBy: sortBy || 'recents' // If sortBy is not provided, default to 'recents'
+        searchTerm: searchTerm || '',
+        sortBy: sortBy || 'recents'
       };
       const stations = await stationService.query(filterBy);
       const likedSongsStation = await stationService.fetchLikedSongs();
       dispatch({ type: SET_STATIONS, stations: [likedSongsStation, ...stations] });
+      setStationOrder([likedSongsStation, ...stations]);
     } catch (err) {
       console.log('Cannot load stations', err);
       throw err;
     }
   }
 
+  const moveStation = (dragIndex, hoverIndex) => {
+    const draggedStation = stationOrder[dragIndex];
+    const updatedOrder = update(stationOrder, {
+      $splice: [[dragIndex, 1], [hoverIndex, 0, draggedStation]],
+    });
+    setStationOrder(updatedOrder);
+    localStorage.setItem('stationOrder', JSON.stringify(updatedOrder));
+  };
+
   function toggleModal() {
     setIsModalOpen(!isModalOpen);
   }
 
-  if (!stations) return <h1>Loading...</h1>;
+  if (!stationOrder.length) return <h1>Loading...</h1>;
   return (
     <section className="station-list">
       {!isCollapsed && (
@@ -61,7 +81,7 @@ export function StationList({ isCollapsed }) {
           <div className="sort-button-container" ref={modalRef}>
             <button className="sort-button" onClick={toggleModal}>
               {sortBy}
-              <span className="sort-icon"><FaBars /></span> {/* Use the FaBars icon */}
+              <span className="sort-icon"><FaBars /></span>
             </button>
             {isModalOpen && <Modal modalType={'sortBy'} />}
           </div>
@@ -69,8 +89,14 @@ export function StationList({ isCollapsed }) {
       )}
 
       <ul>
-        {stations.map(station => (
-          <StationPreview station={station} key={station._id} isCollapsed={isCollapsed} />
+        {stationOrder.map((station, index) => (
+          <StationPreview
+            station={station}
+            key={station._id}
+            isCollapsed={isCollapsed}
+            index={index}
+            moveStation={moveStation}
+          />
         ))}
       </ul>
     </section>
