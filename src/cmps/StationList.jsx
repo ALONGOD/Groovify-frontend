@@ -18,7 +18,7 @@ export function StationList({ isCollapsed }) {
   useEffect(() => {
     console.log('searchTerm changed:', searchTerm); // Log when useEffect is triggered
     fetchStations();
-  }, [searchTerm]); // Re-fetch stations whenever searchTerm changes
+  }, [searchTerm, sortBy]); // Re-fetch stations whenever searchTerm changes
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -35,7 +35,10 @@ export function StationList({ isCollapsed }) {
 
   async function fetchStations() {
     try {
-      const filterBy = searchTerm ? { searchTerm } : {};
+      const filterBy = {
+        searchTerm: searchTerm || '', // If searchTerm is not provided, default to an empty string
+        sortBy: sortBy || 'recents' // If sortBy is not provided, default to 'recents'
+      };
       const stations = await stationService.query(filterBy);
       const likedSongsStation = await stationService.fetchLikedSongs();
       dispatch({ type: SET_STATIONS, stations: [likedSongsStation, ...stations] });
