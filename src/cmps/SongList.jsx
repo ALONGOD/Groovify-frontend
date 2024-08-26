@@ -6,12 +6,27 @@ import { SongPreview } from './SongPreview'
 import { SongListHeader } from './StationDetails/SongListHeader'
 import { SET_CURRENT_SONG } from '../store/reducers/station.reducer'
 import { SearchBar } from './SearchBar'
+import { useEffect, useState } from 'react'
 
 export function SongList({ songs, type }) {
-
+  const [songsToDisplay, setSongsToDisplay] = useState(songs)
   const dispatch = useDispatch()
   const songModal = useSelector(state => state.stationModule.modalSong)
   const currSong = useSelector(state => state.stationModule.currSong)
+  const stations = useSelector(state => state.stationModule.stations)
+
+  const likedSongsStation = stations.find(
+    station => station._id === 'liked-songs'
+  )
+  const likedSongs = likedSongsStation ? likedSongsStation.songs : []
+
+  useEffect(() => {
+    setSongsToDisplay(prevSongs => prevSongs.map((song, idx) => {
+      song.nextSongId = songs[idx + 1]?.id
+      song.prevSongId = songs[idx - 1]?.id
+      return song
+    }))
+  }, [songs])
 
   function onToggleModal(event, song) {
     event.stopPropagation()
@@ -38,7 +53,7 @@ export function SongList({ songs, type }) {
               <hr className="custom-divider" />
             </>
           )}
-          {songs.map((song, idx) => {
+          {songsToDisplay.map((song, idx) => {
             return (
               <SongPreview
                 currSong={currSong}
@@ -49,6 +64,7 @@ export function SongList({ songs, type }) {
                 idx={idx}
                 songModal={songModal}
                 onToggleModal={onToggleModal}
+                likedSongs={likedSongs}
               />
             )
           })}

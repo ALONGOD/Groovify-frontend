@@ -30,7 +30,7 @@ export const stations = [
     likedByUsers: ['{user-id1}', '{user-id2}'],
     songs: [
       {
-        id: 'chill1001',
+        id: 'UfcAVejslrU',
         title: 'Weightless',
         artist: 'Marconi Union',
         album: 'Weightless (Ambient Transmissions Vol. 2)',
@@ -40,7 +40,7 @@ export const stations = [
         duration: '8:00',
       },
       {
-        id: 'chill1004',
+        id: '13EifDb4GYs',
         title: 'Porcelain',
         artist: 'Moby',
         album: 'Play',
@@ -50,7 +50,7 @@ export const stations = [
         duration: '4:01',
       },
       {
-        id: 'chill1011',
+        id: '6vQpW9XRiyM',
         title: 'The Numbers',
         artist: 'Radiohead',
         album: 'A Moon Shaped Pool',
@@ -60,7 +60,7 @@ export const stations = [
         duration: '5:45',
       },
       {
-        id: 'chill1013',
+        id: 'rVeMiVU77wo',
         title: 'Breezeblocks',
         artist: 'Alt-J',
         album: 'An Awesome Wave',
@@ -70,7 +70,7 @@ export const stations = [
         duration: '3:47',
       },
       {
-        id: 'chill1014',
+        id: 'TWcyIpul8OE',
         title: 'Holocene',
         artist: 'Bon Iver',
         album: 'Bon Iver',
@@ -96,7 +96,7 @@ export const stations = [
     likedByUsers: ['{user-id3}', '{user-id4}'],
     songs: [
       {
-        id: 'energy1001',
+        id: 'btPJPFnesV4',
         title: 'Eye of the Tiger',
         artist: 'Survivor',
         album: 'Eye of the Tiger',
@@ -106,7 +106,7 @@ export const stations = [
         duration: '4:04',
       },
       {
-        id: 'energy1002',
+        id: '_Yhyp-_hX2s',
         title: 'Lose Yourself',
         artist: 'Eminem',
         album: '8 Mile Soundtrack',
@@ -116,7 +116,7 @@ export const stations = [
         duration: '5:26',
       },
       {
-        id: 'energy1003',
+        id: 'VDvr08sCPOc',
         title: 'Remember the Name',
         artist: 'Fort Minor',
         album: 'The Rising Tied',
@@ -126,7 +126,7 @@ export const stations = [
         duration: '3:48',
       },
       {
-        id: 'energy1004',
+        id: 'PsO6ZnUZI0g',
         title: 'Stronger',
         artist: 'Kanye West',
         album: 'Graduation',
@@ -136,7 +136,7 @@ export const stations = [
         duration: '5:12',
       },
       {
-        id: 'energy1005',
+        id: '2zNSgSzhBfM',
         title: "Can't Hold Us",
         artist: 'Macklemore & Ryan Lewis',
         album: 'The Heist',
@@ -146,7 +146,7 @@ export const stations = [
         duration: '4:18',
       },
       {
-        id: 'energy1006',
+        id: 'L53gjP-TtGE',
         title: 'Power',
         artist: 'Kanye West',
         album: 'My Beautiful Dark Twisted Fantasy',
@@ -156,8 +156,8 @@ export const stations = [
         duration: '4:52',
       },
       {
-        id: 'energy1009',
-        title: 'Don\'t Stop the Music',
+        id: 'yd8jh9QYfEs',
+        title: "Don't Stop the Music",
         artist: 'Rihanna',
         album: 'Good Girl Gone Bad',
         url: 'https://youtu.be/yd8jh9QYfEs',
@@ -166,7 +166,7 @@ export const stations = [
         duration: '4:27',
       },
       {
-        id: 'energy1010',
+        id: 't2NgsJrrAyM',
         title: 'Alive',
         artist: 'Sia',
         album: 'This Is Acting',
@@ -176,7 +176,7 @@ export const stations = [
         duration: '4:23',
       },
       {
-        id: 'energy1011',
+        id: '7wtfhZwyrcc',
         title: 'Believer',
         artist: 'Imagine Dragons',
         album: 'Evolve',
@@ -186,7 +186,7 @@ export const stations = [
         duration: '3:24',
       },
       {
-        id: 'energy1012',
+        id: 'CevxZvSJLk8',
         title: 'Roar',
         artist: 'Katy Perry',
         album: 'PRISM',
@@ -196,7 +196,7 @@ export const stations = [
         duration: '3:42',
       },
       {
-        id: 'energy1013',
+        id: '0NKUpo_xKyQ',
         title: 'Titanium',
         artist: 'David Guetta ft. Sia',
         album: 'Nothing but the Beat',
@@ -206,7 +206,7 @@ export const stations = [
         duration: '4:05',
       },
       {
-        id: 'energy1014',
+        id: 'tg00YEETFzg',
         title: 'We Found Love',
         artist: 'Rihanna ft. Calvin Harris',
         album: 'Talk That Talk',
@@ -232,7 +232,7 @@ export const stations = [
     likedByUsers: ['{user-id5}', '{user-id6}'],
     songs: [
       {
-        id: 'party1001',
+        id: 'FGBhQbmPwH8',
         title: 'One More Time',
         artist: 'Daft Punk',
         album: 'Discovery',
@@ -242,7 +242,7 @@ export const stations = [
         duration: '5:20',
       },
       {
-        id: 'party1002',
+        id: 'KQ6zr6kCPj8',
         title: 'Party Rock Anthem',
         artist: 'LMFAO',
         album: 'Sorry for Party Rocking',
@@ -252,7 +252,7 @@ export const stations = [
         duration: '6:16',
       },
       {
-        id: 'party1003',
+        id: 'OPf0YbXqDm0',
         title: 'Uptown Funk',
         artist: 'Mark Ronson ft. Bruno Mars',
         album: 'Uptown Special',
@@ -262,7 +262,7 @@ export const stations = [
         duration: '4:31',
       },
       {
-        id: 'party1004',
+        id: 'ru0K8uYEZWw',
         title: "Can't Stop the Feeling!",
         artist: 'Justin Timberlake',
         album: 'Trolls Soundtrack',
@@ -272,7 +272,7 @@ export const stations = [
         duration: '3:56',
       },
       {
-        id: 'party1005',
+        id: 'y6Sxv-sUYtM',
         title: 'Happy',
         artist: 'Pharrell Williams',
         album: 'G I R L',
@@ -282,7 +282,7 @@ export const stations = [
         duration: '4:07',
       },
       {
-        id: 'party1006',
+        id: 'uSD4vsh1zDA',
         title: 'I Gotta Feeling',
         artist: 'The Black Eyed Peas',
         album: 'The E.N.D.',
@@ -292,7 +292,7 @@ export const stations = [
         duration: '4:49',
       },
       {
-        id: 'party1007',
+        id: '4NRXx6U8ABQ',
         title: 'Blinding Lights',
         artist: 'The Weeknd',
         album: 'After Hours',
@@ -302,7 +302,7 @@ export const stations = [
         duration: '3:22',
       },
       {
-        id: 'party1008',
+        id: 'TUVcZfQe-Kw',
         title: 'Levitating',
         artist: 'Dua Lipa ft. DaBaby',
         album: 'Future Nostalgia',
@@ -328,7 +328,7 @@ export const stations = [
     likedByUsers: ['{user-id7}', '{user-id8}'],
     songs: [
       {
-        id: 'acoustic1001',
+        id: 'ssdgFoHLwnk',
         title: 'Skinny Love',
         artist: 'Bon Iver',
         album: 'For Emma, Forever Ago',
@@ -338,7 +338,7 @@ export const stations = [
         duration: '3:59',
       },
       {
-        id: 'acoustic1002',
+        id: 'RBumgq5yVrA',
         title: 'Let Her Go',
         artist: 'Passenger',
         album: 'All the Little Lights',
@@ -348,7 +348,7 @@ export const stations = [
         duration: '4:15',
       },
       {
-        id: 'acoustic1003',
+        id: 'UAWcs5H-qgQ',
         title: 'The A Team',
         artist: 'Ed Sheeran',
         album: '+',
@@ -358,7 +358,7 @@ export const stations = [
         duration: '4:18',
       },
       {
-        id: 'acoustic1004',
+        id: '8inJtTG_DuU',
         title: 'Bloom',
         artist: 'The Paper Kites',
         album: 'Woodland',
@@ -368,7 +368,7 @@ export const stations = [
         duration: '3:33',
       },
       {
-        id: 'acoustic1005',
+        id: 'zvCBSSwgtg4',
         title: 'Ho Hey',
         artist: 'The Lumineers',
         album: 'The Lumineers',
@@ -378,7 +378,7 @@ export const stations = [
         duration: '2:42',
       },
       {
-        id: 'acoustic1007',
+        id: '1vrEljMfXYo',
         title: 'Take Me Home, Country Roads',
         artist: 'John Denver',
         album: 'Poems, Prayers & Promises',
@@ -388,7 +388,7 @@ export const stations = [
         duration: '3:17',
       },
       {
-        id: 'acoustic1009',
+        id: 'GsPq9mzFNGY',
         title: 'Let It Go',
         artist: 'James Bay',
         album: 'Chaos and the Calm',
@@ -398,7 +398,7 @@ export const stations = [
         duration: '4:19',
       },
       {
-        id: 'acoustic1011',
+        id: 'y8AWFf7EAc4',
         title: 'Hallelujah',
         artist: 'Jeff Buckley',
         album: 'Grace',
@@ -408,7 +408,7 @@ export const stations = [
         duration: '6:53',
       },
       {
-        id: 'acoustic1013',
+        id: 'Man4Xw8Xypo',
         title: 'Blackbird',
         artist: 'The Beatles',
         album: 'The Beatles (White Album)',
@@ -418,7 +418,7 @@ export const stations = [
         duration: '2:18',
       },
       {
-        id: 'acoustic1014',
+        id: 'JxPj3GAYYZ0',
         title: 'Tears In Heaven',
         artist: 'Eric Clapton',
         album: 'Rush (Soundtrack)',
@@ -444,7 +444,7 @@ export const stations = [
     likedByUsers: ['{user-id13}', '{user-id14}'],
     songs: [
       {
-        id: '90s1001',
+        id: 'hTWKbfoikeg',
         title: 'Smells Like Teen Spirit',
         artist: 'Nirvana',
         album: 'Nevermind',
@@ -454,7 +454,7 @@ export const stations = [
         duration: '5:01',
       },
       {
-        id: '90s1002',
+        id: 'bx1Bh8ZvH84',
         title: 'Wonderwall',
         artist: 'Oasis',
         album: "(What's the Story) Morning Glory?",
@@ -464,7 +464,7 @@ export const stations = [
         duration: '4:39',
       },
       {
-        id: '90s1003',
+        id: 'xwtdhWltSIg',
         title: 'Losing My Religion',
         artist: 'R.E.M.',
         album: 'Out of Time',
@@ -474,7 +474,7 @@ export const stations = [
         duration: '4:29',
       },
       {
-        id: '90s1004',
+        id: 'C-u5WLJ9Yk4',
         title: '...Baby One More Time',
         artist: 'Britney Spears',
         album: '...Baby One More Time',
@@ -484,7 +484,7 @@ export const stations = [
         duration: '3:57',
       },
       {
-        id: '90s1005',
+        id: '4fndeDfaWCg',
         title: 'I Want It That Way',
         artist: 'Backstreet Boys',
         album: 'Millennium',
@@ -494,7 +494,7 @@ export const stations = [
         duration: '3:33',
       },
       {
-        id: '90s1006',
+        id: 'FrLequ6dUdM',
         title: 'No Scrubs',
         artist: 'TLC',
         album: 'FanMail',
@@ -504,7 +504,7 @@ export const stations = [
         duration: '3:34',
       },
       {
-        id: '90s1007',
+        id: 'FHG2oizTlpY',
         title: 'My Heart Will Go On',
         artist: 'Celine Dion',
         album: 'Let\'s Talk About Love',
@@ -514,7 +514,7 @@ export const stations = [
         duration: '4:40',
       },
       {
-        id: '90s1008',
+        id: 'GuJQSAiODqI',
         title: 'Vogue',
         artist: 'Madonna',
         album: 'I\'m Breathless',
@@ -524,7 +524,7 @@ export const stations = [
         duration: '4:53',
       },
       {
-        id: '90s1009',
+        id: 'CD-E-LDc384',
         title: 'Enter Sandman',
         artist: 'Metallica',
         album: 'Metallica',
@@ -534,7 +534,7 @@ export const stations = [
         duration: '5:32',
       },
       {
-        id: '90s1010',
+        id: '3JWTaaS7LdU',
         title: 'I Will Always Love You',
         artist: 'Whitney Houston',
         album: 'The Bodyguard: Original Soundtrack Album',
@@ -544,7 +544,7 @@ export const stations = [
         duration: '4:31',
       },
       {
-        id: '90s1011',
+        id: 'VV1XWJN3nJo',
         title: 'Torn',
         artist: 'Natalie Imbruglia',
         album: 'Left of the Middle',
@@ -554,7 +554,7 @@ export const stations = [
         duration: '4:05',
       },
       {
-        id: '90s1012',
+        id: 'oKOtzIo-uYw',
         title: 'Killing Me Softly With His Song',
         artist: 'The Fugees',
         album: 'The Score',
@@ -564,7 +564,7 @@ export const stations = [
         duration: '4:50',
       },
       {
-        id: '90s1013',
+        id: 'F2AitTPI5U0',
         title: 'Black or White',
         artist: 'Michael Jackson',
         album: 'Dangerous',
@@ -574,7 +574,7 @@ export const stations = [
         duration: '6:23',
       },
       {
-        id: '90s1014',
+        id: 'gJLIiF15wjQ',
         title: 'Wannabe',
         artist: 'Spice Girls',
         album: 'Spice',
@@ -600,7 +600,7 @@ export const stations = [
     likedByUsers: ['{user-id11}', '{user-id12}'],
     songs: [
       {
-        id: 'indie1002',
+        id: 'ma9I9VBKPiw',
         title: 'Fluorescent Adolescent',
         artist: 'Arctic Monkeys',
         album: 'Favourite Worst Nightmare',
@@ -610,7 +610,7 @@ export const stations = [
         duration: '3:12',
       },
       {
-        id: 'indie1003',
+        id: 'Y5fBdpreJiU',
         title: 'Somebody Told Me',
         artist: 'The Killers',
         album: 'Hot Fuss',
@@ -620,7 +620,7 @@ export const stations = [
         duration: '3:17',
       },
       {
-        id: 'indie1004',
+        id: 'iWOyfLBYtuU',
         title: 'Dog Days Are Over',
         artist: 'Florence + The Machine',
         album: 'Lungs',
@@ -630,7 +630,7 @@ export const stations = [
         duration: '4:12',
       },
       {
-        id: 'indie1005',
+        id: '51V1VMkuyx0',
         title: 'Young Folks',
         artist: 'Peter Bjorn and John',
         album: "Writer's Block",
@@ -640,7 +640,7 @@ export const stations = [
         duration: '4:38',
       },
       {
-        id: 'indie1006',
+        id: '-nwdjQmc_N8',
         title: 'Electric Feel',
         artist: 'MGMT',
         album: 'Oracular Spectacular',
@@ -650,7 +650,7 @@ export const stations = [
         duration: '3:50',
       },
       {
-        id: 'indie1007',
+        id: 'bpOSxM0rNPM',
         title: 'Do I Wanna Know?',
         artist: 'Arctic Monkeys',
         album: 'AM',
@@ -660,7 +660,7 @@ export const stations = [
         duration: '4:23',
       },
       {
-        id: 'indie1008',
+        id: '4BJDNw7o6so',
         title: 'Lisztomania',
         artist: 'Phoenix',
         album: 'Wolfgang Amadeus Phoenix',

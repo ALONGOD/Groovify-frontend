@@ -1,20 +1,14 @@
 
+import { ImagePick } from '../ImagePick'
 import { DetailsHeaderActions } from './DetailsHeaderActions'
-import { useEffect, useRef, useState } from 'react'
 
-export function StationDetailsHeader({ station, toggleEditStation }) {
+export function StationDetailsHeader({ station, setStation, toggleEditStation }) {
   const { name, createdBy, songs, imgUrl, description } = station
-  const [averageColor, setAverageColor] = useState(null)
-  const imgRef = useRef(null)
-
-
-
-
 
   return (
     <div className="station-details-container flex flex-column">
       <div className="station-details-header flex flex-row align-end">
-      <img src={imgUrl} ref={imgRef} alt="station-name" className="station-img" />
+        <ImagePick setStation={setStation} pickedImg={imgUrl} />
         <div className="flex flex-column">
           <h4>Playlist</h4>
           <h1 onClick={toggleEditStation}>{name}</h1>

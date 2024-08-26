@@ -3,6 +3,10 @@ ul.song-list {
   gap: 0.5em;
   padding-inline: 1em;
 
+  .like-song-container svg {
+    font-size: 1.2em;
+  }
+
   &.list-table {
     grid-template-columns: 2fr 17fr 10fr 7fr 3fr 7fr;
 
@@ -14,8 +18,6 @@ ul.song-list {
       align-items: center;
     }
 
- 
-
     .list-header,
     li {
       display: contents;
@@ -25,7 +27,12 @@ ul.song-list {
   &.search-results {
     padding-inline: 0;
     grid-template-rows: repeat(auto-fill, max-content);    // grid-template-columns: 7fr 1fr;
-    grid-template-columns: 7fr 1fr;
+    grid-template-columns: 14fr 1fr 1fr 1fr;
+
+    .like-song-container {
+      grid-column: 2;
+
+    }
     li {
       display: contents;
       &:hover img {
@@ -42,7 +49,10 @@ ul.song-list {
         }
       }
       .duration {
-        grid-column: 2;
+        grid-column: 3;
+      }
+      svg {
+        grid-column: 4;
       }
       img {
         width: 2.3em;

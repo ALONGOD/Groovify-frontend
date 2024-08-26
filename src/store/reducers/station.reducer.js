@@ -8,7 +8,6 @@ export const SET_SEARCH_TERM = 'SET_SEARCH_TERM';
 export const SET_SORT_BY = 'SET_SORT_BY';
 export const SET_MODAL = 'SET_MODAL'
 
-export const SET_SEARCH_RESULTS = 'SET_SEARCH_RESULTS'
 export const SET_CURRENT_SONG = 'SET_CURRENT_SONG'
 export const SET_EDIT_MODAL = 'SET_EDIT_MODAL'
 
@@ -18,7 +17,6 @@ const initialState = {
   currSong: null,
   modalSong: {},
   editStationModal: false,
-  searchResults: [],
   sortBy: 'recents',
 }
 
@@ -42,9 +40,7 @@ export function stationReducer(state = initialState, action) {
       )
       newState = { ...state, stations }
       break
-    case SET_SEARCH_RESULTS:
-      newState = { ...state, searchResults: action.results }
-      break
+
 
     case ADD_STATION:
       newState = { ...state, stations: [...state.stations, action.station] }
