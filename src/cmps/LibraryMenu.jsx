@@ -24,26 +24,47 @@ export function LibraryMenu({
         setIsModalOpen(false)
     }
 
+    function handleLibraryClick(e) {
+        e.stopPropagation()
+        if (!isBelowThreshold) {
+            setIsCollapsed(!isCollapsed)
+        }
+    }
+
     return (
         <>
             <div
                 className={`nav-link flex flex-row justify-between ${
                     selected === 'library' ? 'active' : ''
                 }`}
-                onClick={() => !isBelowThreshold && setIsCollapsed(!isCollapsed)}
                 style={{
-                    cursor: isBelowThreshold ? 'not-allowed' : 'pointer',
+                    cursor: isBelowThreshold ? 'not-allowed' : 'default',
                     opacity: isBelowThreshold ? 0.5 : 1,
                 }}
                 title={isBelowThreshold ? 'Expand the window to open the Library sidebar' : ''}
             >
-                <div className='flex flex-row'>
+                {/* Added a wrapper div around the icon and text to make the entire area clickable */}
+                <div
+                    className='flex flex-row items-center cursor-pointer'
+                    onClick={handleLibraryClick} // Added onClick handler to the entire span
+                    style={{
+                        cursor: isBelowThreshold ? 'not-allowed' : 'pointer',
+                    }}
+                >
                     {isCollapsed ? (
                         <IoLibraryOutline className='icon' />
                     ) : (
                         <IoLibrary className='icon' />
                     )}
-                    {!isCollapsed && <span>Your Library</span>}
+                    {!isCollapsed && (
+                        <span
+                            style={{
+                                cursor: isBelowThreshold ? 'not-allowed' : 'pointer',
+                            }}
+                        >
+                            Your Library
+                        </span>
+                    )}
                 </div>
                 {!isCollapsed && (
                     <div className='flex flex-row'>
