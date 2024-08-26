@@ -39,6 +39,9 @@ ul.song-list {
         opacity: 0.4;
       }
       .main-details {
+        display: flex;
+        justify-content: start;
+        align-items: center;
         grid-column: 1;
         .play-btn {
           position: absolute;

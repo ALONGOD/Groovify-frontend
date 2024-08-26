@@ -6,4 +6,35 @@
         color: white;
         font-size: 2.3em;
     }
+    .main-details {
+        color: white;
+        display: grid;
+        grid-template-columns: 26% 60%;
+        gap: 1em;
+        h2 {
+            margin-bottom: 0.6em;
+        }
+        .top-result {
+            height: 100%;
+            img {
+                width: 10em;
+                height: 10em;
+                border-radius: $spotify-border-radius;
+            }
+            .card {
+                gap: 0.3em;
+                border-radius: 0.7em;
+                background-color: #191919;
+                padding: 1.3em;
+                transition: 0.1s background;
+                h3 {
+                    font-size: 1.5em;
+                }
+                &:hover {
+                    background-color: #252525;
+
+                }
+            }
+        }
+    }
 }

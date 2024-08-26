@@ -9,6 +9,8 @@ export function SearchPage() {
   const [searchResults, setSearchResults] = useState([])
   console.log('searchResults:', searchResults)
 
+  const topResult = searchResults[0]
+
   useEffect(() => {
     fetchSongsFromYouTube()
   }, [searchTerm])
@@ -24,13 +26,24 @@ export function SearchPage() {
 
   return (
     <div className="search-page">
-      <div className="songs-resutls">
-        {searchResults?.length && (
-          <>
-            <h1>Songs</h1>
-            <SongList songs={searchResults} type="search-results" />
-          </>
-        )}
+    <div className="main-details">
+        <div className="top-result flex flex-column">
+            <h2>Top Result</h2>
+          <div className="card flex flex-column">
+
+            <img src={topResult?.imgUrl} alt="top-result" />
+            <h3>{topResult?.title}</h3>
+            <p>{topResult?.artist}</p>
+          </div>
+        </div>
+        <div className="songs-resutls">
+          {searchResults?.length && (
+            <>
+              <h2>Songs</h2>
+              <SongList songs={searchResults} type="search-results" />
+            </>
+          )}
+        </div>
       </div>
     </div>
   )
