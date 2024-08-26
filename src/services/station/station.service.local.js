@@ -32,24 +32,40 @@ export async function initializeDemoData() {
 // console.log(query())
 
 async function query(filterBy = {}) {
-  console.log('filterBy:', filterBy)
-  let stations = await storageService.query(STORAGE_KEY)
+  let stations = await storageService.query(STORAGE_KEY);
 
   if (!stations || !stations.length) {
-    stations = initializeDemoData() // Assuming this function returns demo data
+    stations = initializeDemoData();
   }
 
   if (filterBy.searchTerm) {
-    const regex = new RegExp(filterBy.searchTerm, 'i')
-    stations = stations.filter(station => regex.test(station.name))
+    const regex = new RegExp(filterBy.searchTerm, 'i');
+    stations = stations.filter(station => regex.test(station.name));
   }
 
-  if (filterBy.sortBy === 'alphabetical') {
-    stations.sort((a, b) => a.name.localeCompare(b.name));
+  switch (filterBy.sortBy) {
+    case 'recents':
+      stations.sort((a, b) => b.addedAt - a.addedAt); // Assuming addedAt is the time of addition
+      break;
+    case 'recentlyAdded':
+      stations.sort((a, b) => b.songs[0]?.addedAt - a.songs[0]?.addedAt);
+      break;
+    case 'alphabetical':
+      stations.sort((a, b) => a.name.localeCompare(b.name));
+      break;
+    case 'creator':
+      stations.sort((a, b) => a.createdBy.fullname.localeCompare(b.createdBy.fullname));
+      break;
+    case 'customOrder':
+      // Implement custom ordering logic here if you have any
+      break;
+    default:
+      break;
   }
 
-  return stations
+  return stations;
 }
+
 
 async function fetchLikedSongs() {
   const user = JSON.parse(localStorage.getItem('loggedinUser'))

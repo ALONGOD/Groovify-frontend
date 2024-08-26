@@ -6,21 +6,33 @@ export function SortByModal() {
     const dispatch = useDispatch();
     const currentSortBy = useSelector(state => state.stationModule.sortBy);
 
-    const handleSortChange = () => {
-        dispatch(setSortBy('alphabetical'));
-        // Optionally, close the modal after selecting the sort option
+    const handleSortChange = async (sortBy) => {
+        const actions = await setSortBy(sortBy);
+        actions.forEach(action => dispatch(action));
     };
+
+    const sortOptions = [
+        { label: 'Recents', value: 'recents' },
+        { label: 'Recently Added', value: 'recentlyAdded' },
+        { label: 'Alphabetical', value: 'alphabetical' },
+        { label: 'Creator', value: 'creator' },
+        { label: 'Custom Order', value: 'customOrder' }
+    ];
 
     return (
         <div className="sort-by-modal">
             <div className="modal-header">Sort by</div>
             <ul className="sort-options">
-                <li
-                    className={`sort-option ${currentSortBy === 'alphabetical' ? 'active' : ''}`}
-                    onClick={handleSortChange}
-                >
-                    Alphabetical
-                </li>
+                {sortOptions.map(option => (
+                    <li
+                        key={option.value}
+                        className={`sort-option ${currentSortBy === option.value ? 'active' : ''}`}
+                        onClick={() => handleSortChange(option.value)}
+                    >
+                        {option.label}
+                        {currentSortBy === option.value && ' ✔'}
+                    </li>
+                ))}
             </ul>
         </div>
     );

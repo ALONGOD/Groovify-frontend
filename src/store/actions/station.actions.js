@@ -190,14 +190,27 @@ export function setSearchTerm(searchTerm) {
   }
 }
 
-export function setSortBy(sortBy) {
-  return async (dispatch, getState) => {
-    const { stationModule } = getState();
-    const filterBy = { ...stationModule.filterBy, sortBy };
-    const stations = await stationService.query(filterBy);
-    dispatch({ type: SET_STATIONS, stations });
-    dispatch({ type: SET_SORT_BY, sortBy }); // Update the sortBy state
-  };
+export async function setSortBy(sortBy) {
+  try {
+    // First, dispatch the sort by action
+    const sortByAction = {
+      type: SET_SORT_BY,
+      sortBy,
+    };
+
+    // Then fetch the stations with the new sorting criteria
+    const stations = await stationService.query({ sortBy });
+    const stationsAction = {
+      type: SET_STATIONS,
+      stations,
+    };
+
+    // Return the actions in the correct order
+    return [sortByAction, stationsAction];
+  } catch (err) {
+    console.log('Cannot load stations', err);
+    throw err;
+  }
 }
 
 // unitTestActions()

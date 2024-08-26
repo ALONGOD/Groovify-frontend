@@ -4,6 +4,7 @@ import { stationService } from '../services/station/station.service.local';
 import { useDispatch, useSelector } from 'react-redux';
 import { SET_STATIONS, SET_SEARCH_TERM } from '../store/reducers/station.reducer';
 import { SearchBar } from './SearchBar.jsx';
+import { Modal } from './Modal/Modal.jsx';
 
 export function StationList({ isCollapsed }) {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ export function StationList({ isCollapsed }) {
       {!isCollapsed && (
         <div className="search-bar-container">
           <div><SearchBar searchType={'station'} placeholder={"Search in Playlists"} /></div>
+          <div><Modal modalType={'sortBy'} /></div>
         </div>
       )}
 
