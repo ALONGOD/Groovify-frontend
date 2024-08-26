@@ -20,13 +20,21 @@ export function SongList({ songs, type }) {
   )
   const likedSongs = likedSongsStation ? likedSongsStation.songs : []
 
+  // console.log(songs);
+  console.log(songsToDisplay);
+  
+
   useEffect(() => {
-    setSongsToDisplay(prevSongs => prevSongs.map((song, idx) => {
-      song.nextSongId = songs[idx + 1]?.id
-      song.prevSongId = songs[idx - 1]?.id
-      return song
-    }))
-  }, [songs])
+    // Create a new array to ensure immutability
+    const updatedSongs = songs.map((song, idx) => ({
+      ...song,
+      nextSongId: songs[idx + 1]?.id || null,
+      prevSongId: songs[idx - 1]?.id || null,
+    }));
+  
+    // Update the state with the new array
+    setSongsToDisplay(updatedSongs);
+  }, [songs]);
 
   function onToggleModal(event, song) {
     event.stopPropagation()

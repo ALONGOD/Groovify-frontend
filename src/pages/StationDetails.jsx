@@ -14,9 +14,11 @@ export function StationDetails() {
   const editOpen = useSelector(state => state.stationModule.editStationModal)
   console.log('editOpen:', editOpen)
   
+  console.log(station);
 
   useEffect(() => {
     setStation(stations.find(station => station._id === stationId))
+    
   }, [stationId, stations])
 
   function toggleEditStation() {
