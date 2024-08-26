@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import {
+  setSongsInQueue,
   toggleModal,
 } from '../store/actions/station.actions'
 import { SongPreview } from './SongPreview'
@@ -9,7 +10,6 @@ import { SearchBar } from './SearchBar'
 import { useEffect, useState } from 'react'
 
 export function SongList({ songs, type }) {
-  const [songsToDisplay, setSongsToDisplay] = useState(songs)
   const dispatch = useDispatch()
   const songModal = useSelector(state => state.stationModule.modalSong)
   const currSong = useSelector(state => state.stationModule.currSong)
@@ -20,29 +20,15 @@ export function SongList({ songs, type }) {
   )
   const likedSongs = likedSongsStation ? likedSongsStation.songs : []
 
-  // console.log(songs);
-  console.log(songsToDisplay);
   
-
-  useEffect(() => {
-    // Create a new array to ensure immutability
-    const updatedSongs = songs.map((song, idx) => ({
-      ...song,
-      nextSongId: songs[idx + 1]?.id || null,
-      prevSongId: songs[idx - 1]?.id || null,
-    }));
-  
-    // Update the state with the new array
-    setSongsToDisplay(updatedSongs);
-  }, [songs]);
-
   function onToggleModal(event, song) {
     event.stopPropagation()
     toggleModal(song)
   }
-
+  
   function playSong(song) {
     console.log(song);
+    setSongsInQueue(songs)
     dispatch({ type: SET_CURRENT_SONG, songToPlay: song })
   }
 
@@ -61,7 +47,7 @@ export function SongList({ songs, type }) {
               <hr className="custom-divider" />
             </>
           )}
-          {songsToDisplay.map((song, idx) => {
+          {songs.map((song, idx) => {
             return (
               <SongPreview
                 currSong={currSong}

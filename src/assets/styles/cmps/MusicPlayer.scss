@@ -10,7 +10,11 @@
       }
       
    }
-   .top *:hover {
-      
+
+   .top {
+      color: rgb(179,179,179);
+   }
+   .top svg:hover {
+      color: white;
    }
 }

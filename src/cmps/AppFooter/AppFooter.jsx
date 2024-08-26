@@ -11,7 +11,7 @@ export function AppFooter() {
             <div className='details flex flex-row align-center'>
                 {currSong && (
                     <>
-                        <img src={currSong.imgUrl} alt='song-img' />
+                        <img src={currSong?.imgUrl} alt='song-img' />
                         <div className='flex flex-column'>
                             <h3>{currSong.title}</h3>
                             <h4>{currSong.artist}</h4>

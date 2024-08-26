@@ -7,6 +7,8 @@ export const ADD_STATION_MSG = 'ADD_STATION_MSG'
 export const SET_SEARCH_TERM = 'SET_SEARCH_TERM';
 export const SET_SORT_BY = 'SET_SORT_BY';
 export const SET_MODAL = 'SET_MODAL'
+export const SET_QUEUE_SONGS = 'SET_QUEUE_SONGS'
+export const SET_QUEUE_MODE = 'SET_QUEUE_MODE'
 
 export const SET_CURRENT_SONG = 'SET_CURRENT_SONG'
 export const SET_EDIT_MODAL = 'SET_EDIT_MODAL'
@@ -18,6 +20,7 @@ const initialState = {
   modalSong: {},
   editStationModal: false,
   sortBy: 'recents',
+  queue: {mode: 'sync', songs: []}
 }
 
 export function stationReducer(state = initialState, action) {
@@ -61,6 +64,14 @@ export function stationReducer(state = initialState, action) {
       break
     case SET_EDIT_MODAL:
       newState = { ...state, editStationModal: action.isOpen }
+      break
+    case SET_QUEUE_SONGS:
+      console.log(action.songs);
+      
+      newState = { ...state, queue: { ...state.queue, songs: action.songs } }
+      break 
+    case SET_QUEUE_MODE:
+      newState = { ...state, queue: { ...state.queue, mode: action.mode } }
       break
     default:
       return newState

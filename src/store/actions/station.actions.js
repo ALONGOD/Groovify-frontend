@@ -7,12 +7,33 @@ import {
   UPDATE_STATION,
   ADD_STATION_MSG,
   SET_MODAL,
-  ADD_SONG_TO_STATION,
   SET_SEARCH_TERM,
-  SET_SORT_BY
+  SET_SORT_BY,
+  SET_QUEUE_SONGS,
 } from '../reducers/station.reducer'
 import { storageService } from '../../services/async-storage.service.js'
 import { SET_USER } from '../reducers/user.reducer.js'
+
+export function setSongsInQueue(songs) {
+  const queueMode = store.getState().stationModule.queue.mode
+  const songsToAdd = songs
+
+  if (queueMode === 'sync') {
+    store.dispatch({ type: SET_QUEUE_SONGS, songs: songsToAdd })
+  } else if (queueMode === 'shuffle') {
+    const shuffledQueue = shuffleQueue(songsToAdd)
+    store.dispatch({ type: SET_QUEUE_SONGS, songs: shuffledQueue })
+  }
+}
+
+function shuffleQueue(queue) {
+  const shuffledQueue = [...queue]; // Create a copy of the queue to avoid mutating the original
+  for (let i = shuffledQueue.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1)); // Get random index
+    [shuffledQueue[i], shuffledQueue[j]] = [shuffledQueue[j], shuffledQueue[i]]; // Swap elements
+  }
+  return shuffledQueue;
+}
 
 export async function addToLikedSongs(songToAdd) {
   const user = await storageService.query('loggedinUser')
@@ -59,7 +80,7 @@ export async function removeSongFromStation(stationId) {
   if (songIdx < 0) throw 'Song not found in station'
   stations[idx].songs.splice(songIdx, 1)
   await storageService.save('stationDB', stations)
-  console.log(stations[idx]);
+  console.log(stations[idx])
 
   store.dispatch({ type: UPDATE_STATION, updatedStation: stations[idx] })
   return stations[idx]
@@ -109,7 +130,6 @@ export async function removeStation(stationId) {
     throw err
   }
 }
-
 
 export async function addStation(station) {
   try {
@@ -189,20 +209,20 @@ export async function setSortBy(sortBy) {
     const sortByAction = {
       type: SET_SORT_BY,
       sortBy,
-    };
+    }
 
     // Then fetch the stations with the new sorting criteria
-    const stations = await stationService.query({ sortBy });
+    const stations = await stationService.query({ sortBy })
     const stationsAction = {
       type: SET_STATIONS,
       stations,
-    };
+    }
 
     // Return the actions in the correct order
-    return [sortByAction, stationsAction];
+    return [sortByAction, stationsAction]
   } catch (err) {
-    console.log('Cannot load stations', err);
-    throw err;
+    console.log('Cannot load stations', err)
+    throw err
   }
 }
 

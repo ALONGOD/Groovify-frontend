@@ -10,21 +10,22 @@ import { useSelector, useDispatch } from 'react-redux'
 import YouTube from 'react-youtube'
 import { TOGGLE_DETAILS_SIDEBAR } from '../../store/reducers/system.reducer'
 import { MusicPlayerActions } from './MusicPlayerActions'
+import { SET_CURRENT_SONG, SET_QUEUE_MODE } from '../../store/reducers/station.reducer'
+import { setSongsInQueue } from '../../store/actions/station.actions'
+import { formatTime } from '../../services/util.service'
 
 export function MusicPlayer({ currSong }) {
   const dispatch = useDispatch()
 
+  const queue = useSelector(storeState => storeState.stationModule.queue)
+
   const playerRef = useRef(null)
   const intervalRef = useRef(null)
-  const [playerSettings, setPlayerSettings] = useState({
-    duration: 0,
-    currentTime: 0,
-    volume: 50,
-    isPlaying: true,
-    mode: 'shuffle' /* sync, shuffle, repeat */
-  });
-  const {duration, currentTime, volume, isPlaying, mode} = playerSettings;
 
+  const [duration, setDuration] = useState(0)
+  const [currentTime, setCurrentTime] = useState(0)
+  const [volume, setVolume] = useState(50)
+  const [isPlaying, setIsPlaying] = useState(true)
 
   const isDetailsOpen = useSelector(
     storeState => storeState.systemModule.isDetailsOpen
@@ -42,35 +43,61 @@ export function MusicPlayer({ currSong }) {
       autoplay: 1,
     },
   }
+  // playNextOrPrev('next')
+  // dispatch({type: SET_CURRENT_SONG, songToPlay: queue.songs[currSongIdx + 1]})
+
+  // function playPrevSong() {
+  //     if (!queue?.songs[currSongIdx - 1]) return
+  //     dispatch({
+  //       type: SET_CURRENT_SONG,
+  //       songToPlay: queue.songs[currSongIdx - 1],
+  //     })
+    
+  // }
+
+  function playNextOrPrev(value) {
+    // console.log(queue.songs)
+    const currSongIdx = queue.songs.findIndex(song => song.id === currSong.id)
+   
+      if (!queue?.songs[currSongIdx + value] ) {
+        if (queue.mode === 'sync') return
+        else if (queue.mode === 'shuffle') {
+          setSongsInQueue(queue.songs)
+          console.log('sup nig');
+          
+        } 
+      }  
+      dispatch({type: SET_CURRENT_SONG, songToPlay: queue.songs[currSongIdx + value]})
+  }
+
+  function setQueueMode(mode) {
+    dispatch({ type: SET_QUEUE_MODE, mode })
+    setSongsInQueue(queue.songs)
+  }
   
+  
+
   useEffect(() => {
-    setPlayerSettings(settings => ({...settings, isPlaying: true}))
+    playAudio(true)
   }, [currSong])
-
-  function formatTime(seconds) {
-    const minutes = Math.floor(seconds / 60)
-    const secs = Math.floor(seconds % 60)
-    return `${minutes}:${secs < 10 ? '0' : ''}${secs}`
+  
+  function playAudio() {
+    // playerRef?.current?.playVideo()
+    setIsPlaying(true)
   }
 
-  function setMode(mode) {
-    setPlayerSettings(settings => ({...settings, mode}))
-  }
 
   function onPlayerReady(event) {
-    setPlayerSettings(settings => ({...settings, duration: 0}))
+    setCurrentTime(0)
+    intervalRef.current = setInterval(() => {
+      setCurrentTime(playerRef.current.getCurrentTime())
+    }, 1000)
+
     playerRef.current = event.target
 
-
-    intervalRef.current = setInterval(() => {
-      const currentTime = playerRef.current.getCurrentTime()
-      setPlayerSettings(settings => ({...settings, currentTime}))
-    }, 1000)
-    
-    
-    playerRef.current.setVolume(playerSettings.volume)
+    playerRef.current.setVolume(volume)
     const duration = playerRef.current.getDuration()
-    setPlayerSettings(settings => ({...settings, duration}))
+    setDuration(duration)
 
     event.target.setPlaybackQuality('small')
     event.target.playVideo()
@@ -78,10 +105,10 @@ export function MusicPlayer({ currSong }) {
   }
 
   function handleVolumeChange(event) {
-    const volume = parseInt(event.target.value, 10)
-    setPlayerSettings(settings => ({...settings, volume}))
+    const newVolume = parseInt(event.target.value, 10)
+    setVolume(newVolume)
     if (playerRef.current) {
-      playerRef.current.setVolume(volume)
+      playerRef.current.setVolume(newVolume)
     }
   }
 
@@ -90,7 +117,14 @@ export function MusicPlayer({ currSong }) {
     dispatch({ type: TOGGLE_DETAILS_SIDEBAR })
   }
 
+  // function soundPlay() {
+  //   if (player) {
+  //     console.log(player);
 
+  //     player.playVideo()
+  //     setIsPlaying(true)
+  //   }
+  // }
 
   function toggleSoundPlay() {
     if (playerRef.current) {
@@ -98,16 +132,15 @@ export function MusicPlayer({ currSong }) {
 
       if (playerState === 1) {
         playerRef.current.pauseVideo()
-        setPlayerSettings(settings => ({...settings, isPlaying: false}))
-        
+        setIsPlaying(false)
+
         intervalRef.current && clearInterval(intervalRef.current)
       } else {
         playerRef.current.playVideo()
-        setPlayerSettings(settings => ({...settings, isPlaying: true}))
+        setIsPlaying(true)
 
         intervalRef.current = setInterval(() => {
-          const currentTime = playerRef.current.getCurrentTime()
-          setPlayerSettings(settings => ({...settings, currentTime}))
+          setCurrentTime(playerRef.current.getCurrentTime())
         }, 1000)
       }
     }
@@ -115,7 +148,7 @@ export function MusicPlayer({ currSong }) {
 
   function handleTimeChange(ev) {
     const newTime = parseInt(ev.target.value, 10)
-    setPlayerSettings(settings => ({...settings, currentTime: newTime}))
+    setCurrentTime(newTime)
 
     if (playerRef.current) {
       playerRef.current.seekTo(newTime)
@@ -126,15 +159,15 @@ export function MusicPlayer({ currSong }) {
     <>
       <div className="player flex flex-column justify-center align-center">
         <div className="top flex flex-row align-center">
-          <TiArrowShuffle className={mode === 'shuffle' ? 'active' : ''} onClick={() => setMode('shuffle')}/>
+          <TiArrowShuffle onClick={() => setQueueMode('shuffle')} className={queue.mode === 'shuffle' ? 'active' : ''}/>
           <div className="song-actions flex flex-row align-center">
-            <FaBackwardStep />
+            <FaBackwardStep onClick={() => playNextOrPrev(-1)}/>
             <div onClick={toggleSoundPlay}>
               {isPlaying ? <FaPauseCircle /> : <FaPlayCircle />}
             </div>
-            <FaForwardStep />
+            <FaForwardStep onClick={() => playNextOrPrev(1)}/>
           </div>
-          <RiRepeat2Line className={mode === 'sync' ? 'active' : ''} onClick={() => setMode('sync')}/>
+          <RiRepeat2Line onClick={() => setQueueMode('sync')} className={queue.mode === 'sync' ? 'active' : ''}/>
         </div>
 
         <div className="bottom flex flex-row align-center">
