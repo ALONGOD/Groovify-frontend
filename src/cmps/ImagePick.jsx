@@ -31,7 +31,7 @@ export function ImagePick({ setStation, pickedImg }) {
         <div
           onMouseOver={() => setOnHoverImage(true)}
           onMouseLeave={() => setOnHoverImage(false)}
-          className=""
+          className="img-container"
           onClick={handlePickClick}
         >
           {onHoverImage && (
@@ -43,7 +43,6 @@ export function ImagePick({ setStation, pickedImg }) {
           <img
             src={pickedImg}
             alt="The image selected by the user"
-            className={``}
           />
         </div>
       ) : (

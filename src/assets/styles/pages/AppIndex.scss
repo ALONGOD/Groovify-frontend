@@ -23,8 +23,17 @@ div svg.like-song-btn.liked {
 
 .img {
   height: 100%;
-  img {
-    border-radius: $spotify-border-radius;
+  width: 12em;
+  .img-container {
+    height: 100%;
+    width: 100%;
+    img {
+        border-radius: $spotify-border-radius;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
   }
   &:hover {
     background-color: black;
@@ -43,14 +52,6 @@ div svg.like-song-btn.liked {
     }
     svg {
       font-size: 3em;
-    }
-  }
-  div {
-    width: 11.25em;
-    height: 11.25em;
-    img {
-      width: 100%;
-      height: 100%;
     }
   }
 }
