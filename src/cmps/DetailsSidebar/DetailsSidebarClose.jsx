@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux'
-import { TOGGLE_DETAILS_SIDEBAR } from '../store/reducers/system.reducer'
+import { TOGGLE_DETAILS_SIDEBAR } from '../../store/reducers/system.reducer'
 
 export function DetailsSidebarClose() {
     const dispatch = useDispatch()

@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { DetailsSidebarClose } from './DetailsSidebarClose'
-import { TOGGLE_DETAILS_SIDEBAR } from '../store/reducers/system.reducer'
-import { LikeSongBtn } from './LikeSongBtn'
+import { TOGGLE_DETAILS_SIDEBAR } from '../../store/reducers/system.reducer'
+import { LikeSongBtn } from '../LikeSongBtn'
 
 export function DetailsSidebar() {
     const currSong = useSelector(state => state.stationModule.currSong)
