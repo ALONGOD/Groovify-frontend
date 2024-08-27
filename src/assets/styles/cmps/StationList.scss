@@ -91,13 +91,67 @@
     }
 
     .sort-button-container .sort-button:hover {
-        color: #1db954; // Spotify green for hover effect
+        color: #f0f0f0; // Brighter white on hover
+        font-size: 1.1rem; // Slightly larger on hover
+        font-weight: 600; // Bolder on hover
+
+        .sort-icon {
+            font-size: 1rem; // Slightly larger on hover
+            font-weight: 600; // Bolder on hover
+        }
     }
 
     .modal.sortBy {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        z-index: 10;
+        top: 0;
+        right: 0;
+        z-index: 100;
+        background-color: #282828;
+        border-radius: $spotify-border-radius;
+        padding: 1em;
+        width: max-content;
+        color: rgb(231, 231, 231);
+
+        .modal-header {
+            font-family: 'gotham-bold';
+            font-size: em(16px);
+            margin-bottom: 0.5em;
+            color: rgb(225, 225, 225);
+        }
+
+        .sort-options {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+
+            .sort-option {
+                display: flex;
+                align-items: center;
+                padding: em(12px) em(8px);
+                font-family: 'gotham-book';
+                font-size: em(14px);
+                color: rgb(225, 225, 225);
+                cursor: pointer;
+                border-radius: $spotify-border-radius;
+
+                &:hover {
+                    background-color: $modal-row-hover;
+                    color: white;
+                }
+
+                &.active {
+                    background-color: #1db954;
+                    color: white;
+                    font-weight: 600;
+                }
+
+                svg {
+                    margin-left: 0.5em;
+                    font-size: em(16px);
+                    font-weight: 200;
+                }
+            }
+        }
     }
+
+
 }
