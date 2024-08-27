@@ -9,19 +9,20 @@
     .main-details {
         color: white;
         display: grid;
+        // height: 5em;
         grid-template-columns: 26% 60%;
         gap: 1em;
         h2 {
             margin-bottom: 0.6em;
         }
         .top-result {
-            height: 100%;
             img {
-                width: 10em;
-                height: 10em;
+                width: 5em;
+                height: 5em;
                 border-radius: $spotify-border-radius;
             }
             .card {
+                height: 15em;
                 gap: 0.3em;
                 border-radius: 0.7em;
                 background-color: #191919;
