@@ -72,6 +72,18 @@ export function StationList({ isCollapsed }) {
     setIsModalOpen(!isModalOpen);
   }
 
+  function formatSortByLabel(sortBy) {
+    const sortOptions = {
+      recents: 'Recents',
+      recentlyAdded: 'Recently Added',
+      alphabetical: 'Alphabetical',
+      creator: 'Creator',
+      customOrder: 'Custom Order'
+    };
+
+    return sortOptions[sortBy] || sortBy;
+  }
+
   if (!stationOrder.length) return <h1>Loading...</h1>;
   return (
     <section className="station-list">
@@ -80,7 +92,7 @@ export function StationList({ isCollapsed }) {
           <SearchBar searchType={'station'} placeholder={"Search in Playlists"} />
           <div className="sort-button-container" ref={modalRef}>
             <button className="sort-button" onClick={toggleModal}>
-              {sortBy}
+              {formatSortByLabel(sortBy)}
               <span className="sort-icon"><FaBars /></span>
             </button>
             {isModalOpen && <Modal modalType={'sortBy'} />}
