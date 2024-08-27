@@ -5,32 +5,40 @@ import {
   REMOVE_STATION,
   SET_STATIONS,
   UPDATE_STATION,
-  ADD_STATION_MSG,
   SET_MODAL,
   SET_SEARCH_TERM,
   SET_SORT_BY,
   SET_QUEUE_SONGS,
+  SET_QUEUE_SHUFFLED,
 } from '../reducers/station.reducer'
 import { storageService } from '../../services/async-storage.service.js'
 import { SET_USER } from '../reducers/user.reducer.js'
 
 export function setSongsInQueue(songs) {
-  const queueMode = store.getState().stationModule.queue.mode
   const songsToAdd = songs
 
-  if (queueMode === 'sync') {
     store.dispatch({ type: SET_QUEUE_SONGS, songs: songsToAdd })
-  } else if (queueMode === 'shuffle') {
-    const shuffledQueue = shuffleQueue(songsToAdd)
-    store.dispatch({ type: SET_QUEUE_SONGS, songs: shuffledQueue })
+    setShuffleQueue(songs)
   }
+  
+  export function setShuffleQueue(songs) {
+    console.log('songs:', songs)
+    
+    const shuffledQueue = shuffleQueue(songs)
+    console.log('shuffledQueue:', shuffledQueue)
+    
+    return new Promise((resolve) => {
+      store.dispatch({ type: SET_QUEUE_SHUFFLED, shuffledQueue });
+      resolve(shuffledQueue); // Resolves immediately after dispatch
+    });
+    // store.dispatch({ type: SET_QUEUE_SHUFFLED, shuffledQueue })
 }
 
 function shuffleQueue(queue) {
-  const shuffledQueue = [...queue]; // Create a copy of the queue to avoid mutating the original
+  const shuffledQueue = [...queue]; 
   for (let i = shuffledQueue.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1)); // Get random index
-    [shuffledQueue[i], shuffledQueue[j]] = [shuffledQueue[j], shuffledQueue[i]]; // Swap elements
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledQueue[i], shuffledQueue[j]] = [shuffledQueue[j], shuffledQueue[i]]; 
   }
   return shuffledQueue;
 }
@@ -189,12 +197,12 @@ function getCmdUpdateStation(station) {
     station,
   }
 }
-function getCmdAddStationMsg(msg) {
-  return {
-    type: ADD_STATION_MSG,
-    msg,
-  }
-}
+// function getCmdAddStationMsg(msg) {
+//   return {
+//     type: ADD_STATION_MSG,
+//     msg,
+//   }
+// }
 
 export function setSearchTerm(searchTerm) {
   return {

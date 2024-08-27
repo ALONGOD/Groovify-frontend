@@ -1,26 +1,30 @@
+// STATION
 export const SET_STATIONS = 'SET_STATIONS'
 export const ADD_STATION = 'ADD_STATION'
 export const UPDATE_STATION = 'UPDATE_STATION'
 export const REMOVE_STATION = 'REMOVE_STATION'
 export const ADD_SONG_TO_STATION = 'ADD_SONG_TO_STATION'
-export const ADD_STATION_MSG = 'ADD_STATION_MSG'
-export const SET_SEARCH_TERM = 'SET_SEARCH_TERM';
-export const SET_SORT_BY = 'SET_SORT_BY';
+
+// MODAL
 export const SET_MODAL = 'SET_MODAL'
+export const SET_EDIT_MODAL = 'SET_EDIT_MODAL'
+// QUEUE
 export const SET_QUEUE_SONGS = 'SET_QUEUE_SONGS'
 export const SET_QUEUE_MODE = 'SET_QUEUE_MODE'
+export const SET_QUEUE_SHUFFLED = 'SET_QUEUE_SHUFFLED'
 
 export const SET_CURRENT_SONG = 'SET_CURRENT_SONG'
-export const SET_EDIT_MODAL = 'SET_EDIT_MODAL'
+export const SET_SEARCH_TERM = 'SET_SEARCH_TERM';
+export const SET_SORT_BY = 'SET_SORT_BY';
 
 const initialState = {
   stations: [],
-  searchTerm: '', 
+  searchTerm: '',
   currSong: null,
   modalSong: {},
   editStationModal: false,
   sortBy: 'recents',
-  queue: {mode: 'sync', songs: []}
+  queue: { isShuffled: false, songsQueue: [], shuffledQueue: [] }
 }
 
 export function stationReducer(state = initialState, action) {
@@ -28,23 +32,10 @@ export function stationReducer(state = initialState, action) {
   var stations
 
   switch (action.type) {
+    // STATIONS
     case SET_STATIONS:
       newState = { ...state, stations: action.stations }
       break
-    case SET_SEARCH_TERM:  // Add this case
-      newState = { ...state, searchTerm: action.searchTerm }
-      break
-    case SET_SORT_BY: // Handle sorting criteria
-      newState = { ...state, sortBy: action.sortBy };
-      break;
-    case REMOVE_STATION:
-      stations = state.stations.filter(
-        station => station._id !== action.stationId
-      )
-      newState = { ...state, stations }
-      break
-
-
     case ADD_STATION:
       newState = { ...state, stations: [...state.stations, action.station] }
       break
@@ -55,23 +46,44 @@ export function stationReducer(state = initialState, action) {
       )
       newState = { ...state, stations }
       break
+    case REMOVE_STATION:
+      stations = state.stations.filter(
+        station => station._id !== action.stationId
+      )
+      newState = { ...state, stations }
+      break
+
+    case SET_SEARCH_TERM:  // Add this case
+      newState = { ...state, searchTerm: action.searchTerm }
+      break
+
+    case SET_SORT_BY: // Handle sorting criteria
+      newState = { ...state, sortBy: action.sortBy };
+      break;
+
+
+
+    case SET_CURRENT_SONG:
+      newState = { ...state, currSong: action.songToPlay }
+      break
+    // MODAL
     case SET_MODAL:
       newState = { ...state, modalSong: action.song }
-      break
-    case SET_CURRENT_SONG:
-      // console.log(action.songToPlay)
-      newState = { ...state, currSong: action.songToPlay }
       break
     case SET_EDIT_MODAL:
       newState = { ...state, editStationModal: action.isOpen }
       break
+
+    // QUEUE
     case SET_QUEUE_SONGS:
       console.log(action.songs);
-      
-      newState = { ...state, queue: { ...state.queue, songs: action.songs } }
-      break 
+      newState = { ...state, queue: { ...state.queue, songsQueue: action.songs } }
+      break
     case SET_QUEUE_MODE:
-      newState = { ...state, queue: { ...state.queue, mode: action.mode } }
+      newState = { ...state, queue: { ...state.queue, isShuffled: action.mode } }
+      break
+    case SET_QUEUE_SHUFFLED:
+      newState = { ...state, queue: { ...state.queue, shuffledQueue: action.shuffledQueue } };
       break
     default:
       return newState
@@ -112,11 +124,11 @@ function unitTestReducer() {
 
   const msg = { id: 'm' + parseInt(Math.random() * 100), txt: 'Some msg' }
   state = stationReducer(state, {
-    type: ADD_STATION_MSG,
+    // type: ADD_STATION_MSG,
     stationId: station1._id,
     msg,
   })
-  console.log('After ADD_STATION_MSG:', state)
+  // console.log('After ADD_STATION_MSG:', state)
 
   state = stationReducer(state, {
     type: REMOVE_STATION,

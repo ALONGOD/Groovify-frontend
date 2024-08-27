@@ -11,7 +11,7 @@ import YouTube from 'react-youtube'
 import { TOGGLE_DETAILS_SIDEBAR } from '../../store/reducers/system.reducer'
 import { MusicPlayerActions } from './MusicPlayerActions'
 import { SET_CURRENT_SONG, SET_QUEUE_MODE } from '../../store/reducers/station.reducer'
-import { setSongsInQueue } from '../../store/actions/station.actions'
+import { setShuffleQueue, setSongsInQueue } from '../../store/actions/station.actions'
 import { formatTime } from '../../services/util.service'
 
 export function MusicPlayer({ currSong }) {
@@ -44,44 +44,41 @@ export function MusicPlayer({ currSong }) {
       autoplay: 1,
     },
   }
-  // playNextOrPrev('next')
-  // dispatch({type: SET_CURRENT_SONG, songToPlay: queue.songs[currSongIdx + 1]})
 
-  // function playPrevSong() {
-  //     if (!queue?.songs[currSongIdx - 1]) return
-  //     dispatch({
-  //       type: SET_CURRENT_SONG,
-  //       songToPlay: queue.songs[currSongIdx - 1],
-  //     })
-    
-  // }
 
-  function playNextOrPrev(value) {
-    // console.log(queue.songs)
-    const currSongIdx = queue.songs.findIndex(song => song.id === currSong.id)
-   
-      if (!queue?.songs[currSongIdx + value] ) {
-        if (queue.mode === 'sync') return
-        else if (queue.mode === 'shuffle') {
-          setSongsInQueue(queue.songs)
-          console.log('sup nig');
-          
-        } 
-      }  
-      dispatch({type: SET_CURRENT_SONG, songToPlay: queue.songs[currSongIdx + value]})
+  async function playNextOrPrev(value) {
+    let currSongIdx
+
+    if (queue.isShuffled) {
+      currSongIdx = queue.shuffledQueue.findIndex(song => song.id === currSong.id)
+      if (queue.shuffledQueue[currSongIdx + value] === undefined) {
+        const updatedShuffledQueue = await setShuffleQueue(queue.shuffledQueue)
+        currSongIdx = updatedShuffledQueue.findIndex(song => song.id === currSong.id)
+      }
+      dispatch({ type: SET_CURRENT_SONG, songToPlay: queue.shuffledQueue[currSongIdx + value] })
+    }
+
+    if (!queue.isShuffled)
+      console.log(queue.songsQueue);
+
+    currSongIdx = queue.songsQueue.findIndex(song => song.id === currSong.id)
+    if (queue.songsQueue[currSongIdx + value] === undefined) return
+    dispatch({ type: SET_CURRENT_SONG, songToPlay: queue.songsQueue[currSongIdx + value] })
+
   }
 
-  function setQueueMode(mode) {
-    dispatch({ type: SET_QUEUE_MODE, mode })
-    setSongsInQueue(queue.songs)
+  function setQueueIsShuffled(state) {
+    if (state === queue.isShuffled) return dispatch({ type: SET_QUEUE_MODE, mode: '' })
+    dispatch({ type: SET_QUEUE_MODE, mode: state })
   }
-  
-  
+
+
+
 
   useEffect(() => {
     playAudio(true)
   }, [currSong])
-  
+
   function playAudio() {
     // playerRef?.current?.playVideo()
     setIsPlaying(true)
@@ -102,7 +99,7 @@ export function MusicPlayer({ currSong }) {
 
     event.target.setPlaybackQuality('small')
     event.target.playVideo()
-    console.log(playerRef.current)
+    // console.log(playerRef.current)
   }
 
   function handleVolumeChange(event) {
@@ -117,15 +114,6 @@ export function MusicPlayer({ currSong }) {
     setIsActive(prevState => !prevState)
     dispatch({ type: TOGGLE_DETAILS_SIDEBAR })
   }
-
-  // function soundPlay() {
-  //   if (player) {
-  //     console.log(player);
-
-  //     player.playVideo()
-  //     setIsPlaying(true)
-  //   }
-  // }
 
   function toggleSoundPlay() {
     if (playerRef.current) {
@@ -165,15 +153,15 @@ export function MusicPlayer({ currSong }) {
     <>
       <div className="player flex flex-column justify-center align-center">
         <div className="top flex flex-row align-center">
-          <TiArrowShuffle onClick={() => setQueueMode('shuffle')} className={queue.mode === 'shuffle' ? 'active' : ''}/>
+          <TiArrowShuffle onClick={() => setQueueIsShuffled(true)} className={queue.isShuffled ? 'active' : ''} />
           <div className="song-actions flex flex-row align-center">
-            <FaBackwardStep onClick={() => playNextOrPrev(-1)}/>
+            <FaBackwardStep onClick={() => playNextOrPrev(-1)} />
             <div onClick={toggleSoundPlay}>
               {isPlaying ? <FaPauseCircle /> : <FaPlayCircle />}
             </div>
-            <FaForwardStep onClick={() => playNextOrPrev(1)}/>
+            <FaForwardStep onClick={() => playNextOrPrev(1)} />
           </div>
-          <RiRepeat2Line onClick={() => setQueueMode('sync')} className={queue.mode === 'sync' ? 'active' : ''}/>
+          <RiRepeat2Line onClick={() => setQueueIsShuffled(false)} className={!queue.isShuffled ? 'active' : ''} />
         </div>
 
         <div className="bottom flex flex-row align-center">
