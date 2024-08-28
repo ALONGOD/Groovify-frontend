@@ -20,11 +20,11 @@
     height: 4px;
     background-color: #333;
     border-radius: 2px;
-  
+
     &.sound {
       width: 8em;
     }
-  
+
     &::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
@@ -32,11 +32,12 @@
       height: 12px;
       border-radius: 50%;
       background-color: #fff;
-      cursor: pointer; 
-  
-      margin-top: -4px; /* Center the thumb */
+      cursor: pointer;
+
+      margin-top: -4px;
+      /* Center the thumb */
     }
-  
+
     &::-moz-range-thumb {
       width: 12px;
       height: 12px;
@@ -44,15 +45,68 @@
       background-color: #fff;
       cursor: pointer;
     }
-  
+
     &::-webkit-slider-runnable-track {
       height: 4px;
       cursor: pointer;
     }
   }
 
+  div.clickable-area {
+    width: 100%;
+    padding: 10px 0;
+    position: relative;
+    cursor: default;
+    * {
+      cursor: default;
+    }
+
+    .progress-container {
+      // width: 20em;
+      height: 4px;
+      background-color: #4d4d4d;
+      position: relative;
+      border-radius: 2px;
+    }
+
+    div.progress-bar {
+      height: 100%;
+      background-color: white;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0%;
+
+      .progress-thumb {
+        width: 12px;
+        height: 12px;
+        background-color: #fff;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: left 0.1s ease;
+        cursor: pointer;
+        z-index: 2;
+      }
+    }
+    &.video-progress .progress-container {
+      width: 20em;
+    }
+
+    &.volume-progress .progress-container {
+      width: 10em;
+    }
+  }
+
+  .clickable-area:hover .progress-bar {
+    background-color: $spotify-green;
+  }
+
+
   .details {
     gap: 0.8em;
+
     img {
       height: 3em;
       width: 3em;
@@ -77,20 +131,21 @@
     }
 
     svg {
-        cursor: pointer;
+      cursor: pointer;
     }
   }
 
   .player {
     gap: 0.5em;
     font-size: 1.6em;
+
     .song-actions {
-        gap: 0.5em;
-        margin-inline: 0.5em;
+      gap: 0.5em;
+      margin-inline: 0.5em;
     }
 
     * {
-        cursor: pointer;
+      cursor: pointer;
     }
   }
 
@@ -101,10 +156,8 @@
 
     progress {
 
-        height: 0.5em;
+      height: 0.5em;
 
     }
   }
 }
-
-
