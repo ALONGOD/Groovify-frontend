@@ -12,17 +12,14 @@ export function MusicPlayerActions({volume, setVolume, handleVolumeChange, toggl
 const dispatch = useDispatch()
 const volumeToSave = isVolumeMuted ? 0 : volume
 
-const [isActive, setIsActive] = useState(false)
+
 const isDetailsOpen = useSelector(
   storeState => storeState.systemModule.isDetailsOpen
 )
 
-useEffect(() => {
-  setIsActive(isDetailsOpen)
-}, [isDetailsOpen])
 
 function onSetDetailsSidebar(state) {
-  setIsActive(prevState => !prevState)
+  // setIsActive(prevState => !prevState) 
   setDetailsSidebar(state)
 }
 
@@ -30,9 +27,9 @@ function onSetDetailsSidebar(state) {
     <div className="other-options flex flex-row align-center">
       <IoPlayCircleOutline
         onClick={() => onSetDetailsSidebar('songDetails')}
-        style={{ color: isActive ? '#00ba5c' : 'inherit' }}
+        style={{ color: isDetailsOpen === 'songDetails' ? '#00ba5c' : 'inherit' }}
       />
-      <HiOutlineQueueList onClick={() => onSetDetailsSidebar('queueDetails')}/>
+      <HiOutlineQueueList onClick={() => onSetDetailsSidebar('queueDetails')} style={{ color: isDetailsOpen === 'queueDetails' ? '#00ba5c' : 'inherit' }}/>
       {isVolumeMuted ? <AiOutlineMuted onClick={toggleVolume}/> : <AiOutlineSound onClick={toggleVolume}/>}
       <ProgressBar currProgress={volumeToSave} setCurrent={setVolume} maxProgress={100} handleProgressClick={handleVolumeChange} type='volume-progress' playerRef={playerRef} />
     </div>
