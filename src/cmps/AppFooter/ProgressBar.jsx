@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 
-export function ProgressBar({ currProgress, setCurrent, maxProgress, handleProgressClick, type, playerRef,  }) {
+export function ProgressBar({ currProgress, setCurrent, maxProgress, handleProgressClick, type, playerRef }) {
 
     const [progress, setProgress] = useState((currProgress / maxProgress) * 100 || 0)
     const [onHover, setOnHover] = useState(false)

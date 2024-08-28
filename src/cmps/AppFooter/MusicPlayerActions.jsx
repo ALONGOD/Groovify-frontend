@@ -2,10 +2,29 @@ import { AiOutlineAudioMuted, AiOutlineMuted, AiOutlineSound } from "react-icons
 import { HiOutlineQueueList } from "react-icons/hi2";
 import { IoPlayCircleOutline } from "react-icons/io5";
 import { ProgressBar } from "./ProgressBar";
+import { useEffect, useState } from "react";
+import { TOGGLE_DETAILS_SIDEBAR } from "../../store/reducers/system.reducer";
+import { useDispatch, useSelector } from "react-redux";
 
-export function MusicPlayerActions({volume, setVolume, handleVolumeChange, toggleDetailsSidebar, isActive, isVolumeMuted, toggleVolume, playerRef
+export function MusicPlayerActions({volume, setVolume, handleVolumeChange, toggleDetailsSidebar, isVolumeMuted, toggleVolume, playerRef
 }) {
+const dispatch = useDispatch()
 const volumeToSave = isVolumeMuted ? 0 : volume
+
+const [isActive, setIsActive] = useState(false)
+const isDetailsOpen = useSelector(
+  storeState => storeState.systemModule.isDetailsOpen
+)
+
+useEffect(() => {
+  setIsActive(isDetailsOpen)
+}, [isDetailsOpen])
+
+
+function toggleDetailsSidebar() {
+  setIsActive(prevState => !prevState)
+  dispatch({ type: TOGGLE_DETAILS_SIDEBAR, state: 'songDetails' })
+}
   
   return (
     <div className="other-options flex flex-row align-center">

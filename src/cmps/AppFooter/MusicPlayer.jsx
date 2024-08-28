@@ -16,7 +16,6 @@ import { formatTime } from '../../services/util.service'
 import { ProgressBar } from './ProgressBar'
 
 export function MusicPlayer({ currSong }) {
-  const dispatch = useDispatch()
 
   const queue = useSelector(storeState => storeState.stationModule.queue)
 
@@ -30,14 +29,7 @@ export function MusicPlayer({ currSong }) {
   const [volume, setVolume] = useState(50)
   const [isPlaying, setIsPlaying] = useState(true)
 
-  const isDetailsOpen = useSelector(
-    storeState => storeState.systemModule.isDetailsOpen
-  )
-  const [isActive, setIsActive] = useState(false)
 
-  useEffect(() => {
-    setIsActive(isDetailsOpen)
-  }, [isDetailsOpen])
 
 
   useEffect(() => {
@@ -88,10 +80,10 @@ export function MusicPlayer({ currSong }) {
 
 
 
-  function playAudio() {
-    // playerRef?.current?.playVideo()
-    setIsPlaying(true)
-  }
+  // function playAudio() {
+  //   playerRef?.current?.playVideo()
+  //   setIsPlaying(true)
+  // }
 
 
   function onPlayerReady(event) {
@@ -119,10 +111,10 @@ export function MusicPlayer({ currSong }) {
   //   }
   // }
 
-  function toggleDetailsSidebar() {
-    setIsActive(prevState => !prevState)
-    dispatch({ type: TOGGLE_DETAILS_SIDEBAR })
-  }
+  // function toggleDetailsSidebar() {
+  //   setIsActive(prevState => !prevState)
+  //   dispatch({ type: TOGGLE_DETAILS_SIDEBAR })
+  // }
 
   function toggleSoundPlay() {
     if (playerRef.current) {
@@ -174,7 +166,6 @@ export function MusicPlayer({ currSong }) {
   console.log('isVolumeMuted:', isVolumeMuted)
 
   function toggleVolume() {
-    // playerRef.current.setVolume(volume)
     isVolumeMuted ? playerRef.current.unMute() : playerRef.current.mute()
   }
 
@@ -217,8 +208,6 @@ export function MusicPlayer({ currSong }) {
           volume={volume}
           setVolume={setVolume}
           handleVolumeChange={handleVolumeChange}
-          toggleDetailsSidebar={toggleDetailsSidebar}
-          isActive={isActive}
           isVolumeMuted={isVolumeMuted}
           toggleVolume={toggleVolume}
           playerRef={playerRef}
