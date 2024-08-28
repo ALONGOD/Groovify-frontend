@@ -58,15 +58,19 @@ export function MusicPlayer({ currSong }) {
         const updatedShuffledQueue = await setShuffleQueue(queue.shuffledQueue)
         currSongIdx = updatedShuffledQueue.findIndex(song => song.id === currSong.id)
       }
+      console.log('shuffled', queue.shuffledQueue);
+
       dispatch({ type: SET_CURRENT_SONG, songToPlay: queue.shuffledQueue[currSongIdx + value] })
     }
 
-    if (!queue.isShuffled)
+    if (!queue.isShuffled) {
+
       console.log(queue.songsQueue);
 
-    currSongIdx = queue.songsQueue.findIndex(song => song.id === currSong.id)
-    if (queue.songsQueue[currSongIdx + value] === undefined) return
-    dispatch({ type: SET_CURRENT_SONG, songToPlay: queue.songsQueue[currSongIdx + value] })
+      currSongIdx = queue.songsQueue.findIndex(song => song.id === currSong.id)
+      if (queue.songsQueue[currSongIdx + value] === undefined) return
+      dispatch({ type: SET_CURRENT_SONG, songToPlay: queue.songsQueue[currSongIdx + value] })
+    }
 
   }
 
@@ -81,6 +85,11 @@ export function MusicPlayer({ currSong }) {
   useEffect(() => {
     playAudio(true)
   }, [currSong])
+
+  useEffect(() => {
+    playerRef?.current?.getPlayerState() === 1 ? setIsPlaying(false) : setIsPlaying(true)
+  }, [playerRef])
+
 
   function playAudio() {
     // playerRef?.current?.playVideo()
@@ -138,18 +147,18 @@ export function MusicPlayer({ currSong }) {
     }
   }
 
-  function handleVolumeChange(e){
-    const volumeContainer = e.currentTarget; 
+  function handleVolumeChange(e) {
+    const volumeContainer = e.currentTarget;
     const width = volumeContainer.offsetWidth;
     const clickX = e.nativeEvent.offsetX;
 
     const newVolume = clickX / width;
     setVolume(newVolume * 100);
     console.log(newVolume * 100);
-    
+
 
     if (playerRef.current) {
-      playerRef.current.setVolume(newVolume * 100); 
+      playerRef.current.setVolume(newVolume * 100);
     }
   };
 
@@ -197,7 +206,7 @@ export function MusicPlayer({ currSong }) {
               {currentTime ? formatTime(currentTime) : '0:00'}
             </p>
 
-            <ProgressBar currProgress={currentTime} maxProgress={duration} handleProgressClick={handleProgressClick} type='video-progress'/>
+            <ProgressBar currProgress={currentTime} maxProgress={duration} handleProgressClick={handleProgressClick} type='video-progress' playerRef={playerRef} setCurrent={setCurrentTime} />
             <p className="music-total-length">
               {duration ? formatTime(duration) : '0:00'}
             </p>
@@ -207,11 +216,13 @@ export function MusicPlayer({ currSong }) {
       {currSong && (
         <MusicPlayerActions
           volume={volume}
+          setVolume={setVolume}
           handleVolumeChange={handleVolumeChange}
           toggleDetailsSidebar={toggleDetailsSidebar}
           isActive={isActive}
           isVolumeMuted={isVolumeMuted}
           toggleVolume={toggleVolume}
+          playerRef={playerRef}
         />
       )}
     </>

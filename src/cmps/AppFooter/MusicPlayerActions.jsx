@@ -3,7 +3,7 @@ import { HiOutlineQueueList } from "react-icons/hi2";
 import { IoPlayCircleOutline } from "react-icons/io5";
 import { ProgressBar } from "./ProgressBar";
 
-export function MusicPlayerActions({volume, handleVolumeChange, toggleDetailsSidebar, isActive, isVolumeMuted, toggleVolume
+export function MusicPlayerActions({volume, setVolume, handleVolumeChange, toggleDetailsSidebar, isActive, isVolumeMuted, toggleVolume, playerRef
 }) {
   
   return (
@@ -14,7 +14,7 @@ export function MusicPlayerActions({volume, handleVolumeChange, toggleDetailsSid
       />
       <HiOutlineQueueList />
       {isVolumeMuted ? <AiOutlineMuted onClick={toggleVolume}/> : <AiOutlineSound onClick={toggleVolume}/>}
-      <ProgressBar currProgress={volume} maxProgress={100} handleProgressClick={handleVolumeChange} type='volume-progress'/>
+      <ProgressBar currProgress={volume} maxProgress={100} handleProgressClick={handleVolumeChange} type='volume-progress' playerRef={playerRef} setCurrent={setVolume}/>
     </div>
   )
 }
