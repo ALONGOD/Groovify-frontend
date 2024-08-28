@@ -7,7 +7,6 @@ import { SongPreview } from './SongPreview'
 import { SongListHeader } from './StationDetails/SongListHeader'
 import { SET_CURRENT_SONG } from '../store/reducers/station.reducer'
 import { SearchBar } from './SearchBar'
-import { useEffect, useState } from 'react'
 
 export function SongList({ songs, type }) {
   const dispatch = useDispatch()
@@ -32,6 +31,9 @@ export function SongList({ songs, type }) {
     dispatch({ type: SET_CURRENT_SONG, songToPlay: song })
   }
 
+  console.log(songs);
+  
+
   return (
     <>
       {songs.length === 0 && type === 'list-table' ? (
@@ -48,6 +50,8 @@ export function SongList({ songs, type }) {
             </>
           )}
           {songs.map((song, idx) => {
+            // console.log(song);
+            
             return (
               <SongPreview
                 currSong={currSong}
