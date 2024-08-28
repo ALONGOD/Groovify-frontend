@@ -28,7 +28,6 @@ export function MusicPlayer({ currSong }) {
 
 
   const [volume, setVolume] = useState(50)
-  const isVolumeMuted = volume === 0
   const [isPlaying, setIsPlaying] = useState(true)
 
   const isDetailsOpen = useSelector(
@@ -39,6 +38,11 @@ export function MusicPlayer({ currSong }) {
   useEffect(() => {
     setIsActive(isDetailsOpen)
   }, [isDetailsOpen])
+
+
+  useEffect(() => {
+    playerRef?.current?.getPlayerState() === 1 ? setIsPlaying(false) : setIsPlaying(true)
+  }, [playerRef])
 
   const opts = {
     height: '200',
@@ -82,13 +86,6 @@ export function MusicPlayer({ currSong }) {
 
 
 
-  useEffect(() => {
-    playAudio(true)
-  }, [currSong])
-
-  useEffect(() => {
-    playerRef?.current?.getPlayerState() === 1 ? setIsPlaying(false) : setIsPlaying(true)
-  }, [playerRef])
 
 
   function playAudio() {
@@ -173,10 +170,12 @@ export function MusicPlayer({ currSong }) {
     setCurrentTime(newTime);
     playerRef.current.seekTo(newTime, true);
   };
+  const isVolumeMuted = playerRef?.current?.isMuted() || volume === 0
+  console.log('isVolumeMuted:', isVolumeMuted)
 
   function toggleVolume() {
-    isVolumeMuted ? setVolume(50) : setVolume(0)
-    playerRef.current.setVolume(volume)
+    // playerRef.current.setVolume(volume)
+    isVolumeMuted ? playerRef.current.unMute() : playerRef.current.mute()
   }
 
   return (

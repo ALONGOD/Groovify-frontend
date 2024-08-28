@@ -5,6 +5,7 @@ import { ProgressBar } from "./ProgressBar";
 
 export function MusicPlayerActions({volume, setVolume, handleVolumeChange, toggleDetailsSidebar, isActive, isVolumeMuted, toggleVolume, playerRef
 }) {
+const volumeToSave = isVolumeMuted ? 0 : volume
   
   return (
     <div className="other-options flex flex-row align-center">
@@ -14,7 +15,7 @@ export function MusicPlayerActions({volume, setVolume, handleVolumeChange, toggl
       />
       <HiOutlineQueueList />
       {isVolumeMuted ? <AiOutlineMuted onClick={toggleVolume}/> : <AiOutlineSound onClick={toggleVolume}/>}
-      <ProgressBar currProgress={volume} maxProgress={100} handleProgressClick={handleVolumeChange} type='volume-progress' playerRef={playerRef} setCurrent={setVolume}/>
+      <ProgressBar currProgress={volumeToSave} setCurrent={setVolume} maxProgress={100} handleProgressClick={handleVolumeChange} type='volume-progress' playerRef={playerRef} />
     </div>
   )
 }
