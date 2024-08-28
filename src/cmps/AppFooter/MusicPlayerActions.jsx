@@ -5,6 +5,7 @@ import { ProgressBar } from "./ProgressBar";
 import { useEffect, useState } from "react";
 import { TOGGLE_DETAILS_SIDEBAR } from "../../store/reducers/system.reducer";
 import { useDispatch, useSelector } from "react-redux";
+import { setDetailsSidebar } from "../../store/actions/system.actions";
 
 export function MusicPlayerActions({volume, setVolume, handleVolumeChange, toggleDetailsSidebar, isVolumeMuted, toggleVolume, playerRef
 }) {
@@ -20,19 +21,18 @@ useEffect(() => {
   setIsActive(isDetailsOpen)
 }, [isDetailsOpen])
 
-
-function toggleDetailsSidebar() {
+function onSetDetailsSidebar(state) {
   setIsActive(prevState => !prevState)
-  dispatch({ type: TOGGLE_DETAILS_SIDEBAR, state: 'songDetails' })
+  setDetailsSidebar(state)
 }
-  
+
   return (
     <div className="other-options flex flex-row align-center">
       <IoPlayCircleOutline
-        onClick={toggleDetailsSidebar}
+        onClick={() => onSetDetailsSidebar('songDetails')}
         style={{ color: isActive ? '#00ba5c' : 'inherit' }}
       />
-      <HiOutlineQueueList />
+      <HiOutlineQueueList onClick={() => onSetDetailsSidebar('queueDetails')}/>
       {isVolumeMuted ? <AiOutlineMuted onClick={toggleVolume}/> : <AiOutlineSound onClick={toggleVolume}/>}
       <ProgressBar currProgress={volumeToSave} setCurrent={setVolume} maxProgress={100} handleProgressClick={handleVolumeChange} type='volume-progress' playerRef={playerRef} />
     </div>
