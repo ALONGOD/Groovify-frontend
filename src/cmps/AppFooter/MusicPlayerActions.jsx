@@ -6,10 +6,10 @@ import { useEffect, useState } from "react";
 import { TOGGLE_DETAILS_SIDEBAR } from "../../store/reducers/system.reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { setDetailsSidebar } from "../../store/actions/system.actions";
+import { setDetailsSidebar } from "../../store/actions/system.actions";
 
 export function MusicPlayerActions({volume, setVolume, handleVolumeChange, toggleDetailsSidebar, isVolumeMuted, toggleVolume, playerRef
 }) {
-const dispatch = useDispatch()
 const volumeToSave = isVolumeMuted ? 0 : volume
 
 
@@ -19,9 +19,9 @@ const isDetailsOpen = useSelector(
 
 
 function onSetDetailsSidebar(state) {
-  // setIsActive(prevState => !prevState) 
   setDetailsSidebar(state)
 }
+
 
   return (
     <div className="other-options flex flex-row align-center">
