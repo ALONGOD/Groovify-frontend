@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { TOGGLE_DETAILS_SIDEBAR } from "../../store/reducers/system.reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { setDetailsSidebar } from "../../store/actions/system.actions";
-import { setDetailsSidebar } from "../../store/actions/system.actions";
 
 export function MusicPlayerActions({volume, setVolume, handleVolumeChange, toggleDetailsSidebar, isVolumeMuted, toggleVolume, playerRef
 }) {
