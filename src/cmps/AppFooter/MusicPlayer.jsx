@@ -13,6 +13,7 @@ import { MusicPlayerActions } from './MusicPlayerActions'
 import { SET_CURRENT_SONG, SET_QUEUE_MODE } from '../../store/reducers/station.reducer'
 import { setShuffleQueue, setSongsInQueue } from '../../store/actions/station.actions'
 import { formatTime } from '../../services/util.service'
+import { ProgressBar } from './ProgressBar'
 
 export function MusicPlayer({ currSong }) {
   const dispatch = useDispatch()
@@ -24,6 +25,8 @@ export function MusicPlayer({ currSong }) {
 
   const [duration, setDuration] = useState(0)
   const [currentTime, setCurrentTime] = useState(0)
+
+
   const [volume, setVolume] = useState(50)
   const isVolumeMuted = volume === 0
   const [isPlaying, setIsPlaying] = useState(true)
@@ -102,13 +105,13 @@ export function MusicPlayer({ currSong }) {
     // console.log(playerRef.current)
   }
 
-  function handleVolumeChange(event) {
-    const newVolume = parseInt(event.target.value, 10)
-    setVolume(newVolume)
-    if (playerRef.current) {
-      playerRef.current.setVolume(newVolume)
-    }
-  }
+  // function handleVolumeChange(event) {
+  //   const newVolume = parseInt(event.target.value, 10)
+  //   setVolume(newVolume)
+  //   if (playerRef.current) {
+  //     playerRef.current.setVolume(newVolume)
+  //   }
+  // }
 
   function toggleDetailsSidebar() {
     setIsActive(prevState => !prevState)
@@ -135,14 +138,32 @@ export function MusicPlayer({ currSong }) {
     }
   }
 
-  function handleTimeChange(ev) {
-    const newTime = parseInt(ev.target.value, 10)
-    setCurrentTime(newTime)
+  function handleVolumeChange(e){
+    const volumeContainer = e.currentTarget; 
+    const width = volumeContainer.offsetWidth;
+    const clickX = e.nativeEvent.offsetX;
+
+    const newVolume = clickX / width;
+    setVolume(newVolume * 100);
+    console.log(newVolume * 100);
+    
 
     if (playerRef.current) {
-      playerRef.current.seekTo(newTime)
+      playerRef.current.setVolume(newVolume * 100); 
     }
-  }
+  };
+
+  function handleProgressClick(e) {
+    if (!playerRef.current) return
+    const progressContainer = e.target;
+    const width = progressContainer.offsetWidth;
+    const clickX = e.nativeEvent.offsetX;
+    const duration = playerRef.current.getDuration();
+
+    const newTime = (clickX / width) * duration;
+    setCurrentTime(newTime);
+    playerRef.current.seekTo(newTime, true);
+  };
 
   function toggleVolume() {
     isVolumeMuted ? setVolume(50) : setVolume(0)
@@ -175,15 +196,8 @@ export function MusicPlayer({ currSong }) {
             <p className="music-current-time">
               {currentTime ? formatTime(currentTime) : '0:00'}
             </p>
-            <input
-              type="range"
-              name=""
-              min={0}
-              max={duration ? duration : 0}
-              value={currentTime}
-              className="youtube-player"
-              onChange={handleTimeChange}
-            />
+
+            <ProgressBar currProgress={currentTime} maxProgress={duration} handleProgressClick={handleProgressClick} type='video-progress'/>
             <p className="music-total-length">
               {duration ? formatTime(duration) : '0:00'}
             </p>

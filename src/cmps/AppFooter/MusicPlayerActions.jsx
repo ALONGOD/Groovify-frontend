@@ -1,9 +1,11 @@
 import { AiOutlineAudioMuted, AiOutlineMuted, AiOutlineSound } from "react-icons/ai";
 import { HiOutlineQueueList } from "react-icons/hi2";
 import { IoPlayCircleOutline } from "react-icons/io5";
+import { ProgressBar } from "./ProgressBar";
 
 export function MusicPlayerActions({volume, handleVolumeChange, toggleDetailsSidebar, isActive, isVolumeMuted, toggleVolume
 }) {
+  
   return (
     <div className="other-options flex flex-row align-center">
       <IoPlayCircleOutline
@@ -12,15 +14,7 @@ export function MusicPlayerActions({volume, handleVolumeChange, toggleDetailsSid
       />
       <HiOutlineQueueList />
       {isVolumeMuted ? <AiOutlineMuted onClick={toggleVolume}/> : <AiOutlineSound onClick={toggleVolume}/>}
-      <input
-        type="range"
-        min={0}
-        max={100}
-        step={1}
-        value={volume}
-        onChange={handleVolumeChange}
-        className="youtube-player sound"
-      />
+      <ProgressBar currProgress={volume} maxProgress={100} handleProgressClick={handleVolumeChange} type='volume-progress'/>
     </div>
   )
 }
