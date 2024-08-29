@@ -13,6 +13,9 @@ export function DetailsHeaderActions() {
   const toggleModal = () => {
     setIsModalOpen(prev => !prev);
   };
+  function closeModal() {
+    setIsModalOpen(!isModalOpen)
+  }
 
   // Close modal when clicking outside of it
   useEffect(() => {
@@ -34,7 +37,7 @@ export function DetailsHeaderActions() {
         <CiCirclePlus className="plus-circle" />
         <div ref={modalRef} className="relative">
           <BsThreeDots className="three-dots" onClick={toggleModal} />
-          {isModalOpen && <ThreeDotsModal />}
+          {isModalOpen && <ThreeDotsModal closeModal={closeModal} />}
         </div>
       </div>
 
