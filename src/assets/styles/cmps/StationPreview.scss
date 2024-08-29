@@ -6,7 +6,6 @@ li.station-preview {
   padding-block: 0.6em;
   &:hover {
     background-color: rgb(33, 33, 33);
-    
   }
 
   img {
@@ -21,6 +20,9 @@ li.station-preview {
     height: 1.4em;
     font-weight: 400;
     color: white;
+    &.active {
+      color: $spotify-green;
+    }
   }
 
   .station-details {

@@ -1,155 +1,161 @@
 .station-list {
-    ul {
-        display: flex;
-        flex-direction: column;
-        // gap: 0.5em;
-        height: $station-list-bar-height;
-        overflow-y: auto;
+  ul {
+    display: flex;
+    flex-direction: column;
+    // gap: 0.5em;
+    height: $station-list-bar-height;
+    overflow-y: auto;
+  }
+
+  .search-bar-container {
+    display: flex;
+    justify-content: space-between; // Pushes the items to opposite ends
+    align-items: center;
+    margin-left: 4%;
+    margin-right: 4%; // Ensures it doesn't touch the edge
+  }
+
+  .search-bar {
+    position: relative;
+    width: 2.5em;
+    height: 2.5em;
+    overflow: hidden;
+    transition: width 0.4s ease, height 0.4s ease, border-radius 0.4s ease; // Transition for smooth expansion
+    cursor: pointer;
+    border-radius: 50%;
+
+    &.expanded {
+      width: 70%;
+      border-radius: 8px;
+      background-color: #242424;
+
+      input[type='text'] {
+        opacity: 1;
+      }
     }
 
-    .search-bar-container {
-        display: flex;
-        justify-content: space-between; // Pushes the items to opposite ends
-        align-items: center;
-        margin-left: 4%;
-        margin-right: 4%; // Ensures it doesn't touch the edge
+    input[type='text'] {
+      background-color: transparent;
+      border: 0;
+      border-radius: 8px;
+      height: 100%;
+      padding: 0 0 0 2.5em;
+      color: rgb(200, 200, 200);
+      font-size: 0.875em;
+      width: 100%;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      outline: none;
+
+      &:focus {
+        box-shadow: none;
+      }
+
+      &::placeholder {
+        font-weight: 400;
+        color: rgb(150, 150, 150);
+      }
     }
 
-    .search-bar {
-        position: relative;
-        width: 2.5em;
-        height: 2.5em;
-        overflow: hidden;
-        transition: width 0.4s ease, height 0.4s ease, border-radius 0.4s ease; // Transition for smooth expansion
-        cursor: pointer;
-        border-radius: 50%;
-
-        &.expanded {
-            width: 70%;
-            border-radius: 8px;
-            background-color: #242424;
-
-            input[type='text'] {
-                opacity: 1;
-            }
-        }
-
-        input[type='text'] {
-            background-color: transparent;
-            border: 0;
-            border-radius: 8px;
-            height: 100%;
-            padding: 0 0 0 2.5em;
-            color: rgb(200, 200, 200);
-            font-size: 0.875em;
-            width: 100%;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            outline: none;
-
-            &:focus {
-                box-shadow: none;
-            }
-
-            &::placeholder {
-                font-weight: 400;
-                color: rgb(150, 150, 150);
-            }
-        }
-
-        svg {
-            color: rgb(200, 200, 200);
-            position: absolute;
-            top: 50%;
-            left: 4%;
-            transform: translateY(-50%);
-            font-weight: 100;
-            font-size: 1em;
-            transition: left 0.4s ease;
-        }
+    svg {
+      color: rgb(200, 200, 200);
+      position: absolute;
+      top: 50%;
+      left: 4%;
+      transform: translateY(-50%);
+      font-weight: 100;
+      font-size: 1em;
+      transition: left 0.4s ease;
     }
+  }
 
-    .sort-button-container {
-        display: flex;
-        align-items: center;
-        position: relative;
-    }
+  .sort-button-container {
+    display: flex;
+    align-items: center;
+    position: relative;
 
     .sort-button {
-        background: transparent;
-        border: none;
-        color: #fff;
-        cursor: pointer;
-        font-size: 1rem;
-        display: flex;
-        align-items: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: transparent;
+      border: none;
+      color: $--text-subdued;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
     }
 
     .sort-icon {
-        margin-left: 0.5rem;
-        font-size: 0.8rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: 0.5rem;
+      font-size: 0.8rem;
     }
 
-    .sort-button-container .sort-button:hover {
-        color: #f0f0f0; // Brighter white on hover
-        font-size: 1.1rem; // Slightly larger on hover
-        font-weight: 600; // Bolder on hover
+    .sort-button:hover {
+      color: #fff;
+      transform: scale(1.04);
+      //   font-weight: 600;
 
-        .sort-icon {
-            font-size: 1rem; // Slightly larger on hover
-            font-weight: 600; // Bolder on hover
-        }
+      .sort-icon {
+        font-size: 0.9rem;
+        // font-weight: 600;
+      }
+    }
+  }
+
+  .modal.sortBy {
+    top: 0;
+    right: 0;
+    z-index: 100;
+    background-color: #282828;
+    border-radius: $spotify-border-radius;
+    padding: 1em;
+    width: max-content;
+    color: rgb(231, 231, 231);
+
+    .modal-header {
+      font-family: 'gotham-bold';
+      font-size: em(16px);
+      margin-bottom: 0.5em;
+      color: rgb(225, 225, 225);
     }
 
-    .modal.sortBy {
-        top: 0;
-        right: 0;
-        z-index: 100;
-        background-color: #282828;
+    .sort-options {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      .sort-option {
+        display: flex;
+        align-items: center;
+        padding: em(12px) em(8px);
+        font-family: 'gotham-book';
+        font-size: em(14px);
+        color: rgb(225, 225, 225);
+        cursor: pointer;
         border-radius: $spotify-border-radius;
-        padding: 1em;
-        width: max-content;
-        color: rgb(231, 231, 231);
 
-        .modal-header {
-            font-family: 'gotham-bold';
-            font-size: em(16px);
-            margin-bottom: 0.5em;
-            color: rgb(225, 225, 225);
+        &:hover {
+          background-color: $modal-row-hover;
+          color: white;
         }
 
-        .sort-options {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-
-            .sort-option {
-                display: flex;
-                align-items: center;
-                padding: em(12px) em(8px);
-                font-family: 'gotham-book';
-                font-size: em(14px);
-                color: rgb(225, 225, 225);
-                cursor: pointer;
-                border-radius: $spotify-border-radius;
-
-                &:hover {
-                    background-color: $modal-row-hover;
-                    color: white;
-                }
-
-                &.active {
-                    background-color: #1db954;
-                    color: white;
-                    font-weight: 600;
-                }
-
-                svg {
-                    margin-left: 0.5em;
-                    font-size: em(16px);
-                    font-weight: 200;
-                }
-            }
+        &.active {
+          background-color: #1db954;
+          color: white;
+          font-weight: 600;
         }
+
+        svg {
+          margin-left: 0.5em;
+          font-size: em(16px);
+          font-weight: 200;
+        }
+      }
     }
+  }
 }
