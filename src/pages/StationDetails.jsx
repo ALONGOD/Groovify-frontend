@@ -31,7 +31,7 @@ export function StationDetails() {
   return (
     <section className="station-details flex flex-column">
       <StationDetailsHeader station={station} setStation={setStation} toggleEditStation={toggleEditStation}/>
-        {station.songs && <SongList songs={station.songs} type='list-table'/>}
+        {station.songs && <SongList songs={station.songs} type='list-table' stationId={stationId}/>}
         {editOpen && <Modal modalType='editStation'/>}
     </section>
   )

@@ -8,7 +8,7 @@ import { SongListHeader } from './StationDetails/SongListHeader'
 import { SET_CURRENT_SONG } from '../store/reducers/station.reducer'
 import { SearchBar } from './SearchBar'
 
-export function SongList({ songs, type }) {
+export function SongList({ songs, type, stationId }) {
   const dispatch = useDispatch()
   const songModal = useSelector(state => state.stationModule.modalSong)
   const currSong = useSelector(state => state.stationModule.currSong)
@@ -28,6 +28,9 @@ export function SongList({ songs, type }) {
   function playSong(song) {
     console.log(song);
     setSongsInQueue(songs)
+    song = {...song, stationId}
+    console.log(song);
+    
     dispatch({ type: SET_CURRENT_SONG, songToPlay: song })
   }
 
@@ -46,7 +49,6 @@ export function SongList({ songs, type }) {
           {type === 'list-table' && (
             <>
               <SongListHeader />
-              <hr className="custom-divider" />
             </>
           )}
           {songs.map((song, idx) => {

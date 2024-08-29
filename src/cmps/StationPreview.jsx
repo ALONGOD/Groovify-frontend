@@ -2,10 +2,12 @@ import { BsFillPinAngleFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router';
 import { useDrag, useDrop } from 'react-dnd';
 import { useRef } from 'react';
+import { useSelector } from 'react-redux';
 
 export function StationPreview({ station, isCollapsed, index, moveStation }) {
   const navigate = useNavigate();
   const ref = useRef(null);
+  const stationId = useSelector(state => state.stationModule.currSong).stationId
 
   const { _id, imgUrl, name, songs } = station;
 
@@ -29,6 +31,9 @@ export function StationPreview({ station, isCollapsed, index, moveStation }) {
 
   drag(drop(ref));
 
+  console.log(stationId, station.id);
+  
+
   return (
     <li
       ref={ref}
@@ -39,7 +44,7 @@ export function StationPreview({ station, isCollapsed, index, moveStation }) {
       <img src={imgUrl} alt="station img" />
       {!isCollapsed && (
         <div className="flex flex-column">
-          <h3>{name}</h3>
+          <h3 className={stationId === station._id ? 'active' : ''}>{name}</h3>
           <div className="station-details flex flex-row">
             <span>Playlist</span>
             <span className="divider">&#9679;</span>
