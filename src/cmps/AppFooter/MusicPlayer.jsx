@@ -16,7 +16,7 @@ import { formatTime } from '../../services/util.service'
 import { ProgressBar } from './ProgressBar'
 
 export function MusicPlayer({ currSong }) {
-
+  const dispatch = useDispatch()
   const queue = useSelector(storeState => storeState.stationModule.queue)
 
   const playerRef = useRef(null)
