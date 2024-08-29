@@ -1,15 +1,18 @@
-import { FaRegClock } from "react-icons/fa";
+import { FaRegClock } from 'react-icons/fa'
 
 export function SongListHeader() {
-     
-    return (
-        <div className="list-header flex">
-            <h4>#</h4>
-            <h4>Title</h4>
-            <h4>Album</h4>
-            <h4>Added At</h4>
-            <h4></h4>
-            <h4><FaRegClock /></h4>
-        </div>
-    )
+  return (
+    <div className="list-header flex">
+      <h4 className="#">#</h4>
+      <h4 className="title">Title</h4>
+      <h4 className="album">Album</h4>
+      <h4 className="date">Date added</h4>
+      <h4></h4>
+      <div className='clock-container'>
+        <h4 className="clock">
+          <FaRegClock />
+        </h4>
+      </div>
+    </div>
+  )
 }
