@@ -5,12 +5,14 @@ import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
 import { removeStation } from '../../store/actions/station.actions';
 
-export function ThreeDotsModal({ closeModal }) {
+export function ThreeDotsModal({ closeModal, toggleEditStation }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { stationId } = useParams();
 
     const handleEdit = () => {
+        closeModal()
+        toggleEditStation()
         console.log("Edit details option selected");
     };
 

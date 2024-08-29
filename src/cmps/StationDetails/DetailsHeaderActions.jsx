@@ -5,7 +5,7 @@ import { FaListUl } from "react-icons/fa";
 import { IoPlayCircle } from "react-icons/io5";
 import { ThreeDotsModal } from "../Modal/ThreeDotsModal";
 
-export function DetailsHeaderActions() {
+export function DetailsHeaderActions({ toggleEditStation }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const modalRef = useRef(null);
 
@@ -37,7 +37,7 @@ export function DetailsHeaderActions() {
         <CiCirclePlus className="plus-circle" />
         <div ref={modalRef} className="relative">
           <BsThreeDots className="three-dots" onClick={toggleModal} />
-          {isModalOpen && <ThreeDotsModal closeModal={closeModal} />}
+          {isModalOpen && <ThreeDotsModal closeModal={closeModal} toggleEditStation={toggleEditStation} />}
         </div>
       </div>
 
