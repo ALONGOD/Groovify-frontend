@@ -40,17 +40,17 @@ export function ThreeDotsModal({ closeModal, toggleEditStation }) {
         top: '100%',
         left: '0',
         backgroundColor: '#282828',
-        borderRadius: '0.5rem', // 8px
-        boxShadow: '0 0.25rem 0.5rem rgba(0, 0, 0, 0.2)', // 0 4px 8px
+        borderRadius: '0.5rem',
+        boxShadow: '0 0.25rem 0.5rem rgba(0, 0, 0, 0.2)',
         zIndex: 10,
-        width: '13.75rem', // 220px
-        padding: '0.5rem 0', // 8px 0
+        width: '13.75rem',
+        padding: '0.5rem 0',
     };
 
     const listItemStyles = {
         display: 'flex',
         alignItems: 'center',
-        padding: '0.5rem 1rem', // 8px 16px
+        padding: '0.5rem 1rem',
         color: '#e0e0e0',
         cursor: 'pointer',
         transition: 'background-color 0.3s ease',

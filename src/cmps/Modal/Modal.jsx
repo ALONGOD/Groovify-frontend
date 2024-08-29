@@ -6,8 +6,9 @@ import { SortByModal } from './SortByModal'
 import { EditStationModal } from './EditStationModal'
 import { ThreeDotsModal } from './ThreeDotsModal.jsx'
 
-export function Modal({ modalType }) {
+export function Modal({ modalType, modalOpen, closeModal }) {
   const stations = useSelector(state => state.stationModule.stations)
+  
 
   return (
     <>

@@ -7,6 +7,8 @@ ul.song-list {
     font-size: 1.2em;
   }
 
+// TABLE LIST
+
   &.list-table {
     grid-template-columns: 2fr 17fr 10fr 7fr 3fr 7fr;
 
@@ -23,6 +25,11 @@ ul.song-list {
       display: contents;
     }
   }
+
+
+
+
+// SEARCH RESULTS
 
   &.search-results {
     padding-inline: 0;
@@ -64,6 +71,8 @@ ul.song-list {
     }
   }
 
+  // REGULAR
+
   li {
     &.active {
       h4.title {
@@ -90,6 +99,10 @@ ul.song-list {
     }
     .title {
       color: white;
+      white-space: nowrap;
+      overflow: hidden;   
+      text-overflow: ellipsis;
+      max-width: 10em;     
     }
 
     div.duration {
