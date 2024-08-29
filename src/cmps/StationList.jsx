@@ -45,14 +45,25 @@ export function StationList({ isCollapsed }) {
 
   async function fetchStations() {
     try {
+      // Check if the stations state is empty
+      let stationsToLoad = stations;
+
+      if (!stations || stations.length === 0) {
+        // If empty, load from local storage
+        stationsToLoad = await stationService.query();
+        dispatch({ type: SET_STATIONS, stations: stationsToLoad });
+      }
+
       const filterBy = {
         searchTerm: searchTerm || '',
         sortBy: sortBy || 'recents'
       };
-      const stations = await stationService.query(filterBy);
+
+      const filteredStations = await stationService.query(filterBy);
       const likedSongsStation = await stationService.fetchLikedSongs();
-      dispatch({ type: SET_STATIONS, stations: [likedSongsStation, ...stations] });
-      setStationOrder([likedSongsStation, ...stations]);
+
+      dispatch({ type: SET_STATIONS, stations: [likedSongsStation, ...filteredStations] });
+      setStationOrder([likedSongsStation, ...filteredStations]);
     } catch (err) {
       console.log('Cannot load stations', err);
       throw err;
