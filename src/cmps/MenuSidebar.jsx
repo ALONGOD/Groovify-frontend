@@ -41,9 +41,9 @@ export function MenuSidebar() {
 
     return (
         <aside className={`menu-sidebar flex flex-column ${isCollapsed ? 'collapsed' : ''}`}>
-            <div className='navigation'>
+            {/* <div className='navigation'>
                 <MainMenu isCollapsed={isCollapsed} />
-            </div>
+            </div> */}
             <div className='library-menu flex flex-column'>
                 <LibraryMenu
                     isCollapsed={isCollapsed}

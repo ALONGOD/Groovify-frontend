@@ -8,7 +8,7 @@ export function AppIndex() {
 
   return (
     <main className={isDetailsOpen ? 'open' : ''}>
-      <AppHeader />
+      {/* <AppHeader /> */}
       <div className="main-section flex flex-column">
         <Outlet />
       </div>

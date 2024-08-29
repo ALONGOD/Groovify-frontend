@@ -13,9 +13,9 @@ import { MusicPlayerActions } from './MusicPlayerActions'
 import { SET_CURRENT_SONG, SET_QUEUE_MODE } from '../../store/reducers/station.reducer'
 import { setShuffleQueue, setSongsInQueue } from '../../store/actions/station.actions'
 import { formatTime } from '../../services/util.service'
+import { ProgressBar } from './ProgressBar'
 
 export function MusicPlayer({ currSong }) {
-  const dispatch = useDispatch()
 
   const queue = useSelector(storeState => storeState.stationModule.queue)
 
@@ -24,18 +24,17 @@ export function MusicPlayer({ currSong }) {
 
   const [duration, setDuration] = useState(0)
   const [currentTime, setCurrentTime] = useState(0)
+
+
   const [volume, setVolume] = useState(50)
-  const isVolumeMuted = volume === 0
   const [isPlaying, setIsPlaying] = useState(true)
 
-  const isDetailsOpen = useSelector(
-    storeState => storeState.systemModule.isDetailsOpen
-  )
-  const [isActive, setIsActive] = useState(false)
+
+
 
   useEffect(() => {
-    setIsActive(isDetailsOpen)
-  }, [isDetailsOpen])
+    playerRef?.current?.getPlayerState() === 1 ? setIsPlaying(false) : setIsPlaying(true)
+  }, [playerRef])
 
   const opts = {
     height: '200',
@@ -55,15 +54,19 @@ export function MusicPlayer({ currSong }) {
         const updatedShuffledQueue = await setShuffleQueue(queue.shuffledQueue)
         currSongIdx = updatedShuffledQueue.findIndex(song => song.id === currSong.id)
       }
+      console.log('shuffled', queue.shuffledQueue);
+
       dispatch({ type: SET_CURRENT_SONG, songToPlay: queue.shuffledQueue[currSongIdx + value] })
     }
 
-    if (!queue.isShuffled)
+    if (!queue.isShuffled) {
+
       console.log(queue.songsQueue);
 
-    currSongIdx = queue.songsQueue.findIndex(song => song.id === currSong.id)
-    if (queue.songsQueue[currSongIdx + value] === undefined) return
-    dispatch({ type: SET_CURRENT_SONG, songToPlay: queue.songsQueue[currSongIdx + value] })
+      currSongIdx = queue.songsQueue.findIndex(song => song.id === currSong.id)
+      if (queue.songsQueue[currSongIdx + value] === undefined) return
+      dispatch({ type: SET_CURRENT_SONG, songToPlay: queue.songsQueue[currSongIdx + value] })
+    }
 
   }
 
@@ -75,14 +78,12 @@ export function MusicPlayer({ currSong }) {
 
 
 
-  useEffect(() => {
-    playAudio(true)
-  }, [currSong])
 
-  function playAudio() {
-    // playerRef?.current?.playVideo()
-    setIsPlaying(true)
-  }
+
+  // function playAudio() {
+  //   playerRef?.current?.playVideo()
+  //   setIsPlaying(true)
+  // }
 
 
   function onPlayerReady(event) {
@@ -102,18 +103,18 @@ export function MusicPlayer({ currSong }) {
     // console.log(playerRef.current)
   }
 
-  function handleVolumeChange(event) {
-    const newVolume = parseInt(event.target.value, 10)
-    setVolume(newVolume)
-    if (playerRef.current) {
-      playerRef.current.setVolume(newVolume)
-    }
-  }
+  // function handleVolumeChange(event) {
+  //   const newVolume = parseInt(event.target.value, 10)
+  //   setVolume(newVolume)
+  //   if (playerRef.current) {
+  //     playerRef.current.setVolume(newVolume)
+  //   }
+  // }
 
-  function toggleDetailsSidebar() {
-    setIsActive(prevState => !prevState)
-    dispatch({ type: TOGGLE_DETAILS_SIDEBAR })
-  }
+  // function toggleDetailsSidebar() {
+  //   setIsActive(prevState => !prevState)
+  //   dispatch({ type: TOGGLE_DETAILS_SIDEBAR })
+  // }
 
   function toggleSoundPlay() {
     if (playerRef.current) {
@@ -135,18 +136,37 @@ export function MusicPlayer({ currSong }) {
     }
   }
 
-  function handleTimeChange(ev) {
-    const newTime = parseInt(ev.target.value, 10)
-    setCurrentTime(newTime)
+  function handleVolumeChange(e) {
+    const volumeContainer = e.currentTarget;
+    const width = volumeContainer.offsetWidth;
+    const clickX = e.nativeEvent.offsetX;
+
+    const newVolume = clickX / width;
+    setVolume(newVolume * 100);
+    console.log(newVolume * 100);
+
 
     if (playerRef.current) {
-      playerRef.current.seekTo(newTime)
+      playerRef.current.setVolume(newVolume * 100);
     }
-  }
+  };
+
+  function handleProgressClick(e) {
+    if (!playerRef.current) return
+    const progressContainer = e.target;
+    const width = progressContainer.offsetWidth;
+    const clickX = e.nativeEvent.offsetX;
+    const duration = playerRef.current.getDuration();
+
+    const newTime = (clickX / width) * duration;
+    setCurrentTime(newTime);
+    playerRef.current.seekTo(newTime, true);
+  };
+  const isVolumeMuted = playerRef?.current?.isMuted() || volume === 0
+  console.log('isVolumeMuted:', isVolumeMuted)
 
   function toggleVolume() {
-    isVolumeMuted ? setVolume(50) : setVolume(0)
-    playerRef.current.setVolume(volume)
+    isVolumeMuted ? playerRef.current.unMute() : playerRef.current.mute()
   }
 
   return (
@@ -175,15 +195,8 @@ export function MusicPlayer({ currSong }) {
             <p className="music-current-time">
               {currentTime ? formatTime(currentTime) : '0:00'}
             </p>
-            <input
-              type="range"
-              name=""
-              min={0}
-              max={duration ? duration : 0}
-              value={currentTime}
-              className="youtube-player"
-              onChange={handleTimeChange}
-            />
+
+            <ProgressBar currProgress={currentTime} maxProgress={duration} handleProgressClick={handleProgressClick} type='video-progress' playerRef={playerRef} setCurrent={setCurrentTime} />
             <p className="music-total-length">
               {duration ? formatTime(duration) : '0:00'}
             </p>
@@ -193,11 +206,11 @@ export function MusicPlayer({ currSong }) {
       {currSong && (
         <MusicPlayerActions
           volume={volume}
+          setVolume={setVolume}
           handleVolumeChange={handleVolumeChange}
-          toggleDetailsSidebar={toggleDetailsSidebar}
-          isActive={isActive}
           isVolumeMuted={isVolumeMuted}
           toggleVolume={toggleVolume}
+          playerRef={playerRef}
         />
       )}
     </>

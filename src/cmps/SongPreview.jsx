@@ -18,21 +18,17 @@ export function SongPreview({
   type,
   likedSongs,
 }) {
+  console.log('song:', song)
   const [onSongHover, setOnSongHover] = useState(false)
-
   const { addedAt, duration, imgUrl, title, artist, album } = song
-
   const isListTable = type === 'list-table'
-
   const isSongLiked = likedSongs?.some(likedSong => likedSong.id === song.id)
-
   const displayLikeBtn = onSongHover || isSongLiked
 
   return (
     <li
-      className={`flex flex-row align-center ${
-        currSong?.id === song?.id ? 'active' : ''
-      }`}
+      className={`flex flex-row align-center ${currSong?.id === song?.id ? 'active' : ''
+        }`}
       onMouseEnter={() => setOnSongHover(true)}
       onMouseLeave={() => setOnSongHover(false)}
     >
