@@ -27,8 +27,7 @@ export function SongPreview({
 
   return (
     <li
-      className={`flex flex-row align-center ${currSong?.id === song?.id ? 'active' : ''
-        }`}
+      className={` ${currSong?.id === song?.id ? 'active' : ''}`}
       onMouseEnter={() => setOnSongHover(true)}
       onMouseLeave={() => setOnSongHover(false)}
     >
@@ -41,12 +40,12 @@ export function SongPreview({
         <div className="relative">
           <img src={imgUrl} alt="song-img" />
           {!isListTable && onSongHover && (
-            <FaPlay onClick={e => playSong(song)} className="play-btn" />
+            <IoIosPlay onClick={() => playSong(song)} className="play-btn" />
           )}
         </div>
         <div className="song-details flex flex-column">
-          <h4 className="title">{title}</h4>
-          <h4>{artist ? artist : 'Artist'}</h4>
+          <h4 className="title .text-overflow-manage">{title}</h4>
+          <h4 className='artist'>{artist ? artist : 'Artist'}</h4>
         </div>
       </div>
       {isListTable && (

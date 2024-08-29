@@ -24,7 +24,7 @@ export function DetailsSidebar() {
     }, [dispatch, isDetailsOpen])
 
     return (
-        <aside className={`details-sidebar ${isDetailsOpen ? 'open' : 'closed'}`}>
+        <aside className={`details-sidebar ${isDetailsOpen} ${isDetailsOpen ? 'open' : 'closed'}`}>
            {isDetailsOpen === 'songDetails' && <SongDetails currSong={currSong} />}
            {isDetailsOpen === 'queueDetails' && <QueueDetails />}
         </aside>
