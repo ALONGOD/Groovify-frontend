@@ -6,13 +6,13 @@ import { QueueDetails } from './QueueDetails'
 
 export function DetailsSidebar() {
     const currSong = useSelector(state => state.stationModule.currSong)
-    const isDetailsOpen = useSelector(state => state.systemModule.isDetailsOpen)
-    // console.log('isDetailsOpen:', isDetailsOpen)
+    const detailsSidebarMode = useSelector(state => state.systemModule.detailsSidebarMode)
+    // console.log('detailsSidebarMode:', detailsSidebarMode)
     const dispatch = useDispatch()
 
     useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth < 900 && isDetailsOpen) {
+            if (window.innerWidth < 900 && detailsSidebarMode) {
                 dispatch({ type: TOGGLE_DETAILS_SIDEBAR })
             }
         }
@@ -21,12 +21,12 @@ export function DetailsSidebar() {
         return () => {
             window.removeEventListener('resize', handleResize)
         }
-    }, [dispatch, isDetailsOpen])
+    }, [dispatch, detailsSidebarMode])
 
     return (
-        <aside className={`details-sidebar ${isDetailsOpen} ${isDetailsOpen ? 'open' : 'closed'}`}>
-           {isDetailsOpen === 'songDetails' && <SongDetails currSong={currSong} />}
-           {isDetailsOpen === 'queueDetails' && <QueueDetails />}
+        <aside className={`details-sidebar ${detailsSidebarMode} ${detailsSidebarMode ? 'open' : 'closed'}`}>
+           {detailsSidebarMode === 'songDetails' && <SongDetails currSong={currSong} />}
+           {detailsSidebarMode === 'queueDetails' && <QueueDetails />}
         </aside>
     )
 }
