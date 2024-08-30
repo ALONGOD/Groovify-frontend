@@ -1,43 +1,45 @@
 li.station-preview {
-    gap: 0.7em;
-    cursor: pointer;
-    border-radius: 4px;
-    padding-inline: 0.5em;
-    padding-block: 0.3em;
+  gap: 0.7em;
+  cursor: pointer;
+  border-radius: 4px;
+  padding-inline: 0.5em;
+  padding-block: 0.6em;
+  &:hover {
+    background-color: rgb(33, 33, 33);
+  }
 
-    &:hover {
-       background-color: $modal-row-hover; 
-    }
-    
-    img {
-        width: 2.7em;
-        height: 2.7em;
-        border-radius: $spotify-border-radius;
-    }
+  img {
+    width: 2.7em;
+    height: 2.7em;
+    border-radius: $spotify-border-radius;
+  }
 
-    h3 {
-        margin: 0;
-        font-size: 0.95em;
-        height: 1.4em;
-        font-weight: 400;
-        color: white;
+  h3 {
+    margin: 0;
+    font-size: 0.95em;
+    height: 1.4em;
+    font-weight: 400;
+    color: white;
+    &.active {
+      color: $spotify-green;
     }
+  }
 
-    .station-details {
-        color: $station-prev-p;
-        padding: 0;
-        margin: 0;
-        gap: 0.3em;
-        font-size: 0.85em;
-        svg {
-            font-size: 1em;
-            color: $spotify-green;
-        }
-        .divider {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 0.6em;
-        }
+  .station-details {
+    color: $station-prev-p;
+    padding: 0;
+    margin: 0;
+    gap: 0.3em;
+    font-size: 0.85em;
+    svg {
+      font-size: 1em;
+      color: $spotify-green;
     }
+    .divider {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.6em;
+    }
+  }
 }

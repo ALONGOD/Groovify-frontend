@@ -1,95 +1,103 @@
 .details-sidebar {
-    @include component-layout;
-    padding: 1em;
-    flex-direction: column;
-    display: none;
-    gap: 1em;
-    grid-column: 3;
-    overflow-y: auto;
+  @include component-layout;
+  padding: 1em 0.7em;
+  flex-direction: column;
+  display: none;
+  grid-column: 3;
+  overflow-y: auto;
 
-    .app:has(main.open) & {
-        display: flex;
+
+
+  .app:has(main.open) & {
+    display: flex;
+  }
+
+  .details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .more-options,
+    .close-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'gotham-light';
+      background: none;
+      border: none;
+      color: #b3b3b3;
+      font-size: 2em;
+      cursor: pointer;
+      width: 1em;
+      height: 1em;
+      border-radius: 50%;
+      transition: 0.2s;
     }
 
-    .details-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        h3 {
-            color: white;
-            font-size: 1.2em;
-            margin: 0;
-        }
-
-        .more-options,
-        .close-btn {
-            background: none;
-            border: none;
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 1.2em;
-            cursor: pointer;
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5em;
-            cursor: pointer;
-        }
+    .close-btn:hover {
+      transform: scale(1.04);
+      color: #bcbcbc;
+      color: var(#fff, #000000);
+      background-color: rgb(49, 49, 49);
     }
 
-    .details-image {
-        width: 100%;
-        max-width: 300px;
-        aspect-ratio: 1;
-        margin: 0 auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-        border-radius: 0.6em;
+    h3 {
+      color: white;
+      font-size: 1.2em;
+      margin: 0;
+    }
+  }
 
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-        }
+  .details-image {
+    width: 100%;
+    max-width: 300px;
+    aspect-ratio: 1;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 0.6em;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+
+  .details-song-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1em;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+    .song-and-band {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5em;
     }
 
-    .details-song-info {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding-top: 1em;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-
-        .song-and-band {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5em;
-        }
-
-        h2 {
-            color: white;
-            font-size: 1.2em;
-            margin: 0;
-        }
-
-        h4 {
-            color: #b3b3b3;
-            font-size: 0.9em;
-            margin: 0;
-        }
-
-        .add-btn {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5em;
-            cursor: pointer;
-        }
+    h2 {
+      color: white;
+      font-size: 1.2em;
+      margin: 0;
     }
+
+    h4 {
+      color: #b3b3b3;
+      font-size: 0.9em;
+      margin: 0;
+    }
+
+    .add-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5em;
+      cursor: pointer;
+    }
+  }
 }

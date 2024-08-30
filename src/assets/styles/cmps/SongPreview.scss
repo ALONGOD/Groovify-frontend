@@ -1,37 +1,78 @@
 ul.song-list {
   display: grid;
-  gap: 0.5em;
+  // gap: 0.5em;
   padding-inline: 1em;
 
   .like-song-container svg {
     font-size: 1.2em;
   }
 
-  &.list-table {
-    grid-template-columns: 2fr 17fr 10fr 7fr 3fr 7fr;
+  // TABLE LIST
 
-    div:has(svg.like-song-btn) {
-      height: 100%;
-      width: 100%;
-      display: flex;
-      justify-content: start;
-      align-items: center;
+  &.list-table {
+    display: flex;
+    flex-direction: column;
+    // grid-template-columns: 2em minmax(10em, 30em) minmax(5em, 20em) minmax(5em, 10em) 3em 2em;
+    
+    li {
+      .like-song-container {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        margin-right: 2em;
+      }
     }
 
     .list-header,
     li {
-      display: contents;
+      gap: 1em;
+      display: grid;
+      grid-template-columns:
+        1em minmax(10em, 50em) minmax(5em, 40em) minmax(5em, 20em)
+        minmax(3em, 7em) minmax(2em, 5em);
+        padding: 0 1em;
+    }
+
+    .list-header {
+      align-items: center;
+      height: em(36px);
+      margin-block: 0 0.7em;
+      border-bottom: 0.5px solid rgb(75, 75, 75);
+      h4 {
+        font-size: 0.9rem;
+        font-family: 'gotham-book';
+        display: flex;
+        justify-content: start;
+        // font-size: 14px;
+        // font-weight: 600;
+        color: #bfbfbf;
+        margin: 0;
+      }
+      .clock-container {
+        width: 100%;
+        .clock {
+          width: 2em;
+          display: flex;
+          justify-content: center;
+        }
+      }
     }
   }
 
+  // SEARCH RESULTS
+
   &.search-results {
     padding-inline: 0;
-    grid-template-rows: repeat(auto-fill, max-content);    // grid-template-columns: 7fr 1fr;
+    grid-template-rows: repeat(
+      auto-fill,
+      max-content
+    ); // grid-template-columns: 7fr 1fr;
     grid-template-columns: 14fr 1fr 1fr 1fr;
 
     .like-song-container {
       grid-column: 2;
-
     }
     li {
       display: contents;
@@ -64,7 +105,15 @@ ul.song-list {
     }
   }
 
+  // REGULAR
+
   li {
+    height: em(56px);
+    padding-block: 0.5em;
+    border-radius: $spotify-border-radius;
+    &:hover {
+      background-color: rgb(39, 39, 39);
+    }
     &.active {
       h4.title {
         color: $spotify-green;
@@ -74,11 +123,18 @@ ul.song-list {
       gap: 1em;
     }
     img {
-      width: 1.7em;
-      height: 1.7em;
+      width: em(40px);
+      height: em(40px);
       border-radius: $spotify-border-radius;
+      object-fit: cover;
+      -o-object-position: center center;
+      object-position: center center;
     }
     h4 {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
       margin: 0;
       display: flex;
       font-size: 0.9em;
@@ -90,6 +146,10 @@ ul.song-list {
     }
     .title {
       color: white;
+      width: 13em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     div.duration {
@@ -106,13 +166,9 @@ ul.song-list {
       }
     }
   }
-  .list-header h4 {
-    display: flex;
-    justify-content: start;
-    font-size: 14px;
-    font-weight: 200;
-    color: #bfbfbf;
-    margin: 0;
+
+  .list-header {
+
   }
 
   .custom-divider {
@@ -124,16 +180,6 @@ ul.song-list {
     grid-column: 1 / -1;
   }
 }
-
-.list-header,
-.song-list li .main-details {
-  grid-column: 2;
-}
-
-// .list-header,
-// .song-list li {
-//   display: contents;
-// }
 
 .list-header,
 .song-list li *:not(.dots) {

@@ -5,7 +5,7 @@ export const SET_DETAILS_SIDEBAR = 'SET_DETAILS_SIDEBAR'
 
 const initialState = {
   isLoading: false,
-  isDetailsOpen: false,
+  detailsSidebarMode: false, /*queueDetails or songDetails or empty */
 }
 
 export function systemReducer(state = initialState, action = {}) {
@@ -15,9 +15,9 @@ export function systemReducer(state = initialState, action = {}) {
     case LOADING_DONE:
       return { ...state, isLoading: false }
     case TOGGLE_DETAILS_SIDEBAR:
-      return { ...state, isDetailsOpen: !state.isDetailsOpen }
+      return { ...state, detailsSidebarMode: !state.detailsSidebarMode }
     case SET_DETAILS_SIDEBAR:
-      return { ...state, isDetailsOpen: action.state }
+      return { ...state, detailsSidebarMode: action.state }
     default:
       return state
   }

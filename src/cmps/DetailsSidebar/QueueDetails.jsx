@@ -17,14 +17,14 @@ export function QueueDetails() {
     if (!queue) return <h2>No queue available</h2>
     return (
         <>
-            <header className="flex flex-row justify-between">
+            <header className="details-header flex flex-row justify-between align-center">
                 <h2>Queue</h2>
                 <DetailsSidebarClose />
             </header>
             <main className="flex flex-column justify-start">
                 <div className="playing-now">
                     <h2>Currently Playing</h2>
-                    {/* {currSong ? <SongPreview currSong={currSong} /> : <h2>No song currently playing</h2>} */}
+                    {currSong ? <SongPreview song={currSong} /> : <p>No song currently playing</p>}
                 </div>
                 <div className="playing-next flex flex-column">
                     <h2>Up Next</h2>

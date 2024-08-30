@@ -3,15 +3,15 @@ import { SongList } from '../cmps/SongList.jsx'
 import { useParams } from 'react-router'
 import { useEffect, useState } from 'react'
 import { YouTubeAPIService } from '../services/youtubeAPI/fetchYoutubeApi.js'
+import { TopResult } from '../cmps/SearchPage/TopResult.jsx'
 
 export function SearchPage() {
   const { searchTerm } = useParams()
   const [searchResults, setSearchResults] = useState([])
   console.log('searchResults:', searchResults)
 
-  const topResult = searchResults[0]
-
   useEffect(() => {
+    if (!searchTerm) return
     fetchSongsFromYouTube()
   }, [searchTerm])
 
@@ -26,17 +26,11 @@ export function SearchPage() {
 
   return (
     <div className="search-page">
-    <div className="main-details">
-        <div className="top-result flex flex-column">
-            <h2>Top Result</h2>
-          <div className="card flex flex-column">
-
-            <img src={topResult?.imgUrl} alt="top-result" />
-            <h3>{topResult?.title}</h3>
-            <p>{topResult?.artist}</p>
-          </div>
-        </div>
-        <div className="songs-resutls">
+      <div className="main-details">
+        {searchResults.length !== 0 && (
+          <TopResult topResult={searchResults[0]} />
+        )}
+        <div className="songs-results">
           {searchResults?.length && (
             <>
               <h2>Songs</h2>

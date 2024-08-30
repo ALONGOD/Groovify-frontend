@@ -1,22 +1,18 @@
 import { useEffect, useRef, useState } from 'react'
-import { AiOutlineSound } from 'react-icons/ai'
 import { FaPauseCircle, FaPlayCircle } from 'react-icons/fa'
 import { FaBackwardStep, FaForwardStep } from 'react-icons/fa6'
-import { HiOutlineQueueList } from 'react-icons/hi2'
-import { IoPlayCircleOutline } from 'react-icons/io5'
 import { RiRepeat2Line } from 'react-icons/ri'
 import { TiArrowShuffle } from 'react-icons/ti'
 import { useSelector, useDispatch } from 'react-redux'
 import YouTube from 'react-youtube'
-import { TOGGLE_DETAILS_SIDEBAR } from '../../store/reducers/system.reducer'
 import { MusicPlayerActions } from './MusicPlayerActions'
 import { SET_CURRENT_SONG, SET_QUEUE_MODE } from '../../store/reducers/station.reducer'
-import { setShuffleQueue, setSongsInQueue } from '../../store/actions/station.actions'
+import { setShuffleQueue } from '../../store/actions/station.actions'
 import { formatTime } from '../../services/util.service'
 import { ProgressBar } from './ProgressBar'
 
 export function MusicPlayer({ currSong }) {
-
+  const dispatch = useDispatch()
   const queue = useSelector(storeState => storeState.stationModule.queue)
 
   const playerRef = useRef(null)

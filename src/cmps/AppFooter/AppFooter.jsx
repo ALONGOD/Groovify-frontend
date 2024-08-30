@@ -4,10 +4,10 @@ import { useSelector } from 'react-redux'
 import { LikeSongBtn } from '../LikeSongBtn'
 
 export function AppFooter() {
-    const currSong = useSelector(storeState => storeState.stationModule.currSong)
+    const currSong = useSelector(state => state.stationModule.currSong)
 
     return (
-        <footer className='app-footer full flex flex-row align-center justify-between'>
+        <footer className='app-footer'>
             <div className='details flex flex-row align-center'>
                 {currSong && (
                     <>

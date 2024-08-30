@@ -36,7 +36,7 @@ export function SearchBar({
       }
 
       if (searchType === 'youtube') {
-          navigate(`/search/${query}`)
+        navigate(`/search/${query}`)
       } else if (searchType === 'station') {
         console.log('Dispatching search term:', query)
         dispatch(setSearchTerm(query))
