@@ -1,16 +1,21 @@
 .app-footer {
   background-color: black;
-  position: absolute;
+  // position: absolute;
+  // position: relative;
   bottom: 0.5em;
   width: calc(100vw - (0.5em * 2));
   height: $height-footer;
   color: white;
   font-weight: 200;
+  padding: 1em 0.5em;
+
+
 
   .player {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+    
   }
 
   .youtube-player {
