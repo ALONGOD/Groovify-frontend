@@ -35,63 +35,27 @@ export function ThreeDotsModal({ closeModal, toggleEditStation }) {
         console.log("Add to queue option selected");
     };
 
-    const modalStyles = {
-        position: 'absolute',
-        top: '100%',
-        left: '0',
-        backgroundColor: '#282828',
-        borderRadius: '0.5rem',
-        boxShadow: '0 0.25rem 0.5rem rgba(0, 0, 0, 0.2)',
-        zIndex: 10,
-        width: '13.75rem',
-        padding: '0.5rem 0',
-    };
-
-    const listItemStyles = {
-        display: 'flex',
-        alignItems: 'center',
-        padding: '0.5rem 1rem',
-        color: '#e0e0e0',
-        cursor: 'pointer',
-        transition: 'background-color 0.3s ease',
-    };
-
-    const listItemHoverStyles = {
-        backgroundColor: '#3e3e3e',
-    };
-
-    const iconStyles = {
-        marginRight: '0.75rem', // 12px
-        fontSize: '1.125rem', // 18px
-    };
-
     return (
-        <div style={modalStyles}>
+        <div className="three-dots-modal">
             <div
-                style={listItemStyles}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#3e3e3e')}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '')}
+                className="three-dots-modal__item"
                 onClick={handleAddToQueue}
             >
-                <MdQueueMusic style={iconStyles} />
+                <MdQueueMusic className="three-dots-modal__icon" />
                 Add to queue
             </div>
             <div
-                style={listItemStyles}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#3e3e3e')}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '')}
+                className="three-dots-modal__item"
                 onClick={handleEdit}
             >
-                <AiOutlineEdit style={iconStyles} />
+                <AiOutlineEdit className="three-dots-modal__icon" />
                 Edit details
             </div>
             <div
-                style={listItemStyles}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#3e3e3e')}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '')}
+                className="three-dots-modal__item"
                 onClick={handleDelete}
             >
-                <AiOutlineDelete style={iconStyles} />
+                <AiOutlineDelete className="three-dots-modal__icon" />
                 Delete
             </div>
         </div>
