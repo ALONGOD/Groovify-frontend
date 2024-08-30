@@ -8,7 +8,7 @@ import { Modal } from './Modal/Modal.jsx';
 import { FaBars } from 'react-icons/fa6';
 import update from 'immutability-helper';
 
-export function StationList({ isCollapsed }) {
+export function StationList({ isCollapsed, user }) {
   const dispatch = useDispatch();
   const stations = useSelector(state => state.stationModule.stations);
   const searchTerm = useSelector(state => state.stationModule.searchTerm);
@@ -28,7 +28,7 @@ export function StationList({ isCollapsed }) {
 
   useEffect(() => {
     fetchStations();
-  }, [searchTerm, sortBy]);
+  }, [searchTerm, sortBy, user]);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -45,22 +45,27 @@ export function StationList({ isCollapsed }) {
 
   async function fetchStations() {
     try {
-      // Check if the stations state is empty
       let stationsToLoad = stations;
 
       if (!stations || stations.length === 0) {
-        // If empty, load from local storage
         stationsToLoad = await stationService.query();
         dispatch({ type: SET_STATIONS, stations: stationsToLoad });
       }
 
       const filterBy = {
         searchTerm: searchTerm || '',
-        sortBy: sortBy || 'recents'
+        sortBy: sortBy || 'recents',
       };
 
-      const filteredStations = await stationService.query(filterBy);
+      let filteredStations = await stationService.query(filterBy);
       const likedSongsStation = await stationService.fetchLikedSongs();
+
+      if (user) {
+        // Filter the stations to only include those that have an ID matching one of the user's likedStations IDs
+        filteredStations = filteredStations.filter(station =>
+          user.likedStations.some(likedStation => likedStation.id === station._id)
+        );
+      }
 
       dispatch({ type: SET_STATIONS, stations: [likedSongsStation, ...filteredStations] });
       setStationOrder([likedSongsStation, ...filteredStations]);
@@ -89,7 +94,7 @@ export function StationList({ isCollapsed }) {
       recentlyAdded: 'Recently Added',
       alphabetical: 'Alphabetical',
       creator: 'Creator',
-      customOrder: 'Custom Order'
+      customOrder: 'Custom Order',
     };
 
     return sortOptions[sortBy] || sortBy;
