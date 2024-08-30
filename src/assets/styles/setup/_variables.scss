@@ -12,11 +12,10 @@ $gray2: #aaa;
 $gray3: #777;
 $gray4: #333;
 
-$spotify-green: #1CC558;
-$station-prev-p: #ABB3B2;
+$spotify-green: #1cc558;
+$station-prev-p: #abb3b2;
 $spotify-border-radius: 4px;
 $modal-row-hover: rgb(62, 62, 62);
-
 
 $bg-main: black;
 $bg-secondary: #121212;
@@ -28,15 +27,19 @@ $height-header: 4em;
 
 $navigation-bar-height: 8em;
 $library-link-height: 4.5em;
-$sub-menu-height:4.5em;
+$sub-menu-height: 4.5em;
 
 // $station-list-bar-height: calc(100vh - $navigation-bar-height - $library-link-height - $sub-menu-height - $height-footer - (0.5em * 4)); // without the search component
-$station-list-bar-height: calc(100vh - 2.5em - $navigation-bar-height - $library-link-height - $sub-menu-height - $height-footer - (0.5em * 4)); // including the search component
-
+// $station-list-bar-height: calc(100vh - 2.5em - $navigation-bar-height - $library-link-height - $sub-menu-height - $height-footer - (0.5em * 4)); // including the search component
+$station-list-bar-height: calc(
+    100vh - $navigation-bar-height - $library-link-height - $sub-menu-height - $height-footer
+); // eliminating empty space on bottom of menu sidebar
 
 $station-details-header: 19.687em;
 $height-main: calc(100vh - (0.5em * 3 + $height-footer));
-$height-station-details-songlist: calc($height-main - $station-details-header - $height-header - $height-footer);
+$height-station-details-songlist: calc(
+    $height-main - $station-details-header - $height-header - $height-footer
+);
 
 // MARGINS
 
@@ -54,9 +57,9 @@ $--background-press: #000;
 $--background-elevated-base: #1f1f1f;
 $--background-elevated-highlight: #2a2a2a;
 $--background-elevated-press: #191919;
-$--background-tinted-base: hsla(0, 0%, 100%, .1);
-$--background-tinted-highlight: hsla(0, 0%, 100%, .14);
-$--background-tinted-press: hsla(0, 0%, 100%, .05);
+$--background-tinted-base: hsla(0, 0%, 100%, 0.1);
+$--background-tinted-highlight: hsla(0, 0%, 100%, 0.14);
+$--background-tinted-press: hsla(0, 0%, 100%, 0.05);
 $--text-base: #fff;
 $--text-subdued: #b3b3b3;
 $--text-bright-accent: #1ed760;
@@ -73,4 +76,3 @@ $--essential-positive: #1ed760;
 $--essential-announcement: #4cb3ff;
 $--decorative-base: #fff;
 $--decorative-subdued: #292929;
-

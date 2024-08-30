@@ -1,6 +1,4 @@
 .app-header {
-    padding: 0.5em;
-    // margin: 0 0.7em;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -23,47 +21,49 @@
     .middle {
         display: flex;
         align-items: center;
-        gap: 0.5em; 
-        max-width: 500px; 
-        flex-grow: 1; 
+        gap: 0.5em;
+        max-width: 500px;
+        flex-grow: 1;
+        // height: 100%;
+        // margin-bottom: 0.5em;
     }
 
     .home-button {
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 40px; 
-        height: 40px; 
-        background-color: #2c2c2c; 
-        border-radius: 50%; 
+        width: 3em;
+        height: 3em;
+        background-color: #2c2c2c;
+        border-radius: 50%;
         cursor: pointer;
         transition: background-color 0.2s ease;
 
         &:hover {
-            background-color: #3a3a3a; 
+            background-color: #3a3a3a;
         }
 
         svg {
-            font-size: 20px; 
-            color: white; 
+            font-size: 2em;
+            color: white;
         }
     }
 
     .search-bar {
         position: relative;
-        flex-grow: 1; 
-        max-width: 100%; 
-        margin-left: 0.5em; 
+        flex-grow: 1;
+        max-width: 100%;
 
         input[type='text'] {
             width: 100%;
             background-color: #2c2c2c;
             border: 0;
-            border-radius: 50px; 
+            border-radius: 50px;
             height: 3.5em;
             padding-left: 2.5em;
             color: white;
             font-size: 0.875em;
+            padding-left: 3em;
 
             &::placeholder {
                 font-weight: 300;
