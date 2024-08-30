@@ -1,49 +1,44 @@
-import { useEffect, useState } from 'react'
-import { MainMenu } from './MainMenu'
-import { LibraryMenu } from './LibraryMenu'
-import { StationList } from './StationList'
-import { userService } from '../services/user/user.service.local'
-import { useDispatch, useSelector } from 'react-redux'
-import { SET_USER } from '../store/reducers/user.reducer'
+import { useEffect, useState } from 'react';
+import { MainMenu } from './MainMenu';
+import { LibraryMenu } from './LibraryMenu';
+import { StationList } from './StationList';
+import { userService } from '../services/user/user.service.local';
+import { useDispatch, useSelector } from 'react-redux';
+import { SET_USER } from '../store/reducers/user.reducer';
 
 export function MenuSidebar() {
-    const dispatch = useDispatch()
-    const user = useSelector(state => state.userModule.user)
-    console.log('user:', user)
-    const [isCollapsed, setIsCollapsed] = useState(false)
-    const [isBelowThreshold, setIsBelowThreshold] = useState(false)
-    const [selected, setSelected] = useState(null)
+    const dispatch = useDispatch();
+    const user = useSelector(state => state.userModule.user);
+    const [isCollapsed, setIsCollapsed] = useState(false);
+    const [isBelowThreshold, setIsBelowThreshold] = useState(false);
+    const [selected, setSelected] = useState(null);
 
     useEffect(() => {
-        getUser()
-        window.addEventListener('resize', handleResize)
-        handleResize()
+        getUser();
+        window.addEventListener('resize', handleResize);
+        handleResize();
 
         return () => {
-            window.removeEventListener('resize', handleResize)
+            window.removeEventListener('resize', handleResize);
         }
-    }, [])
+    }, []);
 
     async function getUser() {
-        const user = await userService.getLoggedinUser()
-        dispatch({ type: SET_USER, user })
+        const user = await userService.getLoggedinUser();
+        dispatch({ type: SET_USER, user });
     }
 
     function handleResize() {
         if (window.innerWidth < 815) {
-            setIsCollapsed(true)
-            setIsBelowThreshold(true)
+            setIsCollapsed(true);
+            setIsBelowThreshold(true);
         } else {
-            // setIsCollapsed(false) // Auto-open menu sidebar when there's enough space
-            setIsBelowThreshold(false)
+            setIsBelowThreshold(false);
         }
     }
 
     return (
         <aside className={`menu-sidebar flex flex-column ${isCollapsed ? 'collapsed' : ''}`}>
-            {/* <div className='navigation'>
-                <MainMenu isCollapsed={isCollapsed} />
-            </div> */}
             <div className='library-menu flex flex-column'>
                 <LibraryMenu
                     isCollapsed={isCollapsed}
@@ -52,8 +47,8 @@ export function MenuSidebar() {
                     setSelected={setSelected}
                     isBelowThreshold={isBelowThreshold}
                 />
-                <StationList isCollapsed={isCollapsed} />
+                <StationList isCollapsed={isCollapsed} user={user} />
             </div>
         </aside>
-    )
+    );
 }

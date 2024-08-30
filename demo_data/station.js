@@ -27,7 +27,7 @@ export const stations = [
       fullname: 'Sam Smith',
       imgUrl: 'https://i.imgur.com/6OLS5bF.jpeg',
     },
-    likedByUsers: ['{user-id1}', '{user-id2}'],
+    likedByUsers: ['u102'],
     songs: [
       {
         id: 'UfcAVejslrU',
@@ -93,7 +93,7 @@ export const stations = [
       fullname: 'Jane Doe',
       imgUrl: 'https://i.imgur.com/5ZMXSYg.jpeg',
     },
-    likedByUsers: ['{user-id3}', '{user-id4}'],
+    likedByUsers: ['blahh'],
     songs: [
       {
         id: 'btPJPFnesV4',
@@ -229,7 +229,7 @@ export const stations = [
       fullname: 'John Doe',
       imgUrl: 'https://i.imgur.com/TRVS3gj.jpeg',
     },
-    likedByUsers: ['{user-id5}', '{user-id6}'],
+    likedByUsers: ['u102'],
     songs: [
       {
         id: 'FGBhQbmPwH8',
@@ -325,7 +325,7 @@ export const stations = [
       fullname: 'Emily Clark',
       imgUrl: 'https://i.imgur.com/JQkW0e4.jpeg',
     },
-    likedByUsers: ['{user-id7}', '{user-id8}'],
+    likedByUsers: ['{u102'],
     songs: [
       {
         id: 'ssdgFoHLwnk',
@@ -441,7 +441,7 @@ export const stations = [
       fullname: 'Lisa Johnson',
       imgUrl: 'https://i.imgur.com/lhthbwE.jpeg',
     },
-    likedByUsers: ['{user-id13}', '{user-id14}'],
+    likedByUsers: ['u102'],
     songs: [
       {
         id: 'hTWKbfoikeg',
@@ -597,7 +597,7 @@ export const stations = [
       fullname: 'Sarah Lee',
       imgUrl: 'https://i.imgur.com/Oeh2k1J.jpeg',
     },
-    likedByUsers: ['{user-id11}', '{user-id12}'],
+    likedByUsers: ['u102'],
     songs: [
       {
         id: 'ma9I9VBKPiw',
@@ -682,7 +682,7 @@ export const stations = [
       fullname: 'David Cohen',
       imgUrl: 'https://i.imgur.com/aHfOlyE.jpeg',
     },
-    likedByUsers: ['{user-id23}', '{user-id24}'],
+    likedByUsers: ['u102'],
     songs: [
       {
         id: 'kJQP7kiw5Fk',
@@ -767,7 +767,7 @@ export const stations = [
       fullname: 'musicLover123',
       imgUrl: 'https://i.imgur.com/5ZMXSYg.jpeg',
     },
-    likedByUsers: ['{user-id27}', '{user-id28}'],
+    likedByUsers: ['u102'],
     songs: [
       {
         id: 'izGwDsrQ1eQ',
@@ -872,7 +872,7 @@ export const stations = [
       fullname: 'musicLover123',
       imgUrl: 'https://i.imgur.com/5ZMXSYg.jpeg',
     },
-    likedByUsers: ['{user-id31}', '{user-id32}'],
+    likedByUsers: ['u102'],
     songs: [
       {
         id: 'JQ2DVwSVIIo',
@@ -937,7 +937,7 @@ export const stations = [
       fullname: 'musicLover123',
       imgUrl: 'https://i.imgur.com/5ZMXSYg.jpeg',
     },
-    likedByUsers: ['{user-id39}', '{user-id40}'],
+    likedByUsers: ['u102'],
     songs: [
       {
         id: 'xwtdhWltSIg',
