@@ -1,15 +1,19 @@
 .equalizer {
     display: flex;
-    align-items: center;
-    height: 50px;
+    align-items: end;
+    justify-content: center;
+    height: 0.9em;
+    width: 5em;
+
   }
   
   .bar {
-    width: 5px;
+    min-width: 2px;
+    width: 1.5px;
     height: 100%;
     background: $spotify-green; 
-    margin: 0 2px;
-    animation: equalize 1s infinite ease-in-out;
+    margin: 0 1.2px;
+    animation: equalize 0.7s infinite ease-in-out;
   }
   
   .bar:nth-child(2) {
@@ -27,12 +31,15 @@
   
   @keyframes equalize {
     0% {
-      transform: scaleY(0.2);
+      // transform: scaleY(0.2);
+      height: 20%;
     }
-    50% {
-      transform: scaleY(1);
+    70% {
+      // transform: scaleY(1);
+      height: 100%;
     }
     100% {
-      transform: scaleY(0.2);
+      // transform: scaleY(0.2);
+      height: 20%;
     }
   }

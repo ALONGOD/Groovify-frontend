@@ -30,9 +30,13 @@ ul.song-list {
       gap: 1em;
       display: grid;
       grid-template-columns:
-        1em minmax(10em, 50em) minmax(5em, 40em) minmax(5em, 20em)
+        2em minmax(10em, 50em) minmax(5em, 40em) minmax(5em, 20em)
         minmax(3em, 7em) minmax(2em, 5em);
-        padding: 0 1em;
+        padding: 0 0.5em;
+    }
+    .idx {
+      display: flex;
+      justify-content: center;
     }
 
     .list-header {

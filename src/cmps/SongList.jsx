@@ -11,11 +11,13 @@ import { SearchBar } from './SearchBar'
 
 export function SongList({ songs, type, station }) {
   const dispatch = useDispatch()
-  const songModal = useSelector(state => state.stationModule.modalSong)
+  const stations = useSelector(state => state.stationModule.stations)
   const player = useSelector(state => state.stationModule.player)
   console.log('player:', player)
-  const currSong = useSelector(state => state.stationModule.player.currSong)
-  const stations = useSelector(state => state.stationModule.stations)
+  const currSong = player.currSong
+  const isPlaying = player.isPlaying
+  const songModal = useSelector(state => state.stationModule.modalSong)
+  
 
   const likedSongsStation = stations.find(
     station => station._id === 'liked-songs'
@@ -31,13 +33,13 @@ export function SongList({ songs, type, station }) {
     setSongsInQueue(songs)
 
     dispatch({ type: SET_PLAYER_CURRENT_SONG, currSong: song })
-    dispatch({ type: SET_PLAYER_IS_PLAYING, isPlaying: true })
+    dispatch({ type: SET_PLAYER_IS_PLAYING, isPlaying: !isPlaying})
     console.log(station);
     if (station) {
       
       dispatch({
         type: SET_PLAYER_CURRENT_STATION,
-        currStation: { id: station.id, name: station.name },
+        currStation: { id: station._id, name: station.name },
       })
     }
   }
