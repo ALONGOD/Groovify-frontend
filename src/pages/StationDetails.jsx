@@ -12,14 +12,14 @@ export function StationDetails() {
   const stations = useSelector(state => state.stationModule.stations)
   const [station, setStation] = useState({})
   const editOpen = useSelector(state => state.stationModule.editStationModal)
-  console.log('editOpen:', editOpen)
-  
-  console.log(station);
 
   useEffect(() => {
     setStation(stations.find(station => station._id === stationId))
     
   }, [stationId, stations])
+
+  console.log(station);
+  
 
   function toggleEditStation() {
     console.log(editOpen);
@@ -31,7 +31,7 @@ export function StationDetails() {
   return (
     <section className="station-details flex flex-column">
       <StationDetailsHeader station={station} setStation={setStation} toggleEditStation={toggleEditStation}/>
-        {station.songs && <SongList songs={station.songs} type='list-table' stationId={stationId}/>}
+        {station.songs && <SongList songs={station.songs} type='list-table' station={station}/>}
         {editOpen && <Modal modalType='editStation'/>}
     </section>
   )

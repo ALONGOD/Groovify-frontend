@@ -8,8 +8,9 @@ export function StationPreview({ station, isCollapsed, index, moveStation }) {
     const navigate = useNavigate()
     const ref = useRef(null)
     // const stationId = useSelector(state => state.stationModule.currSong).stationId // old code
-    const currSong = useSelector(state => state.stationModule.currSong)
-    const stationId = currSong ? currSong.stationId : null
+    const player = useSelector(state => state.stationModule.player)
+    // const currSong = player
+    const currStation = player.currStation || {}
 
     const { _id, imgUrl, name, songs } = station
 
@@ -33,7 +34,7 @@ export function StationPreview({ station, isCollapsed, index, moveStation }) {
 
     drag(drop(ref))
 
-    console.log(stationId, station.id)
+    console.log(currStation, station.id)
 
     return (
         <li
@@ -45,7 +46,7 @@ export function StationPreview({ station, isCollapsed, index, moveStation }) {
             <img src={imgUrl} alt='station img' />
             {!isCollapsed && (
                 <div className='flex flex-column'>
-                    <h3 className={stationId === station._id ? 'active' : ''}>{name}</h3>
+                    <h3 className={currStation?.id === station._id ? 'active' : ''}>{name}</h3>
                     <div className='station-details flex flex-row'>
                         <span>Playlist</span>
                         <span className='divider'>&#9679;</span>

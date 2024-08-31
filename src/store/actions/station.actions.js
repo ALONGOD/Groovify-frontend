@@ -10,9 +10,14 @@ import {
   SET_SORT_BY,
   SET_QUEUE_SONGS,
   SET_QUEUE_SHUFFLED,
+  SET_PLAYER_IS_PLAYING,
 } from '../reducers/station.reducer'
 import { storageService } from '../../services/async-storage.service.js'
 import { SET_USER } from '../reducers/user.reducer.js'
+
+export function setIsPlaying(state) {
+  store.dispatch({ type: SET_PLAYER_IS_PLAYING, isPlaying: state })
+}
 
 export function setSongsInQueue(songs) {
   const songsToAdd = songs

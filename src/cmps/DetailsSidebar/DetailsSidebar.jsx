@@ -5,7 +5,7 @@ import { SongDetails } from './SongDetails'
 import { QueueDetails } from './QueueDetails'
 
 export function DetailsSidebar() {
-    const currSong = useSelector(state => state.stationModule.currSong)
+    const currSong = useSelector(state => state.stationModule.player.currSong)
     const detailsSidebarMode = useSelector(state => state.systemModule.detailsSidebarMode)
     // console.log('detailsSidebarMode:', detailsSidebarMode)
     const dispatch = useDispatch()

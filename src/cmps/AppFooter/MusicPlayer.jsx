@@ -6,14 +6,16 @@ import { TiArrowShuffle } from 'react-icons/ti'
 import { useSelector, useDispatch } from 'react-redux'
 import YouTube from 'react-youtube'
 import { MusicPlayerActions } from './MusicPlayerActions'
-import { SET_CURRENT_SONG, SET_QUEUE_MODE } from '../../store/reducers/station.reducer'
-import { setShuffleQueue } from '../../store/actions/station.actions'
+import { SET_CURRENT_SONG, SET_PLAYER_CURRENT_SONG, SET_PLAYER_IS_PLAYING, SET_QUEUE_MODE } from '../../store/reducers/station.reducer'
+import { setIsPlaying, setShuffleQueue } from '../../store/actions/station.actions'
 import { formatTime } from '../../services/util.service'
 import { ProgressBar } from './ProgressBar'
 
 export function MusicPlayer({ currSong }) {
   const dispatch = useDispatch()
   const queue = useSelector(storeState => storeState.stationModule.queue)
+  const player = useSelector(storeState => storeState.stationModule.player)
+  const isPlaying = player.isPlaying
 
   const playerRef = useRef(null)
   const intervalRef = useRef(null)
@@ -21,9 +23,7 @@ export function MusicPlayer({ currSong }) {
   const [duration, setDuration] = useState(0)
   const [currentTime, setCurrentTime] = useState(0)
 
-
   const [volume, setVolume] = useState(50)
-  const [isPlaying, setIsPlaying] = useState(true)
 
 
 
@@ -52,7 +52,7 @@ export function MusicPlayer({ currSong }) {
       }
       console.log('shuffled', queue.shuffledQueue);
 
-      dispatch({ type: SET_CURRENT_SONG, songToPlay: queue.shuffledQueue[currSongIdx + value] })
+      dispatch({ type: SET_PLAYER_CURRENT_SONG, currSong: queue.shuffledQueue[currSongIdx + value] })
     }
 
     if (!queue.isShuffled) {
@@ -61,7 +61,7 @@ export function MusicPlayer({ currSong }) {
 
       currSongIdx = queue.songsQueue.findIndex(song => song.id === currSong.id)
       if (queue.songsQueue[currSongIdx + value] === undefined) return
-      dispatch({ type: SET_CURRENT_SONG, songToPlay: queue.songsQueue[currSongIdx + value] })
+      dispatch({ type: SET_PLAYER_CURRENT_SONG, currSong: queue.songsQueue[currSongIdx + value] })
     }
 
   }
@@ -70,11 +70,6 @@ export function MusicPlayer({ currSong }) {
     if (state === queue.isShuffled) return dispatch({ type: SET_QUEUE_MODE, mode: '' })
     dispatch({ type: SET_QUEUE_MODE, mode: state })
   }
-
-
-
-
-
 
   // function playAudio() {
   //   playerRef?.current?.playVideo()
@@ -118,12 +113,12 @@ export function MusicPlayer({ currSong }) {
 
       if (playerState === 1) {
         playerRef.current.pauseVideo()
-        setIsPlaying(false)
+        dispatch({ type: SET_PLAYER_IS_PLAYING, isPlaying: false })
 
         intervalRef.current && clearInterval(intervalRef.current)
       } else {
         playerRef.current.playVideo()
-        setIsPlaying(true)
+        dispatch({ type: SET_PLAYER_IS_PLAYING, isPlaying: true })
 
         intervalRef.current = setInterval(() => {
           setCurrentTime(playerRef.current.getCurrentTime())
