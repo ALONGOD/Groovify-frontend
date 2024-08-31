@@ -11,6 +11,7 @@ export function StationPreview({ station, isCollapsed, index, moveStation }) {
     const player = useSelector(state => state.stationModule.player)
     // const currSong = player
     const currStation = player.currStation || {}
+    const isStationPlaying = currStation.id === station._id
 
     const { _id, imgUrl, name, songs } = station
 
@@ -46,7 +47,7 @@ export function StationPreview({ station, isCollapsed, index, moveStation }) {
             <img src={imgUrl} alt='station img' />
             {!isCollapsed && (
                 <div className='flex flex-column'>
-                    <h3 className={currStation?.id === station._id ? 'active' : ''}>{name}</h3>
+                    <h3 className={isStationPlaying ? 'active' : ''}>{name}</h3>
                     <div className='station-details flex flex-row'>
                         <span>Playlist</span>
                         <span className='divider'>&#9679;</span>

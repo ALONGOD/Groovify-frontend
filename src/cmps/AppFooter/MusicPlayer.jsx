@@ -26,6 +26,11 @@ export function MusicPlayer({ currSong }) {
   const [volume, setVolume] = useState(50)
 
 
+  useEffect(() => {
+   if (isPlaying) playerRef?.current?.playVideo()
+    else playerRef?.current?.pauseVideo()
+  }, [isPlaying])
+  
 
 
   useEffect(() => {
@@ -91,21 +96,7 @@ export function MusicPlayer({ currSong }) {
 
     event.target.setPlaybackQuality('small')
     event.target.playVideo()
-    // console.log(playerRef.current)
   }
-
-  // function handleVolumeChange(event) {
-  //   const newVolume = parseInt(event.target.value, 10)
-  //   setVolume(newVolume)
-  //   if (playerRef.current) {
-  //     playerRef.current.setVolume(newVolume)
-  //   }
-  // }
-
-  // function toggleDetailsSidebar() {
-  //   setIsActive(prevState => !prevState)
-  //   dispatch({ type: TOGGLE_DETAILS_SIDEBAR })
-  // }
 
   function toggleSoundPlay() {
     if (playerRef.current) {

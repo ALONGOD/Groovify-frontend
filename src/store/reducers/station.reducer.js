@@ -97,7 +97,7 @@ export function stationReducer(state = initialState, action) {
       newState = {...state, player: {...state.player, isPlaying: action.isPlaying}}
       break
     case SET_PLAYER_CURRENT_STATION:
-      newState = {...state, player: {...state.player, currStation: action.station}}
+      newState = {...state, player: {...state.player, currStation: action.currStation}}
       break
     default:
       return newState
