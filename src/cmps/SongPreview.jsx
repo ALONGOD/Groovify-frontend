@@ -44,6 +44,7 @@ export function SongPreview({
       className={` ${currSong?.id === song?.id ? 'active' : ''}`}
       onMouseEnter={() => setOnSongHover(true)}
       onMouseLeave={() => setOnSongHover(false)}
+      onDoubleClick={() => playSong(song)}
     >
       {isListTable && (
         <h4 onClick={() => playSong(song)} className="idx">
