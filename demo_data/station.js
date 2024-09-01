@@ -325,7 +325,7 @@ export const stations = [
       fullname: 'Emily Clark',
       imgUrl: 'https://i.imgur.com/JQkW0e4.jpeg',
     },
-    likedByUsers: ['{u102'],
+    likedByUsers: ['u102'],
     songs: [
       {
         id: 'ssdgFoHLwnk',
