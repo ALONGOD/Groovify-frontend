@@ -62,7 +62,7 @@ export function SearchPage() {
           <TopResult topResult={searchResults[0]} />
         )}
         <div className="songs-results">
-          {searchResults?.length && (
+          {searchResults.length !== 0 && (
             <>
               <h2>Songs</h2>
               <SongList songs={searchResults} type="search-results" />
@@ -70,7 +70,7 @@ export function SearchPage() {
           )}
         </div>
         <div className="playlist-results" style={{ marginTop: '8%' }}>
-          {playlistResults?.length && (
+          {playlistResults.length !== 0 && (
             <>
               <h2>Playlists</h2>
               <div style={{ display: 'flex', gap: '20px', overflowX: 'auto' }}>
