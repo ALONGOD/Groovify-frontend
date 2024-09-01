@@ -11,12 +11,9 @@ import { SearchBar } from './SearchBar'
 
 export function SongList({ songs, type, station }) {
   const dispatch = useDispatch()
-  const stations = useSelector(state => state.stationModule.stations)
-  const player = useSelector(state => state.stationModule.player)
-  console.log('player:', player)
-  const currSong = player.currSong
-  const isPlaying = player.isPlaying
   const songModal = useSelector(state => state.stationModule.modalSong)
+  
+  const stations = useSelector(state => state.stationModule.stations)
   
 
   const likedSongsStation = stations.find(
@@ -29,20 +26,7 @@ export function SongList({ songs, type, station }) {
     toggleModal(song)
   }
 
-  function playSong(song) {
-    setSongsInQueue(songs)
 
-    dispatch({ type: SET_PLAYER_CURRENT_SONG, currSong: song })
-    dispatch({ type: SET_PLAYER_IS_PLAYING, isPlaying: !isPlaying})
-    console.log(station);
-    if (station) {
-      
-      dispatch({
-        type: SET_PLAYER_CURRENT_STATION,
-        currStation: { id: station._id, name: station.name },
-      })
-    }
-  }
 
   console.log(songs)
 
@@ -68,9 +52,9 @@ export function SongList({ songs, type, station }) {
 
             return (
               <SongPreview
-                currSong={currSong}
-                playSong={playSong}
+                station={station}
                 key={`${song.id}-${idx}`}
+                songs={songs}
                 song={song}
                 type={type}
                 idx={idx}

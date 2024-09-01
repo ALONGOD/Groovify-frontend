@@ -68,18 +68,28 @@ ul.song-list {
   // SEARCH RESULTS
 
   &.search-results {
-    padding-inline: 0;
+    padding: 0 10px;
+    margin-inline-end: 1em;
     grid-template-rows: repeat(
       auto-fill,
       max-content
     ); // grid-template-columns: 7fr 1fr;
-    grid-template-columns: 14fr 1fr 1fr 1fr;
+    // grid-template-columns: 14fr 1fr 1fr 1fr;
 
     .like-song-container {
       grid-column: 2;
+      justify-self: start;
+      svg {
+        font-size: 1.5em;
+        font-weight: 900;
+      }
     }
     li {
-      display: contents;
+      display: grid;
+      grid-template-columns:minmax(120px, 1fr) 4em 2em 4em;
+      padding: 0 10px;
+        // 2em minmax(10em, 50em) minmax(5em, 40em) minmax(5em, 20em)
+        // minmax(3em, 7em) minmax(2em, 5em);
       &:hover img {
         opacity: 0.4;
       }
@@ -96,11 +106,15 @@ ul.song-list {
           opacity: 1;
         }
       }
-      .duration {
+      div.duration {
         grid-column: 3;
-      }
-      svg {
-        grid-column: 4;
+        svg.dots {
+          grid-column: 4;
+          font-weight: 900;
+          font-size: 2em;
+          color: white;
+          fill: white;
+        }
       }
       img {
         width: 2.3em;

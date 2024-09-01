@@ -35,8 +35,6 @@ export function StationPreview({ station, isCollapsed, index, moveStation }) {
 
     drag(drop(ref))
 
-    console.log(currStation, station.id)
-
     return (
         <li
             ref={ref}

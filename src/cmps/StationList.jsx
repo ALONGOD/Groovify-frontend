@@ -61,7 +61,6 @@ export function StationList({ isCollapsed, user }) {
       const likedSongsStation = await stationService.fetchLikedSongs();
 
       if (user) {
-        // Filter the stations to only include those that have an ID matching one of the user's likedStations IDs
         filteredStations = filteredStations.filter(station =>
           user.likedStations.some(likedStation => likedStation.id === station._id)
         );

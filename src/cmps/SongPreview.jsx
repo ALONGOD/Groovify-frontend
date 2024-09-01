@@ -8,21 +8,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import { FaPlay } from 'react-icons/fa'
 import { LikeSongBtn } from './LikeSongBtn'
 import { EqualizerBar } from './EqualizerBar'
+import { setSongsInQueue } from '../store/actions/station.actions'
+import { SET_PLAYER_CURRENT_SONG, SET_PLAYER_CURRENT_STATION, SET_PLAYER_IS_PLAYING } from '../store/reducers/station.reducer'
 
-export function SongPreview({
-  playSong,
-  currSong,
-  song,
-  idx,
-  songModal,
-  onToggleModal,
-  type,
-  likedSongs,
-}) {
-  const isPlaying = useSelector(state => state.stationModule.player.isPlaying)
+export function SongPreview({songs, song, idx, station, songModal, onToggleModal, type, likedSongs, }) {
+  const dispatch = useDispatch()
   const [onSongHover, setOnSongHover] = useState(false)
   const { addedAt, duration, imgUrl, title, artist, album } = song
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  // const [isModalOpen, setIsModalOpen] = useState(false)
+  const player = useSelector(state => state.stationModule.player)
+  const { currSong, isPlaying } = player
 
   const isListTable = type === 'list-table'
   const isSongLiked = likedSongs?.some(likedSong => likedSong.id === song.id)
@@ -33,9 +28,24 @@ export function SongPreview({
   function openModal() {
     setIsModalOpen(true)
   }
-  
+
   function closeModal() {
     setIsModalOpen(false)
+  }
+
+  function playSong(song) {
+    if (songs) setSongsInQueue(songs)
+
+    dispatch({ type: SET_PLAYER_CURRENT_SONG, currSong: song })
+    dispatch({ type: SET_PLAYER_IS_PLAYING, isPlaying: !isPlaying })
+    console.log(station);
+    if (station) {
+
+      dispatch({
+        type: SET_PLAYER_CURRENT_STATION,
+        currStation: { id: station._id, name: station.name },
+      })
+    }
   }
 
   // function toggleModal() {
@@ -43,7 +53,6 @@ export function SongPreview({
   // }
 
   function PlayOrPause() {
-    
     return (isPlaying && isCurrSong) ? <IoIosPause /> : <IoIosPlay />
   }
 
@@ -78,17 +87,14 @@ export function SongPreview({
           <h4>{getTimeOfSent(addedAt)}</h4>
         </>
       )}
-      <div className="like-song-container flex align-center justify-start">
         {displayLikeBtn && (
           <LikeSongBtn song={song} isSongLiked={isSongLiked} />
         )}
-      </div>
       <div className="duration img-svg relative flex justify-start align-center">
         <h4>{duration ? duration : '3:30'}</h4>
         {onSongHover && (
           <BsThreeDots
             className="dots"
-            // onClick={ev => onToggleModal(ev, song)}
             onClick={ev => onToggleModal(ev, song)}
           />
         )}
