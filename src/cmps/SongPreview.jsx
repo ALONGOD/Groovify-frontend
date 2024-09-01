@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { IoIosPlay } from 'react-icons/io'
+import { IoIosPause, IoIosPlay } from 'react-icons/io'
 import { getTimeOfSent } from '../services/util.service'
 import { BsThreeDots } from 'react-icons/bs'
 import { Modal } from './Modal/Modal'
@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { FaPlay } from 'react-icons/fa'
 import { LikeSongBtn } from './LikeSongBtn'
+import { EqualizerBar } from './EqualizerBar'
 
 export function SongPreview({
   playSong,
@@ -18,7 +19,7 @@ export function SongPreview({
   type,
   likedSongs,
 }) {
-
+  const isPlaying = useSelector(state => state.stationModule.player.isPlaying)
   const [onSongHover, setOnSongHover] = useState(false)
   const { addedAt, duration, imgUrl, title, artist, album } = song
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -26,6 +27,8 @@ export function SongPreview({
   const isListTable = type === 'list-table'
   const isSongLiked = likedSongs?.some(likedSong => likedSong.id === song.id)
   const displayLikeBtn = onSongHover || isSongLiked
+
+  const isCurrSong = currSong?.id === song?.id
 
   function openModal() {
     setIsModalOpen(true)
@@ -39,6 +42,11 @@ export function SongPreview({
   //   isModalOpen ? closeModal() : openModal()
   // }
 
+  function PlayOrPause() {
+    
+    return (isPlaying && isCurrSong) ? <IoIosPause /> : <IoIosPlay />
+  }
+
   return (
     <li
       className={` ${currSong?.id === song?.id ? 'active' : ''}`}
@@ -48,7 +56,8 @@ export function SongPreview({
     >
       {isListTable && (
         <h4 onClick={() => playSong(song)} className="idx">
-          {onSongHover ? <IoIosPlay /> : idx + 1}
+          {!onSongHover && (isPlaying && isCurrSong ? <EqualizerBar /> : idx + 1)}
+          {onSongHover && <PlayOrPause />}
         </h4>
       )}
       <div className="main-details flex flex-row align-center">

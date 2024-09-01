@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { LikeSongBtn } from '../LikeSongBtn'
 
 export function AppFooter() {
-    const currSong = useSelector(state => state.stationModule.currSong)
+    const currSong = useSelector(state => state.stationModule.player.currSong)
 
     return (
         <footer className='app-footer'>

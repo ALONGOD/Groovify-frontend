@@ -2,7 +2,7 @@
 import { ImagePick } from '../ImagePick'
 import { DetailsHeaderActions } from './DetailsHeaderActions'
 
-export function StationDetailsHeader({ station, setStation, toggleEditStation }) {
+export function StationDetailsHeader({ station, setStation, toggleEditStation, isNewStation }) {
   const { name, createdBy, songs, imgUrl, description } = station
 
   return (
@@ -24,7 +24,7 @@ export function StationDetailsHeader({ station, setStation, toggleEditStation })
         </div>
       </div>
 
-      <DetailsHeaderActions toggleEditStation={toggleEditStation} />
+      <DetailsHeaderActions toggleEditStation={toggleEditStation} isNewStation={isNewStation} station={station} />
     </div>
   )
 }

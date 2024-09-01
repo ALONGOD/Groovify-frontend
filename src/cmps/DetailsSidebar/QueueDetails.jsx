@@ -8,7 +8,7 @@ export function QueueDetails() {
     const queueMode = queue.isShuffled
     const currQueueSongs = queueMode ? queue.shuffledQueue : queue.songsQueue
 
-    const currSong = useSelector(state => state.stationModule.currSong)
+    const currSong = useSelector(state => state.stationModule.player.currSong)
     console.log('currSong:', currSong)
 
     const currSongIdx = currQueueSongs.findIndex(song => song.id === currSong.id)
