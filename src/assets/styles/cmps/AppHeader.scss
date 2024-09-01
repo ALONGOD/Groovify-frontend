@@ -1,8 +1,10 @@
 .app-header {
-    padding: 0.5em;
+    padding: 1.8em 0.5em;
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    bottom: $spacing-gap/2;
 
     > * {
         display: flex;
@@ -22,11 +24,9 @@
     .middle {
         display: flex;
         align-items: center;
-        gap: 0.5em;
+        gap: $spacing-gap;
         max-width: 500px;
         flex-grow: 1;
-        // height: 100%;
-        // margin-bottom: 0.5em;
     }
 
     .home-button {
@@ -53,7 +53,7 @@
     .search-bar {
         position: relative;
         flex-grow: 1;
-        max-width: 100%;
+        max-width: 95%;
 
         input[type='text'] {
             width: 100%;
@@ -61,7 +61,6 @@
             border: 0;
             border-radius: 50px;
             height: 3.5em;
-            padding-left: 2.5em;
             color: white;
             font-size: 0.875em;
             padding-left: 3em;

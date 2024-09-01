@@ -6,7 +6,7 @@ body {
 }
 .app {
     display: grid;
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: $height-header 1fr $height-footer;
     grid-template-columns: 1fr;
     width: calc(100vw - 1em);
     margin: 0;
@@ -24,7 +24,7 @@ body {
     display: grid;
     gap: 0.5em;
     padding: 0;
-    height: calc(100vh - #{$height-footer} - #{$height-header});
+    height: calc(100vh - $height-header - $height-footer); // Adjusted to use renamed variables
     overflow: hidden;
     background-color: $bg-main;
     &:has(aside.menu-sidebar:not(.collapsed)):has(aside.details-sidebar.open) {
@@ -54,8 +54,7 @@ body {
         }
     }
 }
-.station-details {
-}
+
 .main-content {
     @include component-layout;
     background-color: $bg-secondary;
