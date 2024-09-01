@@ -24,7 +24,7 @@ export function StationDetailsHeader({ station, setStation, toggleEditStation, i
         </div>
       </div>
 
-      <DetailsHeaderActions toggleEditStation={toggleEditStation} isNewStation={isNewStation} />
+      <DetailsHeaderActions toggleEditStation={toggleEditStation} isNewStation={isNewStation} station={station} />
     </div>
   )
 }
