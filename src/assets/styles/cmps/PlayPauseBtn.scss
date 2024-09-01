@@ -1,0 +1,28 @@
+.top-result .card:hover .play-pause-container.top-result {
+    opacity: 1;
+    transform: translateY(0);
+}
+.play-pause-container.top-result {
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: em(20px);
+    right: em(20px);
+    background-color: $spotify-green;
+    border-radius: 50%;
+    width: em(48px);
+    height: em(48px);
+    color: #191919;;
+    box-shadow: 0 8px 8px rgba(0, 0, 0, .3);
+    transform: translateY(8px);
+    z-index: 10;
+    transition: all .3s ease;
+    cursor: pointer;
+    svg {
+        color: #191919;
+        font-size: 2em;
+        background-color: transparent;
+    } 
+}
