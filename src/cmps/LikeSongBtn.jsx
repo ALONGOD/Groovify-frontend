@@ -6,15 +6,13 @@ import { useSelector } from 'react-redux'
 export function LikeSongBtn({ onHover, song }) {
     const stations = useSelector(state => state.stationModule.stations)
 
-    // Safely handle cases where song or likedSongsStation is null or undefined
     if (!song || !stations) {
-        return null // Return null if song or stations is not available
+        return null 
     }
 
     const likedSongsStation = stations.find(station => station._id === 'liked-songs')
     const likedSongs = likedSongsStation ? likedSongsStation.songs : []
 
-    // Check if the song is liked, ensuring likedSongs is an array
     const isSongLiked = likedSongs?.some(likedSong => likedSong.id === song.id)
 
     function onAddToLikedSongs() {
