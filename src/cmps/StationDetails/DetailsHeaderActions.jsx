@@ -5,7 +5,7 @@ import { FaListUl } from "react-icons/fa";
 import { IoPlayCircle } from "react-icons/io5";
 import { ThreeDotsModal } from "../Modal/ThreeDotsModal";
 
-export function DetailsHeaderActions({ toggleEditStation }) {
+export function DetailsHeaderActions({ toggleEditStation, isNewStation }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const modalRef = useRef(null);
 
@@ -13,8 +13,9 @@ export function DetailsHeaderActions({ toggleEditStation }) {
   const toggleModal = () => {
     setIsModalOpen(prev => !prev);
   };
+
   function closeModal() {
-    setIsModalOpen(!isModalOpen)
+    setIsModalOpen(!isModalOpen);
   }
 
   // Close modal when clicking outside of it
@@ -30,11 +31,18 @@ export function DetailsHeaderActions({ toggleEditStation }) {
     };
   }, [modalRef]);
 
+  // Handle click for CiCirclePlus
+  const handlePlusClick = () => {
+    // Functionality to be added later
+  };
+
   return (
     <div className="station-header-actions flex flex-row justify-between align-center">
       <div className="flex flex-row gap-8 align-center">
         <IoPlayCircle className="play-circle" />
-        <CiCirclePlus className="plus-circle" />
+        {isNewStation && (
+          <CiCirclePlus className="plus-circle" onClick={handlePlusClick} />
+        )}
         <div ref={modalRef} className="relative">
           <BsThreeDots className="three-dots" onClick={toggleModal} />
           {isModalOpen && <ThreeDotsModal closeModal={closeModal} toggleEditStation={toggleEditStation} />}
