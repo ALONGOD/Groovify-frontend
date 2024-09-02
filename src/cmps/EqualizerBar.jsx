@@ -1,10 +1,10 @@
 export function EqualizerBar() {
   return (
-    <div class="equalizer">
-      <div class="bar"></div>
-      <div class="bar"></div>
-      <div class="bar"></div>
-      <div class="bar"></div>
+    <div className="equalizer">
+      <div className="bar"></div>
+      <div className="bar"></div>
+      <div className="bar"></div>
+      <div className="bar"></div>
     </div>
   )
 }
