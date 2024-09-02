@@ -3,7 +3,7 @@ import { IoIosCheckmarkCircle } from 'react-icons/io'
 import { addToLikedSongs, removeFromLikedSongs } from '../store/actions/station.actions'
 import { useSelector } from 'react-redux'
 
-export function LikeSongBtn({ onHover, song }) {
+export function LikeSongBtn({ song }) {
     const stations = useSelector(state => state.stationModule.stations)
 
     if (!song || !stations) {
