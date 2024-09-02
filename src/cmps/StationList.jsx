@@ -6,16 +6,7 @@ export function StationList({ isCollapsed, user }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const modalRef = useRef(null);
   const [stationOrder, setStationOrder] = useState([]);
-  const [loading, setLoading] = useState(true); // Loading state to track when stations are loading
-
-  useEffect(() => {
-    // Load stations only once on component mount
-    if (!stations.length) {
-      fetchStations();
-    } else {
-      setLoading(false);
-    }
-  }, []); // Empty dependency array ensures this only runs once
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const storedOrder = JSON.parse(localStorage.getItem('stationOrder'));
@@ -41,6 +32,14 @@ export function StationList({ isCollapsed, user }) {
 
   async function fetchStations() {
     try {
+      setLoading(true);
+      let stationsToLoad = stations;
+
+      if (!stations || stations.length === 0) {
+        stationsToLoad = await stationService.query();
+        dispatch({ type: SET_STATIONS, stations: stationsToLoad });
+      }
+
       const filterBy = {
         searchTerm: searchTerm || '',
         sortBy: sortBy || 'recents',
@@ -62,7 +61,7 @@ export function StationList({ isCollapsed, user }) {
       console.log('Cannot load stations', err);
       throw err;
     } finally {
-      setLoading(false); // Ensure loading is set to false after fetching
+      setLoading(false); // Set loading to false once all stations are loaded
     }
   }
 
@@ -91,8 +90,7 @@ export function StationList({ isCollapsed, user }) {
     return sortOptions[sortBy] || sortBy;
   }
 
-  if (loading) return <h1>Loading...</h1>; // Display loading only until stations are loaded
-
+  if (loading) return <h1>Loading...</h1>;
   return (
     <section className="station-list">
       {!isCollapsed && (
