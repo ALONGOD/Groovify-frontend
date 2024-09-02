@@ -19,33 +19,33 @@ export function setIsPlaying(state) {
   store.dispatch({ type: SET_PLAYER_IS_PLAYING, isPlaying: state })
 }
 
-export function setSongsInQueue(songs) {
+export async function setSongsInQueue(songs) {
   const songsToAdd = songs
 
+  return new Promise(async resolve => {
     store.dispatch({ type: SET_QUEUE_SONGS, songs: songsToAdd })
-    setShuffleQueue(songs)
-  }
-  
-  export function setShuffleQueue(songs) {
-    console.log('songs:', songs)
-    
-    const shuffledQueue = shuffleQueue(songs)
-    console.log('shuffledQueue:', shuffledQueue)
-    
-    return new Promise((resolve) => {
-      store.dispatch({ type: SET_QUEUE_SHUFFLED, shuffledQueue });
-      resolve(shuffledQueue); // Resolves immediately after dispatch
-    });
-    // store.dispatch({ type: SET_QUEUE_SHUFFLED, shuffledQueue })
+    const shuffledQueue = await setShuffleQueue(songs)
+    resolve({songsQueue: songs, shuffledQueue})
+  })
+}
+
+export function setShuffleQueue(songs) {
+  const shuffledQueue = shuffleQueue(songs)
+
+  return new Promise(resolve => {
+    store.dispatch({ type: SET_QUEUE_SHUFFLED, shuffledQueue })
+    resolve(shuffledQueue) // Resolves immediately after dispatch
+  })
+  // store.dispatch({ type: SET_QUEUE_SHUFFLED, shuffledQueue })
 }
 
 function shuffleQueue(queue) {
-  const shuffledQueue = [...queue]; 
+  const shuffledQueue = [...queue]
   for (let i = shuffledQueue.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffledQueue[i], shuffledQueue[j]] = [shuffledQueue[j], shuffledQueue[i]]; 
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[shuffledQueue[i], shuffledQueue[j]] = [shuffledQueue[j], shuffledQueue[i]]
   }
-  return shuffledQueue;
+  return shuffledQueue
 }
 
 export async function addToLikedSongs(songToAdd) {

@@ -89,8 +89,6 @@ export function stationReducer(state = initialState, action) {
       newState = {...state, player: {...state.player, currSong: action.currSong}}
       break
     case SET_PLAYER_IS_PLAYING:
-      console.log('isPlaying', action.isPlaying);
-      
       newState = {...state, player: {...state.player, isPlaying: action.isPlaying}}
       break
     case SET_PLAYER_CURRENT_STATION:

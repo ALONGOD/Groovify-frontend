@@ -147,7 +147,6 @@ export function MusicPlayer({ currSong }) {
     playerRef.current.seekTo(newTime, true);
   };
   const isVolumeMuted = playerRef?.current?.isMuted() || volume === 0
-  console.log('isVolumeMuted:', isVolumeMuted)
 
   function toggleVolume() {
     isVolumeMuted ? playerRef.current.unMute() : playerRef.current.mute()

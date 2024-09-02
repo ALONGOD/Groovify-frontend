@@ -4,28 +4,50 @@ import { useDrag, useDrop } from 'react-dnd'
 import { useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { PlayPauseBtn } from './PlayPauseBtn'
-import { SET_PLAYER_CURRENT_SONG, SET_PLAYER_CURRENT_STATION, SET_PLAYER_IS_PLAYING } from '../store/reducers/station.reducer'
+import {
+  SET_PLAYER_CURRENT_SONG,
+  SET_PLAYER_CURRENT_STATION,
+  SET_PLAYER_IS_PLAYING,
+} from '../store/reducers/station.reducer'
+import { setSongsInQueue } from '../store/actions/station.actions'
+import { SET_DETAILS_SIDEBAR } from '../store/reducers/system.reducer'
 
 export function StationPreview({ station, isCollapsed, index, moveStation }) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const ref = useRef(null)
+
+  const [onHover, setOnHover] = useState(false)
   const player = useSelector(state => state.stationModule.player)
   const { currStation, isPlaying, currSong } = player
+
+  const queue = useSelector(state => state.stationModule.queue)
+  console.log('queue:', queue)
+  const { isShuffled, songsQueue, shuffledQueue } = queue
+
   const isStationPlaying = currStation?.id === station?._id
-  const [onHover, setOnHover] = useState(false)
 
   const { _id, imgUrl, name, songs } = station
 
-  function playOrPauseStation() {
+ async function playOrPauseStation(ev) {
+    ev.stopPropagation()
+    
     const songs = station.songs
-    if (currStation.id !== station._id) {
-      dispatch({ type: SET_PLAYER_CURRENT_STATION, currStation: {id: station._id, name: station.name} })
-      dispatch({ type: SET_PLAYER_CURRENT_SONG, currSong: songs[0] })
+    let songToPlay
+
+    if (currStation?.id !== station?._id) {
+       const newQueue = await setSongsInQueue(songs)
+      
+      dispatch({ type: SET_DETAILS_SIDEBAR, state: 'songDetails' })
+      dispatch({
+        type: SET_PLAYER_CURRENT_STATION,
+        currStation: { id: station._id, name: station.name },
+      })
+      if (isShuffled) songToPlay = newQueue.shuffledQueue[0]
+      else songToPlay = newQueue.songsQueue[0]
+      dispatch({ type: SET_PLAYER_CURRENT_SONG, currSong: songToPlay })
       dispatch({ type: SET_PLAYER_IS_PLAYING, isPlaying: true })
     } else {
-        console.log('sup');
-        
       dispatch({ type: SET_PLAYER_IS_PLAYING, isPlaying: !isPlaying })
     }
   }
@@ -53,7 +75,7 @@ export function StationPreview({ station, isCollapsed, index, moveStation }) {
   return (
     <li
       ref={ref}
-      className="station-preview flex flex-row"
+      className={`station-preview flex flex-row ${onHover ? 'hover' : ''}`}
       onClick={() => navigate(`/station/${_id}`)}
       onMouseEnter={() => setOnHover(true)}
       onMouseLeave={() => setOnHover(false)}
@@ -64,6 +86,7 @@ export function StationPreview({ station, isCollapsed, index, moveStation }) {
         {onHover && (
           <PlayPauseBtn
             type="station-preview"
+            station={station}
             onTogglePlay={playOrPauseStation}
           />
         )}

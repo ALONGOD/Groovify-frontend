@@ -14,11 +14,6 @@ export function PlayPauseBtn({ song, station, type, onTogglePlay }) {
   const player = useSelector(state => state.stationModule.player)
   const { isPlaying, currSong, currStation } = player
   const isSongPlaying = setIsPlaying()
-//   const isSongPlaying = currSong?.id === song?.id && isPlaying
-
-console.log(isSongPlaying);
-console.log((currStation?.id === station?._id) && isPlaying);
-
 
 
   function setIsPlaying() {
@@ -27,8 +22,8 @@ console.log((currStation?.id === station?._id) && isPlaying);
   }
 
 
-  function playOrPauseSong() {
-    if (onTogglePlay) return onTogglePlay() 
+  function playOrPauseSong(ev) {
+    if (onTogglePlay) return onTogglePlay(ev) 
     if (songs) setSongsInQueue(songs)
     if (station)
       dispatch({
