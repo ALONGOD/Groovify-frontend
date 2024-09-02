@@ -11,9 +11,14 @@ import {
   SET_QUEUE_SONGS,
   SET_QUEUE_SHUFFLED,
   SET_PLAYER_IS_PLAYING,
+  ADD_SONG_TO_QUEUE,
 } from '../reducers/station.reducer'
 import { storageService } from '../../services/async-storage.service.js'
 import { SET_USER } from '../reducers/user.reducer.js'
+
+export function addSongToQueue(song) {
+  store.dispatch({ type: ADD_SONG_TO_QUEUE, song })
+}
 
 export function setIsPlaying(state) {
   store.dispatch({ type: SET_PLAYER_IS_PLAYING, isPlaying: state })
@@ -99,15 +104,6 @@ export async function removeSongFromStation(stationId) {
   return stations[idx]
 }
 
-// export async function removeSongFromStation(stationId) {
-//   const songId = store.getState().stationModule.modalSong?.id
-//   const updatedStation = await storageService.removeSongFromStation(
-//     songId,
-//     stationId
-//   )
-//   store.dispatch({ type: UPDATE_STATION, updatedStation })
-//   return updatedStation
-// }
 
 export async function addToStation(stationId, songToAdd) {
   const stations = await storageService.query('stationDB')
@@ -118,10 +114,6 @@ export async function addToStation(stationId, songToAdd) {
   await storageService.save('stationDB', stations)
   store.dispatch({ type: UPDATE_STATION, updatedStation: stations[idx] })
 }
-// export async function addToStation(stationId, song) {
-//   const updatedStation = await storageService.addSongToStation(song, stationId)
-//   store.dispatch({ type: UPDATE_STATION, updatedStation})
-// }
 
 function isSongInStation(station, song) {
   return station.songs.some(stationSong => stationSong.id === song.id)

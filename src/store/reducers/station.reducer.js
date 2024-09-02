@@ -12,25 +12,26 @@ export const SET_EDIT_MODAL = 'SET_EDIT_MODAL'
 export const SET_QUEUE_SONGS = 'SET_QUEUE_SONGS'
 export const SET_QUEUE_MODE = 'SET_QUEUE_MODE'
 export const SET_QUEUE_SHUFFLED = 'SET_QUEUE_SHUFFLED'
+export const ADD_SONG_TO_QUEUE = 'ADD_SONG_TO_QUEUE'
 
 export const SET_CURRENT_SONG = 'SET_CURRENT_SONG'
-export const SET_SEARCH_TERM = 'SET_SEARCH_TERM';
-export const SET_SORT_BY = 'SET_SORT_BY';
+export const SET_SEARCH_TERM = 'SET_SEARCH_TERM'
+export const SET_SORT_BY = 'SET_SORT_BY'
 
-export const SET_PLAYER_CURRENT_SONG = 'SET_PLAYER_CURR_SONG';
-export const SET_PLAYER_IS_PLAYING = 'SET_PLAYER_IS_PLAYING';
-export const SET_PLAYER_CURRENT_STATION = 'SET_PLAYER_CURRENT_STATION';
-export const SET_SONGS = 'SET_SONGS';
+export const SET_PLAYER_CURRENT_SONG = 'SET_PLAYER_CURR_SONG'
+export const SET_PLAYER_IS_PLAYING = 'SET_PLAYER_IS_PLAYING'
+export const SET_PLAYER_CURRENT_STATION = 'SET_PLAYER_CURRENT_STATION'
+export const SET_SONGS = 'SET_SONGS'
 
 const initialState = {
   stations: [],
   songs: [],
   searchTerm: '',
-  player: {currSong: null, isPlaying: false, currStation: null},
+  player: { currSong: null, isPlaying: false, currStation: null },
   modalSong: {},
   editStationModal: false,
   sortBy: 'recents',
-  queue: { isShuffled: false, songsQueue: [], shuffledQueue: [] }
+  queue: { isShuffled: false, songsQueue: [], shuffledQueue: [] },
 }
 
 export function stationReducer(state = initialState, action) {
@@ -47,9 +48,10 @@ export function stationReducer(state = initialState, action) {
       break
     case UPDATE_STATION:
       stations = state.stations.map(station => {
-        return station._id === action.updatedStation._id ? action.updatedStation : station
-      }
-      )
+        return station._id === action.updatedStation._id
+          ? action.updatedStation
+          : station
+      })
       newState = { ...state, stations }
       break
     case REMOVE_STATION:
@@ -59,13 +61,13 @@ export function stationReducer(state = initialState, action) {
       newState = { ...state, stations }
       break
 
-    case SET_SEARCH_TERM:  // Add this case
+    case SET_SEARCH_TERM: // Add this case
       newState = { ...state, searchTerm: action.searchTerm }
       break
 
     case SET_SORT_BY: // Handle sorting criteria
-      newState = { ...state, sortBy: action.sortBy };
-      break;
+      newState = { ...state, sortBy: action.sortBy }
+      break
 
     case SET_MODAL:
       newState = { ...state, modalSong: action.song }
@@ -76,26 +78,70 @@ export function stationReducer(state = initialState, action) {
 
     // QUEUE
     case SET_QUEUE_SONGS:
-      console.log(action.songs);
-      newState = { ...state, queue: { ...state.queue, songsQueue: action.songs } }
+      console.log(action.songs)
+      newState = {
+        ...state,
+        queue: { ...state.queue, songsQueue: action.songs },
+      }
       break
     case SET_QUEUE_MODE:
-      newState = { ...state, queue: { ...state.queue, isShuffled: action.mode } }
+      newState = {
+        ...state,
+        queue: { ...state.queue, isShuffled: action.mode },
+      }
       break
     case SET_QUEUE_SHUFFLED:
-      newState = { ...state, queue: { ...state.queue, shuffledQueue: action.shuffledQueue } };
+      newState = {
+        ...state,
+        queue: { ...state.queue, shuffledQueue: action.shuffledQueue },
+      }
       break
+    case ADD_SONG_TO_QUEUE:
+      const { songsQueue, shuffledQueue, isShuffled } = state.queue
+      const currSongIdx = songsQueue.findIndex(
+        song => song.id === state.player?.currSong?.id
+      )
+      const currSongIdxShuffle = shuffledQueue.findIndex(
+        song => song.id === state.player?.currSong?.id
+      )
+
+      const newSongsQueue = [...songsQueue]
+      newSongsQueue.splice(currSongIdx + 1, 0, action.song)
+
+      const newShuffledQueue = [...shuffledQueue]
+      newShuffledQueue.splice(currSongIdxShuffle + 1, 0, action.song)
+
+      newState = {
+        ...state,
+        queue: {
+          songsQueue: newSongsQueue,
+          shuffledQueue: newShuffledQueue,
+          isShuffled,
+        },
+      }
+      break
+
+    // PLAYER
     case SET_PLAYER_CURRENT_SONG:
-      newState = {...state, player: {...state.player, currSong: action.currSong}}
+      newState = {
+        ...state,
+        player: { ...state.player, currSong: action.currSong },
+      }
       break
     case SET_PLAYER_IS_PLAYING:
-      newState = {...state, player: {...state.player, isPlaying: action.isPlaying}}
+      newState = {
+        ...state,
+        player: { ...state.player, isPlaying: action.isPlaying },
+      }
       break
     case SET_PLAYER_CURRENT_STATION:
-      newState = {...state, player: {...state.player, currStation: action.currStation}}
+      newState = {
+        ...state,
+        player: { ...state.player, currStation: action.currStation },
+      }
       break
     case SET_SONGS:
-      newState = {...state, songs: action.songs}
+      newState = { ...state, songs: action.songs }
     default:
       return newState
   }
