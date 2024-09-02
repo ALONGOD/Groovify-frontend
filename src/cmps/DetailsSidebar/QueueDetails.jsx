@@ -7,8 +7,8 @@ export function QueueDetails() {
     const queue = useSelector(state => state.stationModule.queue)
     const queueMode = queue.isShuffled
     const currQueueSongs = queueMode ? queue.shuffledQueue : queue.songsQueue
-
-    const currSong = useSelector(state => state.stationModule.player.currSong)
+    const player = useSelector(state => state.stationModule.player)
+    const {currSong, currStation} = player
     console.log('currSong:', currSong)
 
     const currSongIdx = currQueueSongs.findIndex(song => song.id === currSong.id)
@@ -27,7 +27,7 @@ export function QueueDetails() {
                     {currSong ? <SongPreview song={currSong} /> : <p>No song currently playing</p>}
                 </div>
                 <div className="playing-next flex flex-column">
-                    <h2>Up Next</h2>
+                    <h2>Up Next{}</h2>
                     <SongList songs={queueToDisplay} />
                 </div>
             </main>

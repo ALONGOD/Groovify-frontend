@@ -7,17 +7,28 @@ import {
 } from '../store/reducers/station.reducer'
 import { setSongsInQueue } from '../store/actions/station.actions'
 
-export function PlayPauseBtn({ song, station, type }) {
+export function PlayPauseBtn({ song, station, type, onTogglePlay }) {
   const dispatch = useDispatch()
 
   const songs = useSelector(state => state.stationModule.songs)
   const player = useSelector(state => state.stationModule.player)
   const { isPlaying, currSong, currStation } = player
-  const isSongPlaying = currSong?.id === song?.id && isPlaying
+  const isSongPlaying = setIsPlaying()
+//   const isSongPlaying = currSong?.id === song?.id && isPlaying
 
-  // console.log(currStation);
+console.log(isSongPlaying);
+console.log((currStation?.id === station?._id) && isPlaying);
+
+
+
+  function setIsPlaying() {
+    if (type === 'station-preview') return (currStation?.id === station?._id) && isPlaying
+    else return currSong?.id === song?.id && isPlaying
+  }
+
 
   function playOrPauseSong() {
+    if (onTogglePlay) return onTogglePlay() 
     if (songs) setSongsInQueue(songs)
     if (station)
       dispatch({
@@ -30,7 +41,6 @@ export function PlayPauseBtn({ song, station, type }) {
     dispatch({ type: SET_PLAYER_IS_PLAYING, isPlaying: !isPlaying })
   }
 
-  // console.log(isPlaying);
 
   if (type === 'top-result') {
     console.log('sup nig')
@@ -44,9 +54,9 @@ export function PlayPauseBtn({ song, station, type }) {
   return (
     <>
       {isSongPlaying ? (
-        <IoIosPause onClick={playOrPauseSong} />
+        <IoIosPause className='play-pause-btn' onClick={playOrPauseSong} />
       ) : (
-        <IoIosPlay onClick={playOrPauseSong} />
+        <IoIosPlay className='play-pause-btn' onClick={playOrPauseSong} />
       )}
     </>
   )
