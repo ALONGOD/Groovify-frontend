@@ -6,8 +6,8 @@
   z-index: 20;
   height: max-content;
   background-color: #282828;
-  width: max-content;
-  color: rgb(231, 231, 231);
+  width: 18em;
+  color: hsla(0, 0%, 100%, 0.9);
   z-index: 1000;
 
   &.editStation {
@@ -52,7 +52,7 @@
         height: 100%;
         textarea {
           height: 100%;
-          resize:none;
+          resize: none;
         }
       }
     }
@@ -161,22 +161,50 @@
   .row {
     align-items: center;
     padding: em(12px) em(8px) em(12px) em(12px);
+    border-radius: 2px;
     height: em(40px);
     h3 {
       font-family: 'gotham-book';
+      font-weight: 600;
       // letter-spacing: 0.5px;
-      font-size: em(14px);
+      font-size: 0.875rem;
       margin: 0;
       color: rgb(225, 225, 225);
     }
+
+    .caret-right {
+      margin: 0;
+    }
+
     svg {
-      font-size: em(16px);
+      font-size: em(19px);
       margin-right: 0.5em;
       font-weight: 200;
     }
     &:hover {
       background-color: $modal-row-hover;
       color: white;
+    }
+  }
+  .song-liked {
+    svg {
+      &.checkmark-btn {
+        color: $spotify-green;
+        fill: $spotify-green;
+      }
+    }
+  }
+
+  &.songOptions {
+    .plus-btn {
+      // height: 1em;
+      // font-size: 1em;
+      // width: 1em;
+      color: $--text-subdued;
+    }
+    h3 {
+      display: flex;
+      align-items: center;
     }
   }
 }
