@@ -14,6 +14,7 @@ import { ProgressBar } from './ProgressBar'
 export function MusicPlayer({ currSong }) {
   const dispatch = useDispatch()
   const queue = useSelector(storeState => storeState.stationModule.queue)
+  console.log('queue:', queue)
   const player = useSelector(storeState => storeState.stationModule.player)
   const isPlaying = player.isPlaying
 

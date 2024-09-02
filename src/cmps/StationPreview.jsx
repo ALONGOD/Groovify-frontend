@@ -22,22 +22,21 @@ export function StationPreview({ station, isCollapsed, index, moveStation }) {
   const { currStation, isPlaying, currSong } = player
 
   const queue = useSelector(state => state.stationModule.queue)
-  console.log('queue:', queue)
   const { isShuffled, songsQueue, shuffledQueue } = queue
 
   const isStationPlaying = currStation?.id === station?._id
 
   const { _id, imgUrl, name, songs } = station
 
- async function playOrPauseStation(ev) {
+  async function playOrPauseStation(ev) {
     ev.stopPropagation()
     
     const songs = station.songs
     let songToPlay
 
     if (currStation?.id !== station?._id) {
-       const newQueue = await setSongsInQueue(songs)
-      
+      const newQueue = await setSongsInQueue(songs)
+
       dispatch({ type: SET_DETAILS_SIDEBAR, state: 'songDetails' })
       dispatch({
         type: SET_PLAYER_CURRENT_STATION,
