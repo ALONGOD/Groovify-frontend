@@ -1,19 +1,19 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { setSongsInQueue, toggleModal } from '../store/actions/station.actions'
+import { toggleModal } from '../store/actions/station.actions'
 import { SongPreview } from './SongPreview'
 import { SongListHeader } from './StationDetails/SongListHeader'
-import {
-  SET_PLAYER_CURRENT_SONG,
-  SET_PLAYER_CURRENT_STATION,
-  SET_PLAYER_IS_PLAYING,
-} from '../store/reducers/station.reducer'
 import { SearchBar } from './SearchBar'
+import { SET_SONGS } from '../store/reducers/station.reducer'
+import { useEffect } from 'react'
 
 export function SongList({ songs, type, station }) {
   const dispatch = useDispatch()
   const songModal = useSelector(state => state.stationModule.modalSong)
-  
   const stations = useSelector(state => state.stationModule.stations)
+  
+  useEffect(() => {
+    dispatch({type: SET_SONGS, songs})
+  }, [])
   
 
   const likedSongsStation = stations.find(
