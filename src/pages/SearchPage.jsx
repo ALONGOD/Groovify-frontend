@@ -69,43 +69,24 @@ export function SearchPage() {
             </>
           )}
         </div>
-        <div className="playlist-results" style={{ marginTop: '8%' }}>
+        <div className="playlist-results">
           {playlistResults.length !== 0 && (
             <>
               <h2>Playlists</h2>
-              <div style={{ display: 'flex', gap: '20px', overflowX: 'auto' }}>
+              <div className="playlist-container">
                 {playlistResults.map((playlist) => (
                   <div
                     key={playlist._id}
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      width: '150px',
-                      cursor: 'pointer',
-                      textAlign: 'center',
-                      color: '#fff',
-                    }}
+                    className="playlist-item"
                     onClick={() => onPlaylistClick(playlist._id)}
                   >
                     <img
                       src={playlist.imgUrl}
                       alt={playlist.name}
-                      style={{
-                        width: '100%',
-                        height: '150px',
-                        borderRadius: '8px',
-                        objectFit: 'cover',
-                        marginBottom: '8px',
-                      }}
                     />
-                    <div>
-                      <h3 style={{ fontSize: '16px', fontWeight: 'bold' }}>
-                        {playlist.name}
-                      </h3>
-                      <p style={{ fontSize: '14px', color: '#b3b3b3' }}>
-                        By {playlist.createdBy.fullname}
-                      </p>
+                    <div className="playlist-info">
+                      <h3>{playlist.name}</h3>
+                      <p>By {playlist.createdBy.fullname}</p>
                     </div>
                   </div>
                 ))}

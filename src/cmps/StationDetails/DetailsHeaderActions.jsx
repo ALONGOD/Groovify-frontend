@@ -120,10 +120,7 @@ export function DetailsHeaderActions({ toggleEditStation, isNewStation, station:
         {isNewStation ? (
           <CiCirclePlus className="plus-circle" onClick={handlePlusClick} />
         ) : (
-          <FaCheckCircle className="check-circle text-green-500" style={{
-            color: '1ed760',
-            fontSize: '3em'
-          }}
+          <FaCheckCircle className="check-circle"
             onClick={handleRemoveClick}
           /> // Conditionally rendering the checkmark
         )}

@@ -10,7 +10,6 @@
     .main-details {
         color: white;
         display: grid;
-        // height: 5em;
         grid-template-columns: 30% 70%;
         gap: em(32px) em(18px);
 
@@ -28,12 +27,11 @@
 
             .card {
                 position: relative;
-                // height: 15em;
                 gap: em(20px);
                 border-radius: 0.7em;
                 background-color: #191919;
                 padding: 1.3em;
-                transition: background-color .3s ease;
+                transition: background-color 0.3s ease;
 
                 &:hover {
                     background-color: #252525;
@@ -46,9 +44,6 @@
                     text-wrap: balance;
                     padding-block-end: 4px;
                     margin: 0;
-                    // overflow: hidden;
-                    // text-overflow: ellipsis;
-                    // white-space: nowrap;
                 }
 
                 .song-label {
@@ -64,10 +59,51 @@
                     font-size: 1rem;
                     margin-bottom: 1em;
                 }
+            }
+        }
 
-                &:hover {
-                    background-color: #252525;
+        .playlist-results {
+            margin-top: 8%;
 
+            .playlist-container {
+                display: flex;
+                gap: 1.2em;
+                /* Reduced gap using em unit */
+                overflow-x: auto;
+            }
+
+            .playlist-item {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                /* Align items to the left */
+                width: 10em;
+                cursor: pointer;
+                text-align: left;
+                color: #fff;
+
+                img {
+                    width: 100%;
+                    height: 10em;
+                    border-radius: 0.5em;
+                    object-fit: cover;
+                    margin-bottom: 0.5em;
+                }
+
+                .playlist-info {
+                    h3 {
+                        font-size: 1.2rem;
+                        font-weight: bold;
+                        margin-bottom: 0.2em;
+                        /* Reduced gap between playlist name and creator name */
+                    }
+
+                    p {
+                        font-size: 0.875rem;
+                        color: #b3b3b3;
+                        margin-top: 0;
+                        /* Ensure no additional margin on top of the creator name */
+                    }
                 }
             }
         }

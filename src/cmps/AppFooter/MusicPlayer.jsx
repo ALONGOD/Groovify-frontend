@@ -34,7 +34,9 @@ export function MusicPlayer({ currSong }) {
 
 
   useEffect(() => {
-    playerRef?.current?.getPlayerState() === 1 ? setIsPlaying(false) : setIsPlaying(true)
+    if (playerRef.current) {
+      playerRef?.current?.getPlayerState() === 1 ? setIsPlaying(false) : setIsPlaying(true)
+    }
   }, [playerRef])
 
   const opts = {

@@ -5,17 +5,14 @@ import { BsThreeDots } from 'react-icons/bs'
 import { Modal } from './Modal/Modal'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { FaPlay } from 'react-icons/fa'
 import { LikeSongBtn } from './LikeSongBtn'
 import { EqualizerBar } from './EqualizerBar'
-import { setSongsInQueue } from '../store/actions/station.actions'
-import { SET_PLAYER_CURRENT_SONG, SET_PLAYER_CURRENT_STATION, SET_PLAYER_IS_PLAYING } from '../store/reducers/station.reducer'
+import { PlayPauseBtn } from './PlayPauseBtn'
 
-export function SongPreview({songs, song, idx, station, songModal, onToggleModal, type, likedSongs, }) {
-  const dispatch = useDispatch()
+export function SongPreview({ song, idx, station, songModal, onToggleModal, type, likedSongs }) {
+
   const [onSongHover, setOnSongHover] = useState(false)
   const { addedAt, duration, imgUrl, title, artist, album } = song
-  // const [isModalOpen, setIsModalOpen] = useState(false)
   const player = useSelector(state => state.stationModule.player)
   const { currSong, isPlaying } = player
 
@@ -25,37 +22,6 @@ export function SongPreview({songs, song, idx, station, songModal, onToggleModal
 
   const isCurrSong = currSong?.id === song?.id
 
-  function openModal() {
-    setIsModalOpen(true)
-  }
-
-  function closeModal() {
-    setIsModalOpen(false)
-  }
-
-  function playSong(song) {
-    if (songs) setSongsInQueue(songs)
-
-    dispatch({ type: SET_PLAYER_CURRENT_SONG, currSong: song })
-    dispatch({ type: SET_PLAYER_IS_PLAYING, isPlaying: !isPlaying })
-    console.log(station);
-    if (station) {
-
-      dispatch({
-        type: SET_PLAYER_CURRENT_STATION,
-        currStation: { id: station._id, name: station.name },
-      })
-    }
-  }
-
-  // function toggleModal() {
-  //   isModalOpen ? closeModal() : openModal()
-  // }
-
-  function PlayOrPause() {
-    return (isPlaying && isCurrSong) ? <IoIosPause /> : <IoIosPlay />
-  }
-
   return (
     <li
       className={` ${currSong?.id === song?.id ? 'active' : ''}`}
@@ -64,16 +30,16 @@ export function SongPreview({songs, song, idx, station, songModal, onToggleModal
       onDoubleClick={() => playSong(song)}
     >
       {isListTable && (
-        <h4 onClick={() => playSong(song)} className="idx">
+        <h4  className="idx">
           {!onSongHover && (isPlaying && isCurrSong ? <EqualizerBar /> : idx + 1)}
-          {onSongHover && <PlayOrPause />}
+          {onSongHover && <PlayPauseBtn song={song} station={station}/>}
         </h4>
       )}
       <div className="main-details flex flex-row align-center">
         <div className="relative img-svg">
           <img src={imgUrl} alt="song-img" />
           {!isListTable && onSongHover && (
-            <IoIosPlay onClick={() => playSong(song)} className="play-btn" />
+            <PlayPauseBtn song={song} station={station} onClick={() => playSong(song)} className="play-btn" />
           )}
         </div>
         <div className="song-details flex flex-column">
@@ -98,7 +64,7 @@ export function SongPreview({songs, song, idx, station, songModal, onToggleModal
             onClick={ev => onToggleModal(ev, song)}
           />
         )}
-        {songModal?.id === song?.id && <Modal openModal={openModal} closeModal={closeModal} modalType={'songOptions'} />}
+        {songModal?.id === song?.id && <Modal modalType={'songOptions'} />}
       </div>
     </li>
   )
