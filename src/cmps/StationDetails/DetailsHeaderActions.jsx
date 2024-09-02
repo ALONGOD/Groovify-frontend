@@ -10,6 +10,8 @@ import { IoPlayCircle } from "react-icons/io5";
 import { ThreeDotsModal } from "../Modal/ThreeDotsModal";
 import { SET_USER } from '../../store/reducers/user.reducer'; // Make sure this import is correct
 import { store } from '../../store/store'; // Import the store if it's not already included
+import { FaCheckCircle } from "react-icons/fa"; // Importing the checkmark icon
+
 
 export function DetailsHeaderActions({ toggleEditStation, isNewStation, station: propStation }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -87,13 +89,43 @@ export function DetailsHeaderActions({ toggleEditStation, isNewStation, station:
       console.error('Failed to add station to likedStations:', err);
     }
   };
+  const handleRemoveClick = async () => {
+    try {
+      if (!station) {
+        console.error('Station not found.');
+        return;
+      }
+
+      const updatedUser = { ...user };
+      updatedUser.likedStations = updatedUser.likedStations.filter(likedStation => likedStation.id !== station._id);
+
+      await userService.saveLoggedinUser(updatedUser);
+      store.dispatch({ type: SET_USER, user: updatedUser });
+
+      const updatedStation = { ...station };
+      updatedStation.likedByUsers = updatedStation.likedByUsers.filter(userId => userId !== user._id);
+
+      await stationService.save(updatedStation);
+      dispatch(updateStation(updatedStation));
+
+    } catch (err) {
+      console.error('Failed to remove station from likedStations:', err);
+    }
+  };
 
   return (
     <div className="station-header-actions flex flex-row justify-between align-center">
       <div className="flex flex-row gap-8 align-center">
         <IoPlayCircle className="play-circle" />
-        {isNewStation && (
+        {isNewStation ? (
           <CiCirclePlus className="plus-circle" onClick={handlePlusClick} />
+        ) : (
+          <FaCheckCircle className="check-circle text-green-500" style={{
+            color: '1ed760',
+            fontSize: '3em'
+          }}
+            onClick={handleRemoveClick}
+          /> // Conditionally rendering the checkmark
         )}
         <div ref={modalRef} className="relative">
           <BsThreeDots className="three-dots" onClick={toggleModal} />
