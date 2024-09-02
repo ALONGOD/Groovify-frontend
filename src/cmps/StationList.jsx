@@ -1,3 +1,13 @@
+import { useEffect, useState, useRef } from 'react';
+import { StationPreview } from './StationPreview';
+import { stationService } from '../services/station/station.service.local';
+import { useDispatch, useSelector } from 'react-redux';
+import { SET_STATIONS } from '../store/reducers/station.reducer';
+import { SearchBar } from './SearchBar.jsx';
+import { Modal } from './Modal/Modal.jsx';
+import { FaBars } from 'react-icons/fa6';
+import update from 'immutability-helper';
+
 export function StationList({ isCollapsed, user }) {
   const dispatch = useDispatch();
   const stations = useSelector(state => state.stationModule.stations);
@@ -16,6 +26,10 @@ export function StationList({ isCollapsed, user }) {
       setStationOrder(stations);
     }
   }, [stations, sortBy]);
+
+  useEffect(() => {
+    fetchStations();
+  }, [searchTerm, sortBy, user]);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -45,9 +59,8 @@ export function StationList({ isCollapsed, user }) {
         sortBy: sortBy || 'recents',
       };
 
-      // Fetch liked songs station and other stations
-      const likedSongsStation = await stationService.fetchLikedSongs();
       let filteredStations = await stationService.query(filterBy);
+      const likedSongsStation = await stationService.fetchLikedSongs();
 
       if (user) {
         filteredStations = filteredStations.filter(station =>
