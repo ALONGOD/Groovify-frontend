@@ -30,7 +30,7 @@ export function SongPreview({ song, idx, station, songModal, onToggleModal, type
       onDoubleClick={() => playSong(song)}
     >
       {isListTable && (
-        <h4  className="idx">
+        <h4  className="idx relative">
           {!onSongHover && (isPlaying && isCurrSong ? <EqualizerBar /> : idx + 1)}
           {onSongHover && <PlayPauseBtn song={song} station={station}/>}
         </h4>
