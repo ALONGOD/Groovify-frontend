@@ -1,13 +1,3 @@
-import { useEffect, useState, useRef } from 'react';
-import { StationPreview } from './StationPreview';
-import { stationService } from '../services/station/station.service.local';
-import { useDispatch, useSelector } from 'react-redux';
-import { SET_STATIONS } from '../store/reducers/station.reducer';
-import { SearchBar } from './SearchBar.jsx';
-import { Modal } from './Modal/Modal.jsx';
-import { FaBars } from 'react-icons/fa6';
-import update from 'immutability-helper';
-
 export function StationList({ isCollapsed, user }) {
   const dispatch = useDispatch();
   const stations = useSelector(state => state.stationModule.stations);
@@ -16,6 +6,16 @@ export function StationList({ isCollapsed, user }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const modalRef = useRef(null);
   const [stationOrder, setStationOrder] = useState([]);
+  const [loading, setLoading] = useState(true); // Loading state to track when stations are loading
+
+  useEffect(() => {
+    // Load stations only once on component mount
+    if (!stations.length) {
+      fetchStations();
+    } else {
+      setLoading(false);
+    }
+  }, []); // Empty dependency array ensures this only runs once
 
   useEffect(() => {
     const storedOrder = JSON.parse(localStorage.getItem('stationOrder'));
@@ -25,10 +25,6 @@ export function StationList({ isCollapsed, user }) {
       setStationOrder(stations);
     }
   }, [stations, sortBy]);
-
-  useEffect(() => {
-    fetchStations();
-  }, [searchTerm, sortBy, user]);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -45,20 +41,14 @@ export function StationList({ isCollapsed, user }) {
 
   async function fetchStations() {
     try {
-      let stationsToLoad = stations;
-
-      if (!stations || stations.length === 0) {
-        stationsToLoad = await stationService.query();
-        dispatch({ type: SET_STATIONS, stations: stationsToLoad });
-      }
-
       const filterBy = {
         searchTerm: searchTerm || '',
         sortBy: sortBy || 'recents',
       };
 
-      let filteredStations = await stationService.query(filterBy);
+      // Fetch liked songs station and other stations
       const likedSongsStation = await stationService.fetchLikedSongs();
+      let filteredStations = await stationService.query(filterBy);
 
       if (user) {
         filteredStations = filteredStations.filter(station =>
@@ -71,6 +61,8 @@ export function StationList({ isCollapsed, user }) {
     } catch (err) {
       console.log('Cannot load stations', err);
       throw err;
+    } finally {
+      setLoading(false); // Ensure loading is set to false after fetching
     }
   }
 
@@ -99,7 +91,8 @@ export function StationList({ isCollapsed, user }) {
     return sortOptions[sortBy] || sortBy;
   }
 
-  if (!stationOrder.length) return <h1>Loading...</h1>;
+  if (loading) return <h1>Loading...</h1>; // Display loading only until stations are loaded
+
   return (
     <section className="station-list">
       {!isCollapsed && (
