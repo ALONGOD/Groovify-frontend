@@ -16,7 +16,6 @@ export function StationList({ isCollapsed, user }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const modalRef = useRef(null);
   const [stationOrder, setStationOrder] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const storedOrder = JSON.parse(localStorage.getItem('stationOrder'));
@@ -46,7 +45,6 @@ export function StationList({ isCollapsed, user }) {
 
   async function fetchStations() {
     try {
-      setLoading(true);
       let stationsToLoad = stations;
 
       if (!stations || stations.length === 0) {
@@ -73,8 +71,6 @@ export function StationList({ isCollapsed, user }) {
     } catch (err) {
       console.log('Cannot load stations', err);
       throw err;
-    } finally {
-      setLoading(false); // Set loading to false once all stations are loaded
     }
   }
 
@@ -103,7 +99,7 @@ export function StationList({ isCollapsed, user }) {
     return sortOptions[sortBy] || sortBy;
   }
 
-  if (loading) return <h1>Loading...</h1>;
+  if (!stationOrder.length) return <h1>Loading...</h1>;
   return (
     <section className="station-list">
       {!isCollapsed && (
