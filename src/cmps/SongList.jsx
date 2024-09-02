@@ -54,7 +54,6 @@ export function SongList({ songs, type, station }) {
               <SongPreview
                 station={station}
                 key={`${song.id}-${idx}`}
-                songs={songs}
                 song={song}
                 type={type}
                 idx={idx}
