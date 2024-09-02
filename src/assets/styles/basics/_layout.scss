@@ -65,24 +65,24 @@ aside.menu-sidebar {
     height: 100%;
     grid-column: 1;
     transition: width 0.3s ease;
-    &.collapsed {
-        width: 72px;
-        .nav-link {
-            justify-content: center;
-            .icon {
-                margin-right: 0;
-            }
-            span {
-                display: none;
-            }
-        }
-        .library-menu img {
-            margin-left: 0.3em;
-        }
-        .sub-menu {
-            display: none;
-        }
-    }
+    // &.collapsed {
+    //     // width: 72px;
+    //     .nav-link {
+    //         // justify-content: center;
+    //         .icon {
+    //             // margin-right: 0;
+    //         }
+    //         span {
+    //             // display: none;
+    //         }
+    //     }
+    //     .library-menu img {
+    //         // margin-left: 0.3em;
+    //     }
+    //     .sub-menu {
+    //         // display: none;
+    //     }
+    // }
 }
 .details-sidebar {
     @include component-layout;

@@ -5,22 +5,28 @@ aside {
     color: #d1d1d1;
     transition: width 0.3s ease;
 
+    .library-icon {
+        margin-left: 0.5em;
+    }
+
     & > div {
         @include component-layout;
         width: 100%;
     }
 
-    .navigation {
-        padding: 0.6em 0.8em;
-    }
+    // .navigation {
+    //     // padding: 0.6em 0.8em;
+    // }
 
     .library-menu .nav-link {
-        padding-inline: 1em;
+        // padding-inline: 1em;
         padding-block: 1em 0;
     }
 
     .library-menu {
         height: 100%;
+        padding-left: 0.75em;
+        // padding-right: $spacing-gap;
     }
 
     .main-menu {
@@ -29,33 +35,38 @@ aside {
         gap: 1em;
     }
 
-    &.collapsed {
-        width: 72px;
+    // &.collapsed {
+    //     // width: 72px;
 
-        .nav-link {
-            justify-content: center;
+    //     // .library-menu {
+    //     //     height: 100%;
+    //     //     padding-left: 0.5em
+    //     //     // padding-right: $spacing-gap;
+    //     // }
+    //     .nav-link {
+    //         // justify-content: center;
 
-            .icon {
-                margin-right: 0;
-            }
+    //         .icon {
+    //             // margin-right: 0;
+    //         }
 
-            span {
-                display: none;
-            }
-        }
+    //         span {
+    //             // display: none;
+    //         }
+    //     }
 
-        // .library-menu .nav-link {
-        //     padding-inline: 0.5em;
-        // }
+    //     .library-menu .nav-link {
+    //         // padding-inline: 0.5em;
+    //     }
 
-        .library-menu img {
-            margin-left: 0.3em;
-        }
+    //     .library-menu img {
+    //         // margin-left: 0.3em;
+    //     }
 
-        .sub-menu {
-            display: none;
-        }
-    }
+    //     .sub-menu {
+    //         // display: none;
+    //     }
+    // }
 
     .add-playlist-modal {
         width: max-content;
@@ -103,14 +114,14 @@ aside {
         display: flex;
         flex-direction: row;
         align-items: center;
-        padding-block: 0.5em;
+        // padding-block: 0.5em;
         height: $sub-menu-height;
 
         .sub-link {
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 0.5em 0.7em;
+            // padding: 0.5em 0.7em;
             border-radius: 1.25em;
             background-color: #333;
             color: #d1d1d1;

@@ -40,13 +40,15 @@ export function MenuSidebar() {
     return (
         <aside className={`menu-sidebar flex flex-column ${isCollapsed ? 'collapsed' : ''}`}>
             <div className='library-menu flex flex-column'>
-                <LibraryMenu
-                    isCollapsed={isCollapsed}
-                    setIsCollapsed={setIsCollapsed}
-                    selected={selected}
-                    setSelected={setSelected}
-                    isBelowThreshold={isBelowThreshold}
-                />
+                <div className='library-icon flex flex-column'>
+                    <LibraryMenu
+                        isCollapsed={isCollapsed}
+                        setIsCollapsed={setIsCollapsed}
+                        selected={selected}
+                        setSelected={setSelected}
+                        isBelowThreshold={isBelowThreshold}
+                    />
+                </div>
                 <StationList isCollapsed={isCollapsed} user={user} />
             </div>
         </aside>
