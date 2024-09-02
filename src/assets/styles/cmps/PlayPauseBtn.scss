@@ -33,3 +33,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+.content-wrapper:has(aside.menu-sidebar.collapsed) .station-preview .play-pause-btn {
+    display: none;
+}

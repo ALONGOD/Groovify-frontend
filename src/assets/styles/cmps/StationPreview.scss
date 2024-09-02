@@ -1,11 +1,27 @@
+ .station-list li.station-preview.hover {
+    img {
+        opacity: 0.6;
+    }
+}
+
+.content-wrapper:has(aside.menu-sidebar.collapsed) .station-list li.station-preview {
+    img {
+        opacity: 1;
+    }
+}
+
 li.station-preview {
     gap: 0.7em;
     cursor: pointer;
     border-radius: 4px;
-    // padding-inline: 0.5em;
+    padding-inline: 0.5em;
     padding-block: 0.6em;
     &:hover {
         background-color: rgb(33, 33, 33);
+    }
+
+    .relative svg {
+        color: white;
     }
 
     img {
