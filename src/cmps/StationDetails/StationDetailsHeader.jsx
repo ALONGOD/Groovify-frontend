@@ -3,6 +3,7 @@ import { FastAverageColor } from 'fast-average-color';
 import { ImagePick } from '../ImagePick'
 import { DetailsHeaderActions } from './DetailsHeaderActions'
 import { useEffect, useState } from 'react';
+import { adjustBrightnessAndSaturation } from '../../services/util.service';
 
 export function StationDetailsHeader({ station, setStation, toggleEditStation, isNewStation, setGradient }) {
   const fac = new FastAverageColor();
@@ -11,10 +12,10 @@ export function StationDetailsHeader({ station, setStation, toggleEditStation, i
   useEffect(() => {
     fac.getColorAsync(imgUrl)
         .then(color => {
-            const color1 = adjustColorOpacity(color.hex, 0.6) 
+            const color1 = adjustBrightnessAndSaturation(color.hex, 0.4, 1.8);
             const color2 = '#121212'; 
             setGradient({
-                background: `linear-gradient(to bottom, ${color1} 20%, ${color2} 100%)`,
+                background: `linear-gradient(to bottom, ${color1} 10%, ${color2} 100%)`,
             });
         });
 }, [station]);
@@ -31,7 +32,8 @@ function adjustColorOpacity(hex, opacity) {
 
 
   return (
-    <div className="station-details-container flex flex-column">
+    <>
+    {/* // <div className="station-details-container flex flex-column"> */}
       <div className="station-details-header flex flex-row align-end">
         <ImagePick setStation={setStation} pickedImg={imgUrl} />
         <div className="flex flex-column">
@@ -49,7 +51,8 @@ function adjustColorOpacity(hex, opacity) {
         </div>
       </div>
 
-      <DetailsHeaderActions toggleEditStation={toggleEditStation} isNewStation={isNewStation} station={station} />
-    </div>
+      {/* <DetailsHeaderActions toggleEditStation={toggleEditStation} isNewStation={isNewStation} station={station} /> */}
+    {/* // </div> */}
+            </>
   )
 }

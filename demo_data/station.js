@@ -1022,7 +1022,7 @@ export const user = {
     _id: 'liked-songs',
     type: 'likedSongs',
     name: 'Liked Songs',
-    imgUrl: 'https://res.cloudinary.com/di6tqrg5y/image/upload/v1724325482/dfgeyhzzwh9yoeircgup.jpg',
+    imgUrl: 'https://misc.scdn.co/liked-songs/liked-songs-300.png',
     songs: [
       {
         id: 'izGwDsrQ1eQ',
