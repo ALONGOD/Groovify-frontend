@@ -122,6 +122,7 @@ aside {
     align-items: center;
     // padding-block: 0.5em;
     height: $sub-menu-height;
+    gap: 0.5em;
 
     .sub-link {
       display: flex;
