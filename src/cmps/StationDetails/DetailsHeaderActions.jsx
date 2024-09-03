@@ -11,6 +11,7 @@ import { ThreeDotsModal } from '../Modal/ThreeDotsModal'
 import { SET_USER } from '../../store/reducers/user.reducer' // Make sure this import is correct
 import { store } from '../../store/store' // Import the store if it's not already included
 import { FaCheckCircle } from 'react-icons/fa' // Importing the checkmark icon
+import { CheckmarkCircle } from '../svgs/CheckmarkCircle.jsx'
 
 export function DetailsHeaderActions({
   toggleEditStation,
@@ -111,12 +112,12 @@ export function DetailsHeaderActions({
 
   return (
     <div className="station-header-actions flex flex-row justify-between align-center">
-      <div className="flex flex-row gap-8 align-center">
+      <div className="btns-container flex flex-row gap-8 align-center">
         <IoPlayCircle className="play-circle" />
         {isNewStation ? (
           <CiCirclePlus className="plus-circle" onClick={handlePlusClick} />
         ) : (
-          <FaCheckCircle className="check-circle" onClick={handleRemoveClick} /> // Conditionally rendering the checkmark
+          <CheckmarkCircle classes={"check-circle"} onClick={handleRemoveClick}/>
         )}
         <div ref={modalRef} className="relative">
           <BsThreeDots className="three-dots" onClick={toggleModal} />

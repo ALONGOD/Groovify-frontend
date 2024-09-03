@@ -2,7 +2,7 @@ export function SyncButton({ setQueueIsShuffled, queue }) {
   return (
     <svg
       onClick={() => setQueueIsShuffled(false)}
-      className={!queue.isShuffled ? 'active' : ''}
+      className={queue.isShuffled === false ? 'active' : ''}
       data-encore-id="icon"
       role="img"
       aria-hidden="true"
