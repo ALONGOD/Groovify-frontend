@@ -21,7 +21,7 @@ li.station-preview {
     }
 
     .pin {
-
+        margin-inline-end: em(6px);
         fill: $spotify-green;
         width: em(16px);
         height: em(16px);
