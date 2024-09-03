@@ -31,7 +31,7 @@ ul.song-list {
       display: grid;
       grid-template-columns:
         2em minmax(10em, 50em) minmax(5em, 40em) minmax(5em, 20em)
-        minmax(3em, 7em) minmax(2em, 5em);
+        minmax(2em, 4em) minmax(2em, 5em);
       padding: 0 0.5em;
     }
     .idx {
@@ -138,6 +138,8 @@ ul.song-list {
       gap: 1em;
     }
     img {
+      min-height: em(40px);
+      min-width: em(40px);
       width: em(40px);
       height: em(40px);
       border-radius: $spotify-border-radius;
