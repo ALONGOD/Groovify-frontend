@@ -27,6 +27,9 @@ body {
     height: calc(100vh - $height-header - $height-footer); // Adjusted to use renamed variables
     overflow: hidden;
     background-color: $bg-main;
+    &:has(aside.menu-sidebar.collapsed) .station-list ul {
+        height: calc($station-list-bar-height + 10em);
+    }
     &:has(aside.menu-sidebar:not(.collapsed)):has(aside.details-sidebar.open) {
         grid-template-columns: 300px 1fr minmax(300px, 20%);
     }
