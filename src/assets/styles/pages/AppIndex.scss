@@ -3,7 +3,7 @@
 }
 
 div.main-section {
-  height: 10em;
+  height: 100%;
 }
 
 .like-song-btn {
@@ -28,11 +28,11 @@ div svg.like-song-btn.liked {
     height: 100%;
     width: 100%;
     img {
-        border-radius: $spotify-border-radius;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
+      border-radius: $spotify-border-radius;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
     }
   }
   &:hover {
