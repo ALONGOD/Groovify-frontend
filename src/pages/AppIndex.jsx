@@ -8,10 +8,13 @@ export function AppIndex() {
 
   return (
     <>
+    <main className={detailsSidebarMode ? 'open' : ''}>
+
       {/* <AppHeader /> */}
       <div className="main-section flex flex-column">
         <Outlet />
       </div>
+    </main>
     </>
   )
 }

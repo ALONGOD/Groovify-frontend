@@ -1,20 +1,39 @@
 .player {
+  .music-player-container {
+    gap: 0.5em;
+    p {
+      font-family: 'gotham-light';
+      font-size: 1rem;
+      color: #fff;
+      margin: 0;
+    }
+  }
 
-   .music-player-container {
-      gap: 0.5em;
-      p {
-         font-family: 'gotham-light';
-         font-size: 1rem;
-         color: #fff;
-         margin: 0;
+  .top {
+   gap: 0.2em;
+    .song-actions {
+      gap: 1.2em;
+    }
+    svg {
+      width: 0.8em;
+      height: 0.8em;
+      fill: rgb(179, 179, 179);
+      color: rgb(179, 179, 179);
+      transition: 35ms;
+      &:hover {
+        fill: white;
+        scale: 1.04;
       }
-      
-   }
-
-   .top {
-      color: rgb(179,179,179);
-   }
-   .top svg:hover {
-      color: white;
-   }
+    }
+    .play-pause {
+      svg {
+        fill: white;
+        width: 1.2em;
+        height: 1.2em;
+      }
+    }
+  }
+  .top svg:hover {
+    color: white;
+  }
 }

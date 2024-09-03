@@ -10,6 +10,8 @@ import { SET_CURRENT_SONG, SET_PLAYER_CURRENT_SONG, SET_PLAYER_IS_PLAYING, SET_Q
 import { setIsPlaying, setShuffleQueue } from '../../store/actions/station.actions'
 import { formatTime } from '../../services/util.service'
 import { ProgressBar } from './ProgressBar'
+import { SyncButton } from '../svgs/SyncButton'
+import { ShuffleButton } from '../svgs/ShuffleButton'
 
 export function MusicPlayer({ currSong }) {
   const dispatch = useDispatch()
@@ -157,15 +159,16 @@ export function MusicPlayer({ currSong }) {
     <>
       <div className="player flex flex-column justify-center align-center">
         <div className="top flex flex-row align-center">
-          <TiArrowShuffle onClick={() => setQueueIsShuffled(true)} className={queue.isShuffled ? 'active' : ''} />
+          <ShuffleButton onClick={() => setQueueIsShuffled(true)} className={queue.isShuffled ? 'active' : ''} />
           <div className="song-actions flex flex-row align-center">
             <FaBackwardStep onClick={() => playNextOrPrev(-1)} />
-            <div onClick={toggleSoundPlay}>
+            <div onClick={toggleSoundPlay} className='play-pause'>
               {isPlaying ? <FaPauseCircle /> : <FaPlayCircle />}
             </div>
             <FaForwardStep onClick={() => playNextOrPrev(1)} />
           </div>
-          <RiRepeat2Line onClick={() => setQueueIsShuffled(false)} className={!queue.isShuffled ? 'active' : ''} />
+          {/* <RiRepeat2Line onClick={() => setQueueIsShuffled(false)} className={!queue.isShuffled ? 'active' : ''} /> */}
+          <SyncButton onClick={() => setQueueIsShuffled(false)} className={!queue.isShuffled ? 'active' : ''} />
         </div>
 
         <div className="bottom flex flex-row align-center">
