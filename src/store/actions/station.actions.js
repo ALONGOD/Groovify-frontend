@@ -12,9 +12,18 @@ import {
   SET_QUEUE_SHUFFLED,
   SET_PLAYER_IS_PLAYING,
   ADD_SONG_TO_QUEUE,
+  SET_PLAYER_CURRENT_SONG,
+  SET_PLAYER_CURRENT_STATION,
 } from '../reducers/station.reducer'
 import { storageService } from '../../services/async-storage.service.js'
 import { SET_USER } from '../reducers/user.reducer.js'
+
+export async function loadSavedSettings() {
+  const currSong = await JSON.parse(localStorage.getItem('currentSong'))
+  const currStation = await JSON.parse(localStorage.getItem('currentStation'))
+  store.dispatch({ type: SET_PLAYER_CURRENT_SONG, currSong })
+  store.dispatch({ type: SET_PLAYER_CURRENT_STATION, currStation })
+}
 
 export function addSongToQueue(song) {
   store.dispatch({ type: ADD_SONG_TO_QUEUE, song })
