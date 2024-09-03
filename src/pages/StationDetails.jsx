@@ -9,6 +9,7 @@ import {
   UPDATE_STATION,
 } from '../store/reducers/station.reducer'
 import { stationService } from '../services/station/station.service.local.js'
+import { DetailsHeaderActions } from '../cmps/StationDetails/DetailsHeaderActions.jsx'
 // import { addStation } from '../store/actions/station.actions';
 
 export function StationDetails() {
@@ -53,18 +54,27 @@ export function StationDetails() {
   if (!station) return <h1>Loading...</h1>
   return (
     <section className="station-details flex flex-column">
-        <div className="gradient" style={gradient}></div>
-      <StationDetailsHeader
-        station={station}
-        setStation={setStation}
-        toggleEditStation={toggleEditStation}
-        isNewStation={isNewStation}
-        setGradient={setGradient}
+      <div className="gradient" style={gradient}></div>
+      {/* <div className="station-details-container flex flex-column"> */}
+        <StationDetailsHeader
+          station={station}
+          setStation={setStation}
+          toggleEditStation={toggleEditStation}
+          isNewStation={isNewStation}
+          setGradient={setGradient}
         />
-      {station.songs && (
-        <SongList songs={station.songs} type="list-table" station={station} />
-      )}
-      {editOpen && <Modal modalType="editStation" />}
+        <div className="station-details-main">
+          <DetailsHeaderActions
+            toggleEditStation={toggleEditStation}
+            isNewStation={isNewStation}
+            station={station}
+          />
+        {/* </div> */}
+        {station.songs && (
+          <SongList songs={station.songs} type="list-table" station={station} />
+        )}
+        {editOpen && <Modal modalType="editStation" />}
+      </div>
     </section>
   )
 }

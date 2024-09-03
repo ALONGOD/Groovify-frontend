@@ -45,7 +45,6 @@ export function MusicPlayerActions({
       </button>
       <button onClick={() => onSetDetailsSidebar('queueDetails')}>
         <QueueButton
-          
           className={detailsSidebarMode === 'queueDetails' ? 'active' : ''}
         />
       </button>

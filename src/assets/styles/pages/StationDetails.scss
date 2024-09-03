@@ -1,5 +1,5 @@
 .station-details {
-  padding: $station-details-margin;
+  // padding: $station-details-margin;
   color: white;
   position: relative;
   height: 100%;
@@ -8,12 +8,25 @@
     width: 100%;
   }
 
+  .station-details-main {
+    // position: absolute;
+    // width: 140%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.192);
+    // opacity: 0.3;
+  }
+
+  .container-details {
+    background-color: black;
+    opacity: 0.3;
+  }
+
   & > * {
     z-index: 20;
   }
 
   .gradient {
-    height: 47%;
+    height: 55%;
     width: 100%;
     position: absolute;
     top: 0;
@@ -24,19 +37,47 @@
   img.station-img {
     width: 12em;
     height: 12em;
+
     border-radius: $spotify-border-radius;
   }
 
   .station-details-header {
-
-    height: 12em;
+    padding-block: $station-details-margin;
+    padding-inline: em(20.32px);
+    min-height: em(278px);
+    max-height: em(378px);
     gap: 1em;
+    h1 {
+      font-size: clamp(2.5rem, 4rem, 5rem);
+      max-height: calc(max-content - 1em);
+      white-space: nowrap;
+    }
+    .img.relative {
+      width: em(232px);
+      height: em(232px);
+      .img-container {
+        cursor: pointer;
+        img {
+          min-width: em(232px);
+          min-height: em(232px);
+        }
+        p {
+          margin-top: 1em;
+          white-space: nowrap;
+        }
+      }
+    }
 
     .description {
+      font-family: 'gotham-light';
+      font-weight: 600;
       margin-bottom: 0.7em;
       font-size: em(14px);
-      color: #ffffff;
-      opacity: 70%;
+      color: hsla(0, 0%, 100%, 0.7);
+      // opacity: 70%;
+      max-height: 74px;
+      overflow: hidden;
+      word-break: break-word;
     }
 
     .divider {
@@ -92,35 +133,51 @@
       }
     }
   }
-
-  .station-details-container {
-    height: $station-details-header;
-  }
 }
 
 .station-header-actions {
+  padding: $station-details-margin;
+  height: em(110px);
   & * {
     cursor: pointer;
   }
 
-  height: 8em;
+  .btns-container {
+    width: 100%;
+    .check-circle {
+      fill: $spotify-green;
+      width: em(34px);
+      height: em(34px);
+    }
+    .play-circle {
+      height: em(70px);
+      width: em(70px);
+      fill: $spotify-green;
+      &:hover {
+        fill: #3be477;
+        scale: 1.04;
+      }
+      // path {
+      //   height: em(56px);
+      //   width: em(56px);
+      // }
+    }
 
-  .play-circle {
-    color: $spotify-green;
-    font-size: 5em;
-  }
-
-  .plus-circle {
-    font-size: 2.2em;
-  }
-
-  .three-dots {
-    font-size: 2em;
+    .plus-circle {
+      width: em(34px);
+      height: em(34px);
+    }
+    
+    .three-dots {
+      font-size: 2em;
+    }
   }
 
   .check-circle {
-    color: #1ed760;
-    font-size: 2.2em;
+    fill: $spotify-green;
+    // font-size: 2.2em;
+    height: 2em;
+    width: 2em;
   }
 
   .list-style-change {

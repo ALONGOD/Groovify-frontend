@@ -10,8 +10,11 @@ ul.song-list {
   // TABLE LIST
 
   &.list-table {
+    margin-inline: $station-details-margin;
+    margin-block: 0;
     display: flex;
     flex-direction: column;
+    padding: 0;
     // grid-template-columns: 2em minmax(10em, 30em) minmax(5em, 20em) minmax(5em, 10em) 3em 2em;
 
     li {
@@ -53,6 +56,9 @@ ul.song-list {
         // font-weight: 600;
         color: #bfbfbf;
         margin: 0;
+        &.idx-title {
+          justify-content: center;
+        }
       }
       .clock-container {
         width: 100%;
@@ -90,7 +96,7 @@ ul.song-list {
       padding: 0 10px;
       // 2em minmax(10em, 50em) minmax(5em, 40em) minmax(5em, 20em)
       // minmax(3em, 7em) minmax(2em, 5em);
-      
+
       &:hover img {
         opacity: 0.4;
       }
@@ -127,7 +133,7 @@ ul.song-list {
     padding-block: 0.5em;
     border-radius: $spotify-border-radius;
     &:hover {
-      background-color: hsla(0, 0%, 100%, .1);
+      background-color: hsla(0, 0%, 100%, 0.1);
     }
     &.active {
       h4.title {

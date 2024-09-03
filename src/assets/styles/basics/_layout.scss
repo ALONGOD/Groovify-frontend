@@ -4,6 +4,10 @@ body {
     overflow: hidden;
     background-color: $bg-main;
 }
+main {
+    height: calc(100% );
+    border-radius: $spotify-border-radius;
+}
 .app {
     display: grid;
     grid-template-rows: $height-header 1fr $height-footer;
@@ -28,7 +32,7 @@ body {
     overflow: hidden;
     background-color: $bg-main;
     &:has(aside.menu-sidebar.collapsed) .station-list ul {
-        height: calc($station-list-bar-height + 10em);
+        height: calc($station-list-bar-height + 9em);
     }
     &:has(aside.menu-sidebar:not(.collapsed)):has(aside.details-sidebar.open) {
         grid-template-columns: 300px 1fr minmax(300px, 20%);
@@ -62,7 +66,7 @@ body {
     @include component-layout;
     background-color: $bg-secondary;
     overflow-y: auto;
-    height: 100%;
+    height: calc(100%);
 }
 aside.menu-sidebar {
     height: 100%;

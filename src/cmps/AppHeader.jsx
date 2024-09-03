@@ -25,7 +25,7 @@ export function AppHeader() {
                     <FaSpotify size={30} color='white' />
                 </NavLink>
 
-                <div className='action-nav-btns flex flex-row'>
+                {/* <div className='action-nav-btns flex flex-row'>
                     <div className='react-icon'>
                         <IoIosArrowBack title='Go back' onClick={() => navigation(-1)} />
                     </div>
@@ -33,7 +33,7 @@ export function AppHeader() {
                     <div className='react-icon'>
                         <IoIosArrowForward title='Go forward' onClick={() => navigation(1)} />
                     </div>
-                </div>
+                </div> */}
             </div>
 
             {/* Middle Div: Home Button and Search Bar */}
