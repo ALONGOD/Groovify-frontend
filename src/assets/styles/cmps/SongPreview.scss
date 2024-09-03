@@ -13,7 +13,7 @@ ul.song-list {
     display: flex;
     flex-direction: column;
     // grid-template-columns: 2em minmax(10em, 30em) minmax(5em, 20em) minmax(5em, 10em) 3em 2em;
-    
+
     li {
       .like-song-container {
         height: 100%;
@@ -32,7 +32,7 @@ ul.song-list {
       grid-template-columns:
         2em minmax(10em, 50em) minmax(5em, 40em) minmax(5em, 20em)
         minmax(3em, 7em) minmax(2em, 5em);
-        padding: 0 0.5em;
+      padding: 0 0.5em;
     }
     .idx {
       display: flex;
@@ -86,10 +86,11 @@ ul.song-list {
     }
     li {
       display: grid;
-      grid-template-columns:minmax(120px, 1fr) 4em 2em 4em;
+      grid-template-columns: minmax(120px, 1fr) 4em 2em 4em;
       padding: 0 10px;
-        // 2em minmax(10em, 50em) minmax(5em, 40em) minmax(5em, 20em)
-        // minmax(3em, 7em) minmax(2em, 5em);
+      // 2em minmax(10em, 50em) minmax(5em, 40em) minmax(5em, 20em)
+      // minmax(3em, 7em) minmax(2em, 5em);
+      
       &:hover img {
         opacity: 0.4;
       }
@@ -110,7 +111,6 @@ ul.song-list {
         grid-column: 3;
         svg.dots {
           grid-column: 4;
-
         }
       }
       img {
@@ -187,7 +187,6 @@ ul.song-list {
   }
 
   .list-header {
-
   }
 
   .custom-divider {

@@ -8,9 +8,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { LikeSongBtn } from './LikeSongBtn'
 import { EqualizerBar } from './EqualizerBar'
 import { PlayPauseBtn } from './PlayPauseBtn'
+import { SET_PLAYER_CURRENT_SONG, SET_PLAYER_CURRENT_STATION, SET_PLAYER_IS_PLAYING } from '../store/reducers/station.reducer'
 
 export function SongPreview({ song, idx, station, songModal, onToggleModal, type, likedSongs }) {
-
+  const dispatch = useDispatch()
   const [onSongHover, setOnSongHover] = useState(false)
   const { addedAt, duration, imgUrl, title, artist, album } = song
   const player = useSelector(state => state.stationModule.player)
@@ -21,6 +22,18 @@ export function SongPreview({ song, idx, station, songModal, onToggleModal, type
   const displayLikeBtn = onSongHover || isSongLiked
 
   const isCurrSong = currSong?.id === song?.id
+
+  function playSong(song) {
+    if (station)
+      dispatch({
+        type: SET_PLAYER_CURRENT_STATION,
+        currStation: { id: station._id, name: station.name },
+      })
+    if (currSong?.id !== song?.id) {
+      dispatch({ type: SET_PLAYER_CURRENT_SONG, currSong: song })
+    }
+    dispatch({ type: SET_PLAYER_IS_PLAYING, isPlaying: true })
+  }
 
   return (
     <li
