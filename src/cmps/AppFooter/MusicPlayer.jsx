@@ -159,7 +159,7 @@ export function MusicPlayer({ currSong }) {
     <>
       <div className="player flex flex-column justify-center align-center">
         <div className="top flex flex-row align-center">
-          <ShuffleButton onClick={() => setQueueIsShuffled(true)} className={queue.isShuffled ? 'active' : ''} />
+          <ShuffleButton setQueueIsShuffled={setQueueIsShuffled} queue={queue} />
           <div className="song-actions flex flex-row align-center">
             <FaBackwardStep onClick={() => playNextOrPrev(-1)} />
             <div onClick={toggleSoundPlay} className='play-pause'>
@@ -168,7 +168,7 @@ export function MusicPlayer({ currSong }) {
             <FaForwardStep onClick={() => playNextOrPrev(1)} />
           </div>
           {/* <RiRepeat2Line onClick={() => setQueueIsShuffled(false)} className={!queue.isShuffled ? 'active' : ''} /> */}
-          <SyncButton onClick={() => setQueueIsShuffled(false)} className={!queue.isShuffled ? 'active' : ''} />
+          <SyncButton setQueueIsShuffled={setQueueIsShuffled} queue={queue}  />
         </div>
 
         <div className="bottom flex flex-row align-center">
