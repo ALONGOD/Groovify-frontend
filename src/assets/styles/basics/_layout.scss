@@ -28,31 +28,31 @@ body {
     overflow: hidden;
     background-color: $bg-main;
     &:has(aside.menu-sidebar:not(.collapsed)):has(aside.details-sidebar.open) {
-        grid-template-columns: 0.4fr 1fr minmax(300px, 20%);
+        grid-template-columns: 300px 1fr minmax(300px, 20%);
     }
     &:has(aside.menu-sidebar.collapsed):has(aside.details-sidebar.open) {
         grid-template-columns: 72px 1fr minmax(300px, 20%);
     }
     &:has(aside.menu-sidebar:not(.collapsed)):has(aside.details-sidebar.closed) {
-        grid-template-columns: 0.4fr 1fr;
+        grid-template-columns: 300px 1fr;
     }
     &:has(aside.menu-sidebar.collapsed):has(aside.details-sidebar.closed) {
         grid-template-columns: 72px 1fr;
     }
-    @media (max-width: 768px) {
-        &:has(aside.menu-sidebar:not(.collapsed)):has(aside.details-sidebar.open) {
-            grid-template-columns: 0.4fr 1fr minmax(250px, 15%);
-        }
-        &:has(aside.menu-sidebar.collapsed):has(aside.details-sidebar.open) {
-            grid-template-columns: 72px 1fr minmax(250px, 15%);
-        }
-        &:has(aside.menu-sidebar:not(.collapsed)):has(aside.details-sidebar.closed) {
-            grid-template-columns: 0.4fr 1fr;
-        }
-        &:has(aside.menu-sidebar.collapsed):has(aside.details-sidebar.closed) {
-            grid-template-columns: 72px 1fr;
-        }
-    }
+    // @media (max-width: 768px) {
+    //     &:has(aside.menu-sidebar:not(.collapsed)):has(aside.details-sidebar.open) {
+    //         grid-template-columns: 0.4fr 1fr minmax(250px, 15%);
+    //     }
+    //     &:has(aside.menu-sidebar.collapsed):has(aside.details-sidebar.open) {
+    //         grid-template-columns: 72px 1fr minmax(250px, 15%);
+    //     }
+    //     &:has(aside.menu-sidebar:not(.collapsed)):has(aside.details-sidebar.closed) {
+    //         grid-template-columns: 0.4fr 1fr;
+    //     }
+    //     &:has(aside.menu-sidebar.collapsed):has(aside.details-sidebar.closed) {
+    //         grid-template-columns: 72px 1fr;
+    //     }
+    // }
 }
 
 .main-content {
