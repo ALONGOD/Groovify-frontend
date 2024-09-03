@@ -47,8 +47,8 @@ export function ImagePick({ setStation, pickedImg }) {
         </div>
       ) : (
         <div onClick={handlePickClick} className="">
-          <i className="fa-regular fa-image fa-xl"></i>
-          <h4 className="text-[0.8em]">+ Upload Image</h4>
+          {/* <i className="fa-regular fa-image fa-xl"></i>
+          <h4 className="text-[0.8em]">+ Upload Image</h4> */}
         </div>
       )}
       <input

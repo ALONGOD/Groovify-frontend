@@ -1,6 +1,20 @@
 .station-details {
   padding: $station-details-margin;
   color: white;
+  position: relative;
+
+  & > * {
+    z-index: 20;
+  }
+
+  .gradient {
+    height: 50%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+  }
 
   img.station-img {
     width: 12em;

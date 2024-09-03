@@ -14,7 +14,10 @@ export function StationDetails() {
   const stations = useSelector((state) => state.stationModule.stations);
   const [station, setStation] = useState(null);
   const [isNewStation, setIsNewStation] = useState(false);
+
   const editOpen = useSelector((state) => state.stationModule.editStationModal);
+
+  const [gradient, setGradient] = useState(null);
 
   useEffect(() => {
     const foundStation = stations.find((station) => station._id === stationId);
@@ -46,12 +49,14 @@ export function StationDetails() {
 
   if (!station) return <h1>Loading...</h1>;
   return (
-    <section className="station-details flex flex-column">
+    <section className="station-details flex flex-column" >
+      <div className="gradient" style={gradient}></div>
       <StationDetailsHeader
         station={station}
         setStation={setStation}
         toggleEditStation={toggleEditStation}
         isNewStation={isNewStation}
+        setGradient={setGradient}
       />
       {station.songs && (
         <SongList songs={station.songs} type="list-table" station={station} />

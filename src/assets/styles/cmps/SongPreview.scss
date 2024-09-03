@@ -127,7 +127,7 @@ ul.song-list {
     padding-block: 0.5em;
     border-radius: $spotify-border-radius;
     &:hover {
-      background-color: rgb(39, 39, 39);
+      background-color: hsla(0, 0%, 100%, .1);
     }
     &.active {
       h4.title {
