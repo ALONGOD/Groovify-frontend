@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { YouTubeAPIService } from '../services/youtubeAPI/fetchYoutubeApi.js';
 import { TopResult } from '../cmps/SearchPage/TopResult.jsx';
 import { stationService } from '../services/station/station.service.local.js';
-
+import { PlayPauseBtn } from '../cmps/PlayPauseBtn.jsx';
 export function SearchPage() {
   const { searchTerm } = useParams();
   const [searchResults, setSearchResults] = useState([]);
@@ -88,6 +88,10 @@ export function SearchPage() {
                       <h3>{playlist.name}</h3>
                       <p>By {playlist.createdBy.fullname}</p>
                     </div>
+                    <PlayPauseBtn
+                      station={playlist}
+                      type="top-result"
+                    />
                   </div>
                 ))}
               </div>
