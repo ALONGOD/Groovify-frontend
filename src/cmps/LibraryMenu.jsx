@@ -3,6 +3,8 @@ import { IoLibrary, IoLibraryOutline } from 'react-icons/io5'
 import { GoPlus, GoArrowRight } from 'react-icons/go'
 import { SubMenu } from './SubMenu'
 import { Modal } from './Modal/Modal'
+import { YourLibraryFull } from './svgs/YourLibraryFull'
+import { YourLibraryEmpty } from './svgs/YourLibraryEmpty'
 
 export function LibraryMenu({
     isCollapsed,
@@ -43,18 +45,17 @@ export function LibraryMenu({
                 }}
                 title={isBelowThreshold ? 'Expand the window to open the Library sidebar' : ''}
             >
-                {/* Added a wrapper div around the icon and text to make the entire area clickable */}
                 <div
-                    className='flex flex-row items-center cursor-pointer'
-                    onClick={handleLibraryClick} // Added onClick handler to the entire span
+                    className='your-library-container flex flex-row items-center cursor-pointer'
+                    onClick={handleLibraryClick} 
                     style={{
                         cursor: isBelowThreshold ? 'not-allowed' : 'pointer',
                     }}
                 >
                     {isCollapsed ? (
-                        <IoLibraryOutline className='icon' />
+                        <YourLibraryEmpty className='icon' />
                     ) : (
-                        <IoLibrary className='icon' />
+                        <YourLibraryFull className='icon' />
                     )}
                     {!isCollapsed && (
                         <span

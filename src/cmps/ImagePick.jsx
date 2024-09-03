@@ -37,7 +37,7 @@ export function ImagePick({ setStation, pickedImg }) {
           {onHoverImage && (
             <div className="hover-container flex flex-column absolute align-center justify-center">
               <LuPen />
-              <p>Choose Photo</p>
+              <p className='choose-photo'>Choose Photo</p>
             </div>
           )}
           <img

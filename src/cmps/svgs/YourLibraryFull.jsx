@@ -1,4 +1,4 @@
-export function YourLibraryIcon() {
+export function YourLibraryFull() {
   return (
     <svg
       data-encore-id="icon"

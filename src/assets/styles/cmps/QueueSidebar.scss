@@ -11,10 +11,18 @@
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
+          font-size: 1em;
         }
       }
       .playing-now li {
         height: 4em;
+        &:hover img {
+          opacity: 0.6;
+        }
+        img {
+          object-fit: cover;
+        }
+
         .title {
           color: $--text-bright-accent;
         }
