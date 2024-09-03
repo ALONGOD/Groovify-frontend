@@ -29,7 +29,7 @@ export function MenuSidebar() {
     }
 
     function handleResize() {
-        if (window.innerWidth < 1400) {
+        if (window.innerWidth < 1100) {
             setIsCollapsed(true)
             setIsBelowThreshold(true)
         } else {
