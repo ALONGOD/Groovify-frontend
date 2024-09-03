@@ -19,6 +19,11 @@
     width: em(524px);
     gap: 1em;
     border-radius: 8px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
+    min-height: em(384px);
+    width: em(524px);
+    gap: 1em;
+    border-radius: 8px;
     font-size: 1em;
     padding: 0;
 
@@ -50,195 +55,281 @@
     main {
       padding: 0 em(24px) em(24px) em(24px);
       margin: 0;
+      padding: 0;
 
-      .inputs {
-        gap: 1em;
-        width: 100%;
-        height: 100%;
-        input[type='text'],
-        textarea {
-          font-family: 'gotham-book';
-          font-weight: 400;
-          background-color: #3e3e3e;
-          border-radius: $spotify-border-radius;
-          padding-inline: em(12px);
-          padding-block: em(8px);
-          border: 0;
-          font-size: em(14px);
-          width: 100%;
-          color: white;
-        }
-        label {
-          display: none;
-        }
-      }
-
-      .input-with-label:has(input[type='text'], textarea):focus label {
-        display: block;
-      }
-
-      input[type='text'] {
-        height: em(40px);
-        width: 100%;
-      }
-
-      .input-with-label.textarea {
-        height: 100%;
-        textarea {
-          height: 100%;
-          resize: none;
-        }
-      }
-      .img {
-        width: 11.25em;
-        height: 11.25em;
-        .img-container {
-          width: 11.25em;
-          height: 11.25em;
-          img {
-            width: 100%;
-            height: 100%;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.448);
-            object-fit: cover;
-          }
-        }
-      }
-      .save-container {
-        width: 100%;
-        margin: 0 0 0.6em 0;
-        .save-btn {
+      .header {
+        margin: 0;
+        height: em(78px);
+        padding: em(24px);
+        button {
+          padding: 0;
+          margin: 0;
           display: flex;
           justify-content: center;
           align-items: center;
-          width: em(100px);
-          height: em(48px);
-          font-weight: 900;
-          background-color: white;
-          color: black;
-          font-family: 'gotham-bold';
-          margin: 0.2em 0;
-          border-radius: 2em;
+          height: 1.5em;
+          width: 1.5em;
+          font-size: 1.2em;
+          color: #ffffff;
+          opacity: 70%;
+          font-family: 'gotham-light';
+          background-color: transparent;
+          border: 0;
           &:hover {
-            scale: 1.05;
+            background-color: #3c3c3c;
+            border-radius: 50%;
           }
         }
       }
 
-      .description * {
-        font-family: 'gotham-bold';
-        font-size: em(11px);
-      }
+      main {
+        padding: 0 em(24px) em(24px) em(24px);
+        margin: 0;
 
-      .hover-container {
-        .choose-photo {
-          margin-top: 0.5em;
-          white-space: nowrap;
-          font-family: 'gotham-light';
-          font-weight: 600;
+        .inputs {
+          gap: 1em;
+          width: 100%;
+          height: 100%;
+          input[type='text'],
+          textarea {
+            font-family: 'gotham-book';
+            font-weight: 400;
+            background-color: #3e3e3e;
+            border-radius: $spotify-border-radius;
+            padding-inline: em(12px);
+            padding-block: em(8px);
+            border: 0;
+            font-size: em(14px);
+            width: 100%;
+            color: white;
+          }
+          label {
+            display: none;
+          }
+          .inputs {
+            gap: 1em;
+            width: 100%;
+            height: 100%;
+            input[type='text'],
+            textarea {
+              font-family: 'gotham-book';
+              font-weight: 400;
+              background-color: #3e3e3e;
+              border-radius: $spotify-border-radius;
+              padding-inline: em(12px);
+              padding-block: em(8px);
+              border: 0;
+              font-size: em(14px);
+              width: 100%;
+              color: white;
+            }
+            label {
+              display: none;
+            }
+          }
+
+          .input-with-label:has(input[type='text'], textarea):focus label {
+            display: block;
+          }
+
+          input[type='text'] {
+            height: em(40px);
+            width: 100%;
+          }
+
+          .input-with-label.textarea {
+            height: 100%;
+            textarea {
+              height: 100%;
+              resize: none;
+            }
+          }
+          .img {
+            width: 11.25em;
+            height: 11.25em;
+            .img-container {
+              width: 11.25em;
+              height: 11.25em;
+              img {
+                width: 100%;
+                height: 100%;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.448);
+                object-fit: cover;
+              }
+            }
+          }
+          .save-container {
+            width: 100%;
+            margin: 0 0 0.6em 0;
+            .save-btn {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: em(100px);
+              height: em(48px);
+              font-weight: 900;
+              background-color: white;
+              color: black;
+              font-family: 'gotham-bold';
+              margin: 0.2em 0;
+              border-radius: 2em;
+              &:hover {
+                scale: 1.05;
+              }
+            }
+          }
+          .img {
+            width: 11.25em;
+            height: 11.25em;
+            .img-container {
+              width: 11.25em;
+              height: 11.25em;
+              img {
+                width: 100%;
+                height: 100%;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.448);
+                object-fit: cover;
+              }
+            }
+          }
+          .save-container {
+            width: 100%;
+            margin: 0 0 0.6em 0;
+            .save-btn {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: em(100px);
+              height: em(48px);
+              font-weight: 900;
+              background-color: white;
+              color: black;
+              font-family: 'gotham-bold';
+              margin: 0.2em 0;
+              border-radius: 2em;
+              &:hover {
+                scale: 1.05;
+              }
+            }
+          }
+
+          .description * {
+            font-family: 'gotham-bold';
+            font-size: em(11px);
+          }
+
+          .hover-container {
+            .choose-photo {
+              margin-top: 0.5em;
+              white-space: nowrap;
+              font-family: 'gotham-light';
+              font-weight: 600;
+            }
+          }
+        }
+
+        .main-details {
+          height: 11.25em;
+          gap: 1em;
+          margin-bottom: 0.5em;
+        }
+
+        h2 {
+          font-family: 'gotham-bold';
         }
       }
     }
 
-    .main-details {
-      height: 11.25em;
-      gap: 1em;
-      margin-bottom: 0.5em;
+    &.library {
+      top: em(30px);
+      right: 10px;
     }
 
-    h2 {
-      font-family: 'gotham-bold';
-    }
-  }
-
-  &.library {
-    top: em(30px);
-    right: 10px;
-  }
-
-  &.playlists {
-    top: 0;
-    right: 100%;
-    z-index: 100;
-    background-color: #282828;
-    .searchbar {
-      position: relative;
-      svg {
-        position: absolute;
-        transform: translateY(-50%);
-        top: 50%;
-        left: 5px;
-        font-size: 1em;
+    &.playlists {
+      top: 0;
+      right: 100%;
+      z-index: 100;
+      background-color: #282828;
+      .searchbar {
+        position: relative;
+        svg {
+          position: absolute;
+          transform: translateY(-50%);
+          top: 50%;
+          left: 5px;
+          font-size: 1em;
+        }
+      }
+      input[type='text'] {
+        height: 2em;
+        width: 100%;
+        border: 0;
+        background-color: $modal-row-hover;
+        border-radius: $spotify-border-radius;
+        margin-bottom: em(4px);
+        padding-inline-start: 2em;
+        cursor: text;
       }
     }
-    input[type='text'] {
-      height: 2em;
-      width: 100%;
-      border: 0;
-      background-color: $modal-row-hover;
-      border-radius: $spotify-border-radius;
-      margin-bottom: em(4px);
-      padding-inline-start: 2em;
-      cursor: text;
-    }
-  }
-  .row {
-    align-items: center;
-    padding: em(12px) em(8px) em(12px) em(12px);
-    border-radius: 2px;
-    height: em(40px);
-    h3 {
-      font-family: 'gotham-book';
-      font-weight: 600;
-      // letter-spacing: 0.5px;
-      font-size: 0.875rem;
-      margin: 0;
-      color: rgb(225, 225, 225);
-    }
-
-    .caret-right {
-      margin: 0;
-    }
-
-    svg {
-      font-size: em(19px);
-      margin-right: 0.5em;
-      font-weight: 200;
-    }
-    &:hover {
-      background-color: $modal-row-hover;
-      color: white;
-    }
-  }
-  .song-liked {
-    svg {
-      &.checkmark-btn {
-        color: $spotify-green;
-        fill: $spotify-green;
-      }
-    }
-  }
-
-  &.songOptions {
-    .plus-btn {
-      // height: 1em;
-      // font-size: 1em;
-      // width: 1em;
-      color: $--text-subdued;
-    }
-    h3 {
-      display: flex;
+    .row {
       align-items: center;
+      padding: em(12px) em(8px) em(12px) em(12px);
+      border-radius: 2px;
+      height: em(40px);
+      h3 {
+        font-family: 'gotham-book';
+        font-weight: 600;
+        // letter-spacing: 0.5px;
+        font-size: 0.875rem;
+        margin: 0;
+        color: rgb(225, 225, 225);
+      }
+
+      .caret-right {
+        margin: 0;
+      }
+
+      svg {
+        font-size: em(19px);
+        margin-right: 0.5em;
+        font-weight: 200;
+      }
+      &:hover {
+        background-color: $modal-row-hover;
+        color: white;
+      }
+    }
+    .song-liked {
+      svg {
+        &.checkmark-btn {
+          color: $spotify-green;
+          fill: $spotify-green;
+        }
+      }
+    }
+
+    &.songOptions {
+      .plus-btn {
+        // height: 1em;
+        // font-size: 1em;
+        // width: 1em;
+        color: $--text-subdued;
+      }
+      h3 {
+        display: flex;
+        align-items: center;
+      }
     }
   }
-}
 
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  height: 100vh;
-  width: 100vw;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 10;
-  background-color: #000000;
-  opacity: 70%;
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    background-color: #000000;
+    opacity: 70%;
+  }
 }
