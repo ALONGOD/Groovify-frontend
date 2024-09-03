@@ -20,21 +20,30 @@ li.station-preview {
         background-color: rgb(33, 33, 33);
     }
 
+    .pin {
+
+        fill: $spotify-green;
+        width: em(16px);
+        height: em(16px);
+    }
+
     .relative svg {
         color: white;
     }
 
     img {
-        width: 2.7em;
-        height: 2.7em;
+        width: em(48px);
+        height: em(48px);
+        
         border-radius: $spotify-border-radius;
     }
 
     h3 {
+        font-family: 'gotham-light';
+        font-weight: 600;
         margin: 0;
         font-size: 0.95em;
         height: 1.4em;
-        font-weight: 400;
         color: white;
         &.active {
             color: $spotify-green;

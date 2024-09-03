@@ -74,7 +74,7 @@ export function StationPreview({ station, isCollapsed, index, moveStation }) {
   return (
     <li
       ref={ref}
-      className={`station-preview flex flex-row ${onHover ? 'hover' : ''}`}
+      className={`station-preview flex flex-row align-center ${onHover ? 'hover' : ''}`}
       onClick={() => navigate(`/station/${_id}`)}
       onMouseEnter={() => setOnHover(true)}
       onMouseLeave={() => setOnHover(false)}
@@ -93,7 +93,8 @@ export function StationPreview({ station, isCollapsed, index, moveStation }) {
       {!isCollapsed && (
         <div className="flex flex-column">
           <h3 className={isStationPlaying ? 'active' : ''}>{name}</h3>
-          <div className="station-details flex flex-row">
+          <div className="station-details flex flex-row align-center">
+            { station._id === 'liked-songs' && <BsFillPinAngleFill className='pin' /> }
             <span>Playlist</span>
             <span className="divider">&#9679;</span>
             <span>{songs?.length} songs</span>
