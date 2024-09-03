@@ -7,11 +7,11 @@ export function AppIndex() {
   const detailsSidebarMode = useSelector(state => state.systemModule.detailsSidebarMode)
 
   return (
-    <main className={detailsSidebarMode ? 'open' : ''}>
+    <>
       {/* <AppHeader /> */}
       <div className="main-section flex flex-column">
         <Outlet />
       </div>
-    </main>
+    </>
   )
 }
