@@ -1,19 +1,20 @@
 import { useDispatch, useSelector } from 'react-redux'
+import { toggleModal } from '../store/actions/station.actions'
 import { SongPreview } from './SongPreview'
 import { SongListHeader } from './StationDetails/SongListHeader'
 import { SearchBar } from './SearchBar'
 import { SET_SONGS } from '../store/reducers/station.reducer'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 export function SongList({ songs, type, station }) {
   const dispatch = useDispatch()
+  const songModal = useSelector(state => state.stationModule.modalSong)
   const stations = useSelector(state => state.stationModule.stations)
-
-  const [modalSong, setModalSong] = useState(null)
 
   useEffect(() => {
     dispatch({ type: SET_SONGS, songs })
   }, [])
+
 
   const likedSongsStation = stations.find(
     station => station._id === 'liked-songs'
@@ -22,8 +23,12 @@ export function SongList({ songs, type, station }) {
 
   function onToggleModal(event, song) {
     event.stopPropagation()
-    setModalSong(prevModalSong => (prevModalSong === song ? null : song))
+    toggleModal(song)
   }
+
+
+
+  console.log(songs)
 
   return (
     <>
@@ -43,6 +48,8 @@ export function SongList({ songs, type, station }) {
             </>
           )}
           {songs.map((song, idx) => {
+            // console.log(song);
+
             return (
               <SongPreview
                 station={station}
@@ -50,7 +57,7 @@ export function SongList({ songs, type, station }) {
                 song={song}
                 type={type}
                 idx={idx}
-                songModal={modalSong}
+                songModal={songModal}
                 onToggleModal={onToggleModal}
                 likedSongs={likedSongs}
               />
