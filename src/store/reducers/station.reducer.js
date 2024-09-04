@@ -120,6 +120,7 @@ export function stationReducer(state = initialState, action) {
         },
       }
       break
+    
 
     // PLAYER
     case SET_PLAYER_CURRENT_SONG:
@@ -141,6 +142,7 @@ export function stationReducer(state = initialState, action) {
       }
       break
     case SET_SONGS:
+      console.log(action.songs);
       newState = { ...state, songs: action.songs }
     default:
       return newState

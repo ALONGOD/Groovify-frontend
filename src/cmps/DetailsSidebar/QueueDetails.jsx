@@ -28,7 +28,7 @@ export function QueueDetails() {
                 </div>
                 <div className="playing-next flex flex-column">
                     <h2>{currStation ? `Next From: ${currStation.name}` : 'Up Next:'}</h2>
-                    <SongList songs={queueToDisplay} />
+                    <SongList songs={queueToDisplay} type={'queueDetails'} />
                 </div>
             </main>
         </>

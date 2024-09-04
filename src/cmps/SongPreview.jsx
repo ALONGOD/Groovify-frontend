@@ -8,12 +8,28 @@ import { useDispatch, useSelector } from 'react-redux'
 import { LikeSongBtn } from './LikeSongBtn'
 import { EqualizerBar } from './EqualizerBar'
 import { PlayPauseBtn } from './PlayPauseBtn'
-import { SET_PLAYER_CURRENT_SONG, SET_PLAYER_CURRENT_STATION, SET_PLAYER_IS_PLAYING } from '../store/reducers/station.reducer'
+import {
+  SET_PLAYER_CURRENT_SONG,
+  SET_PLAYER_CURRENT_STATION,
+  SET_PLAYER_IS_PLAYING,
+} from '../store/reducers/station.reducer'
+import { setSongsInQueue } from '../store/actions/station.actions'
 
-export function SongPreview({ song, idx, station, songModal, onToggleModal, type, likedSongs }) {
+export function SongPreview({
+  song,
+  idx,
+  station,
+  songModal,
+  onToggleModal,
+  type,
+  likedSongs,
+  onSetSongsInQueue,
+}) {
   const dispatch = useDispatch()
   const [onSongHover, setOnSongHover] = useState(false)
+
   const { addedAt, duration, imgUrl, title, artist, album } = song
+
   const player = useSelector(state => state.stationModule.player)
   const { currSong, isPlaying } = player
 
@@ -23,7 +39,8 @@ export function SongPreview({ song, idx, station, songModal, onToggleModal, type
 
   const isCurrSong = currSong?.id === song?.id
 
-  function playSong(song) {
+  async function playSong(song) {
+    if (onSetSongsInQueue) await onSetSongsInQueue()
     if (station)
       dispatch({
         type: SET_PLAYER_CURRENT_STATION,
@@ -43,16 +60,28 @@ export function SongPreview({ song, idx, station, songModal, onToggleModal, type
       onDoubleClick={() => playSong(song)}
     >
       {isListTable && (
-        <h4  className="idx relative">
-          {!onSongHover && (isPlaying && isCurrSong ? <EqualizerBar /> : idx + 1)}
-          {onSongHover && <PlayPauseBtn song={song} station={station}/>}
+        <h4 className="idx relative">
+          {!onSongHover &&
+            (isPlaying && isCurrSong ? <EqualizerBar /> : idx + 1)}
+          {onSongHover && (
+            <PlayPauseBtn
+              song={song}
+              station={station}
+              onSetSongsInQueue={onSetSongsInQueue}
+            />
+          )}
         </h4>
       )}
       <div className="main-details flex flex-row align-center">
         <div className="relative img-svg">
           <img src={imgUrl} alt="song-img" />
           {!isListTable && onSongHover && (
-            <PlayPauseBtn song={song} station={station} onClick={() => playSong(song)} className="play-btn" />
+            <PlayPauseBtn
+              song={song}
+              station={station}
+              onSetSongsInQueue={onSetSongsInQueue}
+              className="play-btn"
+            />
           )}
         </div>
         <div className="song-details flex flex-column">
@@ -66,9 +95,7 @@ export function SongPreview({ song, idx, station, songModal, onToggleModal, type
           <h4>{getTimeOfSent(addedAt)}</h4>
         </>
       )}
-        {displayLikeBtn && (
-          <LikeSongBtn song={song} isSongLiked={isSongLiked} />
-        )}
+      {displayLikeBtn && <LikeSongBtn song={song} isSongLiked={isSongLiked} />}
       <div className="duration img-svg relative flex justify-start align-center">
         <h4>{duration ? duration : '3:30'}</h4>
         {onSongHover && (

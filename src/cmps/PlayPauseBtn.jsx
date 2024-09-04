@@ -7,7 +7,7 @@ import {
 } from '../store/reducers/station.reducer'
 import { setSongsInQueue } from '../store/actions/station.actions'
 
-export function PlayPauseBtn({ song, station, type, onTogglePlay }) {
+export function PlayPauseBtn({ song, station, type, onTogglePlay, onSetSongsInQueue }) {
   const dispatch = useDispatch()
 
   const songs = useSelector(state => state.stationModule.songs)
@@ -24,7 +24,7 @@ export function PlayPauseBtn({ song, station, type, onTogglePlay }) {
 
   function playOrPauseSong(ev) {
     if (onTogglePlay) return onTogglePlay(ev) 
-    if (songs) setSongsInQueue(songs)
+    if (onSetSongsInQueue) onSetSongsInQueue()
     if (station)
       dispatch({
         type: SET_PLAYER_CURRENT_STATION,

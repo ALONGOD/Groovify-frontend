@@ -16,6 +16,7 @@ import {
   loadSavedSettings,
   setIsPlaying,
   setShuffleQueue,
+  setSongsInQueue,
 } from '../../store/actions/station.actions'
 import { formatTime } from '../../services/util.service'
 import { ProgressBar } from './ProgressBar'
@@ -25,6 +26,7 @@ import { storageService } from '../../services/async-storage.service'
 
 export function MusicPlayer({ currSong }) {
   const dispatch = useDispatch()
+  const songs = useSelector(storeState => storeState.stationModule.songs)
   const queue = useSelector(storeState => storeState.stationModule.queue)
   console.log('queue:', queue)
   const player = useSelector(storeState => storeState.stationModule.player)
@@ -39,11 +41,6 @@ export function MusicPlayer({ currSong }) {
   const [volume, setVolume] = useState(50)
 
   useEffect(() => {
-    if (isPlaying) playerRef?.current?.playVideo()
-    else playerRef?.current?.pauseVideo()
-  }, [isPlaying])
-
-  useEffect(() => {
     if (!currSong) loadSavedSettings()
     storageService.save('currentSong', currSong)
     if (player?.currStation) {
@@ -54,10 +51,10 @@ export function MusicPlayer({ currSong }) {
   useEffect(() => {
     if (playerRef.current) {
       playerRef?.current?.getPlayerState() === 1
-        ? setIsPlaying(false)
-        : setIsPlaying(true)
+        ? setIsPlaying(true)
+        : setIsPlaying(false)
     }
-  }, [playerRef])
+  }, [playerRef, playerRef?.current?.getPlayerState()])
 
   const opts = {
     height: '200',

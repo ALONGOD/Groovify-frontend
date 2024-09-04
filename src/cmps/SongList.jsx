@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { toggleModal } from '../store/actions/station.actions'
+import { setSongsInQueue, toggleModal } from '../store/actions/station.actions'
 import { SongPreview } from './SongPreview'
 import { SongListHeader } from './StationDetails/SongListHeader'
 import { SearchBar } from './SearchBar'
@@ -25,8 +25,10 @@ export function SongList({ songs, type, station }) {
     event.stopPropagation()
     toggleModal(song)
   }
-
-
+  async function onSetSongsInQueue() {
+    // if ()
+    await setSongsInQueue(songs)
+  }
 
   console.log(songs)
 
@@ -48,8 +50,6 @@ export function SongList({ songs, type, station }) {
             </>
           )}
           {songs.map((song, idx) => {
-            // console.log(song);
-
             return (
               <SongPreview
                 station={station}
@@ -60,6 +60,7 @@ export function SongList({ songs, type, station }) {
                 songModal={songModal}
                 onToggleModal={onToggleModal}
                 likedSongs={likedSongs}
+                onSetSongsInQueue={onSetSongsInQueue}
               />
             )
           })}
