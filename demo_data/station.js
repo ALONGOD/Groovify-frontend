@@ -1017,7 +1017,7 @@ export const stations = [
 export const user = {
   _id: 'u102',
   username: 'musicLover123',
-  img: 'https://example.com/user-img.jpg',
+  img: 'https://res.cloudinary.com/dpoa9lual/image/upload/v1725429828/Guest-user_gmlmfj.png',
   likedSongsStation: {
     _id: 'liked-songs',
     type: 'likedSongs',
