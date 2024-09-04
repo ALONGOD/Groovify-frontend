@@ -1,10 +1,7 @@
 import { useRef, useState } from 'react'
-import { IoIosPause, IoIosPlay } from 'react-icons/io'
-import { getTimeOfSent } from '../services/util.service'
 import { BsThreeDots } from 'react-icons/bs'
 import { Modal } from './Modal/Modal'
 import { useDispatch, useSelector } from 'react-redux'
-
 import { LikeSongBtn } from './LikeSongBtn'
 import { EqualizerBar } from './EqualizerBar'
 import { PlayPauseBtn } from './PlayPauseBtn'
@@ -14,7 +11,7 @@ import {
   SET_PLAYER_IS_PLAYING,
 } from '../store/reducers/station.reducer'
 import { setSongsInQueue } from '../store/actions/station.actions'
-
+import { getTimeOfSent } from '../services/util.service'
 export function SongPreview({
   song,
   idx,
@@ -27,16 +24,15 @@ export function SongPreview({
 }) {
   const dispatch = useDispatch()
   const [onSongHover, setOnSongHover] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false) // Local state for modal visibility
 
   const { addedAt, duration, imgUrl, title, artist, album } = song
-
   const player = useSelector(state => state.stationModule.player)
   const { currSong, isPlaying } = player
 
   const isListTable = type === 'list-table'
   const isSongLiked = likedSongs?.some(likedSong => likedSong.id === song.id)
   const displayLikeBtn = onSongHover || isSongLiked
-
   const isCurrSong = currSong?.id === song?.id
 
   async function playSong(song) {
@@ -50,6 +46,13 @@ export function SongPreview({
       dispatch({ type: SET_PLAYER_CURRENT_SONG, currSong: song })
     }
     dispatch({ type: SET_PLAYER_IS_PLAYING, isPlaying: true })
+  }
+
+  // Toggle the local modal state and dispatch the global modal action
+  function onLocalToggleModal(event, song) {
+    event.stopPropagation()
+    onToggleModal(event, song)
+    setIsModalOpen(!isModalOpen)
   }
 
   return (
@@ -101,10 +104,12 @@ export function SongPreview({
         {onSongHover && (
           <BsThreeDots
             className="dots"
-            onClick={ev => onToggleModal(ev, song)}
+            onClick={ev => onLocalToggleModal(ev, song)} // Use local state toggle
           />
         )}
-        {songModal?.id === song?.id && <Modal modalType={'songOptions'} />}
+        {isModalOpen && songModal?.id === song?.id && ( // Check both local and global state
+          <Modal modalType={'songOptions'} />
+        )}
       </div>
     </li>
   )
