@@ -1,0 +1,215 @@
+{
+    "_id": "u102",
+    "username": "musicLover123",
+    "img": "https://res.cloudinary.com/dpoa9lual/image/upload/v1725429828/Guest-user_gmlmfj.png",
+    "likedSongsStation": {
+        "_id": "liked-songs",
+        "type": "likedSongs",
+        "name": "Liked Songs",
+        "imgUrl": "https://misc.scdn.co/liked-songs/liked-songs-300.png",
+        "songs": [
+            {
+                "id": "-iyupsqzOEU",
+                "title": "Family Matters",
+                "artist": "Drake",
+                "album": "So Far Gone",
+                "url": "https://youtu.be/-iyupsqzOEU",
+                "imgUrl": [
+                    "https://i.ytimg.com/vi/-iyupsqzOEU/mqdefault.jpg"
+                ],
+                "addedAt": 162521795399,
+                "duration": "7:37"
+            },
+            {
+                "id": "nfWlot6h_JM",
+                "title": "Shake It Off",
+                "artist": "Taylor Swift",
+                "album": "1989",
+                "url": "https://youtu.be/nfWlot6h_JM",
+                "imgUrl": [
+                    "https://i.ytimg.com/vi/nfWlot6h_JM/mqdefault.jpg"
+                ],
+                "addedAt": 162521795400,
+                "duration": "4:02"
+            },
+            {
+                "id": "izGwDsrQ1eQ",
+                "title": "Careless Whisper",
+                "artist": "George Michael",
+                "album": "Make It Big",
+                "url": "https://youtu.be/izGwDsrQ1eQ",
+                "imgUrl": [
+                    "https://i.ytimg.com/vi/izGwDsrQ1eQ/mqdefault.jpg"
+                ],
+                "addedAt": 162521795315,
+                "duration": "5:02"
+            },
+            {
+                "id": "YQHsXMglC9A",
+                "title": "Hello",
+                "artist": "Adele",
+                "album": "25",
+                "url": "https://youtu.be/YQHsXMglC9A",
+                "imgUrl": [
+                    "https://i.ytimg.com/vi/YQHsXMglC9A/mqdefault.jpg"
+                ],
+                "addedAt": 162521795317,
+                "duration": "6:07"
+            },
+            {
+                "id": "V1bFr2SWP1I",
+                "title": "What a Wonderful World",
+                "artist": "Louis Armstrong",
+                "album": "What a Wonderful World",
+                "url": "https://youtu.be/V1bFr2SWP1I",
+                "imgUrl": [
+                    "https://i.ytimg.com/vi/V1bFr2SWP1I/mqdefault.jpg"
+                ],
+                "addedAt": 162521795383,
+                "duration": "3:48"
+            },
+            {
+                "id": "1w7OgIMMRc4",
+                "title": "Sweet Child O' Mine",
+                "artist": "Guns N' Roses",
+                "album": "Appetite for Destruction",
+                "url": "https://youtu.be/1w7OgIMMRc4",
+                "imgUrl": [
+                    "https://i.ytimg.com/vi/1w7OgIMMRc4/mqdefault.jpg"
+                ],
+                "addedAt": 162521795336,
+                "duration": "5:56"
+            },
+            {
+                "id": "xbhCPt6PZIU",
+                "title": "Back In Black",
+                "artist": "AC/DC",
+                "album": "Back In Black",
+                "url": "https://youtu.be/xbhCPt6PZIU",
+                "imgUrl": [
+                    "https://i.ytimg.com/vi/xbhCPt6PZIU/mqdefault.jpg"
+                ],
+                "addedAt": 162521795342,
+                "duration": "4:15"
+            },
+            {
+                "id": "pXRviuL6vMY",
+                "title": "Stressed Out",
+                "artist": "Twenty One Pilots",
+                "album": "Blurryface",
+                "url": "https://youtu.be/pXRviuL6vMY",
+                "imgUrl": [
+                    "https://i.ytimg.com/vi/pXRviuL6vMY/mqdefault.jpg"
+                ],
+                "addedAt": 162521795311,
+                "duration": "3:46"
+            },
+            {
+                "id": "kJQP7kiw5Fk",
+                "title": "Despacito",
+                "artist": "Luis Fonsi ft. Daddy Yankee",
+                "album": "VIDA",
+                "url": "https://youtu.be/kJQP7kiw5Fk",
+                "imgUrl": [
+                    "https://i.ytimg.com/vi/kJQP7kiw5Fk/mqdefault.jpg"
+                ],
+                "addedAt": 162521795305,
+                "duration": "4:42"
+            },
+            {
+                "id": "bpOSxM0rNPM",
+                "title": "Do I Wanna Know?",
+                "artist": "Arctic Monkeys",
+                "album": "AM",
+                "url": "https://youtu.be/bpOSxM0rNPM",
+                "imgUrl": [
+                    "https://i.ytimg.com/vi/bpOSxM0rNPM/mqdefault.jpg"
+                ],
+                "addedAt": 162521795308,
+                "duration": "4:26"
+            },
+            {
+                "id": "hTWKbfoikeg",
+                "title": "Smells Like Teen Spirit",
+                "artist": "Nirvana",
+                "album": "Nevermind",
+                "url": "https://youtu.be/hTWKbfoikeg",
+                "imgUrl": [
+                    "https://i.ytimg.com/vi/hTWKbfoikeg/mqdefault.jpg"
+                ],
+                "addedAt": 162521795310,
+                "duration": "4:39"
+            },
+            {
+                "id": "4fndeDfaWCg",
+                "title": "I Want It That Way",
+                "artist": "Backstreet Boys",
+                "album": "Millennium",
+                "url": "https://youtu.be/4fndeDfaWCg",
+                "imgUrl": [
+                    "https://i.ytimg.com/vi/4fndeDfaWCg/mqdefault.jpg"
+                ],
+                "addedAt": 162521795314,
+                "duration": "3:40"
+            }
+        ]
+    },
+    "likedStations": [
+        {
+            "id": "5cksxjas89xjsa8xjsa8jxs01",
+            "name": "Chill Vibes",
+            "creator": "Sam Smith",
+            "img": [
+                "https://res.cloudinary.com/dh73ujhyv/image/upload/v1724082806/jevy3fwzckfd94pnyifz.webp"
+            ]
+        },
+        {
+            "id": "5cksxjas89xjsa8xjsa8jxs03",
+            "name": "Party Hits",
+            "creator": "John Doe",
+            "img": [
+                "https://res.cloudinary.com/dh73ujhyv/image/upload/v1724083048/mtoempa1met6lv2tc6bh.webp"
+            ]
+        },
+        {
+            "id": "5cksxjas89xjsa8xjsa8jxs04",
+            "name": "Acoustic Bliss",
+            "creator": "Emily Clark",
+            "img": [
+                "https://res.cloudinary.com/dpoa9lual/image/upload/v1724575596/acoustic_music_bliss_nxakba.jpg"
+            ]
+        },
+        {
+            "id": "5cksxjas89xjsa8xjsa8jxs06",
+            "name": "Indie Mix",
+            "creator": "Sarah Lee",
+            "img": [
+                "https://res.cloudinary.com/dpoa9lual/image/upload/v1724575612/indie-music-mix_x5vsog.jpg"
+            ]
+        },
+        {
+            "id": "5cksxjas89xjsa8xjsa8jxs07",
+            "name": "90s Music Mix",
+            "creator": "Lisa Johnson",
+            "img": [
+                "https://res.cloudinary.com/dpoa9lual/image/upload/v1724576310/90s_music_mix_acafql.jpg"
+            ]
+        },
+        {
+            "id": "5cksxjas89xjsa8xjsa8jxs12",
+            "name": "Bar Mitzvah Playlist",
+            "creator": "David Cohen",
+            "img": [
+                "https://res.cloudinary.com/dpoa9lual/image/upload/v1724842306/BarMitzvah_playlist_cover_scc7jm.webp"
+            ]
+        },
+        {
+            "id": "5cksxjas89xjsa8xjsa8jxs14",
+            "name": "Romantic Moments",
+            "creator": "musicLover123",
+            "img": [
+                "https://res.cloudinary.com/dpoa9lual/image/upload/v1724842122/Romantic_moments_playlist_jn03cb.png"
+            ]
+        }
+    ]
+}
