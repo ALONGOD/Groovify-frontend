@@ -106,7 +106,7 @@ async function addNewStation(dispatchAddStation) {
         imgUrl: loggedinUser.imgUrl,
       }
       : null, // Set to null if no user is logged in
-    likedByUsers: [],
+    likedByUsers: [loggedinUser.id],
     songs: [],
   };
 
