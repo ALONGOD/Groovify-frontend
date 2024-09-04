@@ -108,6 +108,7 @@
   }
 
   .modal.sortBy {
+    position: absolute;
     top: 0;
     right: 0;
     z-index: 100;
@@ -116,6 +117,8 @@
     padding: 1em;
     width: max-content;
     color: rgb(231, 231, 231);
+    max-height: 37vh; // Limit the height of the modal
+    overflow-y: hidden; // Scroll if the content overflows
 
     .modal-header {
       font-family: 'gotham-bold';
@@ -130,6 +133,7 @@
       margin: 0;
 
       .sort-option {
+        @extend .row; // Apply the row class to keep consistency
         display: flex;
         align-items: center;
         padding: em(12px) em(8px);
