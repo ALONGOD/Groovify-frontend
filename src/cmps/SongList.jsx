@@ -21,10 +21,7 @@ export function SongList({ songs, type, station }) {
   )
   const likedSongs = likedSongsStation ? likedSongsStation.songs : []
 
-  function onToggleModal(event, song) {
-    event.stopPropagation()
-    toggleModal(song)
-  }
+
   async function onSetSongsInQueue() {
     // if ()
     await setSongsInQueue(songs)
@@ -58,7 +55,7 @@ export function SongList({ songs, type, station }) {
                 type={type}
                 idx={idx}
                 songModal={songModal}
-                onToggleModal={onToggleModal}
+                
                 likedSongs={likedSongs}
                 onSetSongsInQueue={onSetSongsInQueue}
               />

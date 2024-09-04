@@ -13,14 +13,14 @@ import {
   SET_PLAYER_CURRENT_STATION,
   SET_PLAYER_IS_PLAYING,
 } from '../store/reducers/station.reducer'
-import { setSongsInQueue } from '../store/actions/station.actions'
+import { setSongsInQueue, toggleModal } from '../store/actions/station.actions'
 
 export function SongPreview({
   song,
   idx,
   station,
   songModal,
-  onToggleModal,
+  
   type,
   likedSongs,
   onSetSongsInQueue,
@@ -50,6 +50,11 @@ export function SongPreview({
       dispatch({ type: SET_PLAYER_CURRENT_SONG, currSong: song })
     }
     dispatch({ type: SET_PLAYER_IS_PLAYING, isPlaying: true })
+  }
+
+  function onToggleModal(event, song) {
+    event.stopPropagation()
+    toggleModal(song)
   }
 
   return (

@@ -26,20 +26,20 @@ export function SortByModal() {
     ];
 
     return (
-        <div className="sort-by-modal">
-            <div className="modal-header">Sort by</div>
-            <ul className="sort-options">
+        <>
+        {/* // <div className="sort-by-modal"> */}
+            <h3 className="modal-header">Sort by</h3>
                 {sortOptions.map(option => (
-                    <li
-                        key={option.value}
-                        className={`sort-option ${currentSortBy === option.value ? 'active' : ''}`}
-                        onClick={() => handleSortChange(option.value)}
+                    <div 
+                    key={option.value}
+                    className={`row flex flex-row sort-option ${currentSortBy === option.value ? 'active' : ''}`}
+                    onClick={() => handleSortChange(option.value)}
                     >
                         {option.label}
                         {currentSortBy === option.value && ' ✔'}
-                    </li>
+                    </div>
                 ))}
-            </ul>
-        </div>
+        {/* // </div> */}
+                </>
     );
 }
