@@ -1,6 +1,6 @@
 import { storageService } from '../async-storage.service';
 import { makeId } from '../util.service';
-import { userService } from '../user';
+import { userService } from '../user/user.service.local.js';
 import {
   stations as demoStations,
   user as demoUser,
@@ -101,12 +101,12 @@ async function addNewStation(dispatchAddStation) {
     tags: [], // Default tags
     createdBy: loggedinUser
       ? {
-        id: loggedinUser.id,
+        id: loggedinUser._id,
         fullname: loggedinUser.fullname,
         imgUrl: loggedinUser.img,
       }
       : null, // Set to null if no user is logged in
-    likedByUsers: [loggedinUser.id],
+    likedByUsers: [loggedinUser._id || null],
     songs: [],
   };
 
