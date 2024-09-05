@@ -37,7 +37,7 @@ function searchVideos(query, maxResults = 5) {
                 const videoId = item.id.videoId;
                 const title = item.snippet.title;
                 const description = item.snippet.description;
-                const thumbnailUrl = item.snippet.thumbnails.default.url;
+                const thumbnailUrl = item.snippet.thumbnails.high?.url || item.snippet.thumbnails.default.url;
                 const channelTitle = item.snippet.channelTitle;
 
                 // Use the video ID to create the URL for the video
