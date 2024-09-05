@@ -5,7 +5,7 @@ import { DetailsHeaderActions } from './DetailsHeaderActions'
 import { useEffect, useState } from 'react';
 import { adjustBrightnessAndSaturation } from '../../services/util.service';
 
-export function StationDetailsHeader({ station, setStation, toggleEditStation, isNewStation, setGradient }) {
+export function StationDetailsHeader({ station, setStation, toggleEditStation, setGradient }) {
   const fac = new FastAverageColor();
   const { name, createdBy, songs, imgUrl, description } = station
   

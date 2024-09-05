@@ -21,7 +21,8 @@ export function EditStationModal() {
   }, [])
 
   async function fetchStation() {
-    const stationToSet = await stationService.getById(params.stationId)
+    // const stationToSet = await stationService.getById(params.stationId)
+    const stationToSet = await getStationById(params.stationId)
     setStation(stationToSet)
   }
 
