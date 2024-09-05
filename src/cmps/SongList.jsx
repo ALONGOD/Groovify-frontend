@@ -27,7 +27,7 @@ export function SongList({ songs, type, station }) {
     await setSongsInQueue(songs)
   }
 
-  console.log(songs)
+  // console.log(songs)
 
   return (
     <ul className={`song-list ${type}`}>

@@ -6,10 +6,13 @@ import { YouTubeAPIService } from '../services/youtubeAPI/fetchYoutubeApi.js';
 import { TopResult } from '../cmps/SearchPage/TopResult.jsx';
 import { stationService } from '../services/station/station.service.local.js';
 import { PlayPauseBtn } from '../cmps/PlayPauseBtn.jsx';
+import { query } from '../store/actions/backend.test.js';
+
 export function SearchPage() {
   const { searchTerm } = useParams();
   const [searchResults, setSearchResults] = useState([]);
   const [playlistResults, setPlaylistResults] = useState([]);
+  console.log('playlistResults:', playlistResults)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,10 +43,10 @@ export function SearchPage() {
     }
   }
 
-  async function fetchPlaylists(query) {
+  async function fetchPlaylists(search) {
     try {
-      const filterBy = { searchTerm: query };
-      const results = await stationService.query(filterBy);
+      // const filterBy = { searchTerm: query };
+      const results = await query(search);
       return results;
     } catch (error) {
       console.error('Error fetching playlists:', error);

@@ -8,8 +8,8 @@ export const stationService = {
     addStationMsg
 }
 
-async function query(filterBy = { txt: '', price: 0 }) {
-    return httpService.get(`station`, filterBy)
+async function query(search) {
+    return httpService.get(`station/search/${search}`)
 }
 
 function getById(stationId) {
