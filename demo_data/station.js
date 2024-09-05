@@ -1016,13 +1016,18 @@ export const stations = [
 
 export const user = {
   _id: 'u102',
-  username: 'musicLover123',
+  username: 'Groovify Guest',
   img: 'https://res.cloudinary.com/dpoa9lual/image/upload/v1725429828/Guest-user_gmlmfj.png',
   likedSongsStation: {
     _id: 'liked-songs',
     type: 'likedSongs',
     name: 'Liked Songs',
     imgUrl: 'https://misc.scdn.co/liked-songs/liked-songs-300.png',
+    createdBy: {
+      id: 'u102',
+      fullname: 'Groovify Guest',
+      imgUrl: 'https://res.cloudinary.com/dpoa9lual/image/upload/v1725429828/Guest-user_gmlmfj.png',
+    },
     songs: [
       {
         id: '-iyupsqzOEU',

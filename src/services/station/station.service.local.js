@@ -102,7 +102,7 @@ async function addNewStation(dispatchAddStation) {
     createdBy: loggedinUser
       ? {
         id: loggedinUser._id,
-        fullname: loggedinUser.fullname,
+        fullname: loggedinUser.fullname || loggedinUser.username,
         imgUrl: loggedinUser.img,
       }
       : null, // Set to null if no user is logged in
