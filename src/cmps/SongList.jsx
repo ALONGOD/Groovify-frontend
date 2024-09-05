@@ -30,39 +30,26 @@ export function SongList({ songs, type, station }) {
   console.log(songs)
 
   return (
-    <>
-      {songs.length === 0 && type === 'list-table' ? (
-        <div className="no-songs">
-          <h2>Let's find something for your playlist</h2>
-          <SearchBar
-            searchType={'youtube'}
-            placeholder={'Search for songs or episodes'}
-          />
-        </div>
-      ) : (
-        <ul className={`song-list ${type}`}>
-          {type === 'list-table' && (
-            <>
-              <SongListHeader />
-            </>
-          )}
-          {songs.map((song, idx) => {
-            return (
-              <SongPreview
-                station={station}
-                key={`${song.id}-${idx}`}
-                song={song}
-                type={type}
-                idx={idx}
-                songModal={songModal}
-                
-                likedSongs={likedSongs}
-                onSetSongsInQueue={onSetSongsInQueue}
-              />
-            )
-          })}
-        </ul>
+    <ul className={`song-list ${type}`}>
+      {type === 'list-table' && (
+        <>
+          <SongListHeader />
+        </>
       )}
-    </>
-  )
+      {songs.map((song, idx) => {
+        return (
+          <SongPreview
+            station={station}
+            key={`${song.id}-${idx}`}
+            song={song}
+            type={type}
+            idx={idx}
+            songModal={songModal}
+            likedSongs={likedSongs}
+            onSetSongsInQueue={onSetSongsInQueue}
+          />
+        );
+      })}
+    </ul>
+  );
 }

@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 export function SearchBar({
   searchType = 'youtube',
   placeholder = 'What do you want to play?',
+  onSearch = {},
 }) {
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useState('')
@@ -40,6 +41,8 @@ export function SearchBar({
       } else if (searchType === 'station') {
         console.log('Dispatching search term:', query)
         dispatch(setSearchTerm(query))
+      } else if (searchType === 'youtube-inline') {
+        onSearch(query)
       }
     }, 800),
     [dispatch, searchType]
