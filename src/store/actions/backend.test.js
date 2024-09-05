@@ -1,3 +1,5 @@
+import { stationService } from "../../services/station/station.service.remote"
+import { ADD_STATION } from "../reducers/station.reducer"
 export async function query(search) {
  try {
     const stations = await stationService.query(search)
@@ -14,3 +16,7 @@ export async function getStationById(stationId) {
 }
 
 export async function saveStation(station) {
+    const savedStation = await stationService.save(station)
+    return savedStation
+}
+

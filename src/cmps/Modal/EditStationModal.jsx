@@ -8,6 +8,7 @@ import {
 import { useDispatch } from 'react-redux'
 import { storageService } from '../../services/async-storage.service'
 import { ImagePick } from '../ImagePick'
+import { getStationById, saveStation } from '../../store/actions/backend.test'
 
 export function EditStationModal() {
   const dispatch = useDispatch()
@@ -33,10 +34,17 @@ export function EditStationModal() {
 
   function handleSave(ev) {
     ev.preventDefault()
-    storageService.put('stationDB', station)
+    saveStation(station)
     dispatch({ type: UPDATE_STATION, updatedStation: station })
     closeEditModal()
   }
+
+  // function handleSave(ev) {
+  //   ev.preventDefault()
+  //   storageService.put('stationDB', station)
+  //   dispatch({ type: UPDATE_STATION, updatedStation: station })
+  //   closeEditModal()
+  // }
 
   function closeEditModal() {
     dispatch({ type: SET_EDIT_MODAL, isOpen: false })
