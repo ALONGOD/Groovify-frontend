@@ -1,0 +1,42 @@
+.stations-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1em;
+    padding: 1em;
+
+    @media (max-width: 1024px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 480px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.station-card {
+    background-color: rgba(62, 62, 62, 0.8);
+    height: 64px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    overflow: hidden;
+    transition: background-color 0.3s ease-out, transform 0.3s ease-out;
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .station-img {
+        width: 4em;
+        height: 4em;
+        object-fit: cover;
+    }
+
+    .station-name {
+        font-size: clamp(0.9em, 2vw, 1.2em);
+        color: white;
+        flex: 1;
+        color: #fff;
+    }
+}
