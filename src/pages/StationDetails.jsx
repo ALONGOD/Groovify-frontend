@@ -12,6 +12,7 @@ import { stationService } from '../services/station/station.service.local.js';
 import { SearchBar } from '../cmps/SearchBar';
 import { YouTubeAPIService } from '../services/youtubeAPI/fetchYoutubeApi';
 import { DetailsHeaderActions } from '../cmps/StationDetails/DetailsHeaderActions.jsx';
+import { getStationById } from '../store/actions/backend.test.js';
 
 export function StationDetails() {
   const dispatch = useDispatch();
@@ -20,7 +21,9 @@ export function StationDetails() {
   const [station, setStation] = useState(null);
   const [isNewStation, setIsNewStation] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
+
   const editOpen = useSelector(state => state.stationModule.editStationModal);
+
   const [gradient, setGradient] = useState(null);
 
   useEffect(() => {
@@ -33,9 +36,11 @@ export function StationDetails() {
     }
   }, [stationId, stations]);
 
+
   async function fetchStationFromService() {
     try {
-      const fetchedStation = await stationService.getById(stationId);
+      const fetchedStation = await getStationById(stationId);
+      console.log('fetchedStation:', fetchedStation)
       if (fetchedStation) {
         setStation(fetchedStation);
         setIsNewStation(true);
@@ -46,6 +51,7 @@ export function StationDetails() {
       console.error('Failed to fetch station:', err);
     }
   }
+
 
   async function handleSearch(query) {
     try {
@@ -70,7 +76,6 @@ export function StationDetails() {
         station={station}
         setStation={setStation}
         toggleEditStation={toggleEditStation}
-        isNewStation={isNewStation}
         setGradient={setGradient}
       />
       <div className="station-details-main">

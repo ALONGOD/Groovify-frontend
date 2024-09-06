@@ -1,4 +1,5 @@
 import { stationService } from '../../services/station/station.service.local.js'
+// import { stationService } from '../../services/station/station.service.remote.js'
 import { store } from '../store'
 import {
   ADD_STATION,
@@ -17,6 +18,7 @@ import {
 } from '../reducers/station.reducer'
 import { storageService } from '../../services/async-storage.service.js'
 import { SET_USER } from '../reducers/user.reducer.js'
+import { getStationById, saveStation } from './backend.test.js'
 
 export async function loadSavedSettings() {
   const currSong = await JSON.parse(localStorage.getItem('currentSong'))
@@ -39,7 +41,7 @@ export async function setSongsInQueue(songs) {
   return new Promise(async resolve => {
     store.dispatch({ type: SET_QUEUE_SONGS, songs: songsToAdd })
     const shuffledQueue = await setShuffleQueue(songs)
-    resolve({songsQueue: songs, shuffledQueue})
+    resolve({ songsQueue: songs, shuffledQueue })
   })
 }
 
@@ -57,7 +59,7 @@ function shuffleQueue(queue) {
   const shuffledQueue = [...queue]
   for (let i = shuffledQueue.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
-    ;[shuffledQueue[i], shuffledQueue[j]] = [shuffledQueue[j], shuffledQueue[i]]
+      ;[shuffledQueue[i], shuffledQueue[j]] = [shuffledQueue[j], shuffledQueue[i]]
   }
   return shuffledQueue
 }
@@ -99,20 +101,39 @@ export async function loadStations(filterBy) {
   }
 }
 
+// export async function removeSongFromStation(stationId) {
+//   const songId = store.getState().stationModule.modalSong?.id
+//   const stations = await storageService.query('stationDB')
+//   const idx = stations.findIndex(station => station._id === stationId)
+//   const songIdx = stations[idx].songs.findIndex(song => song.id === songId)
+//   if (songIdx < 0) throw 'Song not found in station'
+//   stations[idx].songs.splice(songIdx, 1)
+//   await storageService.save('stationDB', stations)
+//   console.log(stations[idx])
+
+//   store.dispatch({ type: UPDATE_STATION, updatedStation: stations[idx] })
+//   return stations[idx]
+// }
+
 export async function removeSongFromStation(stationId) {
-  const songId = store.getState().stationModule.modalSong?.id
-  const stations = await storageService.query('stationDB')
-  const idx = stations.findIndex(station => station._id === stationId)
-  const songIdx = stations[idx].songs.findIndex(song => song.id === songId)
-  if (songIdx < 0) throw 'Song not found in station'
-  stations[idx].songs.splice(songIdx, 1)
-  await storageService.save('stationDB', stations)
-  console.log(stations[idx])
+  try {
 
-  store.dispatch({ type: UPDATE_STATION, updatedStation: stations[idx] })
-  return stations[idx]
+    const songId = store.getState().stationModule.modalSong?.id
+    // const stations = await storageService.query('stationDB')
+    const station = await getStationById(stationId)
+    const songIdx = station.songs.findIndex(song => song.id === songId)
+    if (songIdx < 0) throw 'Song not found in station'
+    station.songs.splice(songIdx, 1)
+    await saveStation(station)
+    console.log(station)
+    store.dispatch({ type: UPDATE_STATION, updatedStation: station })
+    return station
+  } catch (err) {
+    console.error('Cannot remove song from station', err)
+    throw err
+  }
+
 }
-
 
 export async function addToStation(stationId, songToAdd) {
   const stations = await storageService.query('stationDB')
@@ -145,16 +166,16 @@ export async function removeStation(stationId) {
   }
 }
 
-export async function addStation(station) {
-  try {
-    const savedStation = await stationService.save(station)
-    store.dispatch(getCmdAddStation(savedStation))
-    return savedStation
-  } catch (err) {
-    console.log('Cannot add station', err)
-    throw err
-  }
-}
+// export async function addStation(station) {
+//   try {
+//     const savedStation = await stationService.save(station)
+//     store.dispatch(getCmdAddStation(savedStation))
+//     return savedStation
+//   } catch (err) {
+//     console.log('Cannot add station', err)
+//     throw err
+//   }
+// }
 
 export async function updateStation(station) {
   try {

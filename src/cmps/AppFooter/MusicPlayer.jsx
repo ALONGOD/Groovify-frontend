@@ -28,7 +28,6 @@ export function MusicPlayer({ currSong }) {
   const dispatch = useDispatch()
   const songs = useSelector(storeState => storeState.stationModule.songs)
   const queue = useSelector(storeState => storeState.stationModule.queue)
-  console.log('queue:', queue)
   const player = useSelector(storeState => storeState.stationModule.player)
   const isPlaying = player.isPlaying
 

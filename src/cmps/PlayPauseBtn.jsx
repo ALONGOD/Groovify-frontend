@@ -38,7 +38,6 @@ export function PlayPauseBtn({ song, station, type, onTogglePlay, onSetSongsInQu
 
 
   if (type === 'top-result') {
-    console.log('sup nig')
 
     return (
       <div className={`play-pause-container ${type}`} onClick={playOrPauseSong}>
