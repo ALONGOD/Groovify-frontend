@@ -8,9 +8,9 @@ import { Modal } from './Modal/Modal.jsx';
 import { FaBars } from 'react-icons/fa6';
 import update from 'immutability-helper';
 
-export function StationList({ isCollapsed, user }) {
+export function StationList({ isCollapsed, user, stations }) {
   const dispatch = useDispatch();
-  const stations = useSelector(state => state.stationModule.stations);
+  // const stations = useSelector(state => state.stationModule.stations);
   const searchTerm = useSelector(state => state.stationModule.searchTerm);
   const sortBy = useSelector(state => state.stationModule.sortBy);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -27,7 +27,7 @@ export function StationList({ isCollapsed, user }) {
   }, [stations, sortBy]);
 
   useEffect(() => {
-    fetchStations();
+    // fetchStations();
   }, [searchTerm, sortBy, user]);
 
   useEffect(() => {
@@ -43,36 +43,36 @@ export function StationList({ isCollapsed, user }) {
     };
   }, [modalRef]);
 
-  async function fetchStations() {
-    try {
-      let stationsToLoad = stations;
+  // async function fetchStations() {
+  //   try {
+  //     let stationsToLoad = stations;
 
-      if (!stations || stations.length === 0) {
-        stationsToLoad = await stationService.query();
-        dispatch({ type: SET_STATIONS, stations: stationsToLoad });
-      }
+  //     if (!stations || stations.length === 0) {
+  //       stationsToLoad = await stationService.query();
+  //       dispatch({ type: SET_STATIONS, stations: stationsToLoad });
+  //     }
 
-      const filterBy = {
-        searchTerm: searchTerm || '',
-        sortBy: sortBy || 'recents',
-      };
+  //     const filterBy = {
+  //       searchTerm: searchTerm || '',
+  //       sortBy: sortBy || 'recents',
+  //     };
 
-      let filteredStations = await stationService.query(filterBy);
-      const likedSongsStation = await stationService.fetchLikedSongs();
+  //     let filteredStations = await stationService.query(filterBy);
+  //     const likedSongsStation = await stationService.fetchLikedSongs();
 
-      if (user) {
-        filteredStations = filteredStations.filter(station =>
-          user.likedStations.some(likedStation => likedStation.id === station._id)
-        );
-      }
+  //     if (user) {
+  //       filteredStations = filteredStations.filter(station =>
+  //         user.likedStations.some(likedStation => likedStation.id === station._id)
+  //       );
+  //     }
 
-      dispatch({ type: SET_STATIONS, stations: [likedSongsStation, ...filteredStations] });
-      setStationOrder([likedSongsStation, ...filteredStations]);
-    } catch (err) {
-      console.log('Cannot load stations', err);
-      throw err;
-    }
-  }
+  //     dispatch({ type: SET_STATIONS, stations: [likedSongsStation, ...filteredStations] });
+  //     setStationOrder([likedSongsStation, ...filteredStations]);
+  //   } catch (err) {
+  //     console.log('Cannot load stations', err);
+  //     throw err;
+  //   }
+  // }
 
   const moveStation = (dragIndex, hoverIndex) => {
     const draggedStation = stationOrder[dragIndex];
@@ -99,7 +99,10 @@ export function StationList({ isCollapsed, user }) {
     return sortOptions[sortBy] || sortBy;
   }
 
-  if (!stationOrder.length) return <h1>Loading...</h1>;
+  console.log(stations);
+  
+
+  if (!stationOrder?.length) return <h1>Loading...</h1>;
   return (
     <section className="station-list">
       {!isCollapsed && (

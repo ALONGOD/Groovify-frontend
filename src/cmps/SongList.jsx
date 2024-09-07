@@ -16,7 +16,7 @@ export function SongList({ songs, type, station }) {
   }, [])
 
 
-  const likedSongsStation = stations.find(
+  const likedSongsStation = stations?.find(
     station => station._id === 'liked-songs'
   )
   const likedSongs = likedSongsStation ? likedSongsStation.songs : []

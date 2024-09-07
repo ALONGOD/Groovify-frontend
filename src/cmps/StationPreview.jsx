@@ -24,9 +24,11 @@ export function StationPreview({ station, isCollapsed, index, moveStation }) {
   const queue = useSelector(state => state.stationModule.queue)
   const { isShuffled, songsQueue, shuffledQueue } = queue
 
-  const isStationPlaying = currStation?.id === station?._id
-
-  const { _id, imgUrl, name, songs } = station
+  
+  const { _id, id, imgUrl, name, songs } = station
+  station.id = _id ? _id : id
+  
+  const isStationPlaying = currStation?.id === station?.id
 
   async function playOrPauseStation(ev) {
     ev.stopPropagation()
@@ -75,7 +77,7 @@ export function StationPreview({ station, isCollapsed, index, moveStation }) {
     <li
       ref={ref}
       className={`station-preview flex flex-row align-center ${onHover ? 'hover' : ''}`}
-      onClick={() => navigate(`/station/${_id}`)}
+      onClick={() => navigate(`/station/${station.id}`)}
       onMouseEnter={() => setOnHover(true)}
       onMouseLeave={() => setOnHover(false)}
       style={{ opacity: isDragging ? 0.5 : 1 }}
@@ -94,7 +96,7 @@ export function StationPreview({ station, isCollapsed, index, moveStation }) {
         <div className="flex flex-column">
           <h3 className={isStationPlaying ? 'active' : ''}>{name}</h3>
           <div className="station-details flex flex-row align-center">
-            { station._id === 'liked-songs' && <BsFillPinAngleFill className='pin' /> }
+            { station.id === 'liked-songs' && <BsFillPinAngleFill className='pin' /> }
             <span>Playlist</span>
             <span className="divider">&#9679;</span>
             <span>{songs?.length} songs</span>
