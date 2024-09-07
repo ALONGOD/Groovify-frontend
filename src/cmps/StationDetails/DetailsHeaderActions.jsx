@@ -47,67 +47,9 @@ export function DetailsHeaderActions({
   }, [modalRef])
 
   async function handlePlusClick() {
-    try {
-      if (!station) {
-        console.error('Station not found.')
-        return
-      }
-      if (station.likedByUsers && station.likedByUsers.includes(user._id)) {
-        console.log('Station is already liked by the user.')
-        return
-      }
-
-      const updatedUser = { ...user }
-      updatedUser.likedStations.push({
-        id: station._id,
-        name: station.name,
-        creator: station.createdBy.fullname,
-        img: station.imgUrl,
-      })
-
-      await userService.saveLoggedinUser(updatedUser)
-
-      dispatch({ type: SET_USER, user: updatedUser })
-
-      const updatedStation = { ...station }
-      if (!updatedStation.likedByUsers) {
-        updatedStation.likedByUsers = []
-      }
-      updatedStation.likedByUsers.push(user._id)
-
-      await stationService.save(updatedStation)
-
-      dispatch(updateStation(updatedStation))
-    } catch (err) {
-      console.error('Failed to add station to likedStations:', err)
-    }
+    saveStationToLiked(station)
   }
   
-  const handleRemoveClick = async () => {
-    try {
-      if (!station) {
-        console.error('Station not found.')
-        return
-      }
-
-      const updatedUser = { ...user }
-      updatedUser.likedStations = updatedUser.likedStations.filter(
-        likedStation => likedStation.id !== station._id
-      )
-
-      await userService.saveLoggedinUser(updatedUser)
-      store.dispatch({ type: SET_USER, user: updatedUser })
-
-      const updatedStation = { ...station }
-      updatedStation.likedByUsers = updatedStation.likedByUsers.filter(
-        userId => userId !== user._id
-      )
-
-      await stationService.save(updatedStation)
-      dispatch(updateStation(updatedStation))
-    } catch (err) {
-      console.error('Failed to remove station from likedStations:', err)
-    }
   }
 
   return (
