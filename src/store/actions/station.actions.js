@@ -18,7 +18,7 @@ import {
 } from '../reducers/station.reducer'
 import { storageService } from '../../services/async-storage.service.js'
 import { SET_USER } from '../reducers/user.reducer.js'
-import { getStationById, saveStation } from './backend.test.js'
+import { getStationById, saveStation } from './backend.station.js'
 
 export async function loadSavedSettings() {
   const currSong = await JSON.parse(localStorage.getItem('currentSong'))
