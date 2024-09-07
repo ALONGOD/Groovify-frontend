@@ -22,3 +22,21 @@ export async function saveStationToLiked(stationToSave) {
         throw err
     }
 }
+
+export async function removeStationFromLiked(stationId) {
+    try {
+        const user = store.getState().userModule.user
+        const stationIdx = user.likedStations.findIndex(station => station.id === stationId)
+        if (stationIdx === -1) {
+            console.log('Station not in liked')
+            return
+        }
+        user.likedStations.splice(stationIdx, 1)
+        const userToSave = await userService.update(user)
+        store.dispatch({ type: SET_USER, user: userToSave })
+    } catch (err) {
+        console.log('Cannot remove station from liked', err)
+        throw err
+    }
+
+}

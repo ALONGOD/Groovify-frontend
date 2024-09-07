@@ -50,6 +50,8 @@ export function DetailsHeaderActions({
     saveStationToLiked(station)
   }
   
+  function handleRemoveClick() {
+    removeStationFromLiked(station._id)
   }
 
   return (
@@ -59,7 +61,7 @@ export function DetailsHeaderActions({
         {isNewStation ? (
           <CiCirclePlus className="plus-circle" onClick={handlePlusClick} />
         ) : (
-          <CheckmarkCircle classes={"check-circle"} onClick={handleRemoveClick}/>
+          <CheckmarkCircle classes="check-circle" onClick={handleRemoveClick}/>
         )}
         <div ref={modalRef} className="relative">
           <BsThreeDots className="three-dots" onClick={toggleModal} />
