@@ -3,15 +3,20 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 import { FaRegBell, FaSpotify } from 'react-icons/fa'
 import { GoHomeFill, GoHome } from 'react-icons/go'
 import { FaMagnifyingGlass } from 'react-icons/fa6'
-import { useState, useCallback } from 'react'
 import { SearchBar } from './SearchBar.jsx'
 import { NavLink } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 export function AppHeader() {
     const navigate = useNavigate()
     const location = useLocation()
+    const user = useSelector(state => state.userModule.user)
+    console.log('user:', user)
     const isSearchPage = location.pathname.includes('/search')
     const isStationDetailsPage = location.pathname.includes('/station')
+
+
+    
 
     function navigation(direction) {
         navigate(direction)
