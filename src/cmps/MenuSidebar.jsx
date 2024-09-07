@@ -2,13 +2,15 @@ import { useEffect, useState } from 'react'
 import { MainMenu } from './MainMenu'
 import { LibraryMenu } from './LibraryMenu'
 import { StationList } from './StationList'
-import { userService } from '../services/user/user.service.local'
+import { userService } from '../services/user/user.service.remote'
 import { useDispatch, useSelector } from 'react-redux'
 import { SET_USER } from '../store/reducers/user.reducer'
+import { SET_STATIONS } from '../store/reducers/station.reducer'
 
 export function MenuSidebar() {
     const dispatch = useDispatch()
     const user = useSelector(state => state.userModule.user)
+    console.log('user:', user)
     const [isCollapsed, setIsCollapsed] = useState(false)
     const [isBelowThreshold, setIsBelowThreshold] = useState(false)
     const [selected, setSelected] = useState(null)
@@ -23,9 +25,19 @@ export function MenuSidebar() {
         }
     }, [])
 
+    useEffect(() => {
+        getUser()
+      }, [])
+
     async function getUser() {
-        const user = await userService.getLoggedinUser()
-        dispatch({ type: SET_USER, user })
+        try {
+            const user = await userService.getById('66dc87a4bcda36a278e45615')
+            dispatch({ type: SET_USER, user })
+            dispatch({ type: SET_STATIONS, stations: user.likedStations })
+        } catch (err) {
+            console.log('Cannot set logged in user', err)
+            throw err
+        }
     }
 
     function handleResize() {
@@ -49,7 +61,7 @@ export function MenuSidebar() {
                         isBelowThreshold={isBelowThreshold}
                     />
                 </div>
-                <StationList isCollapsed={isCollapsed} user={user} />
+                <StationList isCollapsed={isCollapsed} user={user} stations={user?.likedStations}/>
             </div>
         </aside>
     )
