@@ -12,17 +12,17 @@ import { SET_USER } from '../../store/reducers/user.reducer' // Make sure this i
 import { store } from '../../store/store' // Import the store if it's not already included
 import { FaCheckCircle } from 'react-icons/fa' // Importing the checkmark icon
 import { CheckmarkCircle } from '../svgs/CheckmarkCircle.jsx'
+import { saveStation } from '../../store/actions/backend.station.js'
+import { removeStationFromLiked, saveStationToLiked } from '../../store/actions/backend.user.js'
 
 export function DetailsHeaderActions({
   toggleEditStation,
-  isNewStation,
-  station: propStation,
+  isStationLiked,
+  station,
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const modalRef = useRef(null)
   const dispatch = useDispatch()
-  const station =
-    useSelector(state => state.stationModule.station) || propStation
   const user = useSelector(state => state.userModule.user)
 
   // Toggle modal visibility
@@ -47,7 +47,7 @@ export function DetailsHeaderActions({
   }, [modalRef])
 
   async function handlePlusClick() {
-    saveStationToLiked(station)
+    await saveStationToLiked(station)
   }
   
   function handleRemoveClick() {
@@ -58,7 +58,7 @@ export function DetailsHeaderActions({
     <div className="station-header-actions flex flex-row justify-between align-center">
       <div className="btns-container flex flex-row gap-8 align-center">
         <IoPlayCircle className="play-circle" />
-        {isNewStation ? (
+        {!isStationLiked ? (
           <CiCirclePlus className="plus-circle" onClick={handlePlusClick} />
         ) : (
           <CheckmarkCircle classes="check-circle" onClick={handleRemoveClick}/>

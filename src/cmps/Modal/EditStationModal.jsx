@@ -8,7 +8,7 @@ import {
 import { useDispatch } from 'react-redux'
 import { storageService } from '../../services/async-storage.service'
 import { ImagePick } from '../ImagePick'
-import { getStationById, saveStation } from '../../store/actions/backend.test'
+import { getStationById, onUpdateStation, saveStation } from '../../store/actions/backend.station'
 
 export function EditStationModal() {
   const dispatch = useDispatch()
@@ -34,7 +34,7 @@ export function EditStationModal() {
 
   function handleSave(ev) {
     ev.preventDefault()
-    saveStation(station)
+    onUpdateStation(station)
     dispatch({ type: UPDATE_STATION, updatedStation: station })
     closeEditModal()
   }
