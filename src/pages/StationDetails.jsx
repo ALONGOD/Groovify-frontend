@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { StationDetailsHeader } from '../cmps/StationDetails/StationDetailsHeader'
 import { SongList } from '../cmps/SongList'
 import { useDispatch, useSelector } from 'react-redux'
@@ -7,7 +7,6 @@ import { Modal } from '../cmps/Modal/Modal'
 import {
   SET_EDIT_MODAL,
   SET_STATION_DISPLAY,
-  UPDATE_STATION,
 } from '../store/reducers/station.reducer'
 import { stationService } from '../services/station/station.service.local.js'
 import { SearchBar } from '../cmps/SearchBar'
@@ -16,6 +15,7 @@ import { DetailsHeaderActions } from '../cmps/StationDetails/DetailsHeaderAction
 import { getStationById } from '../store/actions/backend.station.js'
 
 export function StationDetails() {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const { stationId } = useParams()
   const user = useSelector(state => state.userModule.user)
@@ -25,6 +25,8 @@ export function StationDetails() {
 
   const editOpen = useSelector(state => state.stationModule.editStationModal)
   const [isStationLiked, setIsStationLiked] = useState(false)
+
+  const isStationLikedSongs = user?.likedSongsStation.id === stationId
 
   const [gradient, setGradient] = useState(null)
 
@@ -40,14 +42,15 @@ export function StationDetails() {
 
   async function fetchStationFromService() {
     try {
+      if (isStationLikedSongs) return dispatch({ type: SET_STATION_DISPLAY, station: user.likedSongsStation })
       const fetchedStation = await getStationById(stationId)
-      // console.log('fetchedStation:', fetchedStation)
       if (fetchedStation) {
         dispatch({ type: SET_STATION_DISPLAY, station: fetchedStation })
       } else {
         console.error('Station not found')
       }
     } catch (err) {
+      navigate(-1)
       console.error('Failed to fetch station:', err)
     }
   }

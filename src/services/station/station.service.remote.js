@@ -10,7 +10,8 @@ export const stationService = {
 }
 
 async function query(search) {
-    return httpService.get(`station/search/${search}`)
+    if (search) return httpService.get(`station/search/${search}`)
+    else return httpService.get('station')
 }
 
 function getById(stationId) {

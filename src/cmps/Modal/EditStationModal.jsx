@@ -4,12 +4,10 @@ import { useEffect, useState } from 'react'
 import {
   EDIT_STATION_DISPLAY,
   SET_EDIT_MODAL,
-  UPDATE_STATION,
 } from '../../store/reducers/station.reducer'
 import { useDispatch } from 'react-redux'
-import { storageService } from '../../services/async-storage.service'
 import { ImagePick } from '../ImagePick'
-import { getStationById, onUpdateStation, saveStation } from '../../store/actions/backend.station'
+import { getStationById, onUpdateStation } from '../../store/actions/backend.station'
 
 export function EditStationModal() {
   const dispatch = useDispatch()

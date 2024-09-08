@@ -10,7 +10,7 @@ export function SortByModal() {
         if (sortBy === 'customOrder') {
             const customOrder = JSON.parse(localStorage.getItem('stationOrder'));
             if (customOrder) {
-                dispatch({ type: 'SET_STATIONS', stations: customOrder });
+                // dispatch({ type: 'SET_STATIONS', stations: customOrder });
             }
         }
         const actions = await setSortBy(sortBy);

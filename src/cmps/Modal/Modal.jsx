@@ -5,17 +5,18 @@ import { AddStationModal } from './AddStationModal'
 import { SortByModal } from './SortByModal'
 import { EditStationModal } from './EditStationModal'
 import { ThreeDotsModal } from './ThreeDotsModal.jsx'
+import { query } from '../../store/actions/backend.station.js'
+import { useEffect, useState } from 'react'
 
-export function Modal({ modalType, modalOpen, closeModal }) {
-  const stations = useSelector(state => state.stationModule.stations)
+export function Modal({ modalType }) {
+  const likedStations = useSelector((state) => state.userModule.user)?.likedStations
   
-
   return (
     <>
       {modalType === 'editStation' && <div className="modal-backdrop"></div>}
       <div className={`modal ${modalType} absolute`}>
         <div className="modal-content">
-          <DynamicModal modalType={modalType} stations={stations} />
+          <DynamicModal modalType={modalType} stations={likedStations} />
         </div>
       </div>
     </>
@@ -35,7 +36,6 @@ function DynamicModal({ modalType, stations, toggleEditStation }) {
     case 'editStation':
       return <EditStationModal />
     case 'threeDots':
-      <ThreeDotsModal />
-
+      return <ThreeDotsModal />
   }
 }
