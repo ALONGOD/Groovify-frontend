@@ -35,7 +35,7 @@ const initialState = {
   songs: [],
   searchTerm: '',
   stationDisplay: {},
-  player: { currSong: null, isPlaying: false, currStation: null },
+  player: { currSong: null, isPlaying: true, currStation: null },
   modalSong: {},
   editStationModal: false,
   sortBy: 'recents',
@@ -74,6 +74,8 @@ export function stationReducer(state = initialState, action) {
       newState = { ...state, stationDisplay: action.station }
       break
     case EDIT_STATION_DISPLAY:
+      console.log('updatedStation',action.station);
+      
       newState = { ...state, stationDisplay: action.station }
       break
     case SET_SEARCH_TERM: // Add this case
