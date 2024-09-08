@@ -1,16 +1,11 @@
 import { CiCirclePlus } from 'react-icons/ci'
 import { IoIosCheckmarkCircle } from 'react-icons/io'
-import { addToLikedSongs, removeFromLikedSongs } from '../store/actions/station.actions'
 import { useSelector } from 'react-redux'
+import { addToLikedSongs, removeFromLikedSongs } from '../store/actions/backend.user'
 
 export function LikeSongBtn({ song }) {
-    const stations = useSelector(state => state.stationModule.stations)
+    const likedSongsStation = useSelector(state => state.userModule.user)?.likedSongsStation
 
-    if (!song || !stations) {
-        return null 
-    }
-
-    const likedSongsStation = stations.find(station => station._id === 'liked-songs')
     const likedSongs = likedSongsStation ? likedSongsStation.songs : []
 
     const isSongLiked = likedSongs?.some(likedSong => likedSong.id === song.id)

@@ -59,6 +59,21 @@ export async function updateStation(station) {
     }
 }
 
-export async function addSongToLikedStation(song, stationId) {
-    
+export async function addToLikedSongs(song) {
+    const user = store.getState().userModule.user
+    user.likedSongsStation.songs.push(song)
+    const userToSave = await userService.update(user)
+    store.dispatch({ type: SET_USER, user: userToSave })
+}
+
+export async function removeFromLikedSongs(songId) {
+    const user = store.getState().userModule.user
+    const songIdx = user.likedSongsStation.songs.findIndex(likedSong => likedSong.id === songId)
+    if (songIdx === -1) {
+        console.log('Song not in liked')
+        return
+    }
+    user.likedSongsStation.songs.splice(songIdx, 1)
+    const userToSave = await userService.update(user)
+    store.dispatch({ type: SET_USER, user: userToSave })
 }
