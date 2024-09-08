@@ -23,6 +23,13 @@ export const SET_PLAYER_IS_PLAYING = 'SET_PLAYER_IS_PLAYING'
 export const SET_PLAYER_CURRENT_STATION = 'SET_PLAYER_CURRENT_STATION'
 export const SET_SONGS = 'SET_SONGS'
 
+export const ADD_TO_HISTORY = 'ADD_TO_HISTORY';
+export const EDIT_STATION_DISPLAY = 'EDIT_STATION_DISPLAY';
+export const SET_STATION_DISPLAY = 'SET_STATION_DISPLAY';
+
+
+
+
 const initialState = {
   // stations: [],
   songs: [],
