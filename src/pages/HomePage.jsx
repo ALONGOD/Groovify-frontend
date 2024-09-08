@@ -14,9 +14,9 @@ export function Homepage() {
         <div className='stations-container'>
             {stations.slice(0, 8).map(station => (
                 <div
-                    key={station._id}
+                    key={station._id || station.id || index}
                     className='station-card flex flex-row'
-                    onClick={() => handleCardClick(station._id)}
+                    onClick={() => handleCardClick(station._id || station.id || '')}
                     style={{ cursor: 'pointer' }}
                 >
                     <img src={station.imgUrl} alt={station.name} className='station-img' />
