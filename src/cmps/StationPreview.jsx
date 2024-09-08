@@ -11,6 +11,7 @@ import {
 } from '../store/reducers/station.reducer'
 import { setSongsInQueue } from '../store/actions/station.actions'
 import { SET_DETAILS_SIDEBAR } from '../store/reducers/system.reducer'
+import { getStationById } from '../store/actions/backend.station'
 
 export function StationPreview({ station, isCollapsed, index, moveStation }) {
   const dispatch = useDispatch()
@@ -21,28 +22,29 @@ export function StationPreview({ station, isCollapsed, index, moveStation }) {
   const player = useSelector(state => state.stationModule.player)
   const { currStation, isPlaying, currSong } = player
 
-  const queue = useSelector(state => state.stationModule.queue)
-  const { isShuffled, songsQueue, shuffledQueue } = queue
+  const { isShuffled} = useSelector(state => state.stationModule.queue)
 
   
   const { _id, id, imgUrl, name, songs } = station
   station.id = _id ? _id : id
-  
+
   const isStationPlaying = currStation?.id === station?.id
+
 
   async function playOrPauseStation(ev) {
     ev.stopPropagation()
+    const stationToPlay = await getStationById(station.id)
     
-    const songs = station.songs
+    const songs = stationToPlay?.songs
     let songToPlay
 
-    if (currStation?.id !== station?._id) {
+    if (currStation?.id !== station?.id) {
       const newQueue = await setSongsInQueue(songs)
 
       dispatch({ type: SET_DETAILS_SIDEBAR, state: 'songDetails' })
       dispatch({
         type: SET_PLAYER_CURRENT_STATION,
-        currStation: { id: station._id, name: station.name },
+        currStation: { id: station.id, name: station.name },
       })
       if (isShuffled) songToPlay = newQueue.shuffledQueue[0]
       else songToPlay = newQueue.songsQueue[0]

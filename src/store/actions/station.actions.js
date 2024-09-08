@@ -36,6 +36,7 @@ export function setIsPlaying(state) {
 }
 
 export async function setSongsInQueue(songs) {
+  console.log('songs:', songs)
   const songsToAdd = songs
 
   return new Promise(async resolve => {

@@ -1,71 +1,71 @@
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { StationDetailsHeader } from '../cmps/StationDetails/StationDetailsHeader';
-import { SongList } from '../cmps/SongList';
-import { useDispatch, useSelector } from 'react-redux';
-import { Modal } from '../cmps/Modal/Modal';
+import { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
+import { StationDetailsHeader } from '../cmps/StationDetails/StationDetailsHeader'
+import { SongList } from '../cmps/SongList'
+import { useDispatch, useSelector } from 'react-redux'
+import { Modal } from '../cmps/Modal/Modal'
 import {
   SET_EDIT_MODAL,
   SET_STATION_DISPLAY,
   UPDATE_STATION,
-} from '../store/reducers/station.reducer';
-import { stationService } from '../services/station/station.service.local.js';
-import { SearchBar } from '../cmps/SearchBar';
-import { YouTubeAPIService } from '../services/youtubeAPI/fetchYoutubeApi';
-import { DetailsHeaderActions } from '../cmps/StationDetails/DetailsHeaderActions.jsx';
-import { getStationById } from '../store/actions/backend.station.js';
+} from '../store/reducers/station.reducer'
+import { stationService } from '../services/station/station.service.local.js'
+import { SearchBar } from '../cmps/SearchBar'
+import { YouTubeAPIService } from '../services/youtubeAPI/fetchYoutubeApi'
+import { DetailsHeaderActions } from '../cmps/StationDetails/DetailsHeaderActions.jsx'
+import { getStationById } from '../store/actions/backend.station.js'
 
 export function StationDetails() {
-  const dispatch = useDispatch();
-  const { stationId } = useParams();
-  const user = useSelector(state => state.userModule.user);
-  const station = useSelector(state => state.stationModule.stationDisplay);
-  console.log('station:', station)
-  const [searchResults, setSearchResults] = useState([]);
+  const dispatch = useDispatch()
+  const { stationId } = useParams()
+  const user = useSelector(state => state.userModule.user)
+  const station = useSelector(state => state.stationModule.stationDisplay)
+  // console.log('station:', station)
+  const [searchResults, setSearchResults] = useState([])
 
-  const editOpen = useSelector(state => state.stationModule.editStationModal);
+  const editOpen = useSelector(state => state.stationModule.editStationModal)
   const [isStationLiked, setIsStationLiked] = useState(false)
-  
-  const [gradient, setGradient] = useState(null);
-  
-  
+
+  const [gradient, setGradient] = useState(null)
 
   useEffect(() => {
-    fetchStationFromService();
-    console.log(user);
-    setIsStationLiked(user?.likedStations.some(likedStation => likedStation.id === stationId))
-  }, [stationId, user]);
+    fetchStationFromService()
+  }, [stationId])
 
+  useEffect(() => {
+    setIsStationLiked(
+      user?.likedStations.some(likedStation => likedStation.id === stationId)
+    )
+  }, [user])
 
   async function fetchStationFromService() {
     try {
       const fetchedStation = await getStationById(stationId)
-      console.log('fetchedStation:', fetchedStation)
+      // console.log('fetchedStation:', fetchedStation)
       if (fetchedStation) {
         dispatch({ type: SET_STATION_DISPLAY, station: fetchedStation })
       } else {
-        console.error('Station not found');
+        console.error('Station not found')
       }
     } catch (err) {
-      console.error('Failed to fetch station:', err);
+      console.error('Failed to fetch station:', err)
     }
   }
 
-
   async function handleSearch(query) {
     try {
-      const results = await YouTubeAPIService.searchVideos(query);
-      setSearchResults(results);
+      const results = await YouTubeAPIService.searchVideos(query)
+      setSearchResults(results)
     } catch (error) {
-      console.error('Error fetching YouTube API:', error);
+      console.error('Error fetching YouTube API:', error)
     }
   }
 
   function toggleEditStation() {
-    dispatch({ type: SET_EDIT_MODAL, isOpen: true });
+    dispatch({ type: SET_EDIT_MODAL, isOpen: true })
   }
 
-  if (!station) return <h1>Loading...</h1>;
+  if (!station) return <h1>Loading...</h1>
 
   return (
     <section className="station-details flex flex-column">
@@ -104,5 +104,5 @@ export function StationDetails() {
         {editOpen && <Modal modalType="editStation" />}
       </div>
     </section>
-  );
+  )
 }

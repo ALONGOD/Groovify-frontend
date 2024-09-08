@@ -2,6 +2,7 @@ import { useParams } from 'react-router'
 import { stationService } from '../../services/station/station.service.local'
 import { useEffect, useState } from 'react'
 import {
+  EDIT_STATION_DISPLAY,
   SET_EDIT_MODAL,
   UPDATE_STATION,
 } from '../../store/reducers/station.reducer'
@@ -35,7 +36,10 @@ export function EditStationModal() {
   function handleSave(ev) {
     ev.preventDefault()
     onUpdateStation(station)
-    dispatch({ type: UPDATE_STATION, updatedStation: station })
+    console.log('station:', station)
+    
+      dispatch({ type: EDIT_STATION_DISPLAY, station})
+    
     closeEditModal()
   }
 
