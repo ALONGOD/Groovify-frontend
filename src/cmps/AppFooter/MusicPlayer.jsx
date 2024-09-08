@@ -27,7 +27,6 @@ import { storageService } from '../../services/async-storage.service'
 
 export function MusicPlayer({ currSong }) {
   const dispatch = useDispatch()
-  // const songs = useSelector(storeState => storeState.stationModule.songs)
   const queue = useSelector(storeState => storeState.stationModule.queue)
   const player = useSelector(storeState => storeState.stationModule.player)
   const isPlaying = player.isPlaying

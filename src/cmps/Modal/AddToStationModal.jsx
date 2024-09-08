@@ -3,6 +3,7 @@ import { AiOutlinePlus } from 'react-icons/ai'
 import { FaMagnifyingGlass } from 'react-icons/fa6'
 import { useSelector } from 'react-redux'
 import { addToStation } from '../../store/actions/station.actions'
+import { addSongToStation } from '../../store/actions/backend.station'
 
 export function AddToStationModal({ stations }) {
   const songModal = useSelector(state => state.stationModule.modalSong)
@@ -14,8 +15,8 @@ export function AddToStationModal({ stations }) {
     setNewPlaylist({ ...newPlaylist, name: value })
   }
 
-  function onAddToStation(stationId) {
-    addToStation(stationId, songModal)
+  function onAddSongToStation(stationId) {
+    addSongToStation(stationId, songModal)
   }
 
   return (
@@ -37,7 +38,7 @@ export function AddToStationModal({ stations }) {
       </div>
       {stations.map(station => {
         return (
-          <h3 className="row" key={station._id} onClick={() => onAddToStation(station._id)}>
+          <h3 className="row" key={station._id} onClick={() => onAddSongToStation(station.id)}>
             {station.name}
           </h3>
         )

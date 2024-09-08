@@ -1309,7 +1309,87 @@
                 "addedAt": 162521795384,
                 "duration": "3:45"
             }
-        ]}
-    ]
-
-  
+        ]
+    },
+    {
+        "_id": "66d8642c8b6ad01bfb80023f",
+        "name": "Underrated Rap Gems",
+        "description": "A collection of lesser-known but powerful tracks by Drake, Kendrick Lamar, and J. Cole. Discover some hidden gems.",
+        "imgUrl": "https://res.cloudinary.com/dh73ujhyv/image/upload/v1724082806/underrated_rap_playlist.webp",
+        "tags": [
+            "Rap",
+            "Hip-hop",
+            "Underrated"
+        ],
+        "createdBy": {
+            "id": "u102",
+            "fullname": "Sam Smith",
+            "imgUrl": "https://i.imgur.com/6OLS5bF.jpeg"
+        },
+        "likedByUsers": [
+            "u102"
+        ],
+        "songs": [
+            {
+                "id": "ZPCAvzIFY-s",
+                "title": "Love Yourz",
+                "artist": "J. Cole",
+                "album": "2014 Forest Hills Drive",
+                "url": "https://youtu.be/7rtukK7Sydg",
+                "imgUrl": "https://i.ytimg.com/vi/7rtukK7Sydg/mqdefault.jpg",
+                "addedAt": "162521795281",
+                "duration": "4:35"
+            },
+            {
+                "id": "TQ5SU0xtHZk",
+                "title": "Euphoria",
+                "artist": "Kendrick Lamar",
+                "album": "Overly Dedicated",
+                "url": "https://youtu.be/c6aVzk2WgTM",
+                "imgUrl": "https://i.ytimg.com/vi/c6aVzk2WgTM/mqdefault.jpg",
+                "addedAt": "162521795282",
+                "duration": "3:48"
+            },
+            {
+                "id": "KnLhGXPcWoA",
+                "title": "Fair Trade",
+                "artist": "Drake feat. Travis Scott",
+                "album": "Certified Lover Boy",
+                "url": "https://youtu.be/kVMvWitA0CQ",
+                "imgUrl": "https://i.ytimg.com/vi/kVMvWitA0CQ/mqdefault.jpg",
+                "addedAt": "162521795283",
+                "duration": "4:51"
+            },
+            {
+                "id": "V2rJbgRwhkE",
+                "title": "Window Pain (Outro)",
+                "artist": "J. Cole",
+                "album": "KOD",
+                "url": "https://youtu.be/oJZfEh3E9aY",
+                "imgUrl": "https://i.ytimg.com/vi/oJZfEh3E9aY/mqdefault.jpg",
+                "addedAt": "162521795284",
+                "duration": "4:49"
+            },
+            {
+                "id": "Jc5uGL32b38",
+                "title": "Poe Mans Dreams (His Vice)",
+                "artist": "Kendrick Lamar feat. GLC",
+                "album": "Section.80",
+                "url": "https://youtu.be/F91Ib8BqLq8",
+                "imgUrl": "https://i.ytimg.com/vi/F91Ib8BqLq8/mqdefault.jpg",
+                "addedAt": "162521795285",
+                "duration": "4:17"
+            },
+            {
+                "id": "5L_UrVtS4lY",
+                "title": "The Ride",
+                "artist": "Drake feat. The Weeknd",
+                "album": "Take Care",
+                "url": "https://youtu.be/t0Xeq2-N1Yw",
+                "imgUrl": "https://i.ytimg.com/vi/t0Xeq2-N1Yw/mqdefault.jpg",
+                "addedAt": "162521795286",
+                "duration": "5:51"
+            }
+        ]
+    }
+]

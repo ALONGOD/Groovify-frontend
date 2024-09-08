@@ -58,3 +58,7 @@ export async function updateStation(station) {
         throw err
     }
 }
+
+export async function addSongToLikedStation(song, stationId) {
+    
+}

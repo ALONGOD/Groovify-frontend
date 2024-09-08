@@ -7,7 +7,6 @@ import {
   addSongToQueue,
   addToLikedSongs,
   removeFromLikedSongs,
-  removeSongFromStation,
 } from '../../store/actions/station.actions'
 import { useParams } from 'react-router'
 import { LikeSongBtn } from '../LikeSongBtn'
@@ -15,6 +14,7 @@ import { useSelector } from 'react-redux'
 import { IoIosCheckmarkCircle } from 'react-icons/io'
 import { CiCirclePlus } from 'react-icons/ci'
 import { HiOutlineQueueList } from 'react-icons/hi2'
+import { removeSongFromStation } from '../../store/actions/backend.station'
 
 export function ModalSongOptions({}) {
   const params = useParams()

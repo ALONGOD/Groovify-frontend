@@ -43,37 +43,6 @@ export function StationList({ isCollapsed, user, stations }) {
     };
   }, [modalRef]);
 
-  // async function fetchStations() {
-  //   try {
-  //     let stationsToLoad = stations;
-
-  //     if (!stations || stations.length === 0) {
-  //       stationsToLoad = await stationService.query();
-  //       dispatch({ type: SET_STATIONS, stations: stationsToLoad });
-  //     }
-
-  //     const filterBy = {
-  //       searchTerm: searchTerm || '',
-  //       sortBy: sortBy || 'recents',
-  //     };
-
-  //     let filteredStations = await stationService.query(filterBy);
-  //     const likedSongsStation = await stationService.fetchLikedSongs();
-
-  //     if (user) {
-  //       filteredStations = filteredStations.filter(station =>
-  //         user.likedStations.some(likedStation => likedStation.id === station._id)
-  //       );
-  //     }
-
-  //     dispatch({ type: SET_STATIONS, stations: [likedSongsStation, ...filteredStations] });
-  //     setStationOrder([likedSongsStation, ...filteredStations]);
-  //   } catch (err) {
-  //     console.log('Cannot load stations', err);
-  //     throw err;
-  //   }
-  // }
-
   const moveStation = (dragIndex, hoverIndex) => {
     const draggedStation = stationOrder[dragIndex];
     const updatedOrder = update(stationOrder, {

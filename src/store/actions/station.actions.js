@@ -116,25 +116,7 @@ export async function loadStations(filterBy) {
 //   return stations[idx]
 // }
 
-export async function removeSongFromStation(stationId) {
-  try {
 
-    const songId = store.getState().stationModule.modalSong?.id
-    // const stations = await storageService.query('stationDB')
-    const station = await getStationById(stationId)
-    const songIdx = station.songs.findIndex(song => song.id === songId)
-    if (songIdx < 0) throw 'Song not found in station'
-    station.songs.splice(songIdx, 1)
-    await saveStation(station)
-    console.log(station)
-    store.dispatch({ type: UPDATE_STATION, updatedStation: station })
-    return station
-  } catch (err) {
-    console.error('Cannot remove song from station', err)
-    throw err
-  }
-
-}
 
 export async function addToStation(stationId, songToAdd) {
   const stations = await storageService.query('stationDB')
