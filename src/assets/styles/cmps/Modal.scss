@@ -9,6 +9,22 @@
   width: 18em;
   color: hsla(0, 0%, 100%, 0.9);
   z-index: 1000;
+  
+  &.profileMenu {
+    z-index: 100;
+    top: em(60px);
+    right: 0;
+    min-width: em(196px);
+    max-width: 13em;
+    .settings {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    svg {
+      fill: hsla(0, 0%, 100%, 0.9);
+      height: 1rem;
+      width: 1rem;
+    }
+  }
 
   &.editStation {
     position: fixed;

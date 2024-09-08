@@ -31,7 +31,6 @@ export function MenuSidebar() {
 
       useEffect(() => {
         if (user?.likedStations) setLikedStations([user?.likedSongsStation, ...user?.likedStations])
-
       }, [user])
       
 

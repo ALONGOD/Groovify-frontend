@@ -7,9 +7,11 @@ import { EditStationModal } from './EditStationModal'
 import { ThreeDotsModal } from './ThreeDotsModal.jsx'
 import { query } from '../../store/actions/backend.station.js'
 import { useEffect, useState } from 'react'
+import { ProfileMenu } from './ProfileMenu.jsx'
 
-export function Modal({ modalType }) {
+export function Modal({ modalType, }) {
   const likedStations = useSelector((state) => state.userModule.user)?.likedStations
+  
   
   return (
     <>
@@ -37,5 +39,7 @@ function DynamicModal({ modalType, stations, toggleEditStation }) {
       return <EditStationModal />
     case 'threeDots':
       return <ThreeDotsModal />
+    case 'profileMenu':
+      return <ProfileMenu />
   }
 }
