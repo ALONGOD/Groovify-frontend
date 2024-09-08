@@ -272,3 +272,10 @@ async function unitTestActions() {
   await removeStation('m1oC7')
   // TODO unit test addStationMsg
 }
+
+export function addToHistory(song) {
+  return {
+      type: 'ADD_TO_HISTORY',
+      song,
+  };
+}

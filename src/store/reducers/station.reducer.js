@@ -23,6 +23,8 @@ export const SET_PLAYER_IS_PLAYING = 'SET_PLAYER_IS_PLAYING'
 export const SET_PLAYER_CURRENT_STATION = 'SET_PLAYER_CURRENT_STATION'
 export const SET_SONGS = 'SET_SONGS'
 
+export const ADD_TO_HISTORY = 'ADD_TO_HISTORY';
+
 const initialState = {
   stations: [],
   songs: [],
@@ -32,6 +34,7 @@ const initialState = {
   editStationModal: false,
   sortBy: 'recents',
   queue: { isShuffled: false, songsQueue: [], shuffledQueue: [] },
+  history: []
 }
 
 export function stationReducer(state = initialState, action) {
@@ -144,6 +147,22 @@ export function stationReducer(state = initialState, action) {
     case SET_SONGS:
       console.log(action.songs);
       newState = { ...state, songs: action.songs }
+      break
+
+      case ADD_TO_HISTORY: 
+    const updatedHistory = state.history.filter(
+      historySong => historySong.id !== action.song.id
+    );
+
+    newState = {
+      ...state,
+      history: [action.song, ...updatedHistory], 
+    };
+    
+    console.log('Updated History:', newState.history);
+    break;
+
+
     default:
       return newState
   }
