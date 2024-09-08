@@ -2,10 +2,6 @@ import { stationService } from '../../services/station/station.service.local.js'
 // import { stationService } from '../../services/station/station.service.remote.js'
 import { store } from '../store'
 import {
-  ADD_STATION,
-  REMOVE_STATION,
-  SET_STATIONS,
-  UPDATE_STATION,
   SET_MODAL,
   SET_SEARCH_TERM,
   SET_SORT_BY,
@@ -182,31 +178,31 @@ export async function addStationMsg(stationId, txt) {
   }
 }
 
-function getCmdSetStations(stations) {
-  return {
-    type: SET_STATIONS,
-    stations,
-  }
-}
+// function getCmdSetStations(stations) {
+//   return {
+//     type: SET_STATIONS,
+//     stations,
+//   }
+// }
 
-function getCmdRemoveStation(stationId) {
-  return {
-    type: REMOVE_STATION,
-    stationId,
-  }
-}
-function getCmdAddStation(station) {
-  return {
-    type: ADD_STATION,
-    station,
-  }
-}
-function getCmdUpdateStation(station) {
-  return {
-    type: UPDATE_STATION,
-    station,
-  }
-}
+// function getCmdRemoveStation(stationId) {
+//   return {
+//     type: REMOVE_STATION,
+//     stationId,
+//   }
+// }
+// function getCmdAddStation(station) {
+//   return {
+//     type: ADD_STATION,
+//     station,
+//   }
+// }
+// function getCmdUpdateStation(station) {
+//   return {
+//     type: UPDATE_STATION,
+//     station,
+//   }
+// }
 // function getCmdAddStationMsg(msg) {
 //   return {
 //     type: ADD_STATION_MSG,

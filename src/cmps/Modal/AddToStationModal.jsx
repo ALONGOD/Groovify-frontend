@@ -8,7 +8,6 @@ import { addSongToStation } from '../../store/actions/backend.station'
 export function AddToStationModal({ stations }) {
   const songModal = useSelector(state => state.stationModule.modalSong)
   const [newPlaylist, setNewPlaylist] = useState({ name: '' })
-  console.log(stations)
 
   function handleChange({ target }) {
     const { value } = target

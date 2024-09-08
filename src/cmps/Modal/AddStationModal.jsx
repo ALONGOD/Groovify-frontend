@@ -1,7 +1,6 @@
 import { AiOutlinePlus } from 'react-icons/ai';
 import { stationService } from '../../services/station/station.service.local.js';
 import { useDispatch } from 'react-redux';
-import { ADD_STATION } from '../../store/reducers/station.reducer.js';
 import { useNavigate } from 'react-router-dom';
 import { addNewStation } from '../../store/actions/backend.station.js';
 
@@ -18,11 +17,6 @@ export function AddStationModal() {
             console.error('Failed to add new playlist:', err);
         }
     }
-
-    // function onAddPlaylistFolder() {
-    //     // Handle the logic for adding a new playlist folder
-    //     console.log('Adding playlist folder...');
-    // }
 
     return (
         <div className="add-station-modal">

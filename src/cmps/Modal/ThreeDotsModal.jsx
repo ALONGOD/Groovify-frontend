@@ -20,7 +20,6 @@ export function ThreeDotsModal({ closeModal, toggleEditStation }) {
     async function handleDelete() {
         try {
             await removeStation(stationId);
-            // dispatch({ type: 'REMOVE_STATION', stationId });
             navigate('/');
         } catch (err) {
             console.error('Failed to delete station:', err);

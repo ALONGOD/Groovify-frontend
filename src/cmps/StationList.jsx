@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from 'react';
 import { StationPreview } from './StationPreview';
 import { stationService } from '../services/station/station.service.local';
 import { useDispatch, useSelector } from 'react-redux';
-import { SET_STATIONS } from '../store/reducers/station.reducer';
 import { SearchBar } from './SearchBar.jsx';
 import { Modal } from './Modal/Modal.jsx';
 import { FaBars } from 'react-icons/fa6';

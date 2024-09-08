@@ -1,10 +1,7 @@
 import { stationService } from '../../services/station/station.service.remote'
 import { userService } from '../../services/user/user.service.remote'
 import {
-  ADD_STATION,
   EDIT_STATION_DISPLAY,
-  REMOVE_STATION,
-  UPDATE_STATION,
 } from '../reducers/station.reducer'
 import {
   ADD_STATION_TO_LIKED,
@@ -13,7 +10,6 @@ import {
 } from '../reducers/user.reducer'
 import { store } from '../store'
 import {
-  addSongToLikedStation,
   removeStationFromLiked,
   saveStationToLiked,
   updateStation,

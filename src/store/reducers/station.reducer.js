@@ -1,10 +1,3 @@
-// STATION
-export const SET_STATIONS = 'SET_STATIONS'
-export const ADD_STATION = 'ADD_STATION'
-export const UPDATE_STATION = 'UPDATE_STATION'
-export const REMOVE_STATION = 'REMOVE_STATION'
-export const ADD_SONG_TO_STATION = 'ADD_SONG_TO_STATION'
-
 // MODAL
 export const SET_MODAL = 'SET_MODAL'
 export const SET_EDIT_MODAL = 'SET_EDIT_MODAL'
@@ -31,7 +24,6 @@ export const SET_STATION_DISPLAY = 'SET_STATION_DISPLAY';
 
 
 const initialState = {
-  // stations: [],
   songs: [],
   searchTerm: '',
   stationDisplay: {},
@@ -50,26 +42,6 @@ export function stationReducer(state = initialState, action) {
   switch (action.type) {
     // STATIONS
 
-    case SET_STATIONS:
-      newState = { ...state, stations: action.stations }
-      break
-    case ADD_STATION:
-      newState = { ...state, stations: [...state.stations, action.station] }
-      break
-    case UPDATE_STATION:
-      stations = state.stations.map(station => {
-        return station._id === action.updatedStation._id
-          ? action.updatedStation
-          : station
-      })
-      newState = { ...state, stations }
-      break
-    case REMOVE_STATION:
-      stations = state.stations.filter(
-        station => station._id !== action.stationId
-      )
-      newState = { ...state, stations }
-      break
     case SET_STATION_DISPLAY:
       newState = { ...state, stationDisplay: action.station }
       break

@@ -5,7 +5,7 @@ import { GoPlusCircle } from 'react-icons/go'
 import { Modal } from './Modal'
 import {
   addSongToQueue,
-  addToLikedSongs,
+  // addToLikedSongs,
   removeFromLikedSongs,
 } from '../../store/actions/station.actions'
 import { useParams } from 'react-router'
@@ -15,17 +15,16 @@ import { IoIosCheckmarkCircle } from 'react-icons/io'
 import { CiCirclePlus } from 'react-icons/ci'
 import { HiOutlineQueueList } from 'react-icons/hi2'
 import { removeSongFromStation } from '../../store/actions/backend.station'
+import { addToLikedSongs } from '../../store/actions/backend.user'
 
 export function ModalSongOptions({}) {
   const params = useParams()
   const stationId = params.stationId
   const [isPlaylistModalOpen, setIsPlaylistModalOpen] = useState(false)
-  const stations = useSelector(state => state.stationModule.stations)
   const modalSong = useSelector(state => state.stationModule.modalSong)
+  
+  const likedSongsStation = useSelector(state => state.userModule.user).likedSongsStation
 
-  const likedSongsStation = stations.find(
-    station => station._id === 'liked-songs'
-  )
   const likedSongs = likedSongsStation ? likedSongsStation.songs : []
 
   const isSongLiked = likedSongs?.some(

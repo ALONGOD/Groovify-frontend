@@ -17,7 +17,6 @@ export function SongPreview({
   idx,
   station,
   songModal,
-  
   type,
   likedSongs,
   onSetSongsInQueue,
@@ -33,6 +32,7 @@ export function SongPreview({
   const isListTable = type === 'list-table'
   const isSongLiked = likedSongs?.some(likedSong => likedSong.id === song.id)
   const displayLikeBtn = onSongHover || isSongLiked
+  
   const isCurrSong = currSong?.id === song?.id
 
   async function playSong(song) {
@@ -112,9 +112,10 @@ export function SongPreview({
             onClick={ev => onLocalToggleModal(ev, song)} // Use local state toggle
           />
         )}
-        {isModalOpen && songModal?.id === song?.id && ( // Check both local and global state
-          <Modal modalType={'songOptions'} />
-        )}
+        {isModalOpen &&
+          songModal?.id === song?.id && ( // Check both local and global state
+            <Modal modalType={'songOptions'} />
+          )}
       </div>
     </li>
   )
