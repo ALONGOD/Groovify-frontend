@@ -1,9 +1,16 @@
 import { useRef, useState } from 'react'
 import { LuPen } from 'react-icons/lu'
+import { useDispatch } from 'react-redux'
+import { EDIT_STATION_DISPLAY } from '../store/reducers/station.reducer'
 
-export function ImagePick({ setStation, pickedImg }) {
+export function ImagePick({ station, pickedImg }) {
+  const dispatch = useDispatch()
   const [onHoverImage, setOnHoverImage] = useState(false)
   const imageInput = useRef()
+
+  function setStationImg(img) {
+    dispatch({ type: EDIT_STATION_DISPLAY, station: { ...station, imgUrl: img } })
+  }
 
   function handlePickClick() {
     imageInput.current.click()
@@ -12,14 +19,14 @@ export function ImagePick({ setStation, pickedImg }) {
   function handleImageChange({ target }) {
     const file = target.files[0]
     if (!file) {
-      setStation(prev => ({ ...prev, imgUrl: null }))
+      setStationImg(null)
       return
     }
 
     const fileReader = new FileReader()
 
     fileReader.onload = () => {
-      setStation(prev => ({ ...prev, imgUrl: fileReader.result }))
+      setStationImg(fileReader.result)
     }
 
     fileReader.readAsDataURL(file)

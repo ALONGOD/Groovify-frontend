@@ -3,7 +3,8 @@ import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
 import { MdQueueMusic } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
-import { removeStation } from '../../store/actions/station.actions';
+import { removeStation } from '../../store/actions/backend.station';
+// import { removeStation } from '../../store/actions/station.actions';
 
 export function ThreeDotsModal({ closeModal, toggleEditStation }) {
     const dispatch = useDispatch();
@@ -16,13 +17,10 @@ export function ThreeDotsModal({ closeModal, toggleEditStation }) {
         console.log("Edit details option selected");
     };
 
-    const handleDelete = async () => {
+    async function handleDelete() {
         try {
-            // Perform the async delete operation
             await removeStation(stationId);
-            // Dispatch an action to update the Redux state
-            dispatch({ type: 'REMOVE_STATION', stationId });
-            // Navigate back to the home page
+            // dispatch({ type: 'REMOVE_STATION', stationId });
             navigate('/');
         } catch (err) {
             console.error('Failed to delete station:', err);

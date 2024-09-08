@@ -6,7 +6,7 @@ import { YouTubeAPIService } from '../services/youtubeAPI/fetchYoutubeApi.js';
 import { TopResult } from '../cmps/SearchPage/TopResult.jsx';
 import { stationService } from '../services/station/station.service.local.js';
 import { PlayPauseBtn } from '../cmps/PlayPauseBtn.jsx';
-import { query } from '../store/actions/backend.test.js';
+import { query } from '../store/actions/backend.station.js';
 
 export function SearchPage() {
   const { searchTerm } = useParams();

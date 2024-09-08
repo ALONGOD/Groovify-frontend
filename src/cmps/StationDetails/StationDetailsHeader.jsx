@@ -5,7 +5,7 @@ import { DetailsHeaderActions } from './DetailsHeaderActions'
 import { useEffect, useState } from 'react';
 import { adjustBrightnessAndSaturation } from '../../services/util.service';
 
-export function StationDetailsHeader({ station, setStation, toggleEditStation, setGradient }) {
+export function StationDetailsHeader({ station, toggleEditStation, setGradient }) {
   const fac = new FastAverageColor();
   const { name, createdBy, songs, imgUrl, description } = station
   
@@ -25,7 +25,7 @@ export function StationDetailsHeader({ station, setStation, toggleEditStation, s
     <>
     {/* // <div className="station-details-container flex flex-column"> */}
       <div className="station-details-header flex flex-row align-end">
-        <ImagePick setStation={setStation} pickedImg={imgUrl} />
+        <ImagePick pickedImg={imgUrl} station={station}/>
         <div className="flex flex-column">
           <h4>Playlist</h4>
           <h1 onClick={toggleEditStation}>{name}</h1>

@@ -1,3 +1,4 @@
+import { store } from '../../store/store'
 import { httpService } from '../http.service'
 
 export const stationService = {
@@ -5,7 +6,6 @@ export const stationService = {
     getById,
     save,
     remove,
-    getEmptyStation,
     addStationMsg
 }
 
@@ -17,9 +17,10 @@ function getById(stationId) {
     return httpService.get(`station/${stationId}`)
 }
 
-async function remove(stationId) {
+async function remove(stationId ) {
     return httpService.delete(`station/${stationId}`)
 }
+
 async function save(station) {
     var savedStation
     if (station._id) {
@@ -35,18 +36,3 @@ async function addStationMsg(stationId, txt) {
     return savedMsg
 }
 
-function getEmptyStation() {
-    return {
-        name: 'New playlist',
-        description: '',
-        imgUrl: '',
-        tags: [],
-        createdBy: {
-            id: 'guest',
-            name: 'Guest',
-            imgUrl: 'https://res.https://res.cloudinary.com/dpoa9lual/image/upload/v1725429828/Guest-user_gmlmfj.png.com/dqcsk8rsc/image/upload/v1631896824'
-        },
-        likedByUsers: [],
-        songs: []
-    }
-}

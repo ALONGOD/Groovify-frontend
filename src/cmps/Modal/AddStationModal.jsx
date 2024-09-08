@@ -3,7 +3,7 @@ import { stationService } from '../../services/station/station.service.local.js'
 import { useDispatch } from 'react-redux';
 import { ADD_STATION } from '../../store/reducers/station.reducer.js';
 import { useNavigate } from 'react-router-dom';
-import { addNewStation } from '../../store/actions/backend.test.js';
+import { addNewStation } from '../../store/actions/backend.station.js';
 
 
 export function AddStationModal() {

@@ -6,44 +6,43 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Modal } from '../cmps/Modal/Modal';
 import {
   SET_EDIT_MODAL,
+  SET_STATION_DISPLAY,
   UPDATE_STATION,
 } from '../store/reducers/station.reducer';
 import { stationService } from '../services/station/station.service.local.js';
 import { SearchBar } from '../cmps/SearchBar';
 import { YouTubeAPIService } from '../services/youtubeAPI/fetchYoutubeApi';
 import { DetailsHeaderActions } from '../cmps/StationDetails/DetailsHeaderActions.jsx';
-import { getStationById } from '../store/actions/backend.test.js';
+import { getStationById } from '../store/actions/backend.station.js';
 
 export function StationDetails() {
   const dispatch = useDispatch();
   const { stationId } = useParams();
-  const stations = useSelector(state => state.stationModule.stations);
-  const [station, setStation] = useState(null);
-  const [isNewStation, setIsNewStation] = useState(false);
+  const user = useSelector(state => state.userModule.user);
+  const station = useSelector(state => state.stationModule.stationDisplay);
+  console.log('station:', station)
   const [searchResults, setSearchResults] = useState([]);
 
   const editOpen = useSelector(state => state.stationModule.editStationModal);
-
+  const [isStationLiked, setIsStationLiked] = useState(false)
+  
   const [gradient, setGradient] = useState(null);
+  
+  
 
   useEffect(() => {
-    const foundStation = stations.find(station => station._id === stationId);
-    if (foundStation) {
-      setStation(foundStation);
-      setIsNewStation(false);
-    } else {
-      fetchStationFromService();
-    }
-  }, [stationId, stations]);
+    fetchStationFromService();
+    console.log(user);
+    setIsStationLiked(user?.likedStations.some(likedStation => likedStation.id === stationId))
+  }, [stationId, user]);
 
 
   async function fetchStationFromService() {
     try {
-      const fetchedStation = await getStationById(stationId);
+      const fetchedStation = await getStationById(stationId)
       console.log('fetchedStation:', fetchedStation)
       if (fetchedStation) {
-        setStation(fetchedStation);
-        setIsNewStation(true);
+        dispatch({ type: SET_STATION_DISPLAY, station: fetchedStation })
       } else {
         console.error('Station not found');
       }
@@ -71,21 +70,19 @@ export function StationDetails() {
   return (
     <section className="station-details flex flex-column">
       <div className="gradient" style={gradient}></div>
-
       <StationDetailsHeader
         station={station}
-        setStation={setStation}
         toggleEditStation={toggleEditStation}
         setGradient={setGradient}
       />
       <div className="station-details-main">
         <DetailsHeaderActions
           toggleEditStation={toggleEditStation}
-          isNewStation={isNewStation}
+          isStationLiked={isStationLiked}
           station={station}
         />
 
-        {station.songs.length === 0 && (
+        {station?.songs?.length === 0 && (
           <div className="no-songs">
             <h2>Let's find something for your playlist</h2>
             <SearchBar
@@ -96,11 +93,11 @@ export function StationDetails() {
           </div>
         )}
 
-        {searchResults.length > 0 && (
+        {searchResults?.length > 0 && (
           <SongList songs={searchResults} type="search-results" />
         )}
 
-        {station.songs.length > 0 && (
+        {station?.songs?.length > 0 && (
           <SongList songs={station.songs} type="list-table" station={station} />
         )}
 

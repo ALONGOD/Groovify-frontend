@@ -23,12 +23,11 @@ export const SET_PLAYER_IS_PLAYING = 'SET_PLAYER_IS_PLAYING'
 export const SET_PLAYER_CURRENT_STATION = 'SET_PLAYER_CURRENT_STATION'
 export const SET_SONGS = 'SET_SONGS'
 
-export const ADD_TO_HISTORY = 'ADD_TO_HISTORY';
-
 const initialState = {
-  stations: [],
+  // stations: [],
   songs: [],
   searchTerm: '',
+  stationDisplay: {},
   player: { currSong: null, isPlaying: false, currStation: null },
   modalSong: {},
   editStationModal: false,
@@ -43,6 +42,7 @@ export function stationReducer(state = initialState, action) {
 
   switch (action.type) {
     // STATIONS
+
     case SET_STATIONS:
       newState = { ...state, stations: action.stations }
       break
@@ -63,7 +63,12 @@ export function stationReducer(state = initialState, action) {
       )
       newState = { ...state, stations }
       break
-
+    case SET_STATION_DISPLAY:
+      newState = { ...state, stationDisplay: action.station }
+      break
+    case EDIT_STATION_DISPLAY:
+      newState = { ...state, stationDisplay: action.station }
+      break
     case SET_SEARCH_TERM: // Add this case
       newState = { ...state, searchTerm: action.searchTerm }
       break
@@ -123,7 +128,7 @@ export function stationReducer(state = initialState, action) {
         },
       }
       break
-    
+
 
     // PLAYER
     case SET_PLAYER_CURRENT_SONG:
