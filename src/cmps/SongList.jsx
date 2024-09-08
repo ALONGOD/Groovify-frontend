@@ -9,21 +9,14 @@ import { useEffect } from 'react'
 export function SongList({ songs, type, station }) {
   const dispatch = useDispatch()
   const songModal = useSelector(state => state.stationModule.modalSong)
-  const stations = useSelector(state => state.stationModule.stations)
+  const user = useSelector(state => state.userModule.user)
+  const likedSongs = user?.likedSongsStation?.songs
 
   useEffect(() => {
     dispatch({ type: SET_SONGS, songs })
   }, [])
 
-
-  const likedSongsStation = stations?.find(
-    station => station._id === 'liked-songs'
-  )
-  const likedSongs = likedSongsStation ? likedSongsStation.songs : []
-
-
   async function onSetSongsInQueue() {
-    // if ()
     await setSongsInQueue(songs)
   }
 

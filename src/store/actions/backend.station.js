@@ -92,12 +92,16 @@ export async function addSongToStation(stationId, song) {
 export async function removeSongFromStation(stationId) {
   try {
     const songId = store.getState().stationModule.modalSong?.id
+    const stationDisplay = store.getState().stationModule.stationDisplay
+
     const station = await getStationById(stationId)
     const songIdx = station.songs.findIndex(song => song.id === songId)
+
     if (songIdx < 0) throw 'Song not found in station'
+
     station.songs.splice(songIdx, 1)
     await saveStation(station)
-    store.dispatch({ type: UPDATE_STATION, updatedStation: station })
+    if (stationId === stationDisplay._id) store.dispatch({ type: EDIT_STATION_DISPLAY, station })
     return station
   } catch (err) {
     console.error('Cannot remove song from station', err)
@@ -112,7 +116,7 @@ function getEmptyStation() {
   return {
     name: 'New playlist',
     description: '',
-    imgUrl: 'https://via.placeholder.com/150',
+    imgUrl: 'https://res.cloudinary.com/dpoa9lual/image/upload/v1724570942/Spotify_playlist_photo_yjeurq.png',
     tags: [],
     createdBy: {
       id: user?._id,

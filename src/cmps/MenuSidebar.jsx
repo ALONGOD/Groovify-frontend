@@ -5,15 +5,15 @@ import { StationList } from './StationList'
 import { userService } from '../services/user/user.service.remote'
 import { useDispatch, useSelector } from 'react-redux'
 import { SET_USER } from '../store/reducers/user.reducer'
-import { SET_STATIONS } from '../store/reducers/station.reducer'
 
 export function MenuSidebar() {
     const dispatch = useDispatch()
     const user = useSelector(state => state.userModule.user)
-    console.log('user:', user)
     const [isCollapsed, setIsCollapsed] = useState(false)
     const [isBelowThreshold, setIsBelowThreshold] = useState(false)
     const [selected, setSelected] = useState(null)
+    const [likedStations, setLikedStations] = useState([]);
+    
 
     useEffect(() => {
         getUser()
@@ -29,11 +29,16 @@ export function MenuSidebar() {
         getUser()
       }, [])
 
+      useEffect(() => {
+        if (user?.likedStations) setLikedStations([user?.likedSongsStation, ...user?.likedStations])
+
+      }, [user])
+      
+
     async function getUser() {
         try {
-            const user = await userService.getById('66dc87a4bcda36a278e45615')
-            dispatch({ type: SET_USER, user })
-            dispatch({ type: SET_STATIONS, stations: user.likedStations })
+            const userToSave = await userService.getById('66dc87a4bcda36a278e45615')
+            dispatch({ type: SET_USER, user: userToSave })
         } catch (err) {
             console.log('Cannot set logged in user', err)
             throw err
@@ -61,7 +66,7 @@ export function MenuSidebar() {
                         isBelowThreshold={isBelowThreshold}
                     />
                 </div>
-                <StationList isCollapsed={isCollapsed} user={user} stations={user?.likedStations}/>
+                <StationList isCollapsed={isCollapsed} user={user} stations={likedStations}/>
             </div>
         </aside>
     )

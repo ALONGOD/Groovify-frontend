@@ -16,7 +16,7 @@ export function PlayPauseBtn({ song, station, type, onTogglePlay, onSetSongsInQu
   const isSongPlaying = setIsPlaying()
 
   function setIsPlaying() {
-    if (type === 'station-preview') return (currStation?.id === station?._id) && isPlaying
+    if (type === 'station-preview') return (currStation?.id === station?.id) && isPlaying
     else return currSong?.id === song?.id && isPlaying
   }
 
