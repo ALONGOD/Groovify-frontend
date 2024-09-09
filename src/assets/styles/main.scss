@@ -21,6 +21,7 @@
 @import 'pages/LoginSignup';
 @import 'pages/AppIndex';
 @import 'pages/SearchPage';
+@import 'pages/AuthPage';
 
 @import 'pages/StationDetails';
 
@@ -35,10 +36,10 @@
 @import 'cmps/SongList.scss';
 @import 'cmps/Modal';
 @import 'cmps/MusicPlayer';
-@import 'cmps/ThreeDotsModal.scss';
-@import 'cmps/EqualizerBar.scss';
-@import 'cmps/PlayPauseBtn.scss';
-@import 'cmps/ArtistList.scss';
+@import 'cmps/ThreeDotsModal';
+@import 'cmps/EqualizerBar';
+@import 'cmps/PlayPauseBtn';
+@import 'cmps/ArtistList';
 
 
 @import 'cmps/AppHeader';
