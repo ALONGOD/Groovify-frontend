@@ -74,10 +74,11 @@ export async function onUpdateStation(station) {
 }
 
 export async function addSongToStation(stationId, song) {
-  console.log('stationId:', stationId)
   try {
     const stationDisplay = store.getState().stationModule.stationDisplay
     const station = await stationService.getById(stationId)
+
+    song.addedAt = Date.now()
     station.songs.push(song)
     const updatedStation = await stationService.save(station)
     if (station._id === stationDisplay._id) {

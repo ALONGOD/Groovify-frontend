@@ -61,6 +61,7 @@ export async function updateStation(station) {
 
 export async function addToLikedSongs(song) {
     const user = store.getState().userModule.user
+    song.addedAt = Date.now()
     user.likedSongsStation.songs.push(song)
     const userToSave = await userService.update(user)
     store.dispatch({ type: SET_USER, user: userToSave })
