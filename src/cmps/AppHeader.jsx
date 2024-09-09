@@ -69,7 +69,7 @@ console.log('modalOpen:', modalOpen)
         <div>
           <button className="relative" onClick={onToggleModal}>
             <img
-              src="https://i.scdn.co/image/ab67757000003b8212291183e9c0be882978f504"
+              src={user?.imgUrl}
               className="rounded-full"
               alt="profile picture"
             />

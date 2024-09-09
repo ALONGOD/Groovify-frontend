@@ -5,10 +5,13 @@ import { StationList } from './StationList'
 import { userService } from '../services/user/user.service.remote'
 import { useDispatch, useSelector } from 'react-redux'
 import { SET_USER } from '../store/reducers/user.reducer'
+import { useNavigate } from 'react-router'
 
 export function MenuSidebar() {
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const user = useSelector(state => state.userModule.user)
+    console.log('user:', user)
     const [isCollapsed, setIsCollapsed] = useState(false)
     const [isBelowThreshold, setIsBelowThreshold] = useState(false)
     const [selected, setSelected] = useState(null)
@@ -36,9 +39,13 @@ export function MenuSidebar() {
 
     async function getUser() {
         try {
-            const userToSave = await userService.getById('66dc87a4bcda36a278e45615')
+            const userToSave = userService.getLoggedinUser()
+            if (!userToSave) navigate('/auth/login')
+            // const userToSave = await userService.getById(user._id)
+            console.log('userToSave:', userToSave)
             dispatch({ type: SET_USER, user: userToSave })
         } catch (err) {
+            navigate('/auth/login')
             console.log('Cannot set logged in user', err)
             throw err
         }

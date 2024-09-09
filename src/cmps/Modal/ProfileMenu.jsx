@@ -1,7 +1,15 @@
+import { useNavigate } from "react-router";
+import { userService } from "../../services/user/user.service.remote";
 import { ExitSvg } from "../svgs/ExitSvg";
 
 export function ProfileMenu() {
-     
+    const navigate = useNavigate()
+    
+    async function onLogout() {
+        navigate('/auth/login')
+        await userService.logout()
+    }
+
     return (
         <>
             <div className="row flex flex-row justify-between disabled">
@@ -14,7 +22,7 @@ export function ProfileMenu() {
             <div className="row flex flex-row settings">
                 <h3>Settings</h3>
             </div>
-            <div className="row flex flex-row">
+            <div onClick={onLogout} className="row flex flex-row">
                 <h3>Log out</h3>
             </div>
         </>

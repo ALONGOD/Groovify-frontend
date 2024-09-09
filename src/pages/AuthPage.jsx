@@ -1,26 +1,51 @@
 import { useEffect, useState } from 'react'
 import { FaSpotify } from 'react-icons/fa'
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
+import { userService } from '../services/user/user.service.remote'
+import { SET_USER } from '../store/reducers/user.reducer'
+import { useDispatch } from 'react-redux'
 
 export function AuthPage() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const { authType } = useParams()
   const [credentials, setCredentials] = useState({
     fullname: '',
     username: '',
     password: '',
   })
+  const { username, password } = credentials
 
   const [isLogin, setIsLogin] = useState()
 
   useEffect(() => {
+    const user = userService.getLoggedinUser()
+    if (user) navigate('/')
     if (authType) {
       const isAuthLogin = authType === 'login' ? true : false
       setIsLogin(isAuthLogin)
     }
   }, [authType])
 
+  async function handleSubmit(ev) {
+    ev.preventDefault()
+    try {
+      let user
+      if (isLogin) user = await userService.login({ username, password })
+      else user = await userService.signup(credentials)
+
+      dispatch({ type: SET_USER, user })
+      navigate('/')
+    } catch (err) {
+      console.log('Cannot login or signup', err)
+    }
+  }
+
   function toggleIsLogin() {
-    setIsLogin(state => !state)
+    let authType
+    if (isLogin) authType = 'signup'
+    else authType = 'login' 
+    navigate(`/auth/${authType}`)
   }
 
   function handleChange(ev) {
@@ -36,43 +61,41 @@ export function AuthPage() {
           <h1>{isLogin ? 'Login' : 'Sign up'} to Spotify</h1>
         </div>
         <hr />
-        <form className="flex flex-column align-start">
+        <form className="flex flex-column align-start" onSubmit={handleSubmit}>
           {/* <div className="inputs"> */}
-            {!isLogin && (
-              <>
-                <label htmlFor="fullname">Full name</label>
-                <input
-                  type="text"
-                  id="fullname"
-                  name="fullname"
-                  value={credentials.fullname}
-                  onChange={handleChange}
-                />
-              </>
-            )}
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              value={credentials.username}
-              onChange={handleChange}
-            />
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={credentials.password}
-              onChange={handleChange}
-            />
+          {!isLogin && (
+            <>
+              <label htmlFor="fullname">Full name</label>
+              <input
+                type="text"
+                id="fullname"
+                name="fullname"
+                value={credentials.fullname}
+                onChange={handleChange}
+              />
+            </>
+          )}
+          <label htmlFor="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value={credentials.username}
+            onChange={handleChange}
+          />
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={credentials.password}
+            onChange={handleChange}
+          />
           {/* </div> */}
           <button>{isLogin ? 'Login' : 'Sign up'}</button>
         </form>
         <p>
-          {isLogin
-            ? 'Already have an account? '
-            : "Don't have an account?"}
+          {isLogin ? 'Don\'t have an account?' : 'Already have an account?'}
           <span onClick={toggleIsLogin}>
             {isLogin ? 'Sign up for Spotify' : 'Log in here'}
           </span>

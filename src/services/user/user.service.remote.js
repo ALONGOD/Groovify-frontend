@@ -40,7 +40,9 @@ async function update(user) {
 }
 
 async function login(userCred) {
+	console.log('userCred:', userCred)
 	const user = await httpService.post('auth/login', userCred)
+	console.log('user:', user)
 	if (user) return saveLoggedinUser(user)
 }
 
@@ -58,18 +60,21 @@ async function logout() {
 }
 
 function getLoggedinUser() {
-	// return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
-	getById('66dae008bcda36a278e455cb')
+	return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
+	// getById('66dae008bcda36a278e455cb')
 }
 
 function saveLoggedinUser(user) {
 	user = {
 		_id: user._id,
 		fullname: user.fullname,
+		username: user.username,
 		imgUrl: user.imgUrl,
-		score: user.score,
+		likedStations: user.likedStations,
+		likedSongsStation: user.likedSongsStation,
 		isAdmin: user.isAdmin
 	}
 	sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
+
 	return user
 }

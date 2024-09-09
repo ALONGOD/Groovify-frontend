@@ -27,8 +27,8 @@ import { storageService } from '../../services/async-storage.service'
 import { useLocation } from 'react-router'
 
 export function MusicPlayer({ currSong }) {
-  const {pathname} = useLocation()
-  console.log('location:', pathname)
+  // const {pathname} = useLocation()
+  // console.log('location:', pathname)
   const dispatch = useDispatch()
   const queue = useSelector(storeState => storeState.stationModule.queue)
   const player = useSelector(storeState => storeState.stationModule.player)
@@ -107,13 +107,9 @@ export function MusicPlayer({ currSong }) {
     dispatch({ type: SET_QUEUE_MODE, mode: state })
   }
 
-  // function playAudio() {
-  //   playerRef?.current?.playVideo()
-  //   setIsPlaying(true)
-  // }
 
   function onPlayerReady(event) {
-    if (pathname.includes('auth')) return
+    // if (pathname.includes('auth')) return playerRef?.current?.stopVideo()
     
     setCurrentTime(0)
     intervalRef.current = setInterval(() => {

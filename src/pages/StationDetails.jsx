@@ -26,17 +26,19 @@ export function StationDetails() {
   const editOpen = useSelector(state => state.stationModule.editStationModal)
   const [isStationLiked, setIsStationLiked] = useState(false)
 
-  const isStationLikedSongs = user?.likedSongsStation.id === stationId
+  let isStationLikedSongs 
 
   const [gradient, setGradient] = useState(null)
 
   useEffect(() => {
+    isStationLikedSongs = user?.likedSongsStation?.id === stationId
     fetchStationFromService()
   }, [stationId])
 
   useEffect(() => {
+    // if (user) isStationLikedSongs = user?.likedSongsStation.id === stationId
     setIsStationLiked(
-      user?.likedStations.some(likedStation => likedStation.id === stationId)
+      user?.likedStations?.some(likedStation => likedStation.id === stationId)
     )
   }, [user])
 
