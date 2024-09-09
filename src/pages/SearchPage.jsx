@@ -86,7 +86,7 @@ export function SearchPage() {
             </>
           )}
         </div>
-        <div className="playlist-results">
+        <div className="playlist-results" style={{ display: playlistResults.length === 0 ? 'none' : 'block' }}>
           {playlistResults.length !== 0 && (
             <>
               <h2>Playlists</h2>
@@ -115,7 +115,7 @@ export function SearchPage() {
             </>
           )}
         </div>
-        <div className="artist-results">
+        <div className="artist-results" style={{ gridColumn: playlistResults.length === 0 ? 'span 2' : 'auto' }}>
           {artistResults.length !== 0 && (
             <>
               <h2>Artists</h2>
