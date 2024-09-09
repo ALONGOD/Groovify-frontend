@@ -8,6 +8,7 @@ import { TopResult } from '../cmps/SearchPage/TopResult.jsx';
 import { stationService } from '../services/station/station.service.local.js';
 import { PlayPauseBtn } from '../cmps/PlayPauseBtn.jsx';
 import { query } from '../store/actions/backend.station.js';
+import { ArtistList } from '../cmps/ArtistList.jsx';
 
 export function SearchPage() {
   const { searchTerm } = useParams();
@@ -59,7 +60,7 @@ export function SearchPage() {
 
   async function fetchArtistsFromSpotify(query) {
     try {
-      const results = await SpotifyAPIService.searchArtists(query);
+      const results = await SpotifyAPIService.searchArtists(query, 5);
       return results;
     } catch (error) {
       console.error('Error fetching artists from Spotify API:', error);
@@ -118,20 +119,7 @@ export function SearchPage() {
           {artistResults.length !== 0 && (
             <>
               <h2>Artists</h2>
-              <div className="artist-container">
-                {artistResults.map((artist) => (
-                  <div key={artist.id} className="artist-item">
-                    <img
-                      src={artist.images[0]?.url || 'default-image-url'}
-                      alt={artist.name}
-                    />
-                    <div className="artist-info">
-                      <h3>{artist.name}</h3>
-                      <p>{artist.followers.total} followers</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <ArtistList artists={artistResults} />
             </>
           )}
         </div>

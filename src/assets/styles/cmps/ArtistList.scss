@@ -1,0 +1,42 @@
+// scss/_artistList.scss
+
+.artist-list {
+    display: flex;
+    gap: 1.2em; // Space between artist items
+    overflow-x: auto; // Horizontal scrolling for overflow
+
+    .artist-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer;
+        text-align: center;
+        color: #fff;
+        // width: 10em;
+
+        img {
+            border-radius: 50%; // Keeps the circular shape
+            margin-bottom: 0.5em;
+            max-width: 100%; // Ensures the image fits within its container but keeps its natural aspect ratio
+            height: 10em; // Automatically adjusts the height to maintain aspect ratio
+        }
+
+        .artist-info {
+            h3 {
+                font-size: 1.2rem;
+                font-weight: bold;
+                margin-bottom: 0.2em; // Reduced gap between artist name and followers
+            }
+
+            p {
+                font-size: 0.875rem;
+                color: #b3b3b3;
+                margin-top: 0; // Ensure no additional margin on top of followers count
+            }
+        }
+
+        &:hover {
+            opacity: 0.8; // Slight transparency effect on hover
+        }
+    }
+}

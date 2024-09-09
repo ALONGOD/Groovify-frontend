@@ -2,10 +2,10 @@
 export const SpotifyAPIService = {
     searchArtists
 };
-async function searchArtists(query) {
+async function searchArtists(query, limit = 5) {
     try {
         const token = await getSpotifyAccessToken();
-        const response = await fetch(`https://api.spotify.com/v1/search?q=${query}&type=artist`, {
+        const response = await fetch(`https://api.spotify.com/v1/search?q=${query}&type=artist&limit=${limit}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
