@@ -46,6 +46,7 @@ export function StationDetails() {
       const fetchedStation = await getStationById(stationId)
       if (fetchedStation) {
         dispatch({ type: SET_STATION_DISPLAY, station: fetchedStation })
+        setSearchResults([])
       } else {
         console.error('Station not found')
       }
@@ -85,7 +86,7 @@ export function StationDetails() {
           station={station}
         />
 
-        {station?.songs?.length === 0 && (
+        {station?.songs?.length === 0 && searchResults.length === 0 && (
           <div className="no-songs">
             <h2>Let's find something for your playlist</h2>
             <SearchBar
