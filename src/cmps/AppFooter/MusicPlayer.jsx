@@ -24,8 +24,11 @@ import { ProgressBar } from './ProgressBar'
 import { SyncButton } from '../svgs/SyncButton'
 import { ShuffleButton } from '../svgs/ShuffleButton'
 import { storageService } from '../../services/async-storage.service'
+import { useLocation } from 'react-router'
 
 export function MusicPlayer({ currSong }) {
+  const {pathname} = useLocation()
+  console.log('location:', pathname)
   const dispatch = useDispatch()
   const queue = useSelector(storeState => storeState.stationModule.queue)
   const player = useSelector(storeState => storeState.stationModule.player)
@@ -110,6 +113,8 @@ export function MusicPlayer({ currSong }) {
   // }
 
   function onPlayerReady(event) {
+    if (pathname.includes('auth')) return
+    
     setCurrentTime(0)
     intervalRef.current = setInterval(() => {
       setCurrentTime(playerRef.current.getCurrentTime())

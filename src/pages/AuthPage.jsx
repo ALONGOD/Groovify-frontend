@@ -72,7 +72,7 @@ export function AuthPage() {
         <p>
           {isLogin
             ? 'Already have an account? '
-            : "Don't have an account?Sign up for Spotify"}
+            : "Don't have an account?"}
           <span onClick={toggleIsLogin}>
             {isLogin ? 'Sign up for Spotify' : 'Log in here'}
           </span>
