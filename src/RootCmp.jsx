@@ -12,29 +12,31 @@ import { Homepage } from './pages/HomePage.jsx'
 import { SearchPage } from './pages/SearchPage.jsx'
 import { toggleModal } from './store/actions/station.actions.js'
 import { AppHeader } from './cmps/AppHeader'
+import { AuthPage } from './pages/AuthPage.jsx'
 
 export function RootCmp() {
-    return (
-        <div className='app' onClick={toggleModal}>
-            <AppHeader />
-            <div className='content-wrapper'>
-                <MenuSidebar />
+  return (
+    <div className="app" onClick={toggleModal}>
+      <AppHeader />
+      <div className="content-wrapper">
+        <MenuSidebar />
 
-                <main className='main-content'>
-                    <Routes>
-                        <Route path='/' element={<AppIndex />}>
-                            <Route path='/' element={<Homepage />} />
-                            <Route path='/station/:stationId' element={<StationDetails />} />
-                            <Route path='/search' element={<SearchPage />} />
-                            <Route path='/search/:searchTerm' element={<SearchPage />} />
-                        </Route>
-                    </Routes>
-                </main>
 
-                <DetailsSidebar />
-            </div>
-            <AppFooter />
-            <UserMsg />
-        </div>
-    )
+          <Routes>
+            <Route path="/auth/:authType" element={<AuthPage />} />
+            <Route path="/" element={<AppIndex />}>
+              <Route path="/" element={<Homepage />} />
+              <Route path="/station/:stationId" element={<StationDetails />} />
+              <Route path="/search" element={<SearchPage />} />
+              <Route path="/search/:searchTerm" element={<SearchPage />} />
+            </Route>
+          </Routes>
+
+
+        <DetailsSidebar />
+      </div>
+      <AppFooter />
+      <UserMsg />
+    </div>
+  )
 }
