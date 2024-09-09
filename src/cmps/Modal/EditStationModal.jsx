@@ -60,7 +60,7 @@ export function EditStationModal() {
       </div>
       <main>
         <div className="main-details flex flex-row">
-          <ImagePick setStation={setStation} pickedImg={station.imgUrl} />
+          <ImagePick setStation={setStation} isModal={true} pickedImg={station.imgUrl} />
           <div className="inputs flex flex-column">
             <div className="input-with-label">
               <label>Name</label>
