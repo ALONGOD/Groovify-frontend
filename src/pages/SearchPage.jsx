@@ -3,6 +3,7 @@ import { SongList } from '../cmps/SongList.jsx';
 import { useParams, useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 import { YouTubeAPIService } from '../services/youtubeAPI/fetchYoutubeApi.js';
+import { SpotifyAPIService } from '../services/spotifyAPI/spotifyAPI.service.js';
 import { TopResult } from '../cmps/SearchPage/TopResult.jsx';
 import { stationService } from '../services/station/station.service.local.js';
 import { PlayPauseBtn } from '../cmps/PlayPauseBtn.jsx';
@@ -12,7 +13,8 @@ export function SearchPage() {
   const { searchTerm } = useParams();
   const [searchResults, setSearchResults] = useState([]);
   const [playlistResults, setPlaylistResults] = useState([]);
-  console.log('playlistResults:', playlistResults)
+  const [artistResults, setArtistResults] = useState([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,12 +24,14 @@ export function SearchPage() {
 
   async function fetchResults() {
     try {
-      const [youtubeResults, playlistResults] = await Promise.all([
+      const [youtubeResults, playlistResults, artistResults] = await Promise.all([
         fetchSongsFromYouTube(searchTerm),
         fetchPlaylists(searchTerm),
+        fetchArtistsFromSpotify(searchTerm),
       ]);
       setSearchResults(youtubeResults);
       setPlaylistResults(playlistResults);
+      setArtistResults(artistResults);
     } catch (error) {
       console.error('Error fetching results:', error);
     }
@@ -45,11 +49,20 @@ export function SearchPage() {
 
   async function fetchPlaylists(search) {
     try {
-      // const filterBy = { searchTerm: query };
       const results = await query(search);
       return results;
     } catch (error) {
       console.error('Error fetching playlists:', error);
+      return [];
+    }
+  }
+
+  async function fetchArtistsFromSpotify(query) {
+    try {
+      const results = await SpotifyAPIService.searchArtists(query);
+      return results;
+    } catch (error) {
+      console.error('Error fetching artists from Spotify API:', error);
       return [];
     }
   }
@@ -95,6 +108,27 @@ export function SearchPage() {
                       station={playlist}
                       type="top-result"
                     />
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+        <div className="artist-results">
+          {artistResults.length !== 0 && (
+            <>
+              <h2>Artists</h2>
+              <div className="artist-container">
+                {artistResults.map((artist) => (
+                  <div key={artist.id} className="artist-item">
+                    <img
+                      src={artist.images[0]?.url || 'default-image-url'}
+                      alt={artist.name}
+                    />
+                    <div className="artist-info">
+                      <h3>{artist.name}</h3>
+                      <p>{artist.followers.total} followers</p>
+                    </div>
                   </div>
                 ))}
               </div>
