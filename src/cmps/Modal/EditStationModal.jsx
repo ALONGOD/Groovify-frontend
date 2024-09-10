@@ -7,7 +7,10 @@ import {
 } from '../../store/reducers/station.reducer'
 import { useDispatch } from 'react-redux'
 import { ImagePick } from '../ImagePick'
-import { getStationById, onUpdateStation } from '../../store/actions/backend.station'
+import {
+  getStationById,
+  onUpdateStation,
+} from '../../store/actions/backend.station'
 
 export function EditStationModal() {
   const dispatch = useDispatch()
@@ -31,14 +34,22 @@ export function EditStationModal() {
     setStation({ ...station, [name]: value })
   }
 
+  function setImg(img) {
+    setStation({ ...station, imgUrl: img })
+  }
+
   function handleSave(ev) {
-    ev.preventDefault()
-    onUpdateStation(station)
-    console.log('station:', station)
-    
-      dispatch({ type: EDIT_STATION_DISPLAY, station})
-    
-    closeEditModal()
+    try {
+      ev.preventDefault()
+      const stationToSave = onUpdateStation(station)
+      console.log('station:', station)
+
+      dispatch({ type: EDIT_STATION_DISPLAY, station: stationToSave })
+    } catch (err) {
+      console.log('Cannot save station', err)
+    } finally {
+      closeEditModal()
+    }
   }
 
   // function handleSave(ev) {
@@ -60,7 +71,7 @@ export function EditStationModal() {
       </div>
       <main>
         <div className="main-details flex flex-row">
-          <ImagePick setStation={setStation} isModal={true} pickedImg={station.imgUrl} />
+          <ImagePick setImg={setImg} pickedImg={station.imgUrl} />
           <div className="inputs flex flex-column">
             <div className="input-with-label">
               <label>Name</label>

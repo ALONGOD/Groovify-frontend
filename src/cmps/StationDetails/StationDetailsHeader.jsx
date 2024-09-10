@@ -4,8 +4,12 @@ import { ImagePick } from '../ImagePick'
 import { DetailsHeaderActions } from './DetailsHeaderActions'
 import { useEffect, useState } from 'react';
 import { adjustBrightnessAndSaturation } from '../../services/util.service';
+import { onUpdateStation } from '../../store/actions/backend.station';
+import { useDispatch } from 'react-redux';
+import { EDIT_STATION_DISPLAY } from '../../store/reducers/station.reducer';
 
 export function StationDetailsHeader({ station, toggleEditStation, setGradient }) {
+  const dispatch = useDispatch()
   const fac = new FastAverageColor();
   const { name, createdBy, songs, imgUrl, description } = station
   
@@ -20,12 +24,20 @@ export function StationDetailsHeader({ station, toggleEditStation, setGradient }
         });
 }, [station]);
 
+function setStationImg(img) {
+  dispatch({
+    type: EDIT_STATION_DISPLAY,
+    station: { ...station, imgUrl: img },
+  })
+  onUpdateStation({ ...station, imgUrl: img })
+}
+
 
   return (
     <>
     {/* // <div className="station-details-container flex flex-column"> */}
       <div className="station-details-header flex flex-row align-end">
-        <ImagePick pickedImg={imgUrl} station={station}/>
+        <ImagePick pickedImg={imgUrl} setImg={setStationImg}/>
         <div className="flex flex-column">
           <h4>Playlist</h4>
           <h1 onClick={toggleEditStation}>{name}</h1>

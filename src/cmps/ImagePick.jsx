@@ -4,17 +4,12 @@ import { useDispatch } from 'react-redux'
 import { EDIT_STATION_DISPLAY } from '../store/reducers/station.reducer'
 import { onUpdateStation } from '../store/actions/backend.station'
 
-export function ImagePick({ setStation, isModal, station, pickedImg }) {
+export function ImagePick({ setImg, pickedImg }) {
   const dispatch = useDispatch()
   const [onHoverImage, setOnHoverImage] = useState(false)
   const imageInput = useRef()
 
-  function setStationImg(img) {
-    dispatch({
-      type: EDIT_STATION_DISPLAY,
-      station: { ...station, imgUrl: img },
-    })
-  }
+
 
   function handlePickClick() {
     imageInput.current.click()
@@ -23,19 +18,17 @@ export function ImagePick({ setStation, isModal, station, pickedImg }) {
   function handleImageChange({ target }) {
     const file = target.files[0]
     if (!file) {
-      // setStationImg(null)
+      setImg('https://res.cloudinary.com/dpoa9lual/image/upload/v1724570942/Spotify_playlist_photo_yjeurq.png')
       return
     }
 
     const fileReader = new FileReader()
 
     fileReader.onload = () => {
-      if (isModal)
-        setStation(station => ({ ...station, imgUrl: fileReader.result }))
-      else {
-        setStationImg(fileReader.result)
-        onUpdateStation({...station, imgUrl: fileReader.result})
-      }
+        // setImg(station => ({ ...station, imgUrl: fileReader.result }))
+        // onUpdateStation({...station, imgUrl: fileReader.result})
+        setImg(fileReader.result )
+      
     }
 
     fileReader.readAsDataURL(file)
