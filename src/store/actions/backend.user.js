@@ -15,7 +15,7 @@ export async function saveStationToLiked(stationToSave) {
         console.log('user:', user);
 
         const userToSave = await userService.update(user)
-
+        userService.saveLoggedinUser(userToSave)
         store.dispatch({ type: SET_USER, user: userToSave })
     } catch (err) {
         console.log('Cannot save station to liked', err)
@@ -33,6 +33,7 @@ export async function removeStationFromLiked(stationId) {
         }
         user.likedStations.splice(stationIdx, 1)
         const userToSave = await userService.update(user)
+        userService.saveLoggedinUser(userToSave)
         store.dispatch({ type: SET_USER, user: userToSave })
     } catch (err) {
         console.log('Cannot remove station from liked', err)
@@ -52,6 +53,7 @@ export async function updateStation(station) {
         }
         user.likedStations.splice(stationIdx, 1, stationToSave)
         const userToSave = await userService.update(user)
+        userService.saveLoggedinUser(userToSave)
         store.dispatch({ type: SET_USER, user: userToSave })
     } catch (err) {
         console.log('Cannot update station', err)
@@ -76,5 +78,6 @@ export async function removeFromLikedSongs(songId) {
     }
     user.likedSongsStation.songs.splice(songIdx, 1)
     const userToSave = await userService.update(user)
+    userService.saveLoggedinUser(userToSave)
     store.dispatch({ type: SET_USER, user: userToSave })
 }

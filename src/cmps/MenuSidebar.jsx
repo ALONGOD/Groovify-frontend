@@ -39,7 +39,7 @@ export function MenuSidebar() {
 
     async function getUser() {
         try {
-            const userToSave = userService.getLoggedinUser()
+            const userToSave = await userService.getLoggedinUser()
             if (!userToSave) navigate('/auth/login')
             // const userToSave = await userService.getById(user._id)
             console.log('userToSave:', userToSave)
@@ -47,7 +47,6 @@ export function MenuSidebar() {
         } catch (err) {
             navigate('/auth/login')
             console.log('Cannot set logged in user', err)
-            throw err
         }
     }
 

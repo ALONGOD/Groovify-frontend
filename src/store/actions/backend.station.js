@@ -65,8 +65,10 @@ export async function removeStation(stationId) {
 export async function onUpdateStation(station) {
   try {
     const { _id: id, name, createdBy, imgUrl } = station
-    await updateStation(station)
-    await stationService.save(station)
+    const stationToSave = await stationService.save(station)
+    await updateStation(stationToSave)
+
+    return stationToSave
   } catch (err) {
     console.log('Cannot update station', err)
     throw err

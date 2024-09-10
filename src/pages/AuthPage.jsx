@@ -19,13 +19,27 @@ export function AuthPage() {
   const [isLogin, setIsLogin] = useState()
 
   useEffect(() => {
-    const user = userService.getLoggedinUser()
-    if (user) navigate('/')
-    if (authType) {
-      const isAuthLogin = authType === 'login' ? true : false
-      setIsLogin(isAuthLogin)
+    try {
+      const user = isUserLoggedin()
+      if (user) {
+        console.log('User is already logged in')
+      }
+      if (authType) {
+        const isAuthLogin = authType === 'login' ? true : false
+        setIsLogin(isAuthLogin)
+      }
+    } catch (err) {
+      navigate('/')
     }
   }, [authType])
+
+  async function isUserLoggedin() {
+    try {
+      await userService.getLoggedinUser()
+    } catch (err) {
+      throw err
+    }
+  }
 
   async function handleSubmit(ev) {
     ev.preventDefault()
@@ -44,7 +58,7 @@ export function AuthPage() {
   function toggleIsLogin() {
     let authType
     if (isLogin) authType = 'signup'
-    else authType = 'login' 
+    else authType = 'login'
     navigate(`/auth/${authType}`)
   }
 
@@ -95,7 +109,7 @@ export function AuthPage() {
           <button>{isLogin ? 'Login' : 'Sign up'}</button>
         </form>
         <p>
-          {isLogin ? 'Don\'t have an account?' : 'Already have an account?'}
+          {isLogin ? "Don't have an account?" : 'Already have an account?'}
           <span onClick={toggleIsLogin}>
             {isLogin ? 'Sign up for Spotify' : 'Log in here'}
           </span>
