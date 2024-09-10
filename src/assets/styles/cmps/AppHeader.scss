@@ -131,8 +131,11 @@
   }
 
   .speech-recognition-icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 90%;
+    transform: translateY(-50%);
+    font-size: 1em;
+    color: #b3b3b3;
   }
 }
