@@ -48,6 +48,10 @@
       max-height: calc(max-content - 1em);
       white-space: nowrap;
     }
+    img {
+      width: em(232px);
+      height: em(232px);
+    }
     .img.relative {
       width: em(232px);
       height: em(232px);
@@ -163,7 +167,7 @@
       width: em(34px);
       height: em(34px);
     }
-    
+
     .three-dots {
       font-size: 2em;
     }
