@@ -4,6 +4,7 @@ import { YouTubeAPIService } from '../services/youtubeAPI/fetchYoutubeApi.js'
 import { useDispatch } from 'react-redux'
 import { setSearchTerm } from '../store/actions/station.actions.js'
 import { useNavigate } from 'react-router-dom'
+import { FaMicrophone } from 'react-icons/fa'
 
 export function SearchBar({
   searchType = 'youtube',
@@ -15,6 +16,7 @@ export function SearchBar({
   const [isExpanded, setIsExpanded] = useState(false)
   const dispatch = useDispatch()
   const searchBarRef = useRef(null)
+  const recognitionRef = useRef(null) // Ref for speech recognition
 
 
   function debounce(func, delay) {
@@ -93,7 +95,30 @@ export function SearchBar({
       document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [])
+  function startSpeechRecognition() {
+    if (!('webkitSpeechRecognition' in window)) {
+      alert('Speech recognition not supported by your browser.')
+      return
+    }
 
+    const recognition = new window.webkitSpeechRecognition()
+    recognition.lang = 'en-US'
+    recognition.interimResults = false
+    recognition.maxAlternatives = 1
+
+    recognition.onresult = event => {
+      const transcript = event.results[0][0].transcript
+      setSearchParams(transcript)
+      handleSearch(transcript)
+    }
+
+    recognition.onerror = event => {
+      console.error('Speech recognition error:', event.error)
+    }
+
+    recognitionRef.current = recognition
+    recognition.start()
+  }
   return (
     <div
       ref={searchBarRef}
@@ -109,6 +134,14 @@ export function SearchBar({
         onChange={handleChange}
         className={isExpanded ? 'visible' : ''}
       />
+      <div
+        className="speech-recognition-icon"
+        onClick={startSpeechRecognition}
+        title="Click to use voice search"
+        style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+      >
+        <FaMicrophone />
+      </div>
     </div>
   )
 }

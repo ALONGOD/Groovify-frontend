@@ -6,7 +6,7 @@
 
   bottom: calc($spacing-gap / 2);
 
-  > * {
+  >* {
     display: flex;
     align-items: center;
     gap: 1em;
@@ -93,6 +93,7 @@
     border-radius: 50%;
     cursor: pointer;
   }
+
   button {
     display: flex;
     justify-content: center;
@@ -106,14 +107,17 @@
     transition-property: background-color, border-color, color, box-shadow,
       filter, transform, opacity;
     margin-left: 0.5em;
+
     &:hover {
       scale: 1.04;
     }
+
     &:active {
-        opacity: 0.5;
-        scale: 1;
-        // filter: brightness(0.6);
+      opacity: 0.5;
+      scale: 1;
+      // filter: brightness(0.6);
     }
+
     img {
       min-width: em(34px);
       min-height: em(34px);
@@ -124,5 +128,14 @@
       cursor: pointer;
       border-radius: 50%;
     }
+  }
+
+  .speech-recognition-icon {
+    position: absolute;
+    top: 50%;
+    left: 90%;
+    transform: translateY(-50%);
+    font-size: 1em;
+    color: #b3b3b3;
   }
 }

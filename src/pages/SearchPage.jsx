@@ -115,7 +115,7 @@ export function SearchPage() {
             </>
           )}
         </div>
-        <div className="artist-results" style={{ gridColumn: playlistResults.length === 0 ? 'span 2' : 'auto' }}>
+        <div className="artist-results" style={{ gridColumn: 'span 2' }}>
           {artistResults.length !== 0 && (
             <>
               <h2>Artists</h2>
