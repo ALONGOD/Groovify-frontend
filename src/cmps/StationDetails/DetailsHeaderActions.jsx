@@ -1,29 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { updateStation } from '../../store/actions/station.actions.js'
-import { stationService } from '../../services/station/station.service.local.js'
-import { userService } from '../../services/user/user.service.local.js'
+import { useSelector } from 'react-redux'
 import { BsThreeDots } from 'react-icons/bs'
 import { CiCirclePlus } from 'react-icons/ci'
 import { FaListUl } from 'react-icons/fa'
 import { IoPlayCircle } from 'react-icons/io5'
 import { ThreeDotsModal } from '../Modal/ThreeDotsModal'
-import { SET_USER } from '../../store/reducers/user.reducer' // Make sure this import is correct
-import { store } from '../../store/store' // Import the store if it's not already included
-import { FaCheckCircle } from 'react-icons/fa' // Importing the checkmark icon
 import { CheckmarkCircle } from '../svgs/CheckmarkCircle.jsx'
-import { saveStation } from '../../store/actions/backend.station.js'
-import { removeStationFromLiked, saveStationToLiked } from '../../store/actions/backend.user.js'
+import {
+  removeStationFromLiked,
+  saveStationToLiked,
+} from '../../store/actions/backend.user.js'
 
 export function DetailsHeaderActions({
   toggleEditStation,
   isStationLiked,
   station,
+  isStationByUser
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const modalRef = useRef(null)
-  const dispatch = useDispatch()
-  const user = useSelector(state => state.userModule.user)
+
 
   // Toggle modal visibility
   function toggleModal() {
@@ -49,22 +45,28 @@ export function DetailsHeaderActions({
   async function handlePlusClick() {
     await saveStationToLiked(station)
   }
-  
+
   function handleRemoveClick() {
-    removeStationFromLiked(station._id)
+    removeStationFromLiked(station?._id)
   }
 
   return (
     <div className="station-header-actions flex flex-row justify-between align-center">
       <div className="btns-container flex flex-row gap-8 align-center">
         <IoPlayCircle className="play-circle" />
-        {!isStationLiked ? (
-          <CiCirclePlus className="plus-circle" onClick={handlePlusClick} />
-        ) : (
-          <CheckmarkCircle classes="check-circle" onClick={handleRemoveClick}/>
-        )}
+        {!isStationByUser &&
+          (!isStationLiked ? (
+            <CiCirclePlus className="plus-circle" onClick={handlePlusClick} />
+          ) : (
+            <CheckmarkCircle
+              classes="check-circle"
+              onClick={handleRemoveClick}
+            />
+          ))}
         <div ref={modalRef} className="relative">
-          <BsThreeDots className="three-dots" onClick={toggleModal} />
+          {isStationByUser && (
+            <BsThreeDots className="three-dots" onClick={toggleModal} />
+          )}
           {isModalOpen && (
             <ThreeDotsModal
               closeModal={closeModal}

@@ -20,7 +20,8 @@ export function StationDetails() {
   const { stationId } = useParams()
   const user = useSelector(state => state.userModule.user)
   const station = useSelector(state => state.stationModule.stationDisplay)
-  // console.log('station:', station)
+  const isStationByUser = user?._id === station?.createdBy?.id
+  
   const [searchResults, setSearchResults] = useState([])
 
   const editOpen = useSelector(state => state.stationModule.editStationModal)
@@ -68,6 +69,7 @@ export function StationDetails() {
   }
 
   function toggleEditStation() {
+    if (!isStationByUser) return
     dispatch({ type: SET_EDIT_MODAL, isOpen: true })
   }
 
@@ -80,12 +82,14 @@ export function StationDetails() {
         station={station}
         toggleEditStation={toggleEditStation}
         setGradient={setGradient}
+        isStationByUser={isStationByUser}
       />
       <div className="station-details-main">
         <DetailsHeaderActions
           toggleEditStation={toggleEditStation}
           isStationLiked={isStationLiked}
           station={station}
+          isStationByUser={isStationByUser}
         />
 
         {station?.songs?.length === 0 && searchResults.length === 0 && (
