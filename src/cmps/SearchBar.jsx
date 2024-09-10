@@ -134,14 +134,16 @@ export function SearchBar({
         onChange={handleChange}
         className={isExpanded ? 'visible' : ''}
       />
-      <div
-        className="speech-recognition-icon"
-        onClick={startSpeechRecognition}
-        title="Click to use voice search"
-        style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
-      >
-        <FaMicrophone />
-      </div>
+      {searchType === 'youtube' && (
+        <div
+          className="speech-recognition-icon"
+          onClick={startSpeechRecognition}
+          title="Click to use voice search"
+          style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+        >
+          <FaMicrophone />
+        </div>
+      )}
     </div>
   )
 }
