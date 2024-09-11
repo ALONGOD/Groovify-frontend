@@ -11,6 +11,8 @@ export function ArtistList({ artists }) {
         const topTracks = await SpotifyAPIService.fetchDetailsFromArtist(artistId, 'albums')
         const relatedArtists = await SpotifyAPIService.fetchDetailsFromArtist(artistId, 'relatedArtists')
         const featuredPlaylists = await SpotifyAPIService.fetchFeaturedPlaylists()
+        const browse = await SpotifyAPIService.fetchBrowseCategories()
+        console.log('browse:', browse)
         console.log('featuredPlaylists:', featuredPlaylists)
         console.log('relatedArtists:', relatedArtists)
         console.log('topTracks:', topTracks)

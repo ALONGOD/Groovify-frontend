@@ -4,7 +4,8 @@ import axios from 'axios'
 export const SpotifyAPIService = {
   searchArtists,
   fetchDetailsFromArtist,
-  fetchFeaturedPlaylists
+  fetchFeaturedPlaylists,
+  fetchBrowseCategories
 }
 async function searchArtists(query, limit = 5) {
   try {
@@ -133,6 +134,20 @@ async function fetchFeaturedPlaylists() {
   try {
     const SPOTIFY_TOKEN = await getSpotifyAccessToken()
     const response = await axios.get('https://api.spotify.com/v1/browse/featured-playlists', {
+      headers: {
+        Authorization: `Bearer ${SPOTIFY_TOKEN}`,
+      },
+    })
+    console.log('response.data:', response.data)
+    return response.data
+  } catch (err) {
+    console.error(err)
+  }
+}
+async function fetchBrowseCategories() {
+  try {
+    const SPOTIFY_TOKEN = await getSpotifyAccessToken()
+    const response = await axios.get('https://api.spotify.com/v1/browse/categories', {
       headers: {
         Authorization: `Bearer ${SPOTIFY_TOKEN}`,
       },
