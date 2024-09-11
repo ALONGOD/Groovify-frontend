@@ -7,11 +7,12 @@ import { Modal } from './Modal/Modal.jsx';
 import { FaBars } from 'react-icons/fa6';
 import update from 'immutability-helper';
 
-export function StationList({ isCollapsed, user, stations }) {
+export function StationList({ isCollapsed, stations, type }) {
   const dispatch = useDispatch();
   // const stations = useSelector(state => state.stationModule.stations);
   const searchTerm = useSelector(state => state.stationModule.searchTerm);
   const sortBy = useSelector(state => state.stationModule.sortBy);
+  const user = useSelector(state => state.userModule.user);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const modalRef = useRef(null);
   const [stationOrder, setStationOrder] = useState([]);
@@ -27,7 +28,7 @@ export function StationList({ isCollapsed, user, stations }) {
 
   useEffect(() => {
     // fetchStations();
-  }, [searchTerm, sortBy, user]);
+  }, [searchTerm, sortBy]);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -94,6 +95,8 @@ export function StationList({ isCollapsed, user, stations }) {
             isCollapsed={isCollapsed}
             index={index}
             moveStation={moveStation}
+            type={type}
+            user={user}
           />
         ))}
       </ul>

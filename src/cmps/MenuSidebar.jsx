@@ -42,7 +42,6 @@ export function MenuSidebar() {
             const userToSave = await userService.getLoggedinUser()
             if (!userToSave) navigate('/auth/login')
             // const userToSave = await userService.getById(user._id)
-            console.log('userToSave:', userToSave)
             dispatch({ type: SET_USER, user: userToSave })
         } catch (err) {
             navigate('/auth/login')
@@ -71,7 +70,7 @@ export function MenuSidebar() {
                         isBelowThreshold={isBelowThreshold}
                     />
                 </div>
-                <StationList isCollapsed={isCollapsed} user={user} stations={likedStations}/>
+                <StationList isCollapsed={isCollapsed} stations={likedStations} type='station-preview'/>
             </div>
         </aside>
     )

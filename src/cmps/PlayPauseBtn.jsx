@@ -16,7 +16,7 @@ export function PlayPauseBtn({ song, station, type, onTogglePlay, onSetSongsInQu
   const isSongPlaying = setIsPlaying()
 
   function setIsPlaying() {
-    if (type === 'station-preview') return (currStation?.id === station?.id) && isPlaying
+    if (type === 'station-preview' || type === 'userDetails') return (currStation?.id === station?.id) && isPlaying
     else return currSong?.id === song?.id && isPlaying
   }
 
@@ -35,7 +35,8 @@ export function PlayPauseBtn({ song, station, type, onTogglePlay, onSetSongsInQu
   }
 
 
-  if (type === 'top-result') {
+  console.log('type:', type)
+  if (type === 'top-result' || type === 'userDetails') {
     return (
       <div className={`play-pause-container ${type}`} onClick={playOrPauseSong}>
         {isSongPlaying ? <IoIosPause /> : <IoIosPlay />}

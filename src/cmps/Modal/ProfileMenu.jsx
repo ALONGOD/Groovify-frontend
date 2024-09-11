@@ -11,14 +11,17 @@ export function ProfileMenu() {
         navigate('/auth/login')
         await userService.logout()
     }
-
+    
+    function navigateToProfile() {
+        navigate(`/profile/${user._id}`)
+    }
     return (
         <>
             <div className="row flex flex-row justify-between disabled">
                 <h3>Account</h3>
                 <ExitSvg />
             </div>
-            <div className="row flex flex-row" onClick={() => navigate(`/profile/${user._id}`)}>
+            <div className="row flex flex-row" onClick={navigateToProfile}>
                 <h3>Profile</h3>
             </div>
             <div className="row flex flex-row settings">

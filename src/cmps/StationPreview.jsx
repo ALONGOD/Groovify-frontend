@@ -13,7 +13,7 @@ import { setSongsInQueue } from '../store/actions/station.actions'
 import { SET_DETAILS_SIDEBAR } from '../store/reducers/system.reducer'
 import { getStationById } from '../store/actions/backend.station'
 
-export function StationPreview({ station, isCollapsed, index, moveStation }) {
+export function StationPreview({ station, isCollapsed, index, moveStation, type, user }) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const ref = useRef(null)
@@ -88,7 +88,7 @@ export function StationPreview({ station, isCollapsed, index, moveStation }) {
         <img src={imgUrl} alt="station img" />
         {onHover && (
           <PlayPauseBtn
-            type="station-preview"
+            type={type}
             station={station}
             onTogglePlay={playOrPauseStation}
           />
@@ -101,7 +101,7 @@ export function StationPreview({ station, isCollapsed, index, moveStation }) {
             { station.id === 'liked-songs' && <BsFillPinAngleFill className='pin' /> }
             <span>Playlist</span>
             <span className="divider">&#9679;</span>
-            <span>{songs?.length} songs</span>
+            <span>{type === 'userDetails' ? `By ${user.username}` : `${songs?.length ? songs?.length : ''} songs`} </span>
           </div>
         </div>
       )}
