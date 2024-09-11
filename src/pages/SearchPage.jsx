@@ -127,13 +127,16 @@ export function SearchPage() {
           </>
         ) : (
           <div className="category-grid">
-            {categories.map((category) => (
-              <div key={category.id} className="category-card" onClick={() => onCategoryClick(category)}>
-                <img src={category.icons[0].url} alt={category.name} />
-                <h3>{category.name}</h3>
-              </div>
-            ))}
+            {categories.map((category) =>
+              category.name === 'Charts' ? null : (
+                <div key={category.id} className="category-card" onClick={() => onCategoryClick(category)}>
+                  <img src={category.icons[0].url} alt={category.name} />
+                  <h3>{category.name}</h3>
+                </div>
+              )
+            )}
           </div>
+
         )}
       </div>
     </div>
