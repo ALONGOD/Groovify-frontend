@@ -11,7 +11,11 @@ import { StationList } from '../cmps/StationList'
 export function UserDetails() {
   const dispatch = useDispatch()
   const user = useSelector(state => state.userModule.user)
+  // const [, set] = useState();
+  
+
   const { imgUrl, username, fullname } = user
+  const likedStations = user?.likedStations?.filter(station => station?.creator?.id !== user?._id)
 
   const [stationsByUser, setStationsByUser] = useState([])
   const [gradient, setGradient] = useState(null)
@@ -20,9 +24,7 @@ export function UserDetails() {
 
   useEffect(() => {
     fetchStationsByUser()
-
     fac.getColorAsync(user?.imgUrl).then(color => {
-      console.log('color:', color)
       const color1 = adjustBrightnessAndSaturation(color.hex, 0.5, 1.8)
       const color2 = '#121212'
       setGradient({
@@ -47,6 +49,10 @@ export function UserDetails() {
     }
   }
 
+  function onToggleModal() {
+    setModalOpen(!isModalOpen)
+  }
+
   return (
     <section className="user-details relative">
       <div className="gradient" style={gradient}></div>
@@ -62,6 +68,8 @@ export function UserDetails() {
         <div className="station-list-container flex flex-column align-start">
           <h3>Public Playlists</h3>
           <StationList stations={stationsByUser} type='userDetails'/>
+          <h3>Liked Playlists</h3>
+          <StationList stations={likedStations} type='userDetails'/>
         </div>
       </main>
     </section>

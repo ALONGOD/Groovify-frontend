@@ -7,6 +7,7 @@ import { SET_SONGS } from '../store/reducers/station.reducer'
 import { useEffect } from 'react'
 
 export function SongList({ songs, type, station }) {
+  console.log('songs:', songs)
   const dispatch = useDispatch()
   const songModal = useSelector(state => state.stationModule.modalSong)
   const user = useSelector(state => state.userModule.user)
@@ -29,7 +30,7 @@ export function SongList({ songs, type, station }) {
           <SongListHeader />
         </>
       )}
-      {songs.map((song, idx) => {
+      {songs?.map((song, idx) => {
         return (
           <SongPreview
             station={station}

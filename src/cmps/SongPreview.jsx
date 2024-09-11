@@ -10,7 +10,7 @@ import {
   SET_PLAYER_CURRENT_STATION,
   SET_PLAYER_IS_PLAYING,
 } from '../store/reducers/station.reducer'
-import { setSongsInQueue, toggleModal } from '../store/actions/station.actions'
+import { toggleModal } from '../store/actions/station.actions'
 import { getTimeOfSent } from '../services/util.service'
 export function SongPreview({
   song,
@@ -21,6 +21,7 @@ export function SongPreview({
   likedSongs,
   onSetSongsInQueue,
 }) {
+  console.log('type:', type)
   const dispatch = useDispatch()
   const [onSongHover, setOnSongHover] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false) // Local state for modal visibility
@@ -30,6 +31,7 @@ export function SongPreview({
   const { currSong, isPlaying } = player
 
   const isListTable = type === 'list-table'
+  const isArtistPage = type === 'artist-page'
   const isSongLiked = likedSongs?.some(likedSong => likedSong.id === song.id)
   const displayLikeBtn = onSongHover || isSongLiked
   
@@ -67,7 +69,7 @@ export function SongPreview({
       onMouseLeave={() => setOnSongHover(false)}
       onDoubleClick={() => playSong(song)}
     >
-      {isListTable && (
+      {(isListTable || isArtistPage) && (
         <h4 className="idx relative">
           {!onSongHover &&
             (isPlaying && isCurrSong ? <EqualizerBar /> : idx + 1)}
@@ -99,7 +101,7 @@ export function SongPreview({
       </div>
       {isListTable && (
         <>
-          <h4>{album ? album : 'Album'}</h4>
+          <h4 className='album'>{album ? album : 'Album'}</h4>
           <h4>{getTimeOfSent(addedAt)}</h4>
         </>
       )}

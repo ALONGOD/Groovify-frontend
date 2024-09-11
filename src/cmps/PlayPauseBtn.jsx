@@ -7,16 +7,26 @@ import {
 } from '../store/reducers/station.reducer'
 import { setSongsInQueue } from '../store/actions/station.actions'
 
-export function PlayPauseBtn({ song, station, type, onTogglePlay, onSetSongsInQueue }) {
+export function PlayPauseBtn({
+  song,
+  station,
+  type,
+  onTogglePlay,
+  onSetSongsInQueue,
+}) {
   const dispatch = useDispatch()
-
-  // const songs = useSelector(state => state.stationModule.songs)
   const player = useSelector(state => state.stationModule.player)
   const { isPlaying, currSong, currStation } = player
+
   const isSongPlaying = setIsPlaying()
 
   function setIsPlaying() {
-    if (type === 'station-preview' || type === 'userDetails' || type === 'search-results') return (currStation?.id === station?.id) && isPlaying
+    if (
+      type === 'station-preview' ||
+      type === 'userDetails' ||
+      type === 'search-results'
+    )
+      return currStation?.id === station?.id && isPlaying
     else return currSong?.id === song?.id && isPlaying
   }
 
@@ -34,9 +44,10 @@ export function PlayPauseBtn({ song, station, type, onTogglePlay, onSetSongsInQu
     dispatch({ type: SET_PLAYER_IS_PLAYING, isPlaying: !isPlaying })
   }
 
+  const isGreenBtn = type === 'top-result' || type === 'userDetails'
 
-  console.log('type:', type)
-  if (type === 'top-result' || type === 'userDetails') {
+  // console.log('type:', type)
+  if (isGreenBtn) {
     return (
       <div className={`play-pause-container ${type}`} onClick={playOrPauseSong}>
         {isSongPlaying ? <IoIosPause /> : <IoIosPlay />}
@@ -46,9 +57,9 @@ export function PlayPauseBtn({ song, station, type, onTogglePlay, onSetSongsInQu
   return (
     <>
       {isSongPlaying ? (
-        <IoIosPause className='play-pause-btn' onClick={playOrPauseSong} />
+        <IoIosPause className="play-pause-btn" onClick={playOrPauseSong} />
       ) : (
-        <IoIosPlay className='play-pause-btn' onClick={playOrPauseSong} />
+        <IoIosPlay className="play-pause-btn" onClick={playOrPauseSong} />
       )}
     </>
   )

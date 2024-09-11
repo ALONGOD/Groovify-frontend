@@ -8,6 +8,10 @@ import {
   formatDuration,
   formatNumberWithCommas,
 } from '../services/util.service'
+import { StationList } from '../cmps/StationList'
+import { ArtistList } from '../cmps/ArtistList'
+import { MdVerified } from 'react-icons/md'
+import { RiVerifiedBadgeFill } from 'react-icons/ri'
 
 export function ArtistDetails() {
   const { artistId } = useParams()
@@ -19,6 +23,8 @@ export function ArtistDetails() {
   })
   const headerBgImg = artist?.details ? artist.details.images[0].url : null
   console.log('artist:', artist.details)
+  console.log(artist?.albums);
+  
 
   useEffect(() => {
     fetchDetailsFromArtist()
@@ -26,7 +32,19 @@ export function ArtistDetails() {
 
   async function fetchDetailsFromArtist() {
     const details = await SpotifyAPIService.fetchDetailsFromArtist(artistId, 'artist')
-    const albums = await SpotifyAPIService.fetchDetailsFromArtist(artistId, 'albums')
+    const albumsBeforeEdit = await SpotifyAPIService.fetchDetailsFromArtist(artistId, 'albums')
+    const albums = albumsBeforeEdit.items.map(album => {
+      const { id, name, artists, images } = album
+      return {
+        id,
+        name,
+        creator: {
+          name: artists.map(artist => artist.name).join(', '),
+          id: artists[0].id,
+        },
+        imgUrl: images[0].url,
+      }
+    })
     const relatedArtists = await SpotifyAPIService.fetchDetailsFromArtist(artistId, 'relatedArtists')
 
     const topTracksBeforeEdit = await SpotifyAPIService.fetchDetailsFromArtist(artistId, 'topTracks')
@@ -35,7 +53,7 @@ export function ArtistDetails() {
       return {
         id,
         title,
-        artist: artists.join(', '),
+        artist: artists.map(artist => artist.name).join(', '),
         album: album.name,
         url: '',
         imgUrl: album?.images[2]?.url,
@@ -48,24 +66,36 @@ export function ArtistDetails() {
     setArtist({ details, albums, topTracks, relatedArtists })
   }
 
+  console.log('artist?.topTracks?.items:', artist?.topTracks)
   return (
-    <section className="artist-details">
+    <section className="artist-details" >
       <header
         className="flex flex-column"
         style={{ backgroundImage: `url(${headerBgImg})` }}
       >
-        <h4>
-          <VerifiedBtn /> Verified Artist
-        </h4>
+        <div className='verified flex align-center'>
+          <VerifiedBtn />
+           <h4>Verified Artist</h4>
+        </div>
         <h1>{artist?.details?.name}</h1>
         <p>
           {formatNumberWithCommas(artist?.details?.followers.total)} followers
         </p>
       </header>
       <main className="flex flex-column">
-        <PlayPauseBtn type="top-result" />
         <div className="popular-songs">
-          {/* <SongList songs={artist?.topTracks?.items} /> */}
+          <h2>Popular</h2>
+          <SongList songs={artist?.topTracks?.slice(0, 5)} type='artist-page'/>
+        </div>
+        <div className="discography">
+          <h2>Discography</h2>
+          <div className="albums">
+            <StationList stations={artist?.albums?.slice(0, 8)} type='artistDetails'/>
+          </div>
+        </div>
+        <div className="related-artists">
+          <h2>Fans also like</h2>
+          <ArtistList artists={artist?.relatedArtists?.artists?.slice(0, 8)} />
         </div>
       </main>
     </section>
