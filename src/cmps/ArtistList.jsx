@@ -6,23 +6,13 @@ export function ArtistList({ artists }) {
     const navigate = useNavigate();
 
     async function navigateToArtist(artistId) {
-        // navigate(`/artist/${artistId}`);
-        const details = await SpotifyAPIService.fetchDetailsFromArtist(artistId, 'topTracks')
-        const topTracks = await SpotifyAPIService.fetchDetailsFromArtist(artistId, 'albums')
-        const relatedArtists = await SpotifyAPIService.fetchDetailsFromArtist(artistId, 'relatedArtists')
-        const featuredPlaylists = await SpotifyAPIService.fetchFeaturedPlaylists()
-        const browse = await SpotifyAPIService.fetchBrowseCategories()
-        console.log('browse:', browse)
-        console.log('featuredPlaylists:', featuredPlaylists)
-        console.log('relatedArtists:', relatedArtists)
-        console.log('topTracks:', topTracks)
-        console.log('details:', details);
-        
+        navigate(`/artist/${artistId}`);
+                
     }
     
     return (
         <div className="artist-list">
-            {artists.map((artist) => {
+            {artists?.map((artist) => {
                 console.log('artist:', artist)
                 if (artist.images.length === 0) return null; // Correct use of conditional
                 return (

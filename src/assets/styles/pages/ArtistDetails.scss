@@ -50,6 +50,35 @@
     }
   }
   main {
+    padding: 1em;
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      font-family: 'gotham-medium';
+    }
+    // .popular-songs {
+    // }
+    ul.song-list li {
+      display: grid;
+      grid-template-columns: 1em 4fr 2fr 1fr;
+      gap: 1em;
+      padding-inline:0.5em;
+      .idx {
+        grid-column: 1;
+        // padding: 0.5em;
+      }
+      div.main-details {
+        grid-column: 2;
+      }
+      .album {
+        display: none;
+      }
+      .like-song-container {
+        grid-column: 4;
+        justify-content: end;
+      }
+    }
+
     section.station-list {
       .search-bar-container {
         display: none;
@@ -67,35 +96,7 @@
           z-index: 0;
           border-radius: 8px;
           position: relative;
-          &:hover .play-pause-container.userDetails {
-            opacity: 1;
-            transform: translateY(0);
-          }
-
-          .play-pause-container.userDetails {
-            opacity: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: absolute;
-            bottom: em(20px);
-            right: em(20px);
-            background-color: $spotify-green;
-            border-radius: 50%;
-            width: em(48px);
-            height: em(48px);
-            color: #191919;
-            box-shadow: 0 8px 8px rgba(0, 0, 0, 0.3);
-            transform: translateY(8px);
-            z-index: 10;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            svg {
-              color: #191919;
-              font-size: 2em;
-              background-color: transparent;
-            }
-          }
+          
           .relative img {
             z-index: 10;
             display: block;
