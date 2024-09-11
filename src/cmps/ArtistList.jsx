@@ -1,11 +1,21 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
+import { SpotifyAPIService } from '../services/spotifyAPI/spotifyAPI.service';
 
 export function ArtistList({ artists }) {
     const navigate = useNavigate();
 
-    function navigateToArtist(artistId) {
-        navigate(`/artist/${artistId}`);
+    async function navigateToArtist(artistId) {
+        // navigate(`/artist/${artistId}`);
+        const details = await SpotifyAPIService.fetchDetailsFromArtist(artistId, 'topTracks')
+        const topTracks = await SpotifyAPIService.fetchDetailsFromArtist(artistId, 'albums')
+        const relatedArtists = await SpotifyAPIService.fetchDetailsFromArtist(artistId, 'relatedArtists')
+        const featuredPlaylists = await SpotifyAPIService.fetchFeaturedPlaylists()
+        console.log('featuredPlaylists:', featuredPlaylists)
+        console.log('relatedArtists:', relatedArtists)
+        console.log('topTracks:', topTracks)
+        console.log('details:', details);
+        
     }
     
     return (
