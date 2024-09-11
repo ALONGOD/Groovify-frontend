@@ -147,7 +147,7 @@ async function fetchFeaturedPlaylists() {
 async function fetchBrowseCategories() {
   try {
     const SPOTIFY_TOKEN = await getSpotifyAccessToken()
-    const response = await axios.get('https://api.spotify.com/v1/browse/categories', {
+    const response = await axios.get('https://api.spotify.com/v1/browse/categories?locale=en_US', {
       headers: {
         Authorization: `Bearer ${SPOTIFY_TOKEN}`,
       },
