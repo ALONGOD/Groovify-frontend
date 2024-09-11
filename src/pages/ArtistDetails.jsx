@@ -39,7 +39,26 @@ export function ArtistDetails() {
     setArtist({ details, albums, topTracks, relatedArtists })
   }
 
-    return (
-        <></>
-    )
+  return (
+    <section className="artist-details">
+      <header
+        className="flex flex-column"
+        style={{ backgroundImage: `url(${headerBgImg})` }}
+      >
+        <h4>
+          <VerifiedBtn /> Verified Artist
+        </h4>
+        <h1>{artist?.details?.name}</h1>
+        <p>
+          {formatNumberWithCommas(artist?.details?.followers.total)} followers
+        </p>
+      </header>
+      <main className="flex flex-column">
+        <PlayPauseBtn type="top-result" />
+        <div className="popular-songs">
+          {/* <SongList songs={artist?.topTracks?.items} /> */}
+        </div>
+      </main>
+    </section>
+  )
 }
