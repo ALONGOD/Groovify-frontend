@@ -1,4 +1,13 @@
-import { useParams } from "react-router"
+import { useParams } from 'react-router'
+import { SpotifyAPIService } from '../services/spotifyAPI/spotifyAPI.service'
+import { useEffect, useState } from 'react'
+import { VerifiedBtn } from '../cmps/svgs/VerifiedBtn'
+import { PlayPauseBtn } from '../cmps/PlayPauseBtn'
+import { SongList } from '../cmps/SongList'
+import {
+  formatDuration,
+  formatNumberWithCommas,
+} from '../services/util.service'
 
 export function ArtistDetails() {
   const { artistId } = useParams()

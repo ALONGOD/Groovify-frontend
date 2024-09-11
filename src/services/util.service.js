@@ -130,6 +130,19 @@ export function getTimeOfSent(time) {
   }
 }
 
+export function formatDuration(ms) {
+  const totalSeconds = Math.floor(ms / 1000);
+
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+
+  return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+}
+
+export function formatNumberWithCommas(number) {
+  return number?.toLocaleString();
+}
+
 export function adjustBrightnessAndSaturation(hex, brightnessFactor = 1.2, saturationFactor = 1.2) {
   let r = parseInt(hex.slice(1, 3), 16);
   let g = parseInt(hex.slice(3, 5), 16);
