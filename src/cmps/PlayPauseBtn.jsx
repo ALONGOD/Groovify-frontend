@@ -16,12 +16,12 @@ export function PlayPauseBtn({ song, station, type, onTogglePlay, onSetSongsInQu
   const isSongPlaying = setIsPlaying()
 
   function setIsPlaying() {
-    if (type === 'station-preview' || type === 'userDetails') return (currStation?.id === station?.id) && isPlaying
+    if (type === 'station-preview' || type === 'userDetails' || type === 'search-results') return (currStation?.id === station?.id) && isPlaying
     else return currSong?.id === song?.id && isPlaying
   }
 
   function playOrPauseSong(ev) {
-    if (onTogglePlay) return onTogglePlay(ev) 
+    if (onTogglePlay) return onTogglePlay(ev)
     if (onSetSongsInQueue) onSetSongsInQueue()
     if (station)
       dispatch({

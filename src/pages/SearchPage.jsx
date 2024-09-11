@@ -9,6 +9,7 @@ import { stationService } from '../services/station/station.service.local.js';
 import { PlayPauseBtn } from '../cmps/PlayPauseBtn.jsx';
 import { query } from '../store/actions/backend.station.js';
 import { ArtistList } from '../cmps/ArtistList.jsx';
+import { StationPreview } from '../cmps/StationPreview.jsx';
 
 export function SearchPage() {
   const { searchTerm } = useParams();
@@ -91,31 +92,20 @@ export function SearchPage() {
             <>
               <h2>Playlists</h2>
               <div className="playlist-container">
-                {playlistResults.map((playlist) => (
-                  <div
+                {playlistResults.filter((playlist) => playlist.songs && playlist.songs.length > 0).map((playlist, index) => (
+                  <StationPreview
                     key={playlist._id}
-                    className="playlist-item"
-                    onClick={() => onPlaylistClick(playlist._id)}
-                  >
-                    <img
-                      src={playlist.imgUrl}
-                      alt={playlist.name}
-                    />
-                    <div className="playlist-info">
-                      <h3>{playlist.name}</h3>
-                      <p>By {playlist.createdBy.fullname}</p>
-                    </div>
-                    <PlayPauseBtn
-                      station={playlist}
-                      type="top-result"
-                    />
-                  </div>
+                    station={playlist}
+                    index={index}
+                    type="search-results"
+                    user={playlist.createdBy}
+                  />
                 ))}
               </div>
             </>
           )}
         </div>
-        <div className="artist-results" style={{ gridColumn: 'span 2' }}>
+        <div className="artist-results">
           {artistResults.length !== 0 && (
             <>
               <h2>Artists</h2>
