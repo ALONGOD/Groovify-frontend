@@ -66,6 +66,7 @@ export async function addToLikedSongs(song) {
     song.addedAt = Date.now()
     user.likedSongsStation.songs.push(song)
     const userToSave = await userService.update(user)
+    userService.saveLoggedinUser(userToSave)
     store.dispatch({ type: SET_USER, user: userToSave })
 }
 
