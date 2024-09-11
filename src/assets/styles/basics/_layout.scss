@@ -31,7 +31,7 @@ main {
     height: calc(100vh - $height-header - $height-footer); // Adjusted to use renamed variables
     overflow: hidden;
     background-color: $bg-main;
-    &:has(aside.menu-sidebar.collapsed) .station-list ul {
+    &:has(aside.menu-sidebar.collapsed) .menu-sidebar .station-list ul {
         height: calc($station-list-bar-height + 9em);
     }
     &:has(aside.menu-sidebar:not(.collapsed)):has(aside.details-sidebar.open) {
@@ -114,3 +114,23 @@ aside.menu-sidebar {
     // z-index: 100;
     background-color: $bg-secondary;
 }
+
+body {
+    --sb-track-color: #232E33;
+    --sb-thumb-color: #bbbbbb;
+    --sb-size: 14px;
+  }
+  
+  body::-webkit-scrollbar {
+    width: var(--sb-size);
+  }
+  
+  body::-webkit-scrollbar-track {
+    background: var(--sb-track-color);
+    border-radius: 3px;
+  }
+  
+  body::-webkit-scrollbar-thumb {
+    background: var(--sb-thumb-color);
+    border-radius: 3px;
+  }
