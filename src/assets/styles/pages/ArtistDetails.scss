@@ -1,0 +1,129 @@
+.artist-details {
+  color: white;
+  //   background-size: 100% 40vh;
+  header {
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: 10% 25%;
+    padding: em(18px);
+    display: flex;
+    align-items: start;
+    justify-content: end;
+    height: 40vh;
+    width: 100%;
+    object-fit: cover;
+    h1 {
+      font-family: 'gotham-bold';
+      font-weight: 900;
+      font-size: 6rem;
+      margin: 0;
+    }
+    .verified {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 0.5em;
+        div {
+          grid-column:1;
+          width: 2em;
+          height: 2em;
+        }
+        h4 {
+          grid-column: 2;
+          grid-row: 1;
+          color: #f0f0f0;
+        }
+      svg {
+        grid-area: 1;
+        width: em(24px);
+        height: em(24px);
+        fill: $--text-announcement;
+        color: white;
+        // background-color: white;
+      }
+    }
+    p {
+      line-height: 32px;
+      margin-top: em(4px);
+      font-family: 'gotham-light';
+      font-weight: 600;
+      font-size: 1em;
+    }
+  }
+  main {
+    section.station-list {
+      .search-bar-container {
+        display: none;
+      }
+      ul {
+        flex-direction: row;
+        height: auto;
+        .station-preview {
+          // width: em(192px);
+          row-gap: em(8px);
+          padding-inline: 0.7em;
+          height: em(246px);
+          flex-direction: column;
+          align-items: start;
+          z-index: 0;
+          border-radius: 8px;
+          position: relative;
+          &:hover .play-pause-container.userDetails {
+            opacity: 1;
+            transform: translateY(0);
+          }
+
+          .play-pause-container.userDetails {
+            opacity: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            bottom: em(20px);
+            right: em(20px);
+            background-color: $spotify-green;
+            border-radius: 50%;
+            width: em(48px);
+            height: em(48px);
+            color: #191919;
+            box-shadow: 0 8px 8px rgba(0, 0, 0, 0.3);
+            transform: translateY(8px);
+            z-index: 10;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            svg {
+              color: #191919;
+              font-size: 2em;
+              background-color: transparent;
+            }
+          }
+          .relative img {
+            z-index: 10;
+            display: block;
+            margin: 0 auto;
+            width: em(168px);
+            height: em(168px);
+            border-radius: 6px;
+          }
+          & > div:not(.relative) {
+            justify-content: start;
+            gap: 4px;
+            h3 {
+              font-size: 1.1rem;
+              width: 10em;
+              white-space: nowrap;
+              height: 100%;
+              text-overflow: ellipsis;
+              overflow: hidden;
+            }
+            .station-details {
+              font-size: em(14px);
+              color: rgb(179, 179, 179);
+              font-weight: 600;
+              font-family: 'gotham-light';
+            }
+          }
+        }
+      }
+    }
+  }
+}
