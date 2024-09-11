@@ -14,6 +14,8 @@ export const userService = {
   saveLoggedinUser,
 }
 
+
+
 function getUsers() {
   return httpService.get(`user`)
 }

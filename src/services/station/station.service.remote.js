@@ -6,6 +6,7 @@ export const stationService = {
     getById,
     save,
     remove,
+    getStationsByUser,
     addStationMsg
 }
 
@@ -31,6 +32,10 @@ async function save(station) {
     }
     return savedStation
 }
+
+function getStationsByUser(userId) {
+    return httpService.get(`station/user/${userId}`)
+  }
 
 async function addStationMsg(stationId, txt) {
     const savedMsg = await httpService.post(`station/${stationId}/msg`, { txt })
