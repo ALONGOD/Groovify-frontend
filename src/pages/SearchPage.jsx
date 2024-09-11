@@ -16,12 +16,16 @@ export function SearchPage() {
   const [searchResults, setSearchResults] = useState([]);
   const [playlistResults, setPlaylistResults] = useState([]);
   const [artistResults, setArtistResults] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!searchTerm) return;
-    fetchResults();
+    if (!searchTerm) {
+      fetchCategories();
+    } else {
+      fetchResults();
+    }
   }, [searchTerm]);
 
   async function fetchResults() {
@@ -73,46 +77,67 @@ export function SearchPage() {
     navigate(`/station/${stationId}`);
   }
 
+  async function fetchCategories() {
+    try {
+      const data = await SpotifyAPIService.fetchBrowseCategories();
+      setCategories(data.categories.items);
+      console.log(data)
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+    }
+  }
+
+  function onCategoryClick(category) {
+    navigate(`/category/${category.id}`);
+  }
   return (
     <div className="search-page">
       <div className="main-details">
-        {searchResults.length !== 0 && (
-          <TopResult topResult={searchResults[0]} />
+        {searchTerm ? (
+          <>
+            {searchResults.length !== 0 && <TopResult topResult={searchResults[0]} />}
+            <div className="songs-results">
+              {searchResults.length !== 0 && (
+                <>
+                  <h2>Songs</h2>
+                  <SongList songs={searchResults} type="search-results" />
+                </>
+              )}
+            </div>
+            <div className="playlist-results" style={{ display: playlistResults.length === 0 ? 'none' : 'block' }}>
+              {playlistResults.length !== 0 && (
+                <>
+                  <h2>Playlists</h2>
+                  <div className="playlist-container">
+                    {playlistResults.filter((playlist) => playlist.songs && playlist.songs.length > 0).map((playlist, index) => (
+                      <StationPreview key={playlist._id} station={playlist} index={index} type="search-results" user={playlist.createdBy} />
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
+            <div className="artist-results">
+              {artistResults.length !== 0 && (
+                <>
+                  <h2>Artists</h2>
+                  <ArtistList artists={artistResults} />
+                </>
+              )}
+            </div>
+          </>
+        ) : (
+          <div className="category-grid">
+            {categories.map((category) =>
+              category.name === 'Charts' ? null : (
+                <div key={category.id} className="category-card" onClick={() => onCategoryClick(category)}>
+                  <img src={category.icons[0].url} alt={category.name} />
+                  <h3>{category.name}</h3>
+                </div>
+              )
+            )}
+          </div>
+
         )}
-        <div className="songs-results">
-          {searchResults.length !== 0 && (
-            <>
-              <h2>Songs</h2>
-              <SongList songs={searchResults} type="search-results" />
-            </>
-          )}
-        </div>
-        <div className="playlist-results" style={{ display: playlistResults.length === 0 ? 'none' : 'block' }}>
-          {playlistResults.length !== 0 && (
-            <>
-              <h2>Playlists</h2>
-              <div className="playlist-container">
-                {playlistResults.filter((playlist) => playlist.songs && playlist.songs.length > 0).map((playlist, index) => (
-                  <StationPreview
-                    key={playlist._id}
-                    station={playlist}
-                    index={index}
-                    type="search-results"
-                    user={playlist.createdBy}
-                  />
-                ))}
-              </div>
-            </>
-          )}
-        </div>
-        <div className="artist-results">
-          {artistResults.length !== 0 && (
-            <>
-              <h2>Artists</h2>
-              <ArtistList artists={artistResults} />
-            </>
-          )}
-        </div>
       </div>
     </div>
   );

@@ -34,7 +34,7 @@ export function SongPreview({
   const isArtistPage = type === 'artist-page'
   const isSongLiked = likedSongs?.some(likedSong => likedSong.id === song.id)
   const displayLikeBtn = onSongHover || isSongLiked
-  
+
   const isCurrSong = currSong?.id === song?.id
 
   async function playSong(song) {
