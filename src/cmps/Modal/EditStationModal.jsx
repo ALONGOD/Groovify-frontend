@@ -38,12 +38,12 @@ export function EditStationModal() {
     setStation({ ...station, imgUrl: img })
   }
 
-  function handleSave(ev) {
+  async function handleSave(ev) {
     try {
       ev.preventDefault()
-      const stationToSave = onUpdateStation(station)
+      const stationToSave = await onUpdateStation(station)
       console.log('station:', station)
-
+      console.log('stationToSave:', stationToSave)
       dispatch({ type: EDIT_STATION_DISPLAY, station: stationToSave })
     } catch (err) {
       console.log('Cannot save station', err)

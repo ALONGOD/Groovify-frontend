@@ -65,6 +65,7 @@ export async function removeStation(stationId) {
 export async function onUpdateStation(station) {
   try {
     const { _id: id, name, createdBy, imgUrl } = station
+    console.log('station:', station)
     const stationToSave = await stationService.save(station)
     await updateStation(stationToSave)
 
