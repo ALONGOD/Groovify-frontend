@@ -22,9 +22,9 @@ export function StationPreview({ station, isCollapsed, index, moveStation, type,
   const player = useSelector(state => state.stationModule.player)
   const { currStation, isPlaying, currSong } = player
 
-  const { isShuffled} = useSelector(state => state.stationModule.queue)
+  const { isShuffled } = useSelector(state => state.stationModule.queue)
 
-  
+
   const { _id, id, imgUrl, name, songs } = station
   station.id = _id ? _id : id
 
@@ -34,7 +34,7 @@ export function StationPreview({ station, isCollapsed, index, moveStation, type,
   async function playOrPauseStation(ev) {
     ev.stopPropagation()
     const stationToPlay = await getStationById(station.id)
-    
+
     const songs = stationToPlay?.songs
     let songToPlay
 
@@ -78,7 +78,7 @@ export function StationPreview({ station, isCollapsed, index, moveStation, type,
   return (
     <li
       ref={ref}
-      className={`station-preview flex flex-row align-center ${onHover ? 'hover' : ''}`}
+      className={`station-preview flex flex-row align-center ${onHover ? 'hover' : ''} ${type === 'search-results' ? 'search-results' : ''}`}
       onClick={() => navigate(`/station/${station.id}`)}
       onMouseEnter={() => setOnHover(true)}
       onMouseLeave={() => setOnHover(false)}
@@ -98,7 +98,7 @@ export function StationPreview({ station, isCollapsed, index, moveStation, type,
         <div className="flex flex-column">
           <h3 className={isStationPlaying ? 'active' : ''}>{name}</h3>
           <div className="station-details flex flex-row align-center">
-            { station.id === 'liked-songs' && <BsFillPinAngleFill className='pin' /> }
+            {station.id === 'liked-songs' && <BsFillPinAngleFill className='pin' />}
             <span>Playlist</span>
             <span className="divider">&#9679;</span>
             <span>{type === 'userDetails' ? `By ${user.username}` : `${songs?.length ? songs?.length : ''} songs`} </span>
