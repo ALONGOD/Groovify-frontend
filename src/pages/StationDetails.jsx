@@ -24,6 +24,7 @@ export function StationDetails() {
   const [noSongsVisible, setNoSongsVisible] = useState(true)
   const user = useSelector(state => state.userModule.user)
   const station = useSelector(state => state.stationModule.stationDisplay)
+  // console.log('station:', station)
   const isStationByUser = user?._id === station?.createdBy?.id
 
   const [searchResults, setSearchResults] = useState([])
@@ -34,16 +35,31 @@ export function StationDetails() {
   let isStationLikedSongs = user?.likedSongsStation?.id === stationId
 
   const [gradient, setGradient] = useState(null)
+  
+  function watchStation() {
+    if (station && user) {
+      socketService.emit('watch-station',{ id: user._id, room:station._id })
+    } 
+  }
 
   useEffect(() => {
+    watchStation()
+
+  }, [user, station])
+  
+  
+  useEffect(() => {
+    socketService.on('watch-station-receieve', (data) => {
+        console.log('hello from server:', data);
+    })
     // Listen for the 'song-added' event
     const unsubscribe = eventBus.on(SONG_ADDED, () => {
       setNoSongsVisible(false)
-      fetchStationFromService() // Fetch updated station data after a song is added
+      fetchStationFromService() 
     })
 
     return () => {
-      unsubscribe() // Clean up the listener
+      unsubscribe() 
     }
   }, [])
 

@@ -26,7 +26,7 @@ export const SET_STATION_DISPLAY = 'SET_STATION_DISPLAY';
 const initialState = {
   songs: [],
   searchTerm: '',
-  stationDisplay: {},
+  stationDisplay: null,
   player: { currSong: null, isPlaying: true, currStation: null },
   modalSong: {},
   editStationModal: false,

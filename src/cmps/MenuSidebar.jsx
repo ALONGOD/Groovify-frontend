@@ -19,17 +19,8 @@ export function MenuSidebar() {
   const [selected, setSelected] = useState(null)
   const [likedStations, setLikedStations] = useState([])
 
-//   const [, set] = useState();
   
-
   useEffect(() => {
-    socketService.on('watch-station-receieve', (data) => {
-        console.log('hello from server:', data);
-    })
-  }, [socket])
-
-  useEffect(() => {
-    sendHello()
     getUser()
     window.addEventListener('resize', handleResize)
     handleResize()
@@ -44,9 +35,6 @@ export function MenuSidebar() {
       setLikedStations([user?.likedSongsStation, ...user?.likedStations])
   }, [user])
 
-  function sendHello() {
-    socketService.emit('watch-station', { message: 'hello I am watching' })
-  }
 
   async function getUser() {
     try {
