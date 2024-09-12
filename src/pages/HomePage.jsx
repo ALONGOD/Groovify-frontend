@@ -1,4 +1,4 @@
-// src/pages/Homepage.jsx
+// src/pages/HomePage.jsx
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -50,12 +50,14 @@ export function Homepage() {
                     <div className='history-container'>
                         {history.map(song => (
                             <div key={song.id} className='history-card'>
-                                <img src={song.imgUrl} alt={song.title} className='history-img' />
+                                <div className='history-img'>
+                                    <img src={song.imgUrl} alt={song.title} />
+                                    <div className='play-btn'>
+                                        <PlayPauseBtn song={song} station={null} type='history-song' />
+                                    </div>
+                                </div>
                                 <h3 className='history-song-name'>{song.title}</h3>
                                 <p className='history-artist'>{song.artist}</p>
-                                <div className='play-btn'>
-                                    <PlayPauseBtn song={song} station={null} type='history-song' />
-                                </div>
                             </div>
                         ))}
                     </div>
