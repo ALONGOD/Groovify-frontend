@@ -8,7 +8,8 @@ import { FaBars } from 'react-icons/fa6'
 import update from 'immutability-helper'
 import { SET_USER } from '../store/reducers/user.reducer.js'
 
-export function StationList({ isCollapsed, stations, type }) {
+export function StationList({ isCollapsed, stations, type, moveStation }) {
+  // console.log('stations:', stations)
   const dispatch = useDispatch()
   // const stations = useSelector(state => state.stationModule.stations);
   const searchTerm = useSelector(state => state.stationModule.searchTerm)
@@ -16,20 +17,6 @@ export function StationList({ isCollapsed, stations, type }) {
   const user = useSelector(state => state.userModule.user)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const modalRef = useRef(null)
-  const [stationOrder, setStationOrder] = useState([])
-
-  useEffect(() => {
-    const storedOrder = JSON.parse(localStorage.getItem('stationOrder'))
-    if (storedOrder && sortBy === 'customOrder') {
-      setStationOrder(storedOrder)
-    } else {
-      setStationOrder(stations)
-    }
-  }, [stations, sortBy])
-
-  useEffect(() => {
-    // fetchStations();
-  }, [searchTerm, sortBy])
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -43,25 +30,6 @@ export function StationList({ isCollapsed, stations, type }) {
       document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [modalRef])
-
-  function setStationsBySearch(search) {
-    const regex = new RegExp(searchTerm, 'i')
-
-    const stationsToSave = stations.filter(station => regex.test(station.name))
-    dispatch({ type: SET_USER, user: { ...user, likedStations: stationsToSave } })
-  }
-
-  const moveStation = (dragIndex, hoverIndex) => {
-    const draggedStation = stationOrder[dragIndex]
-    const updatedOrder = update(stationOrder, {
-      $splice: [
-        [dragIndex, 1],
-        [hoverIndex, 0, draggedStation],
-      ],
-    })
-    setStationOrder(updatedOrder)
-    localStorage.setItem('stationOrder', JSON.stringify(updatedOrder))
-  }
 
   function toggleModal() {
     setIsModalOpen(!isModalOpen)
@@ -79,18 +47,21 @@ export function StationList({ isCollapsed, stations, type }) {
     return sortOptions[sortBy] || sortBy
   }
 
-  console.log(stations)
-
-  if (!stationOrder?.length) return <h1>Loading...</h1>
+  if (!stations?.length) return <h1>Loading...</h1>
   return (
     <section className="station-list">
       {type !== 'search-results' && !isCollapsed && (
         <div className="search-bar-container">
-          <SearchBar searchType={'station'} placeholder={"Search in Playlists"} />
+          <SearchBar
+            searchType={'station'}
+            placeholder={'Search in Playlists'}
+          />
           <div className="sort-button-container" ref={modalRef}>
             <button className="sort-button" onClick={toggleModal}>
               {formatSortByLabel(sortBy)}
-              <span className="sort-icon"><FaBars /></span>
+              <span className="sort-icon">
+                <FaBars />
+              </span>
             </button>
             {isModalOpen && <Modal modalType={'sortBy'} />}
           </div>
@@ -98,7 +69,7 @@ export function StationList({ isCollapsed, stations, type }) {
       )}
 
       <ul>
-        {stationOrder.map((station, index) => (
+        {stations.map((station, index) => (
           <StationPreview
             station={station}
             key={station._id}

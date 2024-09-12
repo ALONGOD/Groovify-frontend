@@ -1,4 +1,7 @@
- .station-list li.station-preview.hover {
+ .station-list li.station-preview:hover {
+    svg {
+        display: block;
+    }
     img {
         opacity: 0.6;
     }
@@ -16,6 +19,9 @@ li.station-preview {
     border-radius: 4px;
     padding-inline: 0.5em;
     padding-block: 0.6em;
+    &.dragging {
+        border-bottom: 2px solid $spotify-green;
+    }
     &:hover {
         background-color: rgb(33, 33, 33);
     }
@@ -29,6 +35,7 @@ li.station-preview {
 
     .relative svg {
         color: white;
+        display: none;
     }
 
     img {
