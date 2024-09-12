@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router'
 import { userService } from '../services/user/user.service.remote'
 import { SET_USER } from '../store/reducers/user.reducer'
 import { useDispatch } from 'react-redux'
+import { socketService } from '../services/socket.service'
 
 export function AuthPage() {
   const dispatch = useDispatch()
@@ -47,7 +48,7 @@ export function AuthPage() {
       let user
       if (isLogin) user = await userService.login({ username, password })
       else user = await userService.signup(credentials)
-
+      socketService.login(user._id)
       dispatch({ type: SET_USER, user })
       navigate('/')
     } catch (err) {

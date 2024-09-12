@@ -2,6 +2,7 @@ import { useNavigate } from "react-router";
 import { userService } from "../../services/user/user.service.remote";
 import { ExitSvg } from "../svgs/ExitSvg";
 import { useSelector } from "react-redux";
+import { socketService } from "../../services/socket.service";
 
 export function ProfileMenu() {
     const navigate = useNavigate()
@@ -10,6 +11,7 @@ export function ProfileMenu() {
     async function onLogout() {
         navigate('/auth/login')
         await userService.logout()
+        socketService.logout()
     }
     
     function navigateToProfile() {
