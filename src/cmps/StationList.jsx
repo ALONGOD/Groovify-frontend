@@ -8,7 +8,7 @@ import { FaBars } from 'react-icons/fa6'
 import update from 'immutability-helper'
 import { SET_USER } from '../store/reducers/user.reducer.js'
 
-export function StationList({ isCollapsed, stations, type, user }) {
+export function StationList({ isCollapsed, stations, type}) {
   const dispatch = useDispatch()
   // const stations = useSelector(state => state.stationModule.stations);
   const searchTerm = useSelector(state => state.stationModule.searchTerm)

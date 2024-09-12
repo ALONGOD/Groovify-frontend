@@ -70,7 +70,7 @@ export function MenuSidebar() {
                         isBelowThreshold={isBelowThreshold}
                     />
                 </div>
-                <StationList isCollapsed={isCollapsed} stations={likedStations} user={user} type='station-preview'/>
+                <StationList isCollapsed={isCollapsed} stations={likedStations} type='station-preview'/>
             </div>
         </aside>
     )
