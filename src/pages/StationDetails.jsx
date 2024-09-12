@@ -12,7 +12,11 @@ import { stationService } from '../services/station/station.service.local.js'
 import { SearchBar } from '../cmps/SearchBar'
 import { YouTubeAPIService } from '../services/youtubeAPI/fetchYoutubeApi'
 import { DetailsHeaderActions } from '../cmps/StationDetails/DetailsHeaderActions.jsx'
-import { getStationById } from '../store/actions/backend.station.js'
+import {
+  getStationById,
+  onUpdateStation,
+} from '../store/actions/backend.station.js'
+import { updateLikedSongs } from '../store/actions/backend.user.js'
 
 export function StationDetails() {
   const navigate = useNavigate()
@@ -21,18 +25,17 @@ export function StationDetails() {
   const user = useSelector(state => state.userModule.user)
   const station = useSelector(state => state.stationModule.stationDisplay)
   const isStationByUser = user?._id === station?.createdBy?.id
-  
+
   const [searchResults, setSearchResults] = useState([])
 
   const editOpen = useSelector(state => state.stationModule.editStationModal)
   const [isStationLiked, setIsStationLiked] = useState(false)
 
-  let isStationLikedSongs 
+  let isStationLikedSongs = user?.likedSongsStation?.id === stationId
 
   const [gradient, setGradient] = useState(null)
 
   useEffect(() => {
-    isStationLikedSongs = user?.likedSongsStation?.id === stationId
     fetchStationFromService()
   }, [stationId])
 
@@ -45,7 +48,11 @@ export function StationDetails() {
 
   async function fetchStationFromService() {
     try {
-      if (isStationLikedSongs) return dispatch({ type: SET_STATION_DISPLAY, station: user.likedSongsStation })
+      if (isStationLikedSongs)
+        return dispatch({
+          type: SET_STATION_DISPLAY,
+          station: user.likedSongsStation,
+        })
       const fetchedStation = await getStationById(stationId)
       if (fetchedStation) {
         dispatch({ type: SET_STATION_DISPLAY, station: fetchedStation })
@@ -71,6 +78,27 @@ export function StationDetails() {
   function toggleEditStation() {
     if (!isStationByUser) return
     dispatch({ type: SET_EDIT_MODAL, isOpen: true })
+  }
+
+  async function moveSong(fromIndex, toIndex) {
+    try {
+      const updatedSongs = [...station.songs]
+      const [movedSong] = updatedSongs.splice(fromIndex, 1)
+      updatedSongs.splice(toIndex, 0, movedSong)
+      dispatch({
+        type: SET_STATION_DISPLAY,
+        station: { ...station, songs: updatedSongs },
+      })
+
+      if (isStationLikedSongs)
+        await updateLikedSongs({ ...station, songs: updatedSongs })
+      else await onUpdateStation({ ...station, songs: updatedSongs })
+    } catch (err) {
+      console.log('err:', err)
+      console.log('why')
+
+      // dispatch({ type: SET_STATION_DISPLAY, station: { ...station, songs: station?.songs } })
+    }
   }
 
   if (!station) return <h1>Loading...</h1>
@@ -108,7 +136,12 @@ export function StationDetails() {
         )}
 
         {station?.songs?.length > 0 && (
-          <SongList songs={station.songs} type="list-table" station={station} />
+          <SongList
+            songs={station.songs}
+            type="list-table"
+            station={station}
+            moveSong={moveSong}
+          />
         )}
 
         {editOpen && <Modal modalType="editStation" />}

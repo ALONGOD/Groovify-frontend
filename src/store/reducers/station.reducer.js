@@ -41,7 +41,6 @@ export function stationReducer(state = initialState, action) {
 
   switch (action.type) {
     // STATIONS
-
     case SET_STATION_DISPLAY:
       newState = { ...state, stationDisplay: action.station }
       break
