@@ -15,7 +15,7 @@ import { DetailsHeaderActions } from '../cmps/StationDetails/DetailsHeaderAction
 import { getStationById,
   onUpdateStation } from '../store/actions/backend.station.js'
   import { updateLikedSongs } from '../store/actions/backend.user.js'
-  import { eventBus, SONG_ADDED } from '../services/event-bus.service.js'
+  import { eventBus, showErrorMsg, showUserMsg, SONG_ADDED } from '../services/event-bus.service.js'
 
 export function StationDetails() {
   const navigate = useNavigate()
@@ -101,15 +101,12 @@ export function StationDetails() {
         type: SET_STATION_DISPLAY,
         station: { ...station, songs: updatedSongs },
       })
-
       if (isStationLikedSongs)
         await updateLikedSongs({ ...station, songs: updatedSongs })
       else await onUpdateStation({ ...station, songs: updatedSongs })
     } catch (err) {
-      console.log('err:', err)
-      console.log('why')
-
-      // dispatch({ type: SET_STATION_DISPLAY, station: { ...station, songs: station?.songs } })
+      showErrorMsg('Failed to move song')
+      dispatch({ type: SET_STATION_DISPLAY, station: { ...station, songs: station?.songs } })
     }
   }
 
@@ -123,13 +120,15 @@ export function StationDetails() {
         toggleEditStation={toggleEditStation}
         setGradient={setGradient}
         isStationByUser={isStationByUser}
-      />
+        isStationLikedSongs={isStationLikedSongs}
+        />
       <div className="station-details-main">
         <DetailsHeaderActions
           toggleEditStation={toggleEditStation}
           isStationLiked={isStationLiked}
           station={station}
           isStationByUser={isStationByUser}
+          isStationLikedSongs={isStationLikedSongs}
         />
 
         {station?.songs?.length === 0 && noSongsVisible && (

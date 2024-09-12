@@ -13,12 +13,10 @@ export function AppHeader() {
   const navigate = useNavigate()
   const location = useLocation()
   const user = useSelector(state => state.userModule.user)
-  console.log('user:', user)
 //   const isSearchPage = location.pathname.includes('/search')
 //   const isStationDetailsPage = location.pathname.includes('/station')
 //   const modalOpen = useRef(false)
 const [modalOpen, setModalOpen] = useState(false)
-console.log('modalOpen:', modalOpen)
 
   function onToggleModal() {
     setModalOpen(state => !state)
