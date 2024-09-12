@@ -26,19 +26,14 @@ export function QueueDetails() {
   if (!queue) return <h2>No queue available</h2>
 
   async function moveSong(fromIndex, toIndex) {
-    fromIndex = fromIndex + 1
-    toIndex = toIndex + 1
+    fromIndex = currSongIdx + fromIndex + 1
+    toIndex = currSongIdx + toIndex + 1
     if (fromIndex === toIndex) return
     const updatedSongs = [...currQueueSongs]
-    console.log('updatedSongs:', updatedSongs)
     const [movedSong] = updatedSongs.splice(fromIndex, 1)
-    // console.log('movedSong:', movedSong)
     updatedSongs.splice(toIndex, 0, movedSong)
-    // console.log('updatedSongs:', updatedSongs)
     if (isShuffled) dispatch({ type: SET_QUEUE_SHUFFLED, songs: updatedSongs })
     else dispatch({ type: SET_QUEUE_SONGS, songs: updatedSongs })
-
-    // console.log('currQueueSongs:', currQueueSongs)
   }
 
   return (
