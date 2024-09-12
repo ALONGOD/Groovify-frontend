@@ -101,3 +101,17 @@ export async function removeFromLikedSongs(songId) {
   userService.saveLoggedinUser(userToSave)
   store.dispatch({ type: SET_USER, user: userToSave })
 }
+
+export async function updateLikedSongs(station) {
+  console.log('station:', station)
+  try {
+    const user = store.getState().userModule.user
+    user.likedSongsStation = station
+    const userToSave = await userService.update(user)
+    userService.saveLoggedinUser(userToSave)
+    store.dispatch({ type: SET_USER, user: userToSave })
+  } catch (err) {
+    console.log('Cannot update liked songs', err)
+    throw err
+  }
+}
