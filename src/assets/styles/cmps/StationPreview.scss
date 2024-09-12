@@ -36,6 +36,8 @@ li.station-preview {
     .relative svg {
         color: white;
         display: none;
+        width: em(24px);
+        height: em(24px);
     }
 
     img {
@@ -63,6 +65,8 @@ li.station-preview {
         margin: 0;
         gap: 0.3em;
         font-size: 0.85em;
+        font-family: 'gotham-light';
+        font-weight: 700;
         svg {
             font-size: 1em;
             color: $spotify-green;

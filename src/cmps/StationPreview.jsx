@@ -127,7 +127,7 @@ export function StationPreview({
             <span>
               {type === 'userDetails'
                 ? `By ${user.username}`
-                : `${songs?.length ? songs?.length : ''} songs`}{' '}
+                : `${station?.creator?.fullname ? station?.creator?.fullname : ''}`}{' '}
             </span>
           </div>
         </div>

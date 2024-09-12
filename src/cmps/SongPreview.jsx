@@ -23,13 +23,11 @@ export function SongPreview({
   likedSongs,
   onSetSongsInQueue,
   moveSong,
-  draggedIdx,
-  setDraggedIdx
 }) {
   
   const dispatch = useDispatch()
   const [onSongHover, setOnSongHover] = useState(false)
-  const [isModalOpen, setIsModalOpen] = useState(false) // Local state for modal visibility
+  const [isModalOpen, setIsModalOpen] = useState(false)
   
   const { addedAt, duration, imgUrl, title, artist, album } = song
   const player = useSelector(state => state.stationModule.player)

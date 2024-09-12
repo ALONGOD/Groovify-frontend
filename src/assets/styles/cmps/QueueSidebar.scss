@@ -11,7 +11,10 @@
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
-          font-size: 1em;
+          height: em(24px);
+          width: em(24px);
+          opacity: 1;
+          fill: #f8f8f8;
         }
       }
       .playing-now li {
