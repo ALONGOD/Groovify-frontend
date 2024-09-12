@@ -6,6 +6,9 @@ import { userService } from '../services/user/user.service.remote'
 import { useDispatch, useSelector } from 'react-redux'
 import { SET_USER } from '../store/reducers/user.reducer'
 import { useNavigate } from 'react-router'
+import io from 'socket.io-client'
+import { socketService } from '../services/socket.service'
+const socket = io.connect('http://localhost:3030')
 
 export function MenuSidebar() {
   const navigate = useNavigate()
@@ -16,7 +19,17 @@ export function MenuSidebar() {
   const [selected, setSelected] = useState(null)
   const [likedStations, setLikedStations] = useState([])
 
+//   const [, set] = useState();
+  
+
   useEffect(() => {
+    socketService.on('watch-station-receieve', (data) => {
+        console.log('hello from server:', data);
+    })
+  }, [socket])
+
+  useEffect(() => {
+    sendHello()
     getUser()
     window.addEventListener('resize', handleResize)
     handleResize()
@@ -27,13 +40,13 @@ export function MenuSidebar() {
   }, [])
 
   useEffect(() => {
-    getUser()
-  }, [])
-
-  useEffect(() => {
     if (user?.likedStations)
       setLikedStations([user?.likedSongsStation, ...user?.likedStations])
   }, [user])
+
+  function sendHello() {
+    socketService.emit('watch-station', { message: 'hello I am watching' })
+  }
 
   async function getUser() {
     try {
@@ -59,12 +72,12 @@ export function MenuSidebar() {
   function moveStation(fromIndex, toIndex) {
     //   console.log('fromIndex:', fromIndex)
     //   console.log('toIndex:', toIndex)
-//       const updatedStations = [...likedStations]
-//       if (fromIndex === toIndex) return
-//       if (fromIndex === 0 || toIndex === 0) return
-//         const [movedStation] = updatedStations.splice(fromIndex, 1)
-//         updatedStations.splice(toIndex, 0, movedStation)
-//         setLikedStations(updatedStations)
+    //       const updatedStations = [...likedStations]
+    //       if (fromIndex === toIndex) return
+    //       if (fromIndex === 0 || toIndex === 0) return
+    //         const [movedStation] = updatedStations.splice(fromIndex, 1)
+    //         updatedStations.splice(toIndex, 0, movedStation)
+    //         setLikedStations(updatedStations)
   }
 
   return (
