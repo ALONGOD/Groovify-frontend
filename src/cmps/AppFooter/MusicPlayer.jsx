@@ -7,16 +7,13 @@ import { useSelector, useDispatch } from 'react-redux'
 import YouTube from 'react-youtube'
 import { MusicPlayerActions } from './MusicPlayerActions'
 import {
-  SET_CURRENT_SONG,
   SET_PLAYER_CURRENT_SONG,
   SET_PLAYER_IS_PLAYING,
   SET_QUEUE_MODE,
 } from '../../store/reducers/station.reducer'
 import {
   loadSavedSettings,
-  setIsPlaying,
   setShuffleQueue,
-  setSongsInQueue,
   addToHistory,
 } from '../../store/actions/station.actions'
 import { formatTime } from '../../services/util.service'
@@ -24,7 +21,6 @@ import { ProgressBar } from './ProgressBar'
 import { SyncButton } from '../svgs/SyncButton'
 import { ShuffleButton } from '../svgs/ShuffleButton'
 import { storageService } from '../../services/async-storage.service'
-import { useLocation } from 'react-router'
 
 export function MusicPlayer({ currSong }) {
   // const {pathname} = useLocation()
@@ -59,6 +55,7 @@ export function MusicPlayer({ currSong }) {
       else playerRef?.current?.pauseVideo()
     }
   }, [isPlaying])
+
 
   const opts = {
     height: '200',
@@ -107,10 +104,9 @@ export function MusicPlayer({ currSong }) {
     dispatch({ type: SET_QUEUE_MODE, mode: state })
   }
 
-
   function onPlayerReady(event) {
     // if (pathname.includes('auth')) return playerRef?.current?.stopVideo()
-    
+    dispatch({ type: SET_PLAYER_IS_PLAYING, isPlaying: true })
     setCurrentTime(0)
     intervalRef.current = setInterval(() => {
       setCurrentTime(playerRef.current.getCurrentTime())
@@ -171,10 +167,11 @@ export function MusicPlayer({ currSong }) {
     setCurrentTime(newTime)
     playerRef.current.seekTo(newTime, true)
   }
-  const isVolumeMuted = playerRef?.current?.isMuted() || volume === 0
+  const isVolumeMuted = playerRef?.current?.isMuted() && playerRef.current.getPlayerState === 1 || volume === 0
 
   function toggleVolume() {
-    isVolumeMuted ? playerRef.current.unMute() : playerRef.current.mute()
+      isVolumeMuted ? playerRef.current.unMute() : playerRef.current.mute()
+      isVolumeMuted ? setVolume(50) : setVolume(0)
   }
 
   return (
