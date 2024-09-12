@@ -12,16 +12,16 @@ import { stationService } from '../services/station/station.service.local.js'
 import { SearchBar } from '../cmps/SearchBar'
 import { YouTubeAPIService } from '../services/youtubeAPI/fetchYoutubeApi'
 import { DetailsHeaderActions } from '../cmps/StationDetails/DetailsHeaderActions.jsx'
-import {
-  getStationById,
-  onUpdateStation,
-} from '../store/actions/backend.station.js'
-import { updateLikedSongs } from '../store/actions/backend.user.js'
+import { getStationById,
+  onUpdateStation } from '../store/actions/backend.station.js'
+  import { updateLikedSongs } from '../store/actions/backend.user.js'
+  import { eventBus, SONG_ADDED } from '../services/event-bus.service.js'
 
 export function StationDetails() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { stationId } = useParams()
+  const [noSongsVisible, setNoSongsVisible] = useState(true)
   const user = useSelector(state => state.userModule.user)
   const station = useSelector(state => state.stationModule.stationDisplay)
   const isStationByUser = user?._id === station?.createdBy?.id
@@ -36,11 +36,22 @@ export function StationDetails() {
   const [gradient, setGradient] = useState(null)
 
   useEffect(() => {
+    // Listen for the 'song-added' event
+    const unsubscribe = eventBus.on(SONG_ADDED, () => {
+      setNoSongsVisible(false)
+      fetchStationFromService() // Fetch updated station data after a song is added
+    })
+
+    return () => {
+      unsubscribe() // Clean up the listener
+    }
+  }, [])
+
+  useEffect(() => {
     fetchStationFromService()
   }, [stationId])
 
   useEffect(() => {
-    // if (user) isStationLikedSongs = user?.likedSongsStation.id === stationId
     setIsStationLiked(
       user?.likedStations?.some(likedStation => likedStation.id === stationId)
     )
@@ -57,6 +68,7 @@ export function StationDetails() {
       if (fetchedStation) {
         dispatch({ type: SET_STATION_DISPLAY, station: fetchedStation })
         setSearchResults([])
+        setNoSongsVisible(fetchedStation.songs.length === 0)
       } else {
         console.error('Station not found')
       }
@@ -120,13 +132,13 @@ export function StationDetails() {
           isStationByUser={isStationByUser}
         />
 
-        {station?.songs?.length === 0 && searchResults.length === 0 && (
+        {station?.songs?.length === 0 && noSongsVisible && (
           <div className="no-songs">
             <h2>Let's find something for your playlist</h2>
             <SearchBar
               searchType={'youtube-inline'}
               placeholder={'Search for songs or episodes'}
-              onSearch={handleSearch} // Search handler
+              onSearch={handleSearch}
             />
           </div>
         )}

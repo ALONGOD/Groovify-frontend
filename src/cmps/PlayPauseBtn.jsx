@@ -23,8 +23,7 @@ export function PlayPauseBtn({
   function setIsPlaying() {
     if (
       type === 'station-preview' ||
-      type === 'userDetails' ||
-      type === 'search-results'
+      type === 'userDetails'
     )
       return currStation?.id === station?.id && isPlaying
     else return currSong?.id === song?.id && isPlaying
@@ -44,7 +43,7 @@ export function PlayPauseBtn({
     dispatch({ type: SET_PLAYER_IS_PLAYING, isPlaying: !isPlaying })
   }
 
-  const isGreenBtn = type === 'top-result' || type === 'userDetails'
+  const isGreenBtn = type === 'top-result' || type === 'userDetails' || type === 'search-results'
 
   // console.log('type:', type)
   if (isGreenBtn) {
