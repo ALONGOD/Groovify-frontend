@@ -46,7 +46,7 @@ export function setShuffleQueue(songs) {
   const shuffledQueue = shuffleQueue(songs)
 
   return new Promise(resolve => {
-    store.dispatch({ type: SET_QUEUE_SHUFFLED, shuffledQueue })
+    store.dispatch({ type: SET_QUEUE_SHUFFLED, songs: shuffledQueue })
     resolve(shuffledQueue) // Resolves immediately after dispatch
   })
   // store.dispatch({ type: SET_QUEUE_SHUFFLED, shuffledQueue })

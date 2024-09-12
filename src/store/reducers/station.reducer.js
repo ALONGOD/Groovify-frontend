@@ -81,7 +81,7 @@ export function stationReducer(state = initialState, action) {
     case SET_QUEUE_SHUFFLED:
       newState = {
         ...state,
-        queue: { ...state.queue, shuffledQueue: action.shuffledQueue },
+        queue: { ...state.queue, shuffledQueue: action.songs },
       }
       break
     case ADD_SONG_TO_QUEUE:

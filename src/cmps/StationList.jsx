@@ -1,59 +1,70 @@
-import { useEffect, useState, useRef } from 'react';
-import { StationPreview } from './StationPreview';
-import { stationService } from '../services/station/station.service.local';
-import { useDispatch, useSelector } from 'react-redux';
-import { SearchBar } from './SearchBar.jsx';
-import { Modal } from './Modal/Modal.jsx';
-import { FaBars } from 'react-icons/fa6';
-import update from 'immutability-helper';
+import { useEffect, useState, useRef } from 'react'
+import { StationPreview } from './StationPreview'
+import { stationService } from '../services/station/station.service.local'
+import { useDispatch, useSelector } from 'react-redux'
+import { SearchBar } from './SearchBar.jsx'
+import { Modal } from './Modal/Modal.jsx'
+import { FaBars } from 'react-icons/fa6'
+import update from 'immutability-helper'
+import { SET_USER } from '../store/reducers/user.reducer.js'
 
-export function StationList({ isCollapsed, stations, type }) {
-  const dispatch = useDispatch();
+export function StationList({ isCollapsed, stations, type, user }) {
+  const dispatch = useDispatch()
   // const stations = useSelector(state => state.stationModule.stations);
-  const searchTerm = useSelector(state => state.stationModule.searchTerm);
-  const sortBy = useSelector(state => state.stationModule.sortBy);
-  const user = useSelector(state => state.userModule.user);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const modalRef = useRef(null);
-  const [stationOrder, setStationOrder] = useState([]);
+  const searchTerm = useSelector(state => state.stationModule.searchTerm)
+  const sortBy = useSelector(state => state.stationModule.sortBy)
+  const user = useSelector(state => state.userModule.user)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const modalRef = useRef(null)
+  const [stationOrder, setStationOrder] = useState([])
 
   useEffect(() => {
-    const storedOrder = JSON.parse(localStorage.getItem('stationOrder'));
+    const storedOrder = JSON.parse(localStorage.getItem('stationOrder'))
     if (storedOrder && sortBy === 'customOrder') {
-      setStationOrder(storedOrder);
+      setStationOrder(storedOrder)
     } else {
-      setStationOrder(stations);
+      setStationOrder(stations)
     }
-  }, [stations, sortBy]);
+  }, [stations, sortBy])
 
   useEffect(() => {
     // fetchStations();
-  }, [searchTerm, sortBy]);
+  }, [searchTerm, sortBy])
 
   useEffect(() => {
     function handleClickOutside(event) {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
-        setIsModalOpen(false);
+        setIsModalOpen(false)
       }
     }
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside)
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [modalRef]);
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [modalRef])
+
+  function setStationsBySearch(search) {
+    const regex = new RegExp(searchTerm, 'i')
+
+    const stationsToSave = stations.filter(station => regex.test(station.name))
+    dispatch({ type: SET_USER, user: { ...user, likedStations: stationsToSave }})
+  }
 
   const moveStation = (dragIndex, hoverIndex) => {
-    const draggedStation = stationOrder[dragIndex];
+    const draggedStation = stationOrder[dragIndex]
     const updatedOrder = update(stationOrder, {
-      $splice: [[dragIndex, 1], [hoverIndex, 0, draggedStation]],
-    });
-    setStationOrder(updatedOrder);
-    localStorage.setItem('stationOrder', JSON.stringify(updatedOrder));
-  };
+      $splice: [
+        [dragIndex, 1],
+        [hoverIndex, 0, draggedStation],
+      ],
+    })
+    setStationOrder(updatedOrder)
+    localStorage.setItem('stationOrder', JSON.stringify(updatedOrder))
+  }
 
   function toggleModal() {
-    setIsModalOpen(!isModalOpen);
+    setIsModalOpen(!isModalOpen)
   }
 
   function formatSortByLabel(sortBy) {
@@ -63,24 +74,28 @@ export function StationList({ isCollapsed, stations, type }) {
       alphabetical: 'Alphabetical',
       creator: 'Creator',
       customOrder: 'Custom Order',
-    };
+    }
 
-    return sortOptions[sortBy] || sortBy;
+    return sortOptions[sortBy] || sortBy
   }
 
-  console.log(stations);
-  
+  console.log(stations)
 
-  if (!stationOrder?.length) return <h1>Loading...</h1>;
+  if (!stationOrder?.length) return <h1>Loading...</h1>
   return (
     <section className="station-list">
       {!isCollapsed && (
         <div className="search-bar-container">
-          <SearchBar searchType={'station'} placeholder={"Search in Playlists"} />
+          <SearchBar
+            searchType={'station'}
+            placeholder={'Search in Playlists'}
+          />
           <div className="sort-button-container" ref={modalRef}>
             <button className="sort-button" onClick={toggleModal}>
               {formatSortByLabel(sortBy)}
-              <span className="sort-icon"><FaBars /></span>
+              <span className="sort-icon">
+                <FaBars />
+              </span>
             </button>
             {isModalOpen && <Modal modalType={'sortBy'} />}
           </div>
@@ -101,5 +116,5 @@ export function StationList({ isCollapsed, stations, type }) {
         ))}
       </ul>
     </section>
-  );
+  )
 }

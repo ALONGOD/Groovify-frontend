@@ -12,23 +12,33 @@ export function QueueDetails() {
   const queue = useSelector(state => state.stationModule.queue)
   const isShuffled = queue.isShuffled
   const currQueueSongs = isShuffled ? queue.shuffledQueue : queue.songsQueue
+  console.log('queue.songsQueue:', queue.songsQueue)
+  console.log('queue.shuffledQueue:', queue.shuffledQueue)
   const player = useSelector(state => state.stationModule.player)
   const { currSong, currStation } = player
-  console.log('currSong:', currSong)
+  //   console.log('currSong:', currSong)
 
-  const currSongIdx = currQueueSongs.findIndex(song => song.id === currSong.id)
+  const currSongIdx = currQueueSongs.findIndex(
+    song => song?.id === currSong?.id
+  )
   const queueToDisplay = currQueueSongs.slice(currSongIdx + 1)
 
   if (!queue) return <h2>No queue available</h2>
 
   async function moveSong(fromIndex, toIndex) {
-    console.log('toIndex:', toIndex)
-    console.log('fromIndex:', fromIndex)
+    fromIndex = fromIndex + 1
+    toIndex = toIndex + 1
+    if (fromIndex === toIndex) return
     const updatedSongs = [...currQueueSongs]
+    console.log('updatedSongs:', updatedSongs)
     const [movedSong] = updatedSongs.splice(fromIndex, 1)
+    // console.log('movedSong:', movedSong)
     updatedSongs.splice(toIndex, 0, movedSong)
+    // console.log('updatedSongs:', updatedSongs)
     if (isShuffled) dispatch({ type: SET_QUEUE_SHUFFLED, songs: updatedSongs })
     else dispatch({ type: SET_QUEUE_SONGS, songs: updatedSongs })
+
+    // console.log('currQueueSongs:', currQueueSongs)
   }
 
   return (
