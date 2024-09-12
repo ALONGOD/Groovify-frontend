@@ -16,8 +16,8 @@ export function SearchBar({
   const [isExpanded, setIsExpanded] = useState(false)
   const dispatch = useDispatch()
   const searchBarRef = useRef(null)
-  const recognitionRef = useRef(null) // Ref for speech recognition
-
+  const recognitionRef = useRef(null)
+  const [isListening, setIsListening] = useState()
 
   function debounce(func, delay) {
     let timer
@@ -95,37 +95,53 @@ export function SearchBar({
       document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [])
-  function startSpeechRecognition() {
-    if (!('webkitSpeechRecognition' in window)) {
-      alert('Speech recognition not supported by your browser.')
-      return
+
+  const toggleSpeechRecognition = () => {
+    // Check if speech recognition is active
+    if (isListening) {
+      // If listening, stop the recognition
+      if (recognitionRef.current) {
+        recognitionRef.current.stop() // Stops the current recognition session
+        recognitionRef.current = null // Clear the reference to avoid issues
+      }
+      setIsListening(false)
+    } else {
+      // If not listening, start the recognition
+      if (!('webkitSpeechRecognition' in window)) {
+        alert('Speech recognition not supported by your browser.')
+        return
+      }
+      setIsListening(true)
+
+      const recognition = new window.webkitSpeechRecognition()
+      recognition.lang = 'en-US'
+      recognition.interimResults = false
+      recognition.maxAlternatives = 1
+
+      recognition.onresult = event => {
+        const transcript = event.results[0][0].transcript
+        setSearchParams(transcript)
+        handleSearch(transcript)
+        setIsListening(false)
+      }
+
+      recognition.onerror = event => {
+        console.error('Speech recognition error:', event.error)
+        setIsListening(false)
+      }
+
+      recognitionRef.current = recognition
+      recognition.start()
     }
-
-    const recognition = new window.webkitSpeechRecognition()
-    recognition.lang = 'en-US'
-    recognition.interimResults = false
-    recognition.maxAlternatives = 1
-
-    recognition.onresult = event => {
-      const transcript = event.results[0][0].transcript
-      setSearchParams(transcript)
-      handleSearch(transcript)
-    }
-
-    recognition.onerror = event => {
-      console.error('Speech recognition error:', event.error)
-    }
-
-    recognitionRef.current = recognition
-    recognition.start()
   }
+
   return (
     <div
       ref={searchBarRef}
       className={`search-bar ${isExpanded ? 'expanded' : ''}`}
       onClick={handleExpand}
     >
-      <FaMagnifyingGlass />
+      <FaMagnifyingGlass className='magnifying' />
       <input
         type="text"
         name="search"
@@ -136,12 +152,20 @@ export function SearchBar({
       />
       {searchType === 'youtube' && (
         <div
-          className="speech-recognition-icon"
-          onClick={startSpeechRecognition}
+          className={`speech-recognition-icon ${isListening ? 'active' : ''}`}
+          onClick={toggleSpeechRecognition}
           title="Click to use voice search"
           style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
         >
-          <FaMicrophone />
+          <div>
+            <FaMicrophone />
+          </div>
+          {isListening && <div class={`speech-animation`}>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>}
         </div>
       )}
     </div>

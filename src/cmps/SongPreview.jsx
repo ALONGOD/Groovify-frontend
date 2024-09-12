@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { BsThreeDots } from 'react-icons/bs'
 import { Modal } from './Modal/Modal'
 import { useDispatch, useSelector } from 'react-redux'
@@ -10,8 +10,10 @@ import {
   SET_PLAYER_CURRENT_STATION,
   SET_PLAYER_IS_PLAYING,
 } from '../store/reducers/station.reducer'
+import { useDrag } from 'react-dnd'
 import { toggleModal } from '../store/actions/station.actions'
 import { getTimeOfSent } from '../services/util.service'
+import { useDrop } from 'react-dnd'
 export function SongPreview({
   song,
   idx,
@@ -20,22 +22,68 @@ export function SongPreview({
   type,
   likedSongs,
   onSetSongsInQueue,
+  moveSong,
+  draggedIdx,
+  setDraggedIdx
 }) {
-  console.log('type:', type)
+  
   const dispatch = useDispatch()
   const [onSongHover, setOnSongHover] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false) // Local state for modal visibility
-
+  
   const { addedAt, duration, imgUrl, title, artist, album } = song
   const player = useSelector(state => state.stationModule.player)
   const { currSong, isPlaying } = player
-
+  
   const isListTable = type === 'list-table'
   const isArtistPage = type === 'artist-page'
   const isSongLiked = likedSongs?.some(likedSong => likedSong.id === song.id)
   const displayLikeBtn = onSongHover || isSongLiked
+  const [isHovered, setIsHovered] = useState(false);  
 
   const isCurrSong = currSong?.id === song?.id
+
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: 'song',
+    item: { id: song.id, index: idx },
+    collect: monitor => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  }))
+
+const [{ isOver }, drop] = useDrop(() => ({
+    accept: 'song',
+    hover: (item, monitor) => {
+      const dragIndex = item.index
+      const hoverIndex = idx
+
+      if (dragIndex === hoverIndex) {
+        setIsHovered(false)
+        return
+      }
+      setIsHovered(true)
+    },
+    drop: (item) => {
+      const dragIndex = item.index
+      const hoverIndex = idx
+      
+      moveSong(dragIndex, hoverIndex)
+      setIsHovered(false)
+    },
+    collect: monitor => ({
+      isOver: !!monitor.isOver(),
+    }),
+  }))
+
+  useEffect(() => {
+    if (!isOver) {
+      setIsHovered(false); 
+    }
+  }, [isOver]);
+
+  function handleMouseLeave() {
+    setOnSongHover(false)
+  }
 
   async function playSong(song) {
     if (onSetSongsInQueue) await onSetSongsInQueue()
@@ -64,9 +112,12 @@ export function SongPreview({
 
   return (
     <li
-      className={` ${currSong?.id === song?.id ? 'active' : ''}`}
+      ref={(node) => drag(drop(node))}
+      className={` ${currSong?.id === song?.id ? 'active' : ''}
+      ${isHovered ? 'dragged' : ''}`}
+      style={{ opacity: isDragging ? 0.5 : 1 }}
       onMouseEnter={() => setOnSongHover(true)}
-      onMouseLeave={() => setOnSongHover(false)}
+      onMouseLeave={handleMouseLeave}
       onDoubleClick={() => playSong(song)}
     >
       {(isListTable || isArtistPage) && (
@@ -101,7 +152,7 @@ export function SongPreview({
       </div>
       {isListTable && (
         <>
-          <h4 className='album'>{album ? album : 'Album'}</h4>
+          <h4 className="album">{album ? album : 'Album'}</h4>
           <h4>{getTimeOfSent(addedAt)}</h4>
         </>
       )}

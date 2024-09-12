@@ -23,6 +23,10 @@ main {
     z-index: 100;
     background-color: $bg-main;
 }
+
+.main-content {
+    overflow: hidden;
+}
 .content-wrapper {
     grid-row: 2;
     display: grid;
@@ -31,6 +35,7 @@ main {
     height: calc(100vh - $height-header - $height-footer); // Adjusted to use renamed variables
     overflow: hidden;
     background-color: $bg-main;
+    
     &:has(aside.menu-sidebar.collapsed) .menu-sidebar .station-list ul {
         height: calc($station-list-bar-height + 9em);
     }
@@ -41,10 +46,10 @@ main {
         grid-template-columns: 5.5em 1fr minmax(300px, 20%);
     }
     &:has(aside.menu-sidebar:not(.collapsed)):has(aside.details-sidebar.closed) {
-        grid-template-columns: 300px 1fr;
+        grid-template-columns: 300px 1fr 0;
     }
     &:has(aside.menu-sidebar.collapsed):has(aside.details-sidebar.closed) {
-        grid-template-columns: 5.5em 1fr;
+        grid-template-columns: 5.5em 1fr 0;
     }
     // @media (max-width: 768px) {
     //     &:has(aside.menu-sidebar:not(.collapsed)):has(aside.details-sidebar.open) {
@@ -71,7 +76,7 @@ main {
 aside.menu-sidebar {
     height: 100%;
     grid-column: 1;
-    transition: width 0.3s ease;
+    transition: all 0.3s ease;
     // &.collapsed {
     //     // width: 72px;
     //     .nav-link {
@@ -91,6 +96,7 @@ aside.menu-sidebar {
     //     }
     // }
 }
+
 .details-sidebar {
     @include component-layout;
     padding: 1em;

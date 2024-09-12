@@ -132,6 +132,9 @@ ul.song-list {
     height: em(56px);
     padding-block: 0.5em;
     border-radius: $spotify-border-radius;
+    &.dragged {
+      border-bottom: 2px solid $spotify-green;
+    }
     &:hover {
       background-color: hsla(0, 0%, 100%, 0.1);
     }

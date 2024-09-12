@@ -6,7 +6,7 @@
 
   bottom: calc($spacing-gap / 2);
 
-  >* {
+  > * {
     display: flex;
     align-items: center;
     gap: 1em;
@@ -30,6 +30,7 @@
   }
 
   .home-button {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -45,6 +46,10 @@
     }
 
     svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       font-size: 2em;
       color: white;
     }
@@ -71,7 +76,7 @@
       }
     }
 
-    svg {
+    svg.magnifying {
       position: absolute;
       top: 50%;
       left: 1em;
@@ -139,10 +144,90 @@
     color: #b3b3b3;
     transition: transform 0.2s ease, box-shadow 0.3s ease;
 
-    &:hover {
-      transform: scale(1.05);
-      color: #ffffff; // Glow effect, can adjust color
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); // Adjust intensity if needed
+    div:has(svg) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      // padding: 0.5em;
+      height: 2em;
+      width: 2em;
+      background-color: #2c2c2c72;
+      border-radius: 50%;
+      &:hover {
+        background-color: rgb(93, 93, 93);
+      }
+      svg {
+        transition: transform 0.2s ease;
+        
+      }
+    }
+    &.active div:has(svg), &:hover div:has(svg) {
+      background-color: rgb(79, 79, 79);
+
+    }
+    &:hover svg,
+    &.active svg {
+      scale: 1.05;
+      fill: #ffffff; /* Glow effect, can adjust color */
+    }
+
+    .speech-animation {
+      position: absolute;
+      right: 45px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    &.active .speech-animation span {
+      background-color: rgb(224, 224, 224);
+    }
+
+    .speech-animation span {
+      display: block;
+      width: 5px;
+      height: 8px;
+      border-radius: 10px;
+      background-color: rgb(110, 110, 110);
+      transition: height 0.2s ease, background-color 0.1s ease; /* Add height transition */
+      animation: speech 0.7s infinite ease-in-out;
+    }
+
+    .speech-animation span:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    .speech-animation span:nth-child(2) {
+      animation-delay: 0.1s;
+    }
+
+    .speech-animation span:nth-child(3) {
+      animation-delay: 0.2s;
+    }
+
+    .speech-animation span:nth-child(4) {
+      animation-delay: 0.3s;
+    }
+
+    @keyframes speech {
+      0%,
+      100% {
+        height: 8px;
+      }
+      50% {
+        height: 20px;
+      }
+    }
+
+    &.active .speech-animation span {
+      animation-play-state: running;
+    }
+
+    .speech-animation span {
+      animation-play-state: paused;
+      height: 10px;
+      transition: height 0.2s ease; /* Smooth return to natural height */
     }
   }
 }
