@@ -10,6 +10,7 @@ import { PlayPauseBtn } from '../cmps/PlayPauseBtn.jsx';
 import { query } from '../store/actions/backend.station.js';
 import { ArtistList } from '../cmps/ArtistList.jsx';
 import { StationPreview } from '../cmps/StationPreview.jsx';
+import { StationList } from '../cmps/StationList.jsx';
 
 export function SearchPage() {
   const { searchTerm } = useParams();
@@ -108,11 +109,7 @@ export function SearchPage() {
               {playlistResults.length !== 0 && (
                 <>
                   <h2>Playlists</h2>
-                  <div className="playlist-container">
-                    {playlistResults.filter((playlist) => playlist.songs && playlist.songs.length > 0).map((playlist, index) => (
-                      <StationPreview key={playlist._id} station={playlist} index={index} type="search-results" user={playlist.createdBy} />
-                    ))}
-                  </div>
+                  <StationList stations={playlistResults} type="search-results" />
                 </>
               )}
             </div>
