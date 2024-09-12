@@ -1,39 +1,43 @@
 .user-msg {
     position: fixed;
-    top: 60px;
-    right: .2em;
-
+    bottom: 10em;
+    right: 50%; 
+    transform: translateX(50%); 
+    
     display: flex;
     align-items: center;
 
-    padding: .2em;
-    padding-inline-end: 20px;
+    padding: 1em 1em; 
     background-color: grey;
 
-    color:white;
-    font-size: .9em;
+    color: black; 
+    font-family: 'gotham-medium';
+    font-weight: 600;
+    font-size: .8em;
 
+    border-radius: 8px;
     opacity: 0;
-    translate: 150%;
+    translate: 0 150%;
     transition: 600ms;
+    z-index: 500;
 }
 
 .user-msg.visible {
     opacity: 1;
-    translate: 0;
+    translate: 0 0; 
 }
 
 .user-msg button {
     background-color: $gray1;
     padding: 1px 6px;
-    border:0;
+    border: 0;
     border-radius: 50%;
     color: $gray4;
 }
 
 .user-msg.success {
-    background-color: rgb(41, 189, 73);
+    background-color: rgb(246, 246, 246);
 }
 .user-msg.error {
-    background-color: rgb(216, 59, 59);
+    background-color: rgb(246, 246, 246);
 }
