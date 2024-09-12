@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { FaMagnifyingGlass } from 'react-icons/fa6'
 import { useSelector } from 'react-redux'
-import { addToStation } from '../../store/actions/station.actions'
 import { addSongToStation } from '../../store/actions/backend.station'
+import { notifySongAdded } from '../../services/event-bus.service.js'
 
 export function AddToStationModal({ stations }) {
   const songModal = useSelector(state => state.stationModule.modalSong)
@@ -16,6 +16,7 @@ export function AddToStationModal({ stations }) {
 
   function onAddSongToStation(stationId) {
     addSongToStation(stationId, songModal)
+    notifySongAdded(songModal) // Notify that a song has been added
   }
 
   return (
