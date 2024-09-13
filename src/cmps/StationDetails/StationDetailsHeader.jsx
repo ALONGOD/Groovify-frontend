@@ -18,14 +18,31 @@ export function StationDetailsHeader({
   const { name, createdBy, songs, imgUrl, description } = station
 
   useEffect(() => {
-    fac.getColorAsync(imgUrl).then(color => {
-      const color1 = adjustBrightnessAndSaturation(color.hex, 0.4, 1.8)
-      const color2 = '#121212'
-      setGradient({
-        background: `linear-gradient(to bottom, ${color1} 10%, ${color2} 100%)`,
-      })
-    })
-  }, [station])
+    if (!imgUrl) {
+      console.error('Image URL is missing');
+      return; // Skip if there's no valid image URL
+    }
+
+    // Create a new image element to ensure it's loaded
+    const img = new Image();
+    img.src = imgUrl;
+
+    img.onload = () => {
+      fac.getColorAsync(imgUrl)
+        .then((color) => {
+          const color1 = adjustBrightnessAndSaturation(color.hex, 0.4, 1.8);
+          const color2 = '#121212';
+          setGradient({
+            background: `linear-gradient(to bottom, ${color1} 10%, ${color2} 100%)`,
+          });
+        })
+        .catch((err) => console.error('Error getting color from image:', err));
+    };
+
+    img.onerror = () => {
+      console.error('Error loading image:', imgUrl);
+    };
+  }, [station]);
 
   function setStationImg(img) {
     dispatch({

@@ -6,6 +6,32 @@ export const SpotifyAPIService = {
   fetchDetailsFromArtist,
   fetchFeaturedPlaylists,
   fetchBrowseCategories,
+  getRecommendedSongs,
+}
+async function getRecommendedSongs(prompt) {
+  try {
+    const token = await getSpotifyAccessToken();
+    const response = await axios.get(
+      `https://api.spotify.com/v1/recommendations?seed_genres=${encodeURIComponent(prompt)}&limit=10`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data.tracks.map((track) => ({
+      title: track.name,
+      artist: track.artists[0].name,
+      album: track.album.name,
+      duration: track.duration_ms,
+      imgUrl: track.album.images[0].url,
+      spotifyUrl: track.external_urls.spotify,
+    }));
+  } catch (error) {
+    console.error('Error fetching recommendations from Spotify:', error);
+    return [];
+  }
 }
 async function searchArtists(query, limit = 5) {
   try {
