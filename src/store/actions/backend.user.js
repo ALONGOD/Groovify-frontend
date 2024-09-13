@@ -5,11 +5,7 @@ import { store } from '../store'
 export async function saveStationToLiked(stationToSave) {
   try {
     const { _id: id, name, createdBy, imgUrl } = stationToSave
-    const user = await userService.getLoggedinUser()
-    if (!user.likedStations) {
-      user.likedStations = [];
-    }
-
+    const user = store.getState().userModule.user
     const isStationIn = user.likedStations.some(
       station => station.id === stationToSave._id
     )
@@ -26,7 +22,6 @@ export async function saveStationToLiked(stationToSave) {
     console.log('user:', user)
 
     const userToSave = await userService.update(user)
-    console.log('userToSave:', userToSave)
     userService.saveLoggedinUser(userToSave)
     store.dispatch({ type: SET_USER, user: userToSave })
   } catch (err) {
