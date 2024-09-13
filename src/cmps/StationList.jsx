@@ -72,7 +72,7 @@ export function StationList({ isCollapsed, stations, type, moveStation }) {
         {stations.map((station, index) => (
           <StationPreview
             station={station}
-            key={station._id}
+            key={station.name}
             isCollapsed={isCollapsed}
             index={index}
             moveStation={moveStation}

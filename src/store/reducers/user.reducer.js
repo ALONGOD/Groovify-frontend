@@ -1,3 +1,4 @@
+import { socketService } from '../../services/socket.service'
 import { userService } from '../../services/user/user.service.remote'
 
 export const SET_USER = 'SET_USER'
@@ -21,6 +22,9 @@ export function userReducer(state = initialState, action) {
     var newState = state
     switch (action.type) {
         case SET_USER:
+            console.log(action.user);
+            
+            socketService.login({id:action.user._id, fullname: action.user.fullname})
             newState = { ...state, user: action.user }
             break
         case ADD_STATION_TO_LIKED: 

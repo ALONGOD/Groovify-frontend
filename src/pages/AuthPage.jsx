@@ -49,6 +49,8 @@ export function AuthPage() {
       if (isLogin) user = await userService.login({ username, password })
       else user = await userService.signup(credentials)
       socketService.login(user._id)
+      console.log(user);
+      
       dispatch({ type: SET_USER, user })
       navigate('/')
     } catch (err) {
