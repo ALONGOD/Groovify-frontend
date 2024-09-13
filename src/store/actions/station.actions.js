@@ -71,7 +71,6 @@ export async function addToLikedSongs(songToAdd) {
   storageService.save('loggedinUser', user)
 
   store.dispatch({ type: SET_USER, user })
-  store.dispatch({ type: UPDATE_STATION, updatedStation: likedSongsStation })
 }
 
 export async function removeFromLikedSongs(songId) {

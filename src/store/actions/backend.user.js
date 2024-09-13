@@ -26,6 +26,7 @@ export async function saveStationToLiked(stationToSave) {
     console.log('user:', user)
 
     const userToSave = await userService.update(user)
+    console.log('userToSave:', userToSave)
     userService.saveLoggedinUser(userToSave)
     store.dispatch({ type: SET_USER, user: userToSave })
   } catch (err) {
