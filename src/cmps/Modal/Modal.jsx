@@ -12,7 +12,6 @@ import { ProfileMenu } from './ProfileMenu.jsx'
 export function Modal({ modalType, }) {
   const likedStations = useSelector((state) => state.userModule.user)?.likedStations
   
-  
   return (
     <>
       {modalType === 'editStation' && <div className="modal-backdrop"></div>}

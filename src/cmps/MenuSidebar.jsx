@@ -39,6 +39,7 @@ export function MenuSidebar() {
   async function getUser() {
     try {
       const userToSave = await userService.getLoggedinUser()
+      console.log('userToSave:', userToSave)
       if (!userToSave) navigate('/auth/login')
       // const userToSave = await userService.getById(user._id)
       dispatch({ type: SET_USER, user: userToSave })

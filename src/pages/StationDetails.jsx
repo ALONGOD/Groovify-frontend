@@ -8,58 +8,68 @@ import {
   SET_EDIT_MODAL,
   SET_STATION_DISPLAY,
 } from '../store/reducers/station.reducer'
-import { stationService } from '../services/station/station.service.local.js'
 import { SearchBar } from '../cmps/SearchBar'
 import { YouTubeAPIService } from '../services/youtubeAPI/fetchYoutubeApi'
 import { DetailsHeaderActions } from '../cmps/StationDetails/DetailsHeaderActions.jsx'
-import { getStationById,
-  onUpdateStation } from '../store/actions/backend.station.js'
-  import { updateLikedSongs } from '../store/actions/backend.user.js'
-  import { eventBus, showErrorMsg, showUserMsg, SONG_ADDED } from '../services/event-bus.service.js'
+import {
+  getStationById,
+  onUpdateStation
+} from '../store/actions/backend.station.js'
+import { updateLikedSongs } from '../store/actions/backend.user.js'
+import { eventBus, showErrorMsg, showUserMsg, SONG_ADDED } from '../services/event-bus.service.js'
+import { socketService } from '../services/socket.service.js'
 
 export function StationDetails() {
+
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { stationId } = useParams()
-  const [noSongsVisible, setNoSongsVisible] = useState(true)
+
   const user = useSelector(state => state.userModule.user)
   const station = useSelector(state => state.stationModule.stationDisplay)
-  // console.log('station:', station)
-  const isStationByUser = user?._id === station?.createdBy?.id
-
-  const [searchResults, setSearchResults] = useState([])
-
   const editOpen = useSelector(state => state.stationModule.editStationModal)
-  const [isStationLiked, setIsStationLiked] = useState(false)
 
+  const [noSongsVisible, setNoSongsVisible] = useState(true)
+  const [searchResults, setSearchResults] = useState([])
+  const [isStationLiked, setIsStationLiked] = useState(false)
+  const [connectedUsers, setConnectedUsers] = useState([])
+
+
+  const isStationByUser = user?._id === station?.createdBy?.id
   let isStationLikedSongs = user?.likedSongsStation?.id === stationId
 
   const [gradient, setGradient] = useState(null)
-  
-  function watchStation() {
-    if (station && user) {
-      socketService.emit('watch-station',{ id: user._id, room:station._id })
-    } 
-  }
 
   useEffect(() => {
-    watchStation()
+    joinStation()
 
-  }, [user, station])
+    return () => {
+      leaveStation()
+    }
+  }, [station])
   
   
   useEffect(() => {
-    socketService.on('watch-station-receieve', (data) => {
-        console.log('hello from server:', data);
-    })
-    // Listen for the 'song-added' event
+    socketService.on('station-current-users', (data) => {
+      console.log('data:', data);
+      setConnectedUsers(data)
+      // setConnectedUsers(data.filter(userData => {
+      //   console.log('userData:', userData);
+      //   console.log(userData.id !== user._id);
+      //   return userData.id !== user._id}))
+      })
+
+      console.log('connectedUsers:', connectedUsers)
+
     const unsubscribe = eventBus.on(SONG_ADDED, () => {
       setNoSongsVisible(false)
-      fetchStationFromService() 
+      fetchStationFromService()
     })
 
     return () => {
-      unsubscribe() 
+      socketService.off('station-current-users')
+      leaveStation()
+      unsubscribe()
     }
   }, [])
 
@@ -72,6 +82,20 @@ export function StationDetails() {
       user?.likedStations?.some(likedStation => likedStation.id === stationId)
     )
   }, [user])
+
+  function joinStation() {
+    if (station) {
+      socketService.emit('join-station', { stationId })
+    }
+  }
+
+  function leaveStation() {
+    console.log('leave');
+    
+    if (station) {
+      socketService.emit('leave-station', { stationId })
+    }
+  }
 
   async function fetchStationFromService() {
     try {
@@ -137,7 +161,8 @@ export function StationDetails() {
         setGradient={setGradient}
         isStationByUser={isStationByUser}
         isStationLikedSongs={isStationLikedSongs}
-        />
+      />
+      {connectedUsers?.map(user => <h3>{user.fullname}</h3>)}
       <div className="station-details-main">
         <DetailsHeaderActions
           toggleEditStation={toggleEditStation}
