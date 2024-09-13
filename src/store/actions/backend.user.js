@@ -6,9 +6,11 @@ export async function saveStationToLiked(stationToSave) {
   try {
     const { _id: id, name, createdBy, imgUrl } = stationToSave
     const user = store.getState().userModule.user
-    const isStationIn = user.likedStations.some(
-      station => station.id === stationToSave._id
-    )
+    console.log(stationToSave._id)
+    const isStationIn = user.likedStations.some(station => {
+      console.log(station.id)
+      return station.id === stationToSave._id
+    })
     if (isStationIn) {
       console.log('Station already in liked')
       return

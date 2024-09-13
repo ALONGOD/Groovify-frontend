@@ -47,6 +47,7 @@ export function AddStationModal() {
                     };
                 })
             );
+            console.log(youtubeResults)
             youtubeSongs.push(...youtubeResults);
         }
 
@@ -61,6 +62,7 @@ export function AddStationModal() {
 
             // Fetch Spotify recommendations based on user input
             const spotifySongs = await SpotifyAPIService.getRecommendedSongs(userPrompt);
+            console.log(spotifySongs)
 
             // Map Spotify songs to YouTube songs (get YouTube IDs)
             const youtubeSongs = await getYouTubeSongsFromSpotify(spotifySongs);
@@ -83,7 +85,7 @@ export function AddStationModal() {
 
             // Save the new station and navigate to the playlist
             const savedStation = await saveStation(newStation);
-            await saveStationToLiked(newStation);
+            await saveStationToLiked(savedStation);
             navigate(`/station/${savedStation._id}`);
             setShowAIModal(false); // Close the AI modal
         } catch (err) {
