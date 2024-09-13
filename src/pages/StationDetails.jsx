@@ -11,14 +11,11 @@ import {
 import { SearchBar } from '../cmps/SearchBar'
 import { YouTubeAPIService } from '../services/youtubeAPI/fetchYoutubeApi'
 import { DetailsHeaderActions } from '../cmps/StationDetails/DetailsHeaderActions.jsx'
-import {
-  getStationById,
-  onUpdateStation
-} from '../store/actions/backend.station.js'
-import { updateLikedSongs } from '../store/actions/backend.user.js'
-import { eventBus, showErrorMsg, showUserMsg, SONG_ADDED } from '../services/event-bus.service.js'
-import { socketService } from '../services/socket.service.js'
-
+import { getStationById,
+  onUpdateStation } from '../store/actions/backend.station.js'
+  import { updateLikedSongs } from '../store/actions/backend.user.js'
+  import { eventBus, showErrorMsg, showUserMsg, SONG_ADDED } from '../services/event-bus.service.js'
+  import { GoDotFill } from 'react-icons/go'
 export function StationDetails() {
 
   const navigate = useNavigate()
@@ -52,14 +49,10 @@ export function StationDetails() {
   useEffect(() => {
     socketService.on('station-current-users', (data) => {
       console.log('data:', data);
-      setConnectedUsers(data)
-      // setConnectedUsers(data.filter(userData => {
-      //   console.log('userData:', userData);
-      //   console.log(userData.id !== user._id);
-      //   return userData.id !== user._id}))
-      })
+      setConnectedUsers(data.filter(dataUser => dataUser.id !== user._id))
+    })
 
-      console.log('connectedUsers:', connectedUsers)
+    console.log('connectedUsers:', connectedUsers)
 
     const unsubscribe = eventBus.on(SONG_ADDED, () => {
       setNoSongsVisible(false)
@@ -84,15 +77,17 @@ export function StationDetails() {
   }, [user])
 
   function joinStation() {
-    if (station) {
+    console.log(user);
+
+    if (stationId) {
       socketService.emit('join-station', { stationId })
     }
   }
 
   function leaveStation() {
     console.log('leave');
-    
-    if (station) {
+
+    if (stationId) {
       socketService.emit('leave-station', { stationId })
     }
   }
@@ -162,7 +157,12 @@ export function StationDetails() {
         isStationByUser={isStationByUser}
         isStationLikedSongs={isStationLikedSongs}
       />
-      {connectedUsers?.map(user => <h3>{user.fullname}</h3>)}
+      {connectedUsers?.map(user => {
+        return <div className='user-watching flex flex-row align-center justify-start'>
+          <GoDotFill />
+          <h3>{user.fullname}</h3>
+        </div>
+      })}
       <div className="station-details-main">
         <DetailsHeaderActions
           toggleEditStation={toggleEditStation}
