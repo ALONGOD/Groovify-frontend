@@ -11,15 +11,11 @@ import {
 import { SearchBar } from '../cmps/SearchBar'
 import { YouTubeAPIService } from '../services/youtubeAPI/fetchYoutubeApi'
 import { DetailsHeaderActions } from '../cmps/StationDetails/DetailsHeaderActions.jsx'
-import {
-  getStationById,
-  onUpdateStation
-} from '../store/actions/backend.station.js'
-import { updateLikedSongs } from '../store/actions/backend.user.js'
-import { eventBus, showErrorMsg, showUserMsg, SONG_ADDED } from '../services/event-bus.service.js'
-import { socketService } from '../services/socket.service.js'
-import { GoDotFill } from 'react-icons/go'
-
+import { getStationById,
+  onUpdateStation } from '../store/actions/backend.station.js'
+  import { updateLikedSongs } from '../store/actions/backend.user.js'
+  import { eventBus, showErrorMsg, showUserMsg, SONG_ADDED } from '../services/event-bus.service.js'
+  import { GoDotFill } from 'react-icons/go'
 export function StationDetails() {
 
   const navigate = useNavigate()
@@ -48,8 +44,8 @@ export function StationDetails() {
       leaveStation()
     }
   }, [station])
-
-
+  
+  
   useEffect(() => {
     socketService.on('station-current-users', (data) => {
       console.log('data:', data);
