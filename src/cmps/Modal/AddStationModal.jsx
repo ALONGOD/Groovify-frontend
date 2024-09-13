@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { YouTubeAPIService } from '../../services/youtubeAPI/fetchYoutubeApi.js';
 import { SpotifyAPIService } from '../../services/spotifyAPI/spotifyAPI.service.js';
@@ -8,14 +9,14 @@ import { userService } from '../../services/user/user.service.remote.js';
 import { saveStationToLiked } from '../../store/actions/backend.user.js';
 
 export function AddStationModal() {
+    const [showAIModal, setShowAIModal] = useState(false); // Manage the AI modal state
+    const [userPrompt, setUserPrompt] = useState(''); // Store the user input
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     // Handles adding a new station without AI
     async function onAddNewStation() {
         try {
-
-
             const newStation = await saveStation();
             navigate(`/station/${newStation._id}`);
         } catch (err) {
@@ -25,13 +26,11 @@ export function AddStationModal() {
 
     // Fetch YouTube videos based on Spotify recommendations
     async function getYouTubeSongsFromSpotify(spotifySongs) {
-        const batchSize = 5;  // Set a batch size to control the number of concurrent requests
+        const batchSize = 5;
         const youtubeSongs = [];
 
         for (let i = 0; i < spotifySongs.length; i += batchSize) {
             const batch = spotifySongs.slice(i, i + batchSize);
-
-            // Process the batch of songs concurrently
             const youtubeResults = await Promise.all(
                 batch.map(async (spotifySong) => {
                     const youtubeResults = await YouTubeAPIService.searchVideos(`${spotifySong.title} ${spotifySong.artist}`, 1);
@@ -48,8 +47,7 @@ export function AddStationModal() {
                     };
                 })
             );
-
-            youtubeSongs.push(...youtubeResults);  // Add the processed batch to the results
+            youtubeSongs.push(...youtubeResults);
         }
 
         return youtubeSongs;
@@ -58,8 +56,7 @@ export function AddStationModal() {
     // Handles adding an AI-generated playlist
     async function onAddAIPlaylist() {
         try {
-            // Ask for a user prompt
-            const userPrompt = prompt('Please enter a genre or mood for your playlist:');
+            // Validate prompt input
             if (!userPrompt) return;
 
             // Fetch Spotify recommendations based on user input
@@ -67,8 +64,8 @@ export function AddStationModal() {
 
             // Map Spotify songs to YouTube songs (get YouTube IDs)
             const youtubeSongs = await getYouTubeSongsFromSpotify(spotifySongs);
-            const user = await userService.getLoggedinUser()
-            console.log(user)
+            const user = await userService.getLoggedinUser();
+
             // Prepare a new station with the YouTube songs
             const newStation = {
                 name: `AI Playlist: ${userPrompt}`,
@@ -86,9 +83,9 @@ export function AddStationModal() {
 
             // Save the new station and navigate to the playlist
             const savedStation = await saveStation(newStation);
-            console.log('Saved station:', savedStation)
-            await saveStationToLiked(newStation)
+            await saveStationToLiked(newStation);
             navigate(`/station/${savedStation._id}`);
+            setShowAIModal(false); // Close the AI modal
         } catch (err) {
             console.error('Failed to add AI playlist:', err);
         }
@@ -104,10 +101,26 @@ export function AddStationModal() {
                 <AiOutlinePlus />
                 <h3>Add playlist folder</h3>
             </div>
-            <div className="row flex flex-row" onClick={onAddAIPlaylist}>
+            <div className="row flex flex-row" onClick={() => setShowAIModal(true)}>
                 <AiOutlinePlus />
                 <h3>Add AI playlist</h3>
             </div>
+
+            {showAIModal && (
+                <div className="ai-modal-backdrop">
+                    <div className="ai-modal">
+                        <h2>AI Playlist Generator</h2>
+                        <input
+                            type="text"
+                            value={userPrompt}
+                            onChange={(e) => setUserPrompt(e.target.value)}
+                            placeholder="Enter genre or mood"
+                        />
+                        <button onClick={onAddAIPlaylist}>Generate Playlist</button>
+                        <button onClick={() => setShowAIModal(false)}>Cancel</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
