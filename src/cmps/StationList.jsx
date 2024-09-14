@@ -9,14 +9,11 @@ import update from 'immutability-helper'
 import { SET_USER } from '../store/reducers/user.reducer.js'
 
 export function StationList({ isCollapsed, stations, type, moveStation }) {
-  // console.log('stations:', stations)
-  const dispatch = useDispatch()
-  // const stations = useSelector(state => state.stationModule.stations);
   const searchTerm = useSelector(state => state.stationModule.searchTerm)
-  const sortBy = useSelector(state => state.stationModule.sortBy)
   const user = useSelector(state => state.userModule.user)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const modalRef = useRef(null)
+
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -31,21 +28,6 @@ export function StationList({ isCollapsed, stations, type, moveStation }) {
     }
   }, [modalRef])
 
-  function toggleModal() {
-    setIsModalOpen(!isModalOpen)
-  }
-
-  function formatSortByLabel(sortBy) {
-    const sortOptions = {
-      recents: 'Recents',
-      recentlyAdded: 'Recently Added',
-      alphabetical: 'Alphabetical',
-      creator: 'Creator',
-      customOrder: 'Custom Order',
-    }
-
-    return sortOptions[sortBy] || sortBy
-  }
 
   if (!stations?.length) return <h1>Loading...</h1>
   return (
@@ -56,15 +38,6 @@ export function StationList({ isCollapsed, stations, type, moveStation }) {
             searchType={'station'}
             placeholder={'Search in Playlists'}
           />
-          <div className="sort-button-container" ref={modalRef}>
-            <button className="sort-button" onClick={toggleModal}>
-              {formatSortByLabel(sortBy)}
-              <span className="sort-icon">
-                <FaBars />
-              </span>
-            </button>
-            {isModalOpen && <Modal modalType={'sortBy'} />}
-          </div>
         </div>
       )}
 
