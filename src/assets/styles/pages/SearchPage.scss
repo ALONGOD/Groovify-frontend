@@ -129,21 +129,23 @@
             }
 
             .search-results {
+                padding: em(12px);
                 position: relative; // Ensure the PlayPauseBtn is positioned correctly
                 display: flex;
                 flex-direction: column;
                 align-items: flex-start;
                 /* Align items to the left */
-                width: 10em;
+                width: 11em;
                 cursor: pointer;
                 text-align: left;
                 color: #fff;
 
-                .play-pause-container.top-result {
+                .play-pause-container {
                     position: absolute;
-                    top: 60%;
-                    left: 81%;
-                    transform: translate(-50%, -50%);
+                    bottom: 20%;
+                    right: 10%;
+                    // transform: translate(-50%, -50%);
+                    transform: translateY(8px);
                     background-color: $spotify-green;
                     border-radius: 50%;
                     width: 3em;
@@ -151,18 +153,15 @@
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    opacity: 0;
+                    // opacity: 0;
                     transition: opacity 0.3s ease;
 
                     svg {
                         font-size: 1.5em;
-                        color: #191919;
+                        fill: #191919;
                     }
                 }
-
-                &:hover .play-pause-container.top-result {
-                    opacity: 1;
-                }
+            
 
                 img {
                     width: 100%;

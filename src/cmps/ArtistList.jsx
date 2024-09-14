@@ -16,7 +16,7 @@ export function ArtistList({ artists }) {
                 console.log('artist:', artist)
                 if (artist.images.length === 0) return null; // Correct use of conditional
                 return (
-                    <div key={artist.id} className="artist-item" onClick={() => navigateToArtist(artist.id)}>
+                    <div key={artist.id} className="artist-item flex flex-column justify-start" onClick={() => navigateToArtist(artist.id)}>
                         <img src={artist.images[0]?.url || 'default-image-url'} alt={artist.name} />
                         <div className="artist-info">
                             <h3>{artist.name}</h3>

@@ -23,13 +23,16 @@ export function PlayPauseBtn({
   function setIsPlaying() {
     if (
       type === 'station-preview' ||
-      type === 'userDetails'
+      type === 'userDetails' || type === 'search-results'
     )
       return currStation?.id === station?.id && isPlaying
     else return currSong?.id === song?.id && isPlaying
   }
 
   function playOrPauseSong(ev) {
+    console.log(ev);
+    
+    ev.stopPropagation()
     if (onTogglePlay) return onTogglePlay(ev)
     if (onSetSongsInQueue) onSetSongsInQueue()
     if (station)
