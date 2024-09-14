@@ -11,13 +11,21 @@ import {
 import { SearchBar } from '../cmps/SearchBar'
 import { YouTubeAPIService } from '../services/youtubeAPI/fetchYoutubeApi'
 import { DetailsHeaderActions } from '../cmps/StationDetails/DetailsHeaderActions.jsx'
-import { getStationById,
-  onUpdateStation } from '../store/actions/backend.station.js'
-  import { updateLikedSongs } from '../store/actions/backend.user.js'
-  import { eventBus, showErrorMsg, showUserMsg, SONG_ADDED } from '../services/event-bus.service.js'
-  import { GoDotFill } from 'react-icons/go'
+import {
+  getStationById,
+  onUpdateStation,
+} from '../store/actions/backend.station.js'
+import { updateLikedSongs } from '../store/actions/backend.user.js'
+import {
+  eventBus,
+  showErrorMsg,
+  showUserMsg,
+  SONG_ADDED,
+} from '../services/event-bus.service.js'
+import { GoDotFill } from 'react-icons/go'
+import { userService } from '../services/user/user.service.remote.js'
+import { UsersWatching } from '../cmps/StationDetails/UsersWatching.jsx'
 export function StationDetails() {
-
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { stationId } = useParams()
@@ -31,7 +39,6 @@ export function StationDetails() {
   const [isStationLiked, setIsStationLiked] = useState(false)
   const [connectedUsers, setConnectedUsers] = useState([])
 
-
   const isStationByUser = user?._id === station?.createdBy?.id
   let isStationLikedSongs = user?.likedSongsStation?.id === stationId
 
@@ -44,13 +51,15 @@ export function StationDetails() {
       leaveStation()
     }
   }, [station])
-  
-  
+
+  console.log(user)
+
   useEffect(() => {
-    socketService.on('station-current-users', (data) => {
-      console.log('data:', data);
-      setConnectedUsers(data.filter(dataUser => dataUser.id !== user._id))
+    socketService.on('station-current-users', data => {
+      setUsersWatching(data)
     })
+
+
 
     console.log('connectedUsers:', connectedUsers)
 
@@ -76,16 +85,21 @@ export function StationDetails() {
     )
   }, [user])
 
-  function joinStation() {
-    console.log(user);
+  async function setUsersWatching(users) {
+        setConnectedUsers(users.filter(dataUser => {
+        return dataUser.id !== user._id && dataUser.id
+      })
+    )
+  }
 
+  function joinStation() {
     if (stationId) {
       socketService.emit('join-station', { stationId })
     }
   }
 
   function leaveStation() {
-    console.log('leave');
+    console.log('leave')
 
     if (stationId) {
       socketService.emit('leave-station', { stationId })
@@ -141,7 +155,10 @@ export function StationDetails() {
       else await onUpdateStation({ ...station, songs: updatedSongs })
     } catch (err) {
       showErrorMsg('Failed to move song')
-      dispatch({ type: SET_STATION_DISPLAY, station: { ...station, songs: station?.songs } })
+      dispatch({
+        type: SET_STATION_DISPLAY,
+        station: { ...station, songs: station?.songs },
+      })
     }
   }
 
@@ -150,6 +167,7 @@ export function StationDetails() {
   return (
     <section className="station-details flex flex-column">
       <div className="gradient" style={gradient}></div>
+      
       <StationDetailsHeader
         station={station}
         toggleEditStation={toggleEditStation}
@@ -157,12 +175,7 @@ export function StationDetails() {
         isStationByUser={isStationByUser}
         isStationLikedSongs={isStationLikedSongs}
       />
-      {connectedUsers?.map(user => {
-        return <div className='user-watching flex flex-row align-center justify-start'>
-          <GoDotFill />
-          <h3>{user.fullname}</h3>
-        </div>
-      })}
+      {connectedUsers && <UsersWatching users={connectedUsers} />}
       <div className="station-details-main">
         <DetailsHeaderActions
           toggleEditStation={toggleEditStation}
