@@ -84,8 +84,15 @@
         display: none;
       }
       ul {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        overflow: hidden;
         flex-direction: row;
-        height: auto;
+        min-height: 15em;
+        max-height: 15.575em; 
+        max-width: 100%; 
+        
+        overflow: hidden;
         .station-preview {
           // width: em(192px);
           row-gap: em(8px);

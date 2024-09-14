@@ -1,43 +1,47 @@
-// scss/_artistList.scss
-
 .artist-list {
+//   display: flex;
+  gap: 1.2em;
+  overflow-x: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    height: 13em;
+  /* Ensure no wrapping occurs */
+  white-space: nowrap;
+  overflow: hidden; /* Hide extra elements that go beyond the container */
+  .artist-item {
     display: flex;
-    gap: 1.2em; // Space between artist items
-    overflow-x: auto; // Horizontal scrolling for overflow
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    text-align: center;
+    color: #fff;
+    width: 10em;
+    height: 13em;
 
-    .artist-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        cursor: pointer;
-        text-align: center;
-        color: #fff;
-        // width: 10em;
-
-        img {
-            border-radius: 50%; // Keeps the circular shape
-            margin-bottom: 0.5em;
-            // max-width: 100%;
-            width: 10em; // Ensures the image fits within its container but keeps its natural aspect ratio
-            height: 10em; // Automatically adjusts the height to maintain aspect ratio
-        }
-
-        .artist-info {
-            h3 {
-                font-size: 1.2rem;
-                font-weight: bold;
-                margin-bottom: 0.2em; // Reduced gap between artist name and followers
-            }
-
-            p {
-                font-size: 0.875rem;
-                color: #b3b3b3;
-                margin-top: 0; // Ensure no additional margin on top of followers count
-            }
-        }
-
-        &:hover {
-            opacity: 0.8; // Slight transparency effect on hover
-        }
+    img {
+      border-radius: 50%;
+      margin-bottom: 0.5em;
+      // max-width: 100%;
+      width: 10em;
+      height: 10em;
     }
+
+    .artist-info {
+      h3 {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 0.2em;
+      }
+
+      p {
+        font-size: 0.875rem;
+        color: #b3b3b3;
+        margin-top: 0;
+      }
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
 }

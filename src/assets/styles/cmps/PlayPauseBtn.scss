@@ -2,7 +2,11 @@
     opacity: 1;
     transform: translateY(0);
 }
-.play-pause-container.top-result {
+.station-preview:hover .play-pause-container.search-results {
+    opacity: 1;
+    transform: translateY(0);
+}
+.play-pause-container.top-result, .play-pause-container.search-results {
     opacity: 0;
     display: flex;
     justify-content: center;
@@ -17,7 +21,7 @@
     color: #191919;;
     box-shadow: 0 8px 8px rgba(0, 0, 0, .3);
     transform: translateY(8px);
-    z-index: 10;
+    z-index: 200;
     transition: all .3s ease;
     cursor: pointer;
     svg {
