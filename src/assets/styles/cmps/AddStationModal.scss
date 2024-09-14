@@ -1,3 +1,11 @@
+// Variables
+$primary-color: #1db954; // Spotify green
+$background-color: #000000; // Black background for the modal
+$text-color: #ffffff; // White text
+$border-radius: 8px;
+$modal-width: 400px;
+$transition-duration: 0.3s;
+
 .add-station-modal {
     .row {
         cursor: pointer;
@@ -25,13 +33,21 @@
 }
 
 .ai-modal {
-    background-color: white;
+    background-color: $background-color;
     padding: 20px;
-    border-radius: 8px;
-    width: 400px;
+    border-radius: $border-radius;
+    width: $modal-width;
     text-align: center;
+    animation: fadeIn $transition-duration ease-in-out;
 
     h2 {
+        margin-bottom: 10px;
+        color: $primary-color; // Green title
+        font-size: 24px;
+    }
+
+    p {
+        color: $text-color;
         margin-bottom: 20px;
     }
 
@@ -49,11 +65,24 @@
         cursor: pointer;
         border: none;
         border-radius: 4px;
-        background-color: #1db954;
-        color: white;
+        background-color: $primary-color;
+        color: $text-color;
 
         &:nth-child(2) {
             background-color: #ccc;
+            color: #000;
         }
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30%); // Move from the top
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0); // Settle in the center
     }
 }
