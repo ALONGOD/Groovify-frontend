@@ -28,6 +28,9 @@
   .bar:nth-child(5) {
     animation-delay: -0.2s;
   }
+  .bar:nth-child(6) {
+    animation-delay: 0;
+  }
   
   @keyframes equalize {
     0% {
