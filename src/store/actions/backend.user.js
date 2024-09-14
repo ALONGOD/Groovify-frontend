@@ -118,3 +118,12 @@ export async function updateLikedSongs(station) {
     throw err
   }
 }
+
+export async function getUserById(userId) {
+  try {
+    const user = await userService.getById(userId)
+    return user
+  } catch (err) {
+    throw err
+  }
+}

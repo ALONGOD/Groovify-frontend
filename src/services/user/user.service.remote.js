@@ -63,11 +63,12 @@ async function logout() {
   return await httpService.post('auth/logout')
 }
 
-async function getLoggedinUser() {
+function getLoggedinUser() {
 	try {
-		const user = await JSON.parse(
-			sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER)
+		const user = JSON.parse(
+      sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER)
 		)
+    console.log('user:', user)
 		return user
 	} catch (err) {
 		throw err

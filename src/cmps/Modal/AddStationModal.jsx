@@ -2,17 +2,18 @@ import { useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { YouTubeAPIService } from '../../services/youtubeAPI/fetchYoutubeApi.js';
 import { SpotifyAPIService } from '../../services/spotifyAPI/spotifyAPI.service.js';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { addNewStation, saveStation } from '../../store/actions/backend.station.js';
 import { userService } from '../../services/user/user.service.remote.js';
 import { saveStationToLiked } from '../../store/actions/backend.user.js';
 
 export function AddStationModal() {
-    const [showAIModal, setShowAIModal] = useState(false); // Manage the AI modal state
-    const [userPrompt, setUserPrompt] = useState(''); // Store the user input
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const user = useSelector((state) => state.userModule.user)
+    const [showAIModal, setShowAIModal] = useState(false); // Manage the AI modal state
+    const [userPrompt, setUserPrompt] = useState(''); // Store the user input
 
     // Handles adding a new station without AI
     async function onAddNewStation() {
@@ -66,7 +67,6 @@ export function AddStationModal() {
 
             // Map Spotify songs to YouTube songs (get YouTube IDs)
             const youtubeSongs = await getYouTubeSongsFromSpotify(spotifySongs);
-            const user = await userService.getLoggedinUser();
 
             // Prepare a new station with the YouTube songs
             const newStation = {

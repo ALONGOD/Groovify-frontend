@@ -3,6 +3,7 @@ import { userService } from '../../services/user/user.service.remote'
 import {
   EDIT_STATION_DISPLAY,
 } from '../reducers/station.reducer'
+import { LOADING_DONE, LOADING_START } from '../reducers/system.reducer'
 import {
   ADD_STATION_TO_LIKED,
   REMOVE_STATION_FROM_LIKED,
@@ -26,7 +27,9 @@ export async function query(search) {
 }
 
 export async function getStationById(stationId) {
+  store.dispatch({ type: LOADING_START})
   const station = await stationService.getById(stationId)
+  store.dispatch({ type: LOADING_DONE})
   return station
 }
 

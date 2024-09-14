@@ -7,15 +7,41 @@ import { adjustBrightnessAndSaturation } from '../services/util.service'
 import { userService } from '../services/user/user.service.remote'
 import { stationService } from '../services/station/station.service.remote'
 import { StationList } from '../cmps/StationList'
+import { useNavigate, useParams } from 'react-router'
+import { getUserById } from '../store/actions/backend.user'
+import { showErrorMsg, showUserMsg } from '../services/event-bus.service'
+import { LOADING_DONE, LOADING_START } from '../store/reducers/system.reducer'
 
 export function UserDetails() {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
-  const user = useSelector(state => state.userModule.user)
-  // const [, set] = useState();
-  
+  // const user = useSelector(state => state.userModule.user)
+  const [user, setUser] = useState(null)
 
-  const { imgUrl, username, fullname } = user
-  const likedStations = user?.likedStations?.filter(station => station?.creator?.id !== user?._id)
+  const params = useParams()
+
+  useEffect(() => {
+    fetchUser()
+  }, [params])
+
+  async function fetchUser() {
+    try {
+      dispatch({ type: LOADING_START})
+      console.log(params);
+      
+      const userToSave = await getUserById(params?.userId)
+      setUser(userToSave)
+    } catch (err) {
+      showErrorMsg('Cannot get user')
+      navigate(-1)
+    } finally {
+      dispatch({ type: LOADING_DONE})
+    }
+  }
+
+  const likedStations = user?.likedStations?.filter(
+    station => station?.creator?.id !== user?._id
+  )
 
   const [stationsByUser, setStationsByUser] = useState([])
   const [gradient, setGradient] = useState(null)
@@ -34,7 +60,7 @@ export function UserDetails() {
   }, [user])
 
   async function fetchStationsByUser() {
-    const stations = await stationService.getStationsByUser(user._id)
+    const stations = await stationService.getStationsByUser(user?._id)
     setStationsByUser(stations)
   }
 
@@ -57,7 +83,7 @@ export function UserDetails() {
     <section className="user-details relative">
       <div className="gradient" style={gradient}></div>
       <header className="flex flex-row align-end">
-        <ImagePick pickedImg={imgUrl} setImg={setUserImg} />
+        <ImagePick pickedImg={user?.imgUrl} setImg={setUserImg} />
         <div className="info flex flex-column">
           <h4>Profile</h4>
           <h1>{user?.username}</h1>
@@ -67,9 +93,9 @@ export function UserDetails() {
       <main>
         <div className="station-list-container flex flex-column align-start">
           <h3>Public Playlists</h3>
-          <StationList stations={stationsByUser} type='userDetails'/>
+          <StationList stations={stationsByUser} type="userDetails" />
           <h3>Liked Playlists</h3>
-          <StationList stations={likedStations} type='userDetails'/>
+          <StationList stations={likedStations} type="userDetails" />
         </div>
       </main>
     </section>

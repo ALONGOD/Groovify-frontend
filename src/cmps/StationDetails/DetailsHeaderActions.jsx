@@ -55,7 +55,7 @@ export function DetailsHeaderActions({
     <div className="station-header-actions flex flex-row justify-between align-center">
       <div className="btns-container flex flex-row gap-8 align-center">
         <IoPlayCircle className="play-circle" />
-        {(!isStationByUser || !isStationLikedSongs) &&
+        {(!isStationByUser && !isStationLikedSongs) &&
           (!isStationLiked ? (
             <CiCirclePlus className="plus-circle" onClick={handlePlusClick} />
           ) : (

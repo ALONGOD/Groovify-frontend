@@ -40,6 +40,7 @@ export function StationDetails() {
   const [connectedUsers, setConnectedUsers] = useState([])
 
   const isStationByUser = user?._id === station?.createdBy?.id
+  console.log('isStationByUser:', isStationByUser)
   let isStationLikedSongs = user?.likedSongsStation?.id === stationId
 
   const [gradient, setGradient] = useState(null)

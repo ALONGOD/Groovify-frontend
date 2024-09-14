@@ -38,7 +38,7 @@ export function LibraryMenu({
     function handlePlusClick(e) {
         e.stopPropagation()
         if (!isBelowThreshold) {
-            setIsModalOpen(!isModalOpen)
+            setIsModalOpen(state => !state)
         }
     }
 
