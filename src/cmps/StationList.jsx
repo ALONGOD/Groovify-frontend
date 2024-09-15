@@ -50,7 +50,7 @@ export function StationList({ isCollapsed, stations, type, moveStation, onSearch
   if (!stations?.length) return <h1>Loading...</h1>
   return (
     <section className="station-list">
-      {type !== 'search-results' && !isCollapsed && (
+      {type !== 'search-results' && type !== 'home-station' && !isCollapsed && (
         <div className="search-bar-container">
           <SearchBar
             searchType={'station'}

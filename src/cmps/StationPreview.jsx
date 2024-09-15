@@ -70,7 +70,7 @@ export function StationPreview({
 
   useEffect(() => {
     if (!isOver) {
-      setIsDraggingOver(false); 
+      setIsDraggingOver(false);
     }
   }, [isOver]);
 
@@ -101,9 +101,8 @@ export function StationPreview({
   return (
     <li
       ref={node => drag(drop(node))}
-      className={`station-preview flex flex-row align-center ${
-        isDraggingOver ? 'dragging' : ''
-      } ${type === 'search-results' ? 'search-results' : ''}`}
+      className={`station-preview flex flex-row align-center ${isDraggingOver ? 'dragging' : ''
+        } ${type === 'search-results' ? 'search-results' : ''}`}
       onClick={() => navigate(`/station/${station.id}`)}
       style={{ opacity: isDragging ? 0.5 : 1 }}
     >
@@ -122,13 +121,17 @@ export function StationPreview({
             {station.id === 'liked-songs' && (
               <BsFillPinAngleFill className="pin" />
             )}
-            <span>Playlist</span>
-            <span className="divider">&#9679;</span>
-            <span>
-              {type === 'userDetails'
-                ? `By ${user.username}`
-                : `${station?.creator?.fullname ? station?.creator?.fullname : ''}`}{' '}
-            </span>
+            {type !== 'home-station' && (
+              <>
+                <span>Playlist</span>
+                <span className="divider">&#9679;</span>
+                <span>
+                  {type === 'userDetails'
+                    ? `By ${user.username}`
+                    : `${station?.creator?.fullname ? station?.creator?.fullname : ''}`}{' '}
+                </span>
+              </>
+            )}
           </div>
         </div>
       )}
