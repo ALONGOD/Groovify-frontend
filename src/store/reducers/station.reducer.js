@@ -16,28 +16,32 @@ export const SET_PLAYER_IS_PLAYING = 'SET_PLAYER_IS_PLAYING'
 export const SET_PLAYER_CURRENT_STATION = 'SET_PLAYER_CURRENT_STATION'
 export const SET_SONGS = 'SET_SONGS'
 
-export const ADD_TO_HISTORY = 'ADD_TO_HISTORY';
-export const EDIT_STATION_DISPLAY = 'EDIT_STATION_DISPLAY';
-export const SET_STATION_DISPLAY = 'SET_STATION_DISPLAY';
-
-
-
+export const ADD_TO_HISTORY = 'ADD_TO_HISTORY'
+export const EDIT_STATION_DISPLAY = 'EDIT_STATION_DISPLAY'
+export const SET_STATION_DISPLAY = 'SET_STATION_DISPLAY'
+export const SET_PARTY_PLAY = 'SET_PARTY_PLAY'
+export const SET_PARTY_PAUSE = 'SET_PARTY_PAUSE'
+export const TOGGLE_PARTY_PLAY = 'TOGGLE_PARTY_PLAY'
 
 const initialState = {
   songs: [],
   searchTerm: '',
   stationDisplay: null,
-  player: { currSong: null, isPlaying: true, currStation: null },
+  player: {
+    currSong: null,
+    isPlaying: true,
+    currStation: null,
+    partyListen: { state: false, stationId: null },
+  },
   modalSong: {},
   editStationModal: false,
   sortBy: 'recents',
   queue: { isShuffled: false, songsQueue: [], shuffledQueue: [] },
-  history: []
+  history: [],
 }
 
 export function stationReducer(state = initialState, action) {
   var newState = state
-  var stations
 
   switch (action.type) {
     // STATIONS
@@ -45,8 +49,8 @@ export function stationReducer(state = initialState, action) {
       newState = { ...state, stationDisplay: action.station }
       break
     case EDIT_STATION_DISPLAY:
-      console.log('updatedStation',action.station);
-      
+      console.log('updatedStation', action.station)
+
       newState = { ...state, stationDisplay: action.station }
       break
     case SET_SEARCH_TERM: // Add this case
@@ -109,7 +113,6 @@ export function stationReducer(state = initialState, action) {
       }
       break
 
-
     // PLAYER
     case SET_PLAYER_CURRENT_SONG:
       newState = {
@@ -130,23 +133,31 @@ export function stationReducer(state = initialState, action) {
       }
       break
     case SET_SONGS:
-      console.log(action.songs);
+      console.log(action.songs)
       newState = { ...state, songs: action.songs }
       break
 
-      case ADD_TO_HISTORY: 
-    const updatedHistory = state.history.filter(
-      historySong => historySong.id !== action.song.id
-    );
+    case ADD_TO_HISTORY:
+      const updatedHistory = state.history.filter(
+        historySong => historySong.id !== action.song.id
+      )
 
-    newState = {
-      ...state,
-      history: [action.song, ...updatedHistory], 
-    };
-    
-    console.log('Updated History:', newState.history);
-    break;
+      newState = {
+        ...state,
+        history: [action.song, ...updatedHistory],
+      }
 
+      console.log('Updated History:', newState.history)
+      break
+
+    case TOGGLE_PARTY_PLAY:
+      newState = {
+        ...state,
+        partyListen: {
+          state: !state.partyListen.state,
+          stationId: state.partyListen.stationId,
+        },
+      }
 
     default:
       return newState

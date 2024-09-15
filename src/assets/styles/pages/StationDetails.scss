@@ -166,6 +166,19 @@
     cursor: pointer;
   }
 
+  .party-active {
+    font-family: 'gotham-light';
+    font-weight: 600;
+    font-size: em(14px);
+    color: $spotify-green;
+    white-space: nowrap;
+  }
+
+  .equalizer, .pause {
+    color: $spotify-green;
+    width: 2em;
+  }
+
   .btns-container {
     width: 100%;
     .check-circle {
@@ -186,6 +199,29 @@
       //   width: em(56px);
       // }
     }
+
+    .exit-party {
+      color: $spotify-green;
+    }
+
+    .play-together, .exit-party {
+      background-color: transparent;
+      font-family: 'gotham-light';
+      font-weight: 600;
+      font-size: em(14px);
+      border-radius: 9999px;
+      padding: 1em;
+      border: 1px solid rgb(76, 76, 76);
+      transition: 0.1s;
+      &:hover {
+        // background-color: $spotify-green;
+        // color: black;
+        color: $spotify-green;
+        scale: 1.03;
+        // font-family: 'gotham-medium';
+      }
+    }
+
 
     .plus-circle {
       width: em(34px);
