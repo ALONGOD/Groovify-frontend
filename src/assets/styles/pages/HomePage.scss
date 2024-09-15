@@ -153,9 +153,9 @@
         .station-list {
             ul {
                 display: grid;
-                grid-template-columns: repeat(4, 1fr); // 4 columns in a row, for 8 stations in 2 rows
-                grid-template-rows: repeat(2, 1fr); // 2 rows
-                gap: 0.5em; // Space between the station items
+                grid-template-columns: repeat(4, 1fr);
+                grid-template-rows: repeat(2, 4em);
+                gap: 0.5em;
 
                 li {
                     background-color: rgba(255, 255, 255, 0.1);
@@ -165,18 +165,49 @@
                     cursor: pointer;
                     transition: background-color 0.3s ease;
                     display: flex;
-                    align-items: center; // To align content vertically
-                    gap: 1px; // Space between image and text
+                    align-items: center;
+                    gap: 0.25em;
                     width: 100%;
-                    height: 3em; // Height similar to the image design
+                    height: 3em;
 
-                    // img {
-                    //     width: 50px; // Set image size
-                    //     height: 50px;
-                    //     border-radius: 5px;
-                    // }
+                    &:hover .play-pause-container.home-station {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
                 }
             }
+        }
+    }
+
+    .play-pause-container.home-station {
+        opacity: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        bottom: 0.25em;
+        left: 400%;
+        background-color: $spotify-green;
+        border-radius: 50%;
+        width: 2.5em;
+        height: 2.5em;
+        color: #191919;
+        box-shadow: 0 8px 8px rgba(0, 0, 0, 0.3);
+        transform: translateY(8px);
+        z-index: 10;
+        transition: all 0.3s ease;
+        cursor: pointer;
+
+        svg {
+            color: #191919;
+            font-size: 1.25em;
+            background-color: transparent;
+        }
+
+        // On hover of the parent element, play/pause should appear
+        &:hover {
+            opacity: 1;
+            transform: translateY(0);
         }
     }
 }
