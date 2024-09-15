@@ -8,6 +8,7 @@ import { SET_USER } from '../store/reducers/user.reducer'
 import { useNavigate } from 'react-router'
 import io from 'socket.io-client'
 import { socketService } from '../services/socket.service'
+import { SearchBar } from './SearchBar'
 const socket = io.connect('http://localhost:3030')
 
 export function MenuSidebar() {
@@ -18,8 +19,10 @@ export function MenuSidebar() {
   const [isBelowThreshold, setIsBelowThreshold] = useState(false)
   const [selected, setSelected] = useState(null)
   const [likedStations, setLikedStations] = useState([])
+  const [filteredStations, setFilteredStations] = useState([])
+  const [searchTerm, setSearchTerm] = useState('')
 
-  
+
   useEffect(() => {
     getUser()
     window.addEventListener('resize', handleResize)
@@ -31,9 +34,29 @@ export function MenuSidebar() {
   }, [])
 
   useEffect(() => {
-    if (user?.likedStations)
-      setLikedStations([user?.likedSongsStation, ...user?.likedStations])
+    if (user?.likedStations) {
+      const stations = [user?.likedSongsStation, ...user?.likedStations]
+      setLikedStations(stations)
+      setFilteredStations(stations)
+    }
   }, [user])
+
+  useEffect(() => {
+    console.log(searchTerm)
+    if (searchTerm && searchTerm !== '') {
+      try {
+        const regex = new RegExp(searchTerm, 'i') // 'i' flag makes it case-insensitive
+        const filtered = likedStations.filter(station =>
+          regex.test(station.name)
+        )
+        setFilteredStations(filtered)
+      } catch (err) {
+        console.error('Invalid regular expression:', err)
+      }
+    } else {
+      setFilteredStations(likedStations)
+    }
+  }, [searchTerm, likedStations])
 
 
   async function getUser() {
@@ -71,9 +94,8 @@ export function MenuSidebar() {
 
   return (
     <aside
-      className={`menu-sidebar flex flex-column ${
-        isCollapsed ? 'collapsed' : ''
-      }`}
+      className={`menu-sidebar flex flex-column ${isCollapsed ? 'collapsed' : ''
+        }`}
     >
       <div className="library-menu flex flex-column">
         <div className="library-icon flex flex-column">
@@ -84,14 +106,30 @@ export function MenuSidebar() {
             setSelected={setSelected}
             isBelowThreshold={isBelowThreshold}
           />
+
         </div>
-        <StationList
-          isCollapsed={isCollapsed}
-          //   stations={likedStations}
-          stations={likedStations}
-          type="station-preview"
-          moveStation={moveStation}
-        />
+        {filteredStations.length > 0 ? (
+          <StationList
+            isCollapsed={isCollapsed}
+            stations={filteredStations}
+            type="station-preview"
+            moveStation={moveStation}
+            onSearch={setSearchTerm}
+          />
+        ) : (
+          <>
+            <div className='station-list'>
+              <div className="search-bar-container">
+                <SearchBar
+                  searchType={'station'}
+                  placeholder={searchTerm}
+                  onSearch={setSearchTerm}
+                />
+              </div>
+            </div>
+            <p>No stations found</p>
+          </>
+        )}
       </div>
     </aside>
   )

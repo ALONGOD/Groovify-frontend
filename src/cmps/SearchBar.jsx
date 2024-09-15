@@ -9,7 +9,7 @@ import { FaMicrophone } from 'react-icons/fa'
 export function SearchBar({
   searchType = 'youtube',
   placeholder = 'What do you want to play?',
-  onSearch = {},
+  onSearch = () => console.log("wasn't sent function"),
 }) {
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useState('')
@@ -33,6 +33,7 @@ export function SearchBar({
     debounce(async query => {
       if (!query) {
         if (searchType === 'station') {
+          onSearch(query)
           dispatch(setSearchTerm('')) // Reset the search term if the query is empty
         }
         return
@@ -41,6 +42,7 @@ export function SearchBar({
       if (searchType === 'youtube') {
         navigate(`/search/${query}`)
       } else if (searchType === 'station') {
+        onSearch(query)
         console.log('Dispatching search term:', query)
         dispatch(setSearchTerm(query))
       } else if (searchType === 'youtube-inline') {

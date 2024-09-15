@@ -8,7 +8,7 @@ import { FaBars } from 'react-icons/fa6'
 import update from 'immutability-helper'
 import { SET_USER } from '../store/reducers/user.reducer.js'
 
-export function StationList({ isCollapsed, stations, type, moveStation }) {
+export function StationList({ isCollapsed, stations, type, moveStation, onSearch = () => console.log("wasn't sent function"), }) {
   // console.log('stations:', stations)
   const dispatch = useDispatch()
   // const stations = useSelector(state => state.stationModule.stations);
@@ -55,8 +55,9 @@ export function StationList({ isCollapsed, stations, type, moveStation }) {
           <SearchBar
             searchType={'station'}
             placeholder={'Search in Playlists'}
+            onSearch={onSearch}
           />
-          <div className="sort-button-container" ref={modalRef}>
+          {/* <div className="sort-button-container" ref={modalRef}>
             <button className="sort-button" onClick={toggleModal}>
               {formatSortByLabel(sortBy)}
               <span className="sort-icon">
@@ -64,7 +65,7 @@ export function StationList({ isCollapsed, stations, type, moveStation }) {
               </span>
             </button>
             {isModalOpen && <Modal modalType={'sortBy'} />}
-          </div>
+          </div> */}
         </div>
       )}
 
