@@ -15,14 +15,33 @@ import { LOADING_DONE, LOADING_START } from '../store/reducers/system.reducer'
 export function UserDetails() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  // const user = useSelector(state => state.userModule.user)
-  const [user, setUser] = useState(null)
 
   const params = useParams()
+  const fac = new FastAverageColor()
+  // const user = useSelector(state => state.userModule.user)
+  const [user, setUser] = useState(null)
+  const likedStations = user?.likedStations?.filter(
+    station => station?.creator?.id !== user?._id
+  )
+  
+  const [stationsByUser, setStationsByUser] = useState([])
+  const [gradient, setGradient] = useState(null)
 
   useEffect(() => {
     fetchUser()
   }, [params])
+
+  
+  useEffect(() => {
+    fetchStationsByUser()
+    fac.getColorAsync(user?.imgUrl).then(color => {
+      const color1 = adjustBrightnessAndSaturation(color.hex, 0.5, 1.8)
+      const color2 = '#121212'
+      setGradient({
+        background: `linear-gradient(to bottom, ${color1} 10%, ${color2} 100%)`,
+      })
+    })
+  }, [user])
 
   async function fetchUser() {
     try {
@@ -38,29 +57,9 @@ export function UserDetails() {
       dispatch({ type: LOADING_DONE})
     }
   }
-
-  const likedStations = user?.likedStations?.filter(
-    station => station?.creator?.id !== user?._id
-  )
-
-  const [stationsByUser, setStationsByUser] = useState([])
-  const [gradient, setGradient] = useState(null)
-
-  const fac = new FastAverageColor()
-
-  useEffect(() => {
-    fetchStationsByUser()
-    fac.getColorAsync(user?.imgUrl).then(color => {
-      const color1 = adjustBrightnessAndSaturation(color.hex, 0.5, 1.8)
-      const color2 = '#121212'
-      setGradient({
-        background: `linear-gradient(to bottom, ${color1} 10%, ${color2} 100%)`,
-      })
-    })
-  }, [user])
-
+  
   async function fetchStationsByUser() {
-    const stations = await stationService.getStationsByUser(user?._id)
+    const stations = user.likedStations.filter(station => station?.creator?.id === user?._id)
     setStationsByUser(stations)
   }
 

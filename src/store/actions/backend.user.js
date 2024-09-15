@@ -119,6 +119,12 @@ export async function updateLikedSongs(station) {
   }
 }
 
+export async function updateUser(user) {
+  const userToSave = await userService.update(user)
+  await userService.saveLoggedinUser(userToSave)
+}
+
+
 export async function getUserById(userId) {
   try {
     const user = await userService.getById(userId)
