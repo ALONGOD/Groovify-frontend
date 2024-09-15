@@ -6,20 +6,19 @@ import { userService } from '../services/user/user.service.remote'
 import { useDispatch, useSelector } from 'react-redux'
 import { SET_USER } from '../store/reducers/user.reducer'
 import { useNavigate } from 'react-router'
-import io from 'socket.io-client'
-import { socketService } from '../services/socket.service'
-const socket = io.connect('http://localhost:3030')
+import { StationPreview } from './StationPreview'
+import { showErrorMsg } from '../services/event-bus.service'
+import { updateUser } from '../store/actions/backend.user'
 
 export function MenuSidebar() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const user = useSelector(state => state.userModule.user)
+  console.log('user:', user)
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [isBelowThreshold, setIsBelowThreshold] = useState(false)
   const [selected, setSelected] = useState(null)
-  const [likedStations, setLikedStations] = useState([])
 
-  
   useEffect(() => {
     getUser()
     window.addEventListener('resize', handleResize)
@@ -29,12 +28,6 @@ export function MenuSidebar() {
       window.removeEventListener('resize', handleResize)
     }
   }, [])
-
-  useEffect(() => {
-    if (user?.likedStations)
-      setLikedStations([user?.likedSongsStation, ...user?.likedStations])
-  }, [user])
-
 
   async function getUser() {
     try {
@@ -58,15 +51,21 @@ export function MenuSidebar() {
     }
   }
 
-  function moveStation(fromIndex, toIndex) {
-    //   console.log('fromIndex:', fromIndex)
-    //   console.log('toIndex:', toIndex)
-    //       const updatedStations = [...likedStations]
-    //       if (fromIndex === toIndex) return
-    //       if (fromIndex === 0 || toIndex === 0) return
-    //         const [movedStation] = updatedStations.splice(fromIndex, 1)
-    //         updatedStations.splice(toIndex, 0, movedStation)
-    //         setLikedStations(updatedStations)
+  async function moveStation(fromIndex, toIndex) {
+    try {
+      const updatedStations = [...user?.likedStations]
+      if (fromIndex === toIndex) return
+      const [movedStation] = updatedStations.splice(fromIndex, 1)
+      updatedStations.splice(toIndex, 0, movedStation)
+      dispatch({
+        type: SET_USER,
+        user: { ...user, likedStations: updatedStations },
+      })
+      await updateUser({ ...user, likedStations: updatedStations })
+    } catch (err) {
+      console.log('Cannot move station', err)
+      showErrorMsg('Failed to move Station')
+    }
   }
 
   return (
@@ -85,10 +84,10 @@ export function MenuSidebar() {
             isBelowThreshold={isBelowThreshold}
           />
         </div>
+        <StationPreview station={user?.likedSongsStation} type="station-preview" isCollapsed={isCollapsed}/>
         <StationList
           isCollapsed={isCollapsed}
-          //   stations={likedStations}
-          stations={likedStations}
+          stations={user?.likedStations}
           type="station-preview"
           moveStation={moveStation}
         />

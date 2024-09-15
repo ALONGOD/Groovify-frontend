@@ -19,20 +19,21 @@ export function StationPreview({
   index,
   moveStation,
   type,
-  user,
+  stations
 }) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const player = useSelector(state => state.stationModule.player)
   const { currStation, isPlaying, currSong } = player
-
+  const user = useSelector(state => state.userModule.user)
   const { isShuffled } = useSelector(state => state.stationModule.queue)
   const [isDraggingOver, setIsDraggingOver] = useState(false)
 
   const { _id, id, imgUrl, name, songs } = station
   station.id = _id ? _id : id
 
+  var isStationLikedSongs = user?.likedSongsStation?.id === station?.id
   const isStationPlaying = currStation?.id === station?.id
 
   const [{ isDragging }, drag] = useDrag(() => ({
@@ -42,13 +43,17 @@ export function StationPreview({
       isDragging: !!monitor.isDragging(),
     }),
   }))
-
+  
+  console.log('index:', index);
+  
+  
   const [{ isOver }, drop] = useDrop(() => ({
     accept: 'station',
     hover: (item, monitor) => {
-      const dragIndex = item.index
-      const hoverIndex = index
-
+      const dragIndex = stations?.findIndex(s => s.id === item.id)
+      const hoverIndex = stations?.findIndex(s => s.id === station._id)
+      
+      
       if (dragIndex === hoverIndex) {
         setIsDraggingOver(false)
         return
@@ -56,10 +61,9 @@ export function StationPreview({
       setIsDraggingOver(true)
     },
     drop: item => {
-      const dragIndex = item.index
-      const hoverIndex = index
-      console.log('hoverIndex:', hoverIndex)
-
+      const dragIndex = stations?.findIndex(s => s.id === item.id)
+      const hoverIndex = stations?.findIndex(s => s.id === station.id)
+      
       moveStation(dragIndex, hoverIndex)
       setIsDraggingOver(false)
     },
@@ -67,13 +71,14 @@ export function StationPreview({
       isOver: !!monitor.isOver(),
     }),
   }))
-
+  
+  
   useEffect(() => {
     if (!isOver) {
       setIsDraggingOver(false); 
     }
   }, [isOver]);
-
+  
   async function playOrPauseStation(ev) {
     ev.stopPropagation()
     const stationToPlay = await getStationById(station.id)
@@ -125,9 +130,8 @@ export function StationPreview({
             <span>Playlist</span>
             <span className="divider">&#9679;</span>
             <span>
-              {type === 'userDetails'
-                ? `By ${user.username}`
-                : `${station?.creator?.fullname ? station?.creator?.fullname : station?.songs?.length + ' songs'}`}{' '}
+              {type === 'userDetails' && station?.creator?.fullname }
+              {station?.length ? `${station.length} songs` : `${isStationLikedSongs ? station.songs.length + ' songs' : station?.creator?.fullname}`}
             </span>
           </div>
         </div>

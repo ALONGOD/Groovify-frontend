@@ -10,7 +10,6 @@ import { SET_USER } from '../store/reducers/user.reducer.js'
 
 export function StationList({ isCollapsed, stations, type, moveStation }) {
   const searchTerm = useSelector(state => state.stationModule.searchTerm)
-  const user = useSelector(state => state.userModule.user)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const modalRef = useRef(null)
 
@@ -29,7 +28,6 @@ export function StationList({ isCollapsed, stations, type, moveStation }) {
   }, [modalRef])
 
 
-  if (!stations?.length) return <h1>Loading...</h1>
   return (
     <section className="station-list">
       {type !== 'search-results' && !isCollapsed && (
@@ -42,15 +40,15 @@ export function StationList({ isCollapsed, stations, type, moveStation }) {
       )}
 
       <ul>
-        {stations.map((station, index) => (
+        {stations?.map((station, index) => (
           <StationPreview
             station={station}
+            stations={stations}
             key={station.id}
             isCollapsed={isCollapsed}
             index={index}
             moveStation={moveStation}
             type={type}
-            user={user}
           />
         ))}
       </ul>
