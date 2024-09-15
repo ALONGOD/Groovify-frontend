@@ -19,12 +19,13 @@ import { updateLikedSongs } from '../store/actions/backend.user.js'
 import {
   eventBus,
   showErrorMsg,
-  showUserMsg,
   SONG_ADDED,
 } from '../services/event-bus.service.js'
-import { GoDotFill } from 'react-icons/go'
-import { userService } from '../services/user/user.service.remote.js'
 import { UsersWatching } from '../cmps/StationDetails/UsersWatching.jsx'
+import { userService } from '../services/user/user.service.remote.js'
+import { socketService } from '../services/socket.service.js'
+import { SET_USER } from '../store/reducers/user.reducer.js'
+
 export function StationDetails() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -40,7 +41,6 @@ export function StationDetails() {
   const [connectedUsers, setConnectedUsers] = useState([])
 
   const isStationByUser = user?._id === station?.createdBy?.id
-  console.log('isStationByUser:', isStationByUser)
   let isStationLikedSongs = user?.likedSongsStation?.id === stationId
 
   const [gradient, setGradient] = useState(null)
@@ -51,18 +51,11 @@ export function StationDetails() {
     return () => {
       leaveStation()
     }
-  }, [station])
-
-  console.log(user)
+  }, [station?._id])
 
   useEffect(() => {
-    socketService.on('station-current-users', data => {
-      setUsersWatching(data)
-    })
-
-
-
-    console.log('connectedUsers:', connectedUsers)
+    socketService.on('updated-station', data => socketUpdateStation(data))
+    socketService.on('station-current-users', data => setUsersWatching(data))
 
     const unsubscribe = eventBus.on(SONG_ADDED, () => {
       setNoSongsVisible(false)
@@ -71,6 +64,7 @@ export function StationDetails() {
 
     return () => {
       socketService.off('station-current-users')
+      socketService.off('updated-station')
       leaveStation()
       unsubscribe()
     }
@@ -86,22 +80,31 @@ export function StationDetails() {
     )
   }, [user])
 
+  async function socketUpdateStation(updatedStation) {
+    console.log('socket update:', updatedStation)
+    dispatch({ type: SET_STATION_DISPLAY, station: updatedStation })
+  }
+
   async function setUsersWatching(users) {
-        setConnectedUsers(users.filter(dataUser => {
+    setConnectedUsers(
+      users.filter(dataUser => {
         return dataUser.id !== user._id && dataUser.id
       })
     )
   }
 
-  function joinStation() {
+  async function joinStation() {
+    if (!user) {
+      const user = await userService.getLoggedinUser()
+      console.log('user:', user)
+      dispatch({ type: SET_USER, user })
+    }
     if (stationId) {
       socketService.emit('join-station', { stationId })
     }
   }
 
   function leaveStation() {
-    console.log('leave')
-
     if (stationId) {
       socketService.emit('leave-station', { stationId })
     }
@@ -109,11 +112,12 @@ export function StationDetails() {
 
   async function fetchStationFromService() {
     try {
-      if (isStationLikedSongs)
+      if (isStationLikedSongs) {
         return dispatch({
           type: SET_STATION_DISPLAY,
           station: user.likedSongsStation,
         })
+      }
       const fetchedStation = await getStationById(stationId)
       if (fetchedStation) {
         dispatch({ type: SET_STATION_DISPLAY, station: fetchedStation })
@@ -144,6 +148,7 @@ export function StationDetails() {
 
   async function moveSong(fromIndex, toIndex) {
     try {
+      if (user._id !== station.createdBy.id) return showErrorMsg('Not allowed')
       const updatedSongs = [...station.songs]
       const [movedSong] = updatedSongs.splice(fromIndex, 1)
       updatedSongs.splice(toIndex, 0, movedSong)
@@ -153,13 +158,17 @@ export function StationDetails() {
       })
       if (isStationLikedSongs)
         await updateLikedSongs({ ...station, songs: updatedSongs })
-      else await onUpdateStation({ ...station, songs: updatedSongs })
+      else {
+        await onUpdateStation({ ...station, songs: updatedSongs })
+        socketService.emit('updated-station', {...station, songs: updatedSongs})
+      }
     } catch (err) {
       showErrorMsg('Failed to move song')
       dispatch({
         type: SET_STATION_DISPLAY,
         station: { ...station, songs: station?.songs },
       })
+      socketService.emit('updated-station', {...station, songs: station?.songs})
     }
   }
 
@@ -168,7 +177,7 @@ export function StationDetails() {
   return (
     <section className="station-details flex flex-column">
       <div className="gradient" style={gradient}></div>
-      
+
       <StationDetailsHeader
         station={station}
         toggleEditStation={toggleEditStation}
