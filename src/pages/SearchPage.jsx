@@ -11,6 +11,7 @@ import { query } from '../store/actions/backend.station.js';
 import { ArtistList } from '../cmps/ArtistList.jsx';
 import { StationPreview } from '../cmps/StationPreview.jsx';
 import { StationList } from '../cmps/StationList.jsx';
+import { CategoryPreview } from '../cmps/SearchPage/CategoryPreview.jsx';
 
 export function SearchPage() {
   const { searchTerm } = useParams();
@@ -18,11 +19,12 @@ export function SearchPage() {
   const [playlistResults, setPlaylistResults] = useState([]);
   const [artistResults, setArtistResults] = useState([]);
   const [categories, setCategories] = useState([]);
+  console.log('categories:', categories)
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!searchTerm) {
+    if (!searchTerm && !categories.length) {
       fetchCategories();
     } else {
       fetchResults();
@@ -30,23 +32,15 @@ export function SearchPage() {
   }, [searchTerm]);
 
   async function fetchResults() {
-    try {
-      const [youtubeResults, playlistResults, artistResults] = await Promise.all([
-        fetchSongsFromYouTube(searchTerm),
-        fetchPlaylists(searchTerm),
-        fetchArtistsFromSpotify(searchTerm),
-      ]);
-      setSearchResults(youtubeResults);
-      setPlaylistResults(playlistResults);
-      setArtistResults(artistResults);
-    } catch (error) {
-      console.error('Error fetching results:', error);
-    }
+    fetchSongsFromYouTube(searchTerm)
+    fetchPlaylists(searchTerm)
+    fetchArtistsFromSpotify(searchTerm)
   }
 
   async function fetchSongsFromYouTube(query) {
     try {
       const results = await YouTubeAPIService.searchVideos(query);
+      setSearchResults(results);
       return results;
     } catch (error) {
       console.error('Error fetching YouTube API:', error);
@@ -57,6 +51,7 @@ export function SearchPage() {
   async function fetchPlaylists(search) {
     try {
       const results = await query(search);
+      setPlaylistResults(results);
       return results;
     } catch (error) {
       console.error('Error fetching playlists:', error);
@@ -67,6 +62,7 @@ export function SearchPage() {
   async function fetchArtistsFromSpotify(query) {
     try {
       const results = await SpotifyAPIService.searchArtists(query, 5);
+      setArtistResults(results);
       return results;
     } catch (error) {
       console.error('Error fetching artists from Spotify API:', error);
@@ -126,10 +122,7 @@ export function SearchPage() {
           <div className="category-grid">
             {categories.map((category) =>
               category.name === 'Charts' ? null : (
-                <div key={category.id} className="category-card" onClick={() => onCategoryClick(category)}>
-                  <img src={category.icons[0].url} alt={category.name} />
-                  <h3>{category.name}</h3>
-                </div>
+                <CategoryPreview category={category} onCategoryClick={onCategoryClick} key={category.id}/>
               )
             )}
           </div>
