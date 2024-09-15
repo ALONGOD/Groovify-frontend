@@ -7,7 +7,7 @@ export function SongDetails({ currSong}) {
         <>
             <header className='details-header'>
                 <h3>{currSong ? currSong.artist : 'Metro Boomin, A$AP Rocky, Takeoff'}</h3>
-                <div className='header-actions'>
+                <div className='header-actions flex flex-row gap-3'>
                     <button className='more-options'>•••</button>
                     <DetailsSidebarClose />
                 </div>

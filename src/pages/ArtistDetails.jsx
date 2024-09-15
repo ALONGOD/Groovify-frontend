@@ -10,10 +10,11 @@ import {
 } from '../services/util.service'
 import { StationList } from '../cmps/StationList'
 import { ArtistList } from '../cmps/ArtistList'
-import { MdVerified } from 'react-icons/md'
-import { RiVerifiedBadgeFill } from 'react-icons/ri'
+import { useDispatch } from 'react-redux'
+import { LOADING_DONE, LOADING_START } from '../store/reducers/system.reducer'
 
 export function ArtistDetails() {
+  const dispatch = useDispatch()
   const { artistId } = useParams()
   const [artist, setArtist] = useState({
     details: null,
@@ -31,10 +32,12 @@ export function ArtistDetails() {
   }, [artistId])
 
   async function fetchDetailsFromArtist() {
+    dispatch({ type: LOADING_START})
     const details = await SpotifyAPIService.fetchDetailsFromArtist(artistId, 'artist')
     const albumsBeforeEdit = await SpotifyAPIService.fetchDetailsFromArtist(artistId, 'albums')
     const albums = albumsBeforeEdit.items.map(album => {
       const { id, name, artists, images } = album
+      console.log('album:', album)
       return {
         id,
         name,
@@ -42,13 +45,15 @@ export function ArtistDetails() {
           name: artists.map(artist => artist.name).join(', '),
           id: artists[0].id,
         },
+        length: album.total_tracks,
         imgUrl: images[0].url,
       }
     })
     const relatedArtists = await SpotifyAPIService.fetchDetailsFromArtist(artistId, 'relatedArtists')
-
+    
     const topTracksBeforeEdit = await SpotifyAPIService.fetchDetailsFromArtist(artistId, 'topTracks')
     const topTracks = topTracksBeforeEdit.tracks.map(song => {
+      console.log('song:', song)
       const { id, name: title, artists, album, duration_ms } = song
       return {
         id,
@@ -62,8 +67,9 @@ export function ArtistDetails() {
       }
     })
     // console.log('topTracks:', topTracks)
-
+    
     setArtist({ details, albums, topTracks, relatedArtists })
+    dispatch({ type: LOADING_DONE})
   }
 
   console.log('artist?.topTracks?.items:', artist?.topTracks)
