@@ -1,40 +1,58 @@
 .artist-list {
-//   display: flex;
-  gap: 1.2em;
+  position: relative;
   overflow-x: auto;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    height: 13em;
-  /* Ensure no wrapping occurs */
   white-space: nowrap;
+  height: 16em;
   overflow: hidden; /* Hide extra elements that go beyond the container */
   .artist-item {
+    height: 16em;
     display: flex;
     flex-direction: column;
     align-items: center;
     cursor: pointer;
     text-align: center;
     color: #fff;
-    width: 10em;
-    height: 13em;
+    padding: em(12px);
+    gap: 8px;
+    border-radius: 6px;
+    z-index: 0;
+    &:hover {
+      background-color: #1F1F1F;
+    }
 
     img {
       border-radius: 50%;
       margin-bottom: 0.5em;
       // max-width: 100%;
-      width: 10em;
-      height: 10em;
+      width: em(170px);
+      height: em(170px);
     }
 
     .artist-info {
+      display: flex;
+      justify-content: start;
+      flex-direction: column;
+      gap: 4px;
+      width: 100%;
+      & > * {
+        font-family: 'gotham-light';
+        font-weight: 600;
+      }
       h3 {
-        font-size: 1.2rem;
+        display: flex;
+        justify-content: start;
+        font-size: 1em;
+        color: white;
         font-weight: bold;
         margin-bottom: 0.2em;
       }
 
       p {
-        font-size: 0.875rem;
+        display: flex;
+        justify-content: start;
+        font-size: em(14px);
         color: #b3b3b3;
         margin-top: 0;
       }

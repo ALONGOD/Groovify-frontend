@@ -16,10 +16,9 @@
       cursor: pointer;
       border-radius: 1.5rem;
       padding: 0.5em;
-      border: 1px solid rgb(99, 99, 99);
-      transition: 0.1s border;
+      transition: 0.1s ;
       &:hover {
-        border: 1px solid rgb(182, 182, 182);
+        background-color: #313131;
       }
       h3 {
         font-weight: 600;
