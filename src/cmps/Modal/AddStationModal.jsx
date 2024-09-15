@@ -18,7 +18,7 @@ export function AddStationModal() {
     // Handles adding a new station without AI
     async function onAddNewStation() {
         try {
-            const newStation = await saveStation();
+            const newStation = await addNewStation();
             navigate(`/station/${newStation._id}`);
         } catch (err) {
             console.error('Failed to add new playlist:', err);
