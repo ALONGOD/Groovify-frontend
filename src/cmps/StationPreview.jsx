@@ -29,7 +29,9 @@ export function StationPreview({
   const user = useSelector(state => state.userModule.user)
   const { isShuffled } = useSelector(state => state.stationModule.queue)
   const [isDraggingOver, setIsDraggingOver] = useState(false)
-
+  if (!station) {
+    return null;  // or handle the error case, e.g., return a placeholder
+  }
   station.id = station?._id ? station?._id : station?.id
 
   var isStationLikedSongs = user?.likedSongsStation?.id === station?.id
@@ -101,9 +103,8 @@ export function StationPreview({
   return (
     <li
       ref={node => drag(drop(node))}
-      className={`station-preview flex flex-row align-center ${
-        isDraggingOver ? 'dragging' : ''
-      } ${type === 'search-results' ? 'search-results' : ''}`}
+      className={`station-preview flex flex-row align-center ${isDraggingOver ? 'dragging' : ''
+        } ${type === 'search-results' ? 'search-results' : ''}`}
       onClick={() => navigate(`/station/${station.id}`)}
       style={{ opacity: isDragging ? 0.5 : 1 }}
     >
@@ -130,11 +131,10 @@ export function StationPreview({
                   {type === 'userDetails' && station?.creator?.fullname}
                   {station?.length
                     ? `${station.length} songs`
-                    : `${
-                        isStationLikedSongs
-                          ? station.songs.length + ' songs'
-                          : station?.creator?.fullname
-                      }`}
+                    : `${isStationLikedSongs
+                      ? station.songs.length + ' songs'
+                      : station?.creator?.fullname
+                    }`}
                 </span>
               </>
             )}

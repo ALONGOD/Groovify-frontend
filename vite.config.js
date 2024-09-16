@@ -6,7 +6,7 @@ import svgr from 'vite-plugin-svgr';
 export default defineConfig({
 	plugins: [react(), svgr()],
 	build: {
-		outDir: '../backend/public',
+		outDir: '../Spotify-backend/public',
 		emptyOutDir: true,
 	},
 })
