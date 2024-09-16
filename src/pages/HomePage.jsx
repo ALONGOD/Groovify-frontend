@@ -4,10 +4,13 @@ import { useNavigate } from 'react-router-dom'
 import { PlayPauseBtn } from '../cmps/PlayPauseBtn'
 import { query } from '../store/actions/backend.station'
 import { StationList } from '../cmps/StationList'
+import { SpotifyAPIService } from '../services/spotifyAPI/spotifyAPI.service'
 
 export function Homepage() {
     const [stations, setStations] = useState([])
     const [gridStations, setGridStations] = useState([])
+    const [madeForYouStations, setMadeForYouStations] = useState([])
+    const [recommendedStations, setRecommendedStations] = useState([])
     const history = useSelector(state => state.stationModule.history) || []
     const navigate = useNavigate()
 
@@ -17,11 +20,23 @@ export function Homepage() {
                 const fetchedStations = await query('')
                 setStations(fetchedStations)
                 setGridStations(fetchedStations.slice(0, 8))
+                setMadeForYouStations(fetchedStations.slice(0, 6))
             } catch (error) {
                 console.error('Error fetching stations:', error)
             }
         }
         fetchStations()
+
+        // Fetch recommended stations
+        const fetchRecommendedStations = async () => {
+            try {
+                const recommended = await SpotifyAPIService.getRecommendedSongs('pop') // 'pop' can be dynamic
+                setRecommendedStations(recommended.slice(0, 6))
+            } catch (error) {
+                console.error('Error fetching recommended stations:', error)
+            }
+        }
+        fetchRecommendedStations()
     }, [])
 
     const handleStationClick = stationId => {
@@ -34,21 +49,42 @@ export function Homepage() {
 
     return (
         <div className='homepage-container'>
-            <div className='top-section'>
+            <section className='top-section'>
                 <div className='filter-buttons'>
                     <button className='filter-btn'>All</button>
                     <button className='filter-btn'>Music</button>
                     <button className='filter-btn'>Podcasts</button>
                 </div>
-            </div>
+            </section>
 
-            <div className='stations-section'>
+            <section className='stations-section'>
                 <h2>Playlists</h2>
                 <StationList
                     stations={gridStations}
                     type='home-station'
                 />
-            </div>
+            </section>
+            <section className='made-for-you-section'>
+                <h2>Made For You</h2>
+                <StationList
+                    stations={madeForYouStations}
+                    type={'search-results'}
+                />
+
+            </section>
+
+            <section className='featured-stations-section'>
+                <h2>Featured Stations</h2>
+                <StationList
+                    stations={recommendedStations.map(song => ({
+                        id: song.spotifyUrl,
+                        title: song.title,
+                        artist: song.artist,
+                        imgUrl: song.imgUrl,
+                    }))}
+                    type='search-results'
+                />
+            </section>
 
             <div className='history-section'>
                 <h2>Recently Played</h2>
