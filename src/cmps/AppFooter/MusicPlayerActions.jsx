@@ -14,6 +14,7 @@ import { setDetailsSidebar } from '../../store/actions/system.actions'
 import { NoVolume } from '../svgs/NoVolume'
 import { MaxVolume } from '../svgs/MaxVolume'
 import { QueueButton } from '../svgs/QueueButton'
+import { BiParty, BiSolidParty } from 'react-icons/bi'
 // import {ReactComponent as LibraryIcon} from '../../assets/svgs/your-library.svg'
 
 export function MusicPlayerActions({
@@ -37,11 +38,13 @@ export function MusicPlayerActions({
 
   return (
     <div className="other-options flex flex-row align-center">
-      <button
-        onClick={() => onSetDetailsSidebar('songDetails')}
-        
-      >
-        <AiOutlinePlaySquare className={detailsSidebarMode === 'songDetails' ? 'active' : ''}/>
+      <button onClick={() => onSetDetailsSidebar('partyDetails')}>
+        {detailsSidebarMode === 'partyDetails' ? <BiSolidParty className='active'/> :<BiParty /> }
+      </button>
+      <button onClick={() => onSetDetailsSidebar('songDetails')}>
+        <AiOutlinePlaySquare
+          className={detailsSidebarMode === 'songDetails' ? 'active' : ''}
+        />
       </button>
       <button>
         {isVolumeMuted ? (

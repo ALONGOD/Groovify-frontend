@@ -19,6 +19,7 @@ import {
   TOGGLE_PARTY_PLAY,
 } from '../../store/reducers/station.reducer.js'
 import { socketService } from '../../services/socket.service.js'
+import { FaPause } from 'react-icons/fa6'
 
 export function DetailsHeaderActions({
   toggleEditStation,
@@ -34,7 +35,6 @@ export function DetailsHeaderActions({
   const player = useSelector(state => state.stationModule.player)
   const isPlaying = player.isPlaying
   const partyListen = player.partyListen
-  console.log('partyListen:', partyListen)
 
   // Toggle modal visibility
   function toggleModal() {
@@ -66,7 +66,6 @@ export function DetailsHeaderActions({
   }
 
   function togglePartyPlay() {
-    console.log('station?._id:', station?._id)
     
     dispatch({ type: TOGGLE_PARTY_PLAY })
     dispatch({ type: SET_PARTY_STATION_ID, stationId: station?._id })
@@ -106,8 +105,8 @@ export function DetailsHeaderActions({
       </div>
       {partyListen.state && (
         <div className="flex flex-row ">
-          <EqualizerBar />
-          <h3 className="party-active">Party in session...</h3>
+          {isPlaying ? <EqualizerBar /> : <FaPause className='pause'/>}
+          <h3 className="party-active">{isPlaying ? 'Party in session...' : 'Party paused'}</h3>
         </div>
       )}
     </div>

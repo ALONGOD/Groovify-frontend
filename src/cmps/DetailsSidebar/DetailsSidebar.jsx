@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { TOGGLE_DETAILS_SIDEBAR } from '../../store/reducers/system.reducer'
 import { SongDetails } from './SongDetails'
 import { QueueDetails } from './QueueDetails'
+import { PartyDetails } from './PartyDetails'
 
 export function DetailsSidebar() {
     const currSong = useSelector(state => state.stationModule.player.currSong)
@@ -27,6 +28,7 @@ export function DetailsSidebar() {
         <aside className={`details-sidebar ${detailsSidebarMode} ${detailsSidebarMode ? 'open' : 'closed'}`}>
            {detailsSidebarMode === 'songDetails' && <SongDetails currSong={currSong} />}
            {detailsSidebarMode === 'queueDetails' && <QueueDetails />}
+           {detailsSidebarMode === 'partyDetails' && <PartyDetails />}
         </aside>
     )
 }
