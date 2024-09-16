@@ -111,7 +111,7 @@ export function MenuSidebar() {
 
         </div>
         <div className='station-list'>
-          <div className="search-bar-container">
+          <div className={`search-bar-container ${isCollapsed ? 'hidden' : ''}`}>
             <SearchBar
               searchType={'station'}
               placeholder={'Search in Playlists'}

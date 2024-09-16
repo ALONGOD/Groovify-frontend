@@ -2,21 +2,27 @@
 .fs12 {
   font-size: rem(12px);
 }
+
 .fs14 {
   font-size: rem(14px);
 }
+
 .fs18 {
   font-size: rem(18px);
 }
+
 .fs20 {
   font-size: rem(20px);
 }
+
 .fs24 {
   font-size: rem(24px);
 }
+
 .fs28 {
   font-size: rem(28px);
 }
+
 .fs30 {
   font-size: rem(30px);
 }
@@ -24,51 +30,65 @@
 // flex helpers
 
 .truncate-text {
-  white-space: nowrap; /* Prevent the text from wrapping to the next line */
-  overflow: hidden; /* Hide the overflowing text */
-  text-overflow: ellipsis; /* Add the three dots ("...") at the end of the truncated text */
+  white-space: nowrap;
+  /* Prevent the text from wrapping to the next line */
+  overflow: hidden;
+  /* Hide the overflowing text */
+  text-overflow: ellipsis;
+  /* Add the three dots ("...") at the end of the truncated text */
   max-width: 100%;
 }
 
 .text-overflow-manage {
-    max-width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .flex {
   display: flex;
-  > *.full {
+
+  >*.full {
     flex: 1;
   }
+
   &.flex-column {
     flex-direction: column;
   }
+
   &.flex-row {
     flex-direction: row;
   }
+
   &.justify-center {
     justify-content: center;
   }
+
   &.justify-between {
     justify-content: space-between;
   }
+
   &.justify-start {
     justify-content: start;
   }
+
   &.justify-end {
     justify-content: end;
   }
+
   &.align-end {
     align-items: end;
   }
+
   &.align-start {
     align-items: start;
   }
+
   &.align-center {
     align-items: center;
   }
+
   &.flex-center {
     justify-content: center;
     align-items: center;
@@ -77,6 +97,7 @@
 
 .hidden {
   display: none;
+  opacity: 0;
 }
 
 $gaps: (
@@ -128,9 +149,11 @@ $gaps: (
 .square-ratio {
   @include aspect-ratio(1, 1);
 }
+
 .video-ratio {
   @include aspect-ratio(16, 9);
 }
+
 .portrait-ratio {
   @include aspect-ratio(9, 16);
 }
