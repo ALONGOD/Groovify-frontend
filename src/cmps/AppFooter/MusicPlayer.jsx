@@ -7,7 +7,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import YouTube from 'react-youtube'
 import { MusicPlayerActions } from './MusicPlayerActions'
 import {
+  SET_PARTY_PLAY,
+  SET_PLAYER,
   SET_PLAYER_CURRENT_SONG,
+  SET_PLAYER_CURRENT_STATION,
   SET_PLAYER_IS_PLAYING,
   SET_QUEUE_MODE,
 } from '../../store/reducers/station.reducer'
@@ -21,6 +24,7 @@ import { ProgressBar } from './ProgressBar'
 import { SyncButton } from '../svgs/SyncButton'
 import { ShuffleButton } from '../svgs/ShuffleButton'
 import { storageService } from '../../services/async-storage.service'
+import { socketService } from '../../services/socket.service'
 
 export function MusicPlayer({ currSong }) {
   // const {pathname} = useLocation()
@@ -28,7 +32,10 @@ export function MusicPlayer({ currSong }) {
   const dispatch = useDispatch()
   const queue = useSelector(storeState => storeState.stationModule.queue)
   const player = useSelector(storeState => storeState.stationModule.player)
+  const user = useSelector(storeState => storeState.userModule.user)
   const isPlaying = player.isPlaying
+  const partyListen = player.partyListen
+  const stationId = partyListen.stationId
 
   const playerRef = useRef(null)
   const intervalRef = useRef(null)
@@ -36,10 +43,12 @@ export function MusicPlayer({ currSong }) {
   const [duration, setDuration] = useState(0)
   const [currentTime, setCurrentTime] = useState(0)
 
-  const [volume, setVolume] = useState(50)
+  const [volume, setVolume] = useState(null)
 
   useEffect(() => {
-    if (!currSong) loadSavedSettings()
+    if (!currSong) {
+      loadSavedSettings()
+    }
     storageService.save('currentSong', currSong)
     if (player?.currStation) {
       storageService.save('currentStation', player.currStation)
@@ -47,7 +56,7 @@ export function MusicPlayer({ currSong }) {
     if (currSong) {
       dispatch(addToHistory(currSong))
     }
-  }, [currSong, player.currStation])
+  }, [currSong, player.currStation, volume])
 
   useEffect(() => {
     if (playerRef.current) {
@@ -56,6 +65,32 @@ export function MusicPlayer({ currSong }) {
     }
   }, [isPlaying])
 
+  useEffect(() => {
+    console.log(partyListen.state)
+
+    if (partyListen.state) {
+      joinParty()
+      socketService.on('request-player', ({ userId }) => {
+        if (userId !== user?._id) {
+          console.log('request-player')
+          socketService.emit('send-player', { userId, player, currentTime })
+        }
+      })
+      socketService.on('sync-player', ({ player, currentTime }) => {
+        setPlayer(player)
+        setTimeout(() => {
+          setCurrentTime(currentTime)
+          playerRef.current.seekTo(currentTime)
+        }, 1500)
+      })
+    } else {
+      leaveParty()
+      socketService.off('sync-player')
+      socketService.off('request-player')
+      socketService.off('user-joined')
+    }
+  }, [partyListen.state])
+  // console.log('partyListen:', partyListen)
 
   const opts = {
     height: '200',
@@ -63,6 +98,32 @@ export function MusicPlayer({ currSong }) {
     playerVars: {
       autoplay: 1,
     },
+  }
+
+  function joinParty() {
+    // const userId = user?._id
+    console.log('true')
+    socketService.emit('join-party', { stationId: stationId })
+    dispatch({ type: SET_PARTY_PLAY })
+
+    socketService.on('user-joined', data => {
+      console.log(`${data} joined the party!`)
+    })
+
+    socketService.emit('request-player')
+  }
+
+  function leaveParty() {
+    console.log('false')
+    socketService.emit('leave-party', { stationId })
+  }
+
+  console.log('currSong', currSong)
+
+  function setPlayer(player) {
+    console.log('player', player)
+
+    dispatch({ type: SET_PLAYER, player })
   }
 
   async function playNextOrPrev(value) {
@@ -107,7 +168,6 @@ export function MusicPlayer({ currSong }) {
   function onPlayerReady(event) {
     // if (pathname.includes('auth')) return playerRef?.current?.stopVideo()
     dispatch({ type: SET_PLAYER_IS_PLAYING, isPlaying: true })
-    setCurrentTime(0)
     intervalRef.current = setInterval(() => {
       setCurrentTime(playerRef.current.getCurrentTime())
     }, 1000)
@@ -167,11 +227,13 @@ export function MusicPlayer({ currSong }) {
     setCurrentTime(newTime)
     playerRef.current.seekTo(newTime, true)
   }
-  const isVolumeMuted = playerRef?.current?.isMuted() && playerRef.current.getPlayerState === 1 || volume === 0
+  const isVolumeMuted =
+    (playerRef?.current?.isMuted() && playerRef.current.getPlayerState === 1) ||
+    volume === 0
 
   function toggleVolume() {
-      isVolumeMuted ? playerRef.current.unMute() : playerRef.current.mute()
-      isVolumeMuted ? setVolume(50) : setVolume(0)
+    isVolumeMuted ? playerRef.current.unMute() : playerRef.current.mute()
+    isVolumeMuted ? setVolume(100) : setVolume(0)
   }
 
   return (

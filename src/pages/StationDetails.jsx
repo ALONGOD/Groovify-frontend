@@ -193,6 +193,7 @@ export function StationDetails() {
           station={station}
           isStationByUser={isStationByUser}
           isStationLikedSongs={isStationLikedSongs}
+          user={user}
         />
 
         {station?.songs?.length === 0 && noSongsVisible && (

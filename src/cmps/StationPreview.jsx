@@ -29,9 +29,8 @@ export function StationPreview({
   const user = useSelector(state => state.userModule.user)
   const { isShuffled } = useSelector(state => state.stationModule.queue)
   const [isDraggingOver, setIsDraggingOver] = useState(false)
-
-  const { _id, id, imgUrl, name, songs } = station
-  station.id = _id ? _id : id
+  
+  station.id = station?._id ? station?._id : station?.id
 
   var isStationLikedSongs = user?.likedSongsStation?.id === station?.id
   const isStationPlaying = currStation?.id === station?.id
@@ -44,7 +43,6 @@ export function StationPreview({
     }),
   }))
   
-  console.log('index:', index);
   
   
   const [{ isOver }, drop] = useDrop(() => ({
@@ -62,7 +60,7 @@ export function StationPreview({
     },
     drop: item => {
       const dragIndex = stations?.findIndex(s => s.id === item.id)
-      const hoverIndex = stations?.findIndex(s => s.id === station.id)
+      const hoverIndex = stations?.findIndex(s => s.id === station?.id)
       
       moveStation(dragIndex, hoverIndex)
       setIsDraggingOver(false)
@@ -102,6 +100,7 @@ export function StationPreview({
       dispatch({ type: SET_PLAYER_IS_PLAYING, isPlaying: !isPlaying })
     }
   }
+  if (!station) return null
 
   return (
     <li
@@ -113,7 +112,7 @@ export function StationPreview({
       style={{ opacity: isDragging ? 0.5 : 1 }}
     >
       <div className="relative">
-        <img src={imgUrl} alt="station img" />
+        <img src={station?.imgUrl} alt="station img" />
         <PlayPauseBtn
           type={type}
           station={station}
@@ -122,7 +121,7 @@ export function StationPreview({
       </div>
       {!isCollapsed && (
         <div className="flex flex-column">
-          <h3 className={isStationPlaying ? 'active' : ''}>{name}</h3>
+          <h3 className={isStationPlaying ? 'active' : ''}>{station?.name}</h3>
           <div className="station-details flex flex-row align-center">
             {station.id === 'liked-songs' && (
               <BsFillPinAngleFill className="pin" />

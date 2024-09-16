@@ -11,6 +11,7 @@ export const SET_CURRENT_SONG = 'SET_CURRENT_SONG'
 export const SET_SEARCH_TERM = 'SET_SEARCH_TERM'
 export const SET_SORT_BY = 'SET_SORT_BY'
 
+export const SET_PLAYER = 'SET_PLAYER'
 export const SET_PLAYER_CURRENT_SONG = 'SET_PLAYER_CURR_SONG'
 export const SET_PLAYER_IS_PLAYING = 'SET_PLAYER_IS_PLAYING'
 export const SET_PLAYER_CURRENT_STATION = 'SET_PLAYER_CURRENT_STATION'
@@ -22,6 +23,7 @@ export const SET_STATION_DISPLAY = 'SET_STATION_DISPLAY'
 export const SET_PARTY_PLAY = 'SET_PARTY_PLAY'
 export const SET_PARTY_PAUSE = 'SET_PARTY_PAUSE'
 export const TOGGLE_PARTY_PLAY = 'TOGGLE_PARTY_PLAY'
+export const SET_PARTY_STATION_ID = 'SET_PARTY_STATION_ID'
 
 const initialState = {
   songs: [],
@@ -42,6 +44,8 @@ const initialState = {
 
 export function stationReducer(state = initialState, action) {
   var newState = state
+
+  const { partyListen } = state.player
 
   switch (action.type) {
     // STATIONS
@@ -114,6 +118,7 @@ export function stationReducer(state = initialState, action) {
       break
 
     // PLAYER
+
     case SET_PLAYER_CURRENT_SONG:
       newState = {
         ...state,
@@ -141,23 +146,54 @@ export function stationReducer(state = initialState, action) {
       const updatedHistory = state.history.filter(
         historySong => historySong.id !== action.song.id
       )
-
       newState = {
         ...state,
         history: [action.song, ...updatedHistory],
       }
-
       console.log('Updated History:', newState.history)
       break
-
+    case SET_PLAYER:
+      newState = { ...state, player: action.player }
+      break
     case TOGGLE_PARTY_PLAY:
       newState = {
         ...state,
-        partyListen: {
-          state: !state.partyListen.state,
-          stationId: state.partyListen.stationId,
+        player: {
+          ...state.player,
+          partyListen: {
+            state: !partyListen.state,
+            stationId: partyListen.stationId,
+          },
         },
       }
+      break
+    case SET_PARTY_PLAY:
+      newState = {
+        ...state,
+        player: {
+          ...state.player,
+          partyListen: {
+            state: true,
+            stationId: partyListen.stationId,
+          },
+        },
+      }
+      break
+    case SET_PARTY_PAUSE:
+      newState = {
+        ...state,
+        partyListen: {
+          state: false,
+          stationId: partyListen.stationId,
+        },
+      }
+      break
+    case SET_PARTY_STATION_ID:
+      console.log('action.stationId:', action.stationId)
+      newState = { ...state, player: { ...state.player, partyListen: { ...partyListen, stationId: action.stationId},
+        },
+      }
+      break
 
     default:
       return newState

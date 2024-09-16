@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router'
 import { StationPreview } from './StationPreview'
 import { showErrorMsg } from '../services/event-bus.service'
 import { updateUser } from '../store/actions/backend.user'
+import { socketService } from '../services/socket.service'
 
 export function MenuSidebar() {
   const navigate = useNavigate()
@@ -21,6 +22,7 @@ export function MenuSidebar() {
 
   useEffect(() => {
     getUser()
+    // if (!user) navigate('/auth/login')
     window.addEventListener('resize', handleResize)
     handleResize()
 
@@ -36,6 +38,7 @@ export function MenuSidebar() {
       if (!userToSave) navigate('/auth/login')
       // const userToSave = await userService.getById(user._id)
       dispatch({ type: SET_USER, user: userToSave })
+      socketService.login({id:userToSave._id, fullname: userToSave.fullname})
     } catch (err) {
       navigate('/auth/login')
       console.log('Cannot set logged in user', err)
