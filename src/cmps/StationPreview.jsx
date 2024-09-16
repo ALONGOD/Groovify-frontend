@@ -96,12 +96,12 @@ export function StationPreview({
       dispatch({ type: SET_PLAYER_IS_PLAYING, isPlaying: !isPlaying })
     }
   }
-  if (!station) return null
 
+  if (!station) return null
   return (
     <li
       ref={node => drag(drop(node))}
-      className={`station-preview flex flex-row align-center ${
+      className={`station-preview flex flex-row align-center relative ${
         isDraggingOver ? 'dragging' : ''
       } ${type === 'search-results' ? 'search-results' : ''}`}
       onClick={() => navigate(`/station/${station.id}`)}
@@ -119,7 +119,7 @@ export function StationPreview({
         <div className="flex flex-column">
           <h3 className={isStationPlaying ? 'active' : ''}>{station?.name}</h3>
           <div className="station-details flex flex-row align-center">
-            {station.id === 'liked-songs' && (
+            {isStationLikedSongs && (
               <BsFillPinAngleFill className="pin" />
             )}
             {type !== 'home-station' && (
@@ -139,6 +139,15 @@ export function StationPreview({
               </>
             )}
           </div>
+        </div>
+      )}
+      {type === 'home-station' && (
+        <div className="play-btn">
+          <PlayPauseBtn
+            station={station}
+            type="top-result"
+            onTogglePlay={playOrPauseStation}
+          />
         </div>
       )}
     </li>

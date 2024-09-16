@@ -1,254 +1,279 @@
 .homepage-container {
-    padding: 1.25em;
-    background-color: #121212;
-    color: white;
+  padding: 1.25em;
+  background-color: #121212;
+  color: white;
+  gap: em(24px) em(32px);
 
-    .top-section {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+  .top-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-        .filter-buttons {
-            display: flex;
+    .filter-buttons {
+      display: flex;
 
-            .filter-btn {
-                background-color: #333;
-                border: none;
-                padding: 10px 20px;
-                border-radius: 30px;
-                color: white;
-                margin: 0 10px;
-                cursor: pointer;
-
-                &:hover {
-                    background-color: #555;
-                }
-            }
-        }
-    }
-
-    .history-section {
-        margin-top: 30px;
-
-        h2 {
-            font-size: 22px;
-        }
-
-        .history-container {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-
-            .history-card {
-                background-color: #333;
-                padding: 20px;
-                border-radius: 10px;
-                position: relative;
-                overflow: hidden;
-                cursor: pointer;
-                transition: background-color 0.3s ease-out, transform 0.3s ease-out;
-
-                &:hover {
-                    background-color: rgba(255, 255, 255, 0.2);
-                }
-
-                &:hover .play-btn {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-
-                .history-img {
-                    object-fit: cover;
-                    width: 100%;
-                    height: 0;
-                    padding-bottom: 100%;
-                    position: relative;
-                    margin-bottom: 10px;
-                }
-
-                .history-song-name {
-                    font-size: 1rem;
-                    font-weight: bold;
-                    color: #ffffff;
-                    margin-bottom: 5px;
-                    text-align: center;
-                }
-
-                .history-artist {
-                    font-size: 0.85rem;
-                    color: #b3b3b3;
-                    text-align: center;
-                }
-
-                .play-btn {
-                    position: absolute;
-                    bottom: 0.5em;
-                    right: 0.5em;
-                    background-color: #1ed760;
-                    border-radius: 50%;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    opacity: 0;
-                    transition: opacity 0.3s ease, transform 0.3s ease;
-                    cursor: pointer;
-                    z-index: 10;
-                    width: 2.5em;
-                    height: 2.5em;
-
-                    svg {
-                        fill: black;
-                        font-size: 1.25em;
-                    }
-
-                    @media (max-width: 1200px) {
-                        width: 2.2em;
-                        height: 2.2em;
-
-                        svg {
-                            font-size: 1.1em;
-                        }
-                    }
-
-                    @media (max-width: 992px) {
-                        width: 1.9em;
-                        height: 1.9em;
-
-                        svg {
-                            font-size: 1em;
-                        }
-                    }
-
-                    @media (max-width: 768px) {
-                        width: 1.6em;
-                        height: 1.6em;
-
-                        svg {
-                            font-size: 0.9em;
-                        }
-                    }
-
-                    @media (max-width: 576px) {
-                        width: 1.25em;
-                        height: 1.25em;
-
-                        svg {
-                            font-size: 0.75em;
-                        }
-                    }
-                }
-            }
-
-            .no-recently-played {
-                color: #b3b3b3;
-                text-align: center;
-                margin-top: 20px;
-            }
-        }
-    }
-
-    .stations-section {
-        margin-top: 2em;
-
-        .station-list {
-            ul {
-                display: grid;
-                grid-template-columns: repeat(4, 1fr);
-                grid-template-rows: repeat(2, 4em);
-                gap: 0.5em;
-                height: 25vh;
-
-                li {
-                    background-color: rgba(255, 255, 255, 0.1);
-                    padding: 1px;
-                    border-radius: 1px;
-                    position: relative;
-                    cursor: pointer;
-                    transition: background-color 0.3s ease;
-                    display: flex;
-                    align-items: center;
-                    gap: 0.25em;
-                    width: 100%;
-                    height: 3em;
-
-                    &:hover .play-pause-container.home-station {
-                        opacity: 1;
-                        transform: translateY(0);
-                    }
-                }
-            }
-        }
-    }
-
-    .play-pause-container.home-station {
-        opacity: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: absolute;
-        bottom: 0.25em;
-        left: 400%;
-        background-color: $spotify-green;
-        border-radius: 50%;
-        width: 2.5em;
-        height: 2.5em;
-        color: #191919;
-        box-shadow: 0 8px 8px rgba(0, 0, 0, 0.3);
-        transform: translateY(8px);
-        z-index: 10;
-        transition: all 0.3s ease;
+      .filter-btn {
+        background-color: #333;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 30px;
+        color: white;
+        margin: 0 10px;
         cursor: pointer;
 
-        svg {
-            color: #191919;
-            font-size: 1.25em;
-            background-color: transparent;
-        }
-
-        // On hover of the parent element, play/pause should appear
         &:hover {
-            opacity: 1;
-            transform: translateY(0);
+          background-color: #555;
         }
+      }
+    }
+  }
+
+  .history-section {
+    margin-top: 30px;
+
+    h2 {
+      font-size: 22px;
     }
 
-    .made-for-you-section,
-    .featured-stations-section {
-        .station-list {
-            ul {
-                display: grid;
-                grid-template-columns: repeat(8, 1fr);
-                grid-template-rows: repeat(1, px-to-em(240px));
-                gap: 0.5em;
-                overflow-x: hidden;
-                height: (30vh);
+    .history-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
 
-                li {
-                    background-color: rgba(255, 255, 255, 0.1);
-                    padding: 1px;
-                    border-radius: 1px;
-                    position: relative;
-                    cursor: pointer;
-                    transition: background-color 0.3s ease;
-                    display: flex;
-                    flex-direction: column; // Align content vertically like the playlist cards
-                    align-items: flex-start; // Align items to the left
-                    gap: 0.5em;
-                    width: 10em;
-                    height: 10em;
-                    padding-right: 0;
-                    padding: 0;
-                    overflow: hidden;
+      .history-card {
+        background-color: #333;
+        padding: 20px;
+        border-radius: 10px;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+        transition: background-color 0.3s ease-out, transform 0.3s ease-out;
 
-                    img {
-                        width: 100%;
-                        height: 10em;
-                        border-radius: 0.5em;
-                        object-fit: cover;
-                        // margin-bottom: 0.5em;
-                    }
-                }
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        &:hover .play-btn {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .history-img {
+          object-fit: cover;
+          width: 100%;
+          height: 0;
+          padding-bottom: 100%;
+          position: relative;
+          margin-bottom: 10px;
+        }
+
+        .history-song-name {
+          font-size: 1rem;
+          font-weight: bold;
+          color: #ffffff;
+          margin-bottom: 5px;
+          text-align: center;
+        }
+
+        .history-artist {
+          font-size: 0.85rem;
+          color: #b3b3b3;
+          text-align: center;
+        }
+
+        .play-btn {
+          position: absolute;
+          bottom: 0.5em;
+          right: 0.5em;
+          background-color: #1ed760;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          opacity: 0;
+          transition: opacity 0.3s ease, transform 0.3s ease;
+          cursor: pointer;
+          z-index: 10;
+          width: 2.5em;
+          height: 2.5em;
+
+          svg {
+            fill: black;
+            font-size: 1.25em;
+          }
+
+          @media (max-width: 1200px) {
+            width: 2.2em;
+            height: 2.2em;
+
+            svg {
+              font-size: 1.1em;
             }
+          }
+
+          @media (max-width: 992px) {
+            width: 1.9em;
+            height: 1.9em;
+
+            svg {
+              font-size: 1em;
+            }
+          }
+
+          @media (max-width: 768px) {
+            width: 1.6em;
+            height: 1.6em;
+
+            svg {
+              font-size: 0.9em;
+            }
+          }
+
+          @media (max-width: 576px) {
+            width: 1.25em;
+            height: 1.25em;
+
+            svg {
+              font-size: 0.75em;
+            }
+          }
         }
+      }
+
+      .no-recently-played {
+        color: #b3b3b3;
+        text-align: center;
+        margin-top: 20px;
+      }
     }
+  }
+
+  .stations-section {
+    margin-top: 2em;
+
+    .station-list {
+      ul {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-rows: em(62px);
+        overflow: hidden;
+
+        gap: 0.5em;
+        height: max-content;
+        margin-bottom: 1em;
+        min-height: em(62px);
+
+        li {
+          display: grid;
+          grid-template-columns: em(60px) 4fr 1fr;
+          align-items: center;
+          position: relative;
+
+          width: 100%;
+          height: em(60px);
+          padding: 0;
+          border-radius: 4px;
+          gap: 8px;
+          
+          background-color: rgba(255, 255, 255, 0.1);
+          transition: background-color 0.3s ease;
+          cursor: pointer;
+
+          .relative {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            height: 100%;
+            img {
+              object-fit: cover;
+              object-position: center;
+              width: 100%;
+              height: 100%;
+            }
+          }
+          h3 {
+            font-size: 0.95em;
+            font-family: 'gotham-bold';
+            font-weight: 400;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            max-width: 100%;
+            // width: 100%;
+          }
+          &:hover {
+            background: hsla(0, 0%, 100%, 0.2);
+            img {
+              opacity: 1;
+            }
+            .play-pause-container.top-result {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+          .play-btn {
+              width: 100%;
+              height: 100%;
+              display: flex;
+              align-items: center;
+            margin-right: 0.5em;
+
+            .play-pause-container.top-result {
+              display: flex;
+              align-items: center;
+              position: static;
+              margin-right: auto;
+
+              height: em(35px);
+              width: em(35px);
+            //   font-size: 0.8em;
+            svg {
+                font-size: 1.4em;
+            }
+            }
+          }
+          .play-pause-container.home-station {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+
+  .made-for-you-section,
+  .featured-stations-section {
+    .station-list {
+      ul {
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        grid-template-rows: repeat(1, px-to-em(240px));
+        gap: 0.5em;
+        overflow-x: hidden;
+        height: (30vh);
+
+        li {
+          background-color: rgba(255, 255, 255, 0.1);
+          padding: 1px;
+          border-radius: 1px;
+          position: relative;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+          display: flex;
+          flex-direction: column; // Align content vertically like the playlist cards
+          align-items: flex-start; // Align items to the left
+          gap: 0.5em;
+          width: 10em;
+          height: 10em;
+          padding-right: 0;
+          padding: 0;
+          overflow: hidden;
+
+          img {
+            width: 100%;
+            height: 10em;
+            border-radius: 0.5em;
+            object-fit: cover;
+            // margin-bottom: 0.5em;
+          }
+        }
+      }
+    }
+  }
 }
