@@ -1,13 +1,28 @@
-// src/pages/HomePage.jsx
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { PlayPauseBtn } from '../cmps/PlayPauseBtn'
+import { query } from '../store/actions/backend.station'
+import { StationList } from '../cmps/StationList'
 
 export function Homepage() {
-    const stations = useSelector(state => state.stationModule.stations) || []
+    const [stations, setStations] = useState([])
+    const [gridStations, setGridStations] = useState([])
     const history = useSelector(state => state.stationModule.history) || []
     const navigate = useNavigate()
+
+    useEffect(() => {
+        const fetchStations = async () => {
+            try {
+                const fetchedStations = await query('')
+                setStations(fetchedStations)
+                setGridStations(fetchedStations.slice(0, 8))
+            } catch (error) {
+                console.error('Error fetching stations:', error)
+            }
+        }
+        fetchStations()
+    }, [])
 
     const handleStationClick = stationId => {
         if (stationId) {
@@ -19,31 +34,22 @@ export function Homepage() {
 
     return (
         <div className='homepage-container'>
-            {/* Stations Section */}
-            <div className='stations-section'>
-                <h2>Playlists</h2>
-                <div className='stations-container'>
-                    {stations.slice(0, 8).map(station => (
-                        <div
-                            key={station._id}
-                            className='station-card'
-                            onClick={() => handleStationClick(station._id)}
-                        >
-                            <img src={station.imgUrl} alt={station.name} className='station-img' />
-                            <h3 className='station-name'>{station.name}</h3>
-                            <div className='play-btn'>
-                                <PlayPauseBtn
-                                    song={null}
-                                    station={station}
-                                    type='station-preview'
-                                />
-                            </div>
-                        </div>
-                    ))}
+            <div className='top-section'>
+                <div className='filter-buttons'>
+                    <button className='filter-btn'>All</button>
+                    <button className='filter-btn'>Music</button>
+                    <button className='filter-btn'>Podcasts</button>
                 </div>
             </div>
 
-            {/* Recently Played Section */}
+            <div className='stations-section'>
+                <h2>Playlists</h2>
+                <StationList
+                    stations={gridStations}
+                    type='home-station'
+                />
+            </div>
+
             <div className='history-section'>
                 <h2>Recently Played</h2>
                 {history.length > 0 ? (
@@ -62,7 +68,7 @@ export function Homepage() {
                         ))}
                     </div>
                 ) : (
-                    <p className='no-recently-played'>No recently played songs</p>
+                    <p>No recently played songs</p>
                 )}
             </div>
         </div>

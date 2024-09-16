@@ -20,6 +20,7 @@ export function MenuSidebar() {
   const [isBelowThreshold, setIsBelowThreshold] = useState(false)
   const [selected, setSelected] = useState(null)
 
+  
   useEffect(() => {
     getUser()
     // if (!user) navigate('/auth/login')
@@ -30,6 +31,23 @@ export function MenuSidebar() {
       window.removeEventListener('resize', handleResize)
     }
   }, [])
+
+  // useEffect(() => {
+  //   console.log(searchTerm)
+  //   if (searchTerm && searchTerm !== '') {
+  //     try {
+  //       const regex = new RegExp(searchTerm, 'i') // 'i' flag makes it case-insensitive
+  //       const filtered = likedStations.filter(station =>
+  //         regex.test(station.name)
+  //       )
+  //       setFilteredStations(filtered)
+  //     } catch (err) {
+  //       console.error('Invalid regular expression:', err)
+  //     }
+  //   } else {
+  //     setFilteredStations(likedStations)
+  //   }
+  // }, [searchTerm])
 
   async function getUser() {
     try {
@@ -73,9 +91,8 @@ export function MenuSidebar() {
 
   return (
     <aside
-      className={`menu-sidebar flex flex-column ${
-        isCollapsed ? 'collapsed' : ''
-      }`}
+      className={`menu-sidebar flex flex-column ${isCollapsed ? 'collapsed' : ''
+        }`}
     >
       <div className="library-menu flex flex-column">
         <div className="library-icon flex flex-column">
@@ -86,6 +103,7 @@ export function MenuSidebar() {
             setSelected={setSelected}
             isBelowThreshold={isBelowThreshold}
           />
+
         </div>
         <StationPreview station={user?.likedSongsStation} type="station-preview" isCollapsed={isCollapsed}/>
         <StationList

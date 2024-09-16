@@ -46,7 +46,7 @@ export function PlayPauseBtn({
     dispatch({ type: SET_PLAYER_IS_PLAYING, isPlaying: !isPlaying })
   }
 
-  const isGreenBtn = type === 'top-result' || type === 'userDetails' || type === 'search-results'
+  const isGreenBtn = type === 'top-result' || type === 'userDetails' || type === 'search-results' || type === 'home-station'
 
   // console.log('type:', type)
   if (isGreenBtn) {

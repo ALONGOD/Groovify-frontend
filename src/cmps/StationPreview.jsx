@@ -19,7 +19,7 @@ export function StationPreview({
   index,
   moveStation,
   type,
-  stations
+  stations,
 }) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -29,7 +29,7 @@ export function StationPreview({
   const user = useSelector(state => state.userModule.user)
   const { isShuffled } = useSelector(state => state.stationModule.queue)
   const [isDraggingOver, setIsDraggingOver] = useState(false)
-  
+
   station.id = station?._id ? station?._id : station?.id
 
   var isStationLikedSongs = user?.likedSongsStation?.id === station?.id
@@ -42,16 +42,13 @@ export function StationPreview({
       isDragging: !!monitor.isDragging(),
     }),
   }))
-  
-  
-  
+
   const [{ isOver }, drop] = useDrop(() => ({
     accept: 'station',
     hover: (item, monitor) => {
       const dragIndex = stations?.findIndex(s => s.id === item.id)
       const hoverIndex = stations?.findIndex(s => s.id === station._id)
-      
-      
+
       if (dragIndex === hoverIndex) {
         setIsDraggingOver(false)
         return
@@ -61,7 +58,7 @@ export function StationPreview({
     drop: item => {
       const dragIndex = stations?.findIndex(s => s.id === item.id)
       const hoverIndex = stations?.findIndex(s => s.id === station?.id)
-      
+
       moveStation(dragIndex, hoverIndex)
       setIsDraggingOver(false)
     },
@@ -69,14 +66,13 @@ export function StationPreview({
       isOver: !!monitor.isOver(),
     }),
   }))
-  
-  
+
   useEffect(() => {
     if (!isOver) {
-      setIsDraggingOver(false); 
+      setIsDraggingOver(false)
     }
-  }, [isOver]);
-  
+  }, [isOver])
+
   async function playOrPauseStation(ev) {
     ev.stopPropagation()
     const stationToPlay = await getStationById(station.id)
@@ -126,12 +122,22 @@ export function StationPreview({
             {station.id === 'liked-songs' && (
               <BsFillPinAngleFill className="pin" />
             )}
-            <span>Playlist</span>
-            <span className="divider">&#9679;</span>
-            <span>
-              {type === 'userDetails' && station?.creator?.fullname }
-              {station?.length ? `${station.length} songs` : `${isStationLikedSongs ? station.songs.length + ' songs' : station?.creator?.fullname}`}
-            </span>
+            {type !== 'home-station' && (
+              <>
+                <span>Playlist</span>
+                <span className="divider">&#9679;</span>
+                <span>
+                  {type === 'userDetails' && station?.creator?.fullname}
+                  {station?.length
+                    ? `${station.length} songs`
+                    : `${
+                        isStationLikedSongs
+                          ? station.songs.length + ' songs'
+                          : station?.creator?.fullname
+                      }`}
+                </span>
+              </>
+            )}
           </div>
         </div>
       )}

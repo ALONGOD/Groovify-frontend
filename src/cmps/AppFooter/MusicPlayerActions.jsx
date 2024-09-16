@@ -43,11 +43,6 @@ export function MusicPlayerActions({
       >
         <AiOutlinePlaySquare className={detailsSidebarMode === 'songDetails' ? 'active' : ''}/>
       </button>
-      <button onClick={() => onSetDetailsSidebar('queueDetails')}>
-        <QueueButton
-          className={detailsSidebarMode === 'queueDetails' ? 'active' : ''}
-        />
-      </button>
       <button>
         {isVolumeMuted ? (
           <NoVolume onClick={toggleVolume} />
@@ -63,6 +58,11 @@ export function MusicPlayerActions({
         type="volume-progress"
         playerRef={playerRef}
       />
+      <button onClick={() => onSetDetailsSidebar('queueDetails')}>
+        <QueueButton
+          className={detailsSidebarMode === 'queueDetails' ? 'active' : ''}
+        />
+      </button>
     </div>
   )
 }

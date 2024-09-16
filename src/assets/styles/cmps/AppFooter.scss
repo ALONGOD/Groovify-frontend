@@ -74,6 +74,10 @@
       background-color: #4d4d4d;
       position: relative;
       border-radius: 2px;
+      margin-right: 0.5em;
+      margin-left: 0.5em;
+      
+
     }
 
     div.progress-bar {
@@ -98,11 +102,14 @@
       }
     }
     &.video-progress .progress-container {
-      width: 20em;
+      // width: 20em;
+      width: calc(30vw);
+      // max-width: 30em;
     }
 
     &.volume-progress .progress-container {
-      width: 10em;
+      width: calc(10vw); 
+      // max-width: 10em; 
     }
   }
 
