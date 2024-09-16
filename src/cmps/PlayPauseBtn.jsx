@@ -6,6 +6,7 @@ import {
   SET_PLAYER_IS_PLAYING,
 } from '../store/reducers/station.reducer'
 import { setSongsInQueue } from '../store/actions/station.actions'
+import { socketService } from '../services/socket.service'
 
 export function PlayPauseBtn({
   song,
@@ -16,6 +17,8 @@ export function PlayPauseBtn({
 }) {
   const dispatch = useDispatch()
   const player = useSelector(state => state.stationModule.player)
+  const user = useSelector(state => state.userModule.user)
+  const partyState = player.partyState
   const { isPlaying, currSong, currStation } = player
 
   const isSongPlaying = setIsPlaying()
@@ -42,6 +45,7 @@ export function PlayPauseBtn({
       })
     if (currSong?.id !== song?.id) {
       dispatch({ type: SET_PLAYER_CURRENT_SONG, currSong: song })
+      if (partyState) socketService.emit('send-player', { player: {...player, currSong: song}, userId: user?._id })
     }
     dispatch({ type: SET_PLAYER_IS_PLAYING, isPlaying: !isPlaying })
   }
