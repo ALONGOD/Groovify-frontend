@@ -30,16 +30,6 @@ export function StationList({ isCollapsed, stations, type, moveStation }) {
 
   return (
     <section className="station-list">
-      {type !== 'search-results' && type !== 'home-station' && !isCollapsed && (
-        <div className="search-bar-container">
-          <SearchBar
-            searchType={'station'}
-            placeholder={'Search in Playlists'}
-            onSearch={onSearch}
-          />
-        </div>
-      )}
-
       <ul>
         {stations?.map((station, index) => (
           <StationPreview

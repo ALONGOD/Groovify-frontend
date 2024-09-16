@@ -10,6 +10,7 @@ import { StationPreview } from './StationPreview'
 import { showErrorMsg } from '../services/event-bus.service'
 import { updateUser } from '../store/actions/backend.user'
 import { socketService } from '../services/socket.service'
+import { SearchBar } from './SearchBar'
 
 export function MenuSidebar() {
   const navigate = useNavigate()
@@ -19,8 +20,9 @@ export function MenuSidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [isBelowThreshold, setIsBelowThreshold] = useState(false)
   const [selected, setSelected] = useState(null)
+  const [filteredStations, setFilteredStations] = useState(user?.likedStations || [])
+  const [searchTerm, setSearchTerm] = useState('')
 
-  
   useEffect(() => {
     getUser()
     // if (!user) navigate('/auth/login')
@@ -32,22 +34,22 @@ export function MenuSidebar() {
     }
   }, [])
 
-  // useEffect(() => {
-  //   console.log(searchTerm)
-  //   if (searchTerm && searchTerm !== '') {
-  //     try {
-  //       const regex = new RegExp(searchTerm, 'i') // 'i' flag makes it case-insensitive
-  //       const filtered = likedStations.filter(station =>
-  //         regex.test(station.name)
-  //       )
-  //       setFilteredStations(filtered)
-  //     } catch (err) {
-  //       console.error('Invalid regular expression:', err)
-  //     }
-  //   } else {
-  //     setFilteredStations(likedStations)
-  //   }
-  // }, [searchTerm])
+  useEffect(() => {
+    // Filter stations based on the search term
+    if (searchTerm) {
+      try {
+        const regex = new RegExp(searchTerm, 'i') // 'i' flag makes it case-insensitive
+        const filtered = user?.likedStations.filter(station =>
+          regex.test(station.name)
+        )
+        setFilteredStations(filtered)
+      } catch (err) {
+        console.error('Invalid regular expression:', err)
+      }
+    } else {
+      setFilteredStations(user?.likedStations)
+    }
+  }, [searchTerm, user?.likedStations])
 
   async function getUser() {
     try {
@@ -56,7 +58,7 @@ export function MenuSidebar() {
       if (!userToSave) navigate('/auth/login')
       // const userToSave = await userService.getById(user._id)
       dispatch({ type: SET_USER, user: userToSave })
-      socketService.login({id:userToSave._id, fullname: userToSave.fullname})
+      socketService.login({ id: userToSave._id, fullname: userToSave.fullname })
     } catch (err) {
       navigate('/auth/login')
       console.log('Cannot set logged in user', err)
@@ -88,6 +90,9 @@ export function MenuSidebar() {
       showErrorMsg('Failed to move Station')
     }
   }
+  function onSearch(value) {
+    setSearchTerm(value) // Update search term state
+  }
 
   return (
     <aside
@@ -105,10 +110,19 @@ export function MenuSidebar() {
           />
 
         </div>
-        <StationPreview station={user?.likedSongsStation} type="station-preview" isCollapsed={isCollapsed}/>
+        <div className='station-list'>
+          <div className="search-bar-container">
+            <SearchBar
+              searchType={'station'}
+              placeholder={'Search in Playlists'}
+              onSearch={onSearch} // Pass the onSearch function
+            />
+          </div>
+        </div>
+        <StationPreview station={user?.likedSongsStation} type="station-preview" isCollapsed={isCollapsed} />
         <StationList
           isCollapsed={isCollapsed}
-          stations={user?.likedStations}
+          stations={filteredStations}
           type="station-preview"
           moveStation={moveStation}
         />
