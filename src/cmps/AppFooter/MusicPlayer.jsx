@@ -44,7 +44,7 @@ export function MusicPlayer({ currSong }) {
   const [duration, setDuration] = useState(0)
   const [currentTime, setCurrentTime] = useState(0)
 
-  const [volume, setVolume] = useState(null)
+  const [volume, setVolume] = useState(50)
 
   useEffect(() => {
     if (!currSong) {

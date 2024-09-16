@@ -34,6 +34,11 @@
       transition: 0.2s;
     }
 
+    .more-options{
+    transform: translateY(-25%); /* Center align vertically */
+
+    }
+
     .close-btn:hover {
       transform: scale(1.04);
       color: #bcbcbc;
