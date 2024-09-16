@@ -1,14 +1,13 @@
-import { LikeSongBtn } from "../LikeSongBtn";
-import { DetailsSidebarClose } from "./DetailsSidebarClose";
+import { LikeSongBtn } from '../LikeSongBtn'
+import { DetailsSidebarClose } from './DetailsSidebarClose'
 
-export function SongDetails({ currSong}) {
-
+export function SongDetails({ currSong }) {
     return (
         <>
             <header className='details-header'>
                 <h3>{currSong ? currSong.artist : 'Metro Boomin, A$AP Rocky, Takeoff'}</h3>
                 <div className='header-actions flex flex-row gap-3'>
-                    <button className='more-options'>•••</button>
+                    <button className='more-options'>…</button>
                     <DetailsSidebarClose />
                 </div>
             </header>
@@ -31,5 +30,4 @@ export function SongDetails({ currSong}) {
             </div>
         </>
     )
-
 }
