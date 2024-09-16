@@ -1,0 +1,170 @@
+.details-sidebar:has(.party-listen) {
+  padding: 1em 0.7em;
+  .party-listen {
+    gap: 5em;
+    h2 {
+      display: flex;
+      justify-content: start;
+      font-family: 'gotham-book';
+      color: white;
+      font-weight: 700;
+      font-size: 1em;
+      margin: 0;
+    }
+    .header {
+      .close-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'gotham-light';
+        background: none;
+        border: none;
+        color: #b3b3b3;
+        font-size: 2em;
+        cursor: pointer;
+        width: 1em;
+        height: 1em;
+        border-radius: 50%;
+        transition: 0.2s;
+        &:hover {
+          transform: scale(1.04);
+          color: #bcbcbc;
+          color: var(#fff, #000000);
+          background-color: rgb(49, 49, 49);
+        }
+      }
+    }
+    .currently-playing {
+      width: 100%;
+      h2 {
+        margin-bottom: 1em;
+      }
+
+      li {
+        display: grid;
+        align-items: center;
+        gap: 8px 12px;
+        grid-template-columns: 10fr 1fr;
+        width: 100%;
+        height: 4em;
+        border-radius: 6px;
+        padding: 0.5em;
+        margin: 0;
+        transition: background 0.1s;
+        border-radius: $spotify-border-radius;
+
+        &:hover {
+          background-color: rgb(34, 34, 34);
+          .main-details h4.artist {
+            color: #fff;
+          }
+        }
+
+        .idx {
+          display: none;
+        }
+
+        .duration {
+          grid-column: 2;
+          display: block;
+          width: max-content;
+          svg {
+            fill: white;
+          }
+        }
+
+        .main-details {
+          grid-column: 1;
+          gap: 8px;
+          width: 13em;
+          .relative.img-svg {
+            svg {
+              fill: white;
+              color: white;
+            }
+          }
+          .song-details {
+            gap: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 10em;
+            .title {
+              margin: 0;
+            }
+            .artist {
+              color: $--text-subdued;
+              width: 100%;
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+          }
+        }
+        h4 {
+          font-weight: 200;
+          //   font-family: 'gotham-light';
+        }
+        &:hover {
+          background-color: hsla(0, 0%, 100%, 0.1);
+        }
+
+        .song-details {
+          .title {
+            font-size: em(16px);
+          }
+          .artist {
+            font-size: em(14px);
+          }
+        }
+        img {
+          border-radius: $spotify-border-radius;
+          width: em(48px);
+          height: em(48px);
+        }
+        .duration h4 {
+          display: none;
+        }
+        .like-song-container {
+          display: none;
+        }
+      }
+    }
+
+    .party-members {
+        h2 {
+            margin-bottom: 1em;
+        }
+      .user-watching {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        // padding-inline: 1.27em;
+        margin-bottom: 1em;
+        // gap: 0.6em;
+        width: 100%;
+        .user {
+            gap: 0.7em;
+          width: 100%;
+          cursor: pointer;
+          border-radius: 1.5rem;
+          padding: 0.5em;
+          transition: 0.1s;
+          color: white;
+          &:hover {
+            scale: 1.03;
+            background-color: hsl(0, 0%, 19%);
+          }
+          h3 {
+            font-weight: 600;
+            font-family: 'gotham-light';
+            font-size: 0.9rem;
+          }
+          svg {
+            fill: $spotify-green;
+          }
+        }
+      }
+    }
+  }
+}
