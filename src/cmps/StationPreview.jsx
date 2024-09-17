@@ -20,6 +20,7 @@ export function StationPreview({
   moveStation,
   type,
   stations,
+  setImgHover
 }) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -99,6 +100,11 @@ export function StationPreview({
     }
   }
 
+  function setHomeAverageColor(imgUrl) {
+    if (setImgHover) setImgHover(imgUrl)
+  }
+
+  
   if (!station) return null
   return (
     <li
@@ -107,6 +113,7 @@ export function StationPreview({
         } ${type === 'search-results' ? 'search-results' : ''}`}
       onClick={() => navigate(`/station/${station.id}`)}
       style={{ opacity: isDragging ? 0.5 : 1 }}
+      onMouseEnter={() => setHomeAverageColor(station?.imgUrl)}
     >
       <div className="relative">
         <img src={station?.imgUrl} alt="station img" />

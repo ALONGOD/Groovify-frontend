@@ -93,41 +93,6 @@ async function getSpotifyAccessToken() {
   }
 }
 
-// async function fetchArtistDetails(id) {
-//   try {
-//     const SPOTIFY_TOKEN = await getSpotifyAccessToken()
-//     const response = await axios.get(
-//       `https://api.spotify.com/v1/artists/${id}`,
-//       {
-//         headers: {
-//           Authorization: `Bearer ${SPOTIFY_TOKEN}`,
-//         },
-//       }
-//     )
-//     console.log('response.data:', response.data)
-//     return response.data
-//   } catch (err) {
-//     console.error(err)
-//   }
-// }
-// async function fetchArtistTopTracks(id) {
-//   try {
-//     const SPOTIFY_TOKEN = await getSpotifyAccessToken()
-//     const response = await axios.get(
-//       `https://api.spotify.com/v1/artists/${id}/top-tracks`,
-//       {
-//         headers: {
-//           Authorization: `Bearer ${SPOTIFY_TOKEN}`,
-//         },
-//       }
-//     )
-//     console.log('response.data:', response.data)
-//     return response.data
-//   } catch (err) {
-//     console.error(err)
-//   }
-// }
-
 async function fetchDetailsFromArtist(id, fetchType) {
   try {
     var link
@@ -192,14 +157,18 @@ async function fetchFeaturedPlaylists(genre = '', country = 'US') {
       },
     })
 
-    const stations = response.data.playlists.items.map(playlist => ({
-      id: playlist.id,
-      title: playlist.name,
-      description: playlist.description,
-      imgUrl: playlist.images[0]?.url,
-      spotifyUrl: playlist.external_urls.spotify,
-    }))
-
+    const stations = response.data.playlists.items.map(playlist => {
+      // console.log('playlist:', playlist);
+      
+      return {
+        id: playlist.id,
+        name: playlist.name,
+        description: playlist.description,
+        imgUrl: playlist.images[0]?.url,
+        spotifyUrl: playlist.external_urls.spotify,
+      }
+    })
+    
     // Save the result in cache with a timestamp
     cache[cacheKey] = {
       data: stations,

@@ -8,7 +8,7 @@ import { FaBars } from 'react-icons/fa6'
 import update from 'immutability-helper'
 import { SET_USER } from '../store/reducers/user.reducer.js'
 
-export function StationList({ isCollapsed, stations, type, moveStation }) {
+export function StationList({ isCollapsed, stations, type, moveStation, setImgHover }) {
   const searchTerm = useSelector(state => state.stationModule.searchTerm)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const modalRef = useRef(null)
@@ -40,6 +40,7 @@ export function StationList({ isCollapsed, stations, type, moveStation }) {
             index={index}
             moveStation={moveStation}
             type={type}
+            setImgHover={setImgHover}
           />
         ))}
       </ul>

@@ -6,13 +6,20 @@ import { query } from '../store/actions/backend.station'
 import { StationList } from '../cmps/StationList'
 import { SpotifyAPIService } from '../services/spotifyAPI/spotifyAPI.service'
 import { LOADING_DONE, LOADING_START } from '../store/reducers/system.reducer'
+import { FastAverageColor } from 'fast-average-color'
+import { adjustBrightnessAndSaturation } from '../services/util.service'
 
 export function Homepage() {
   const dispatch = useDispatch()
 
+  const user = useSelector(state => state.userModule.user)
+
   const [stations, setStations] = useState([])
   const [gridStations, setGridStations] = useState([])
   const [madeForYouStations, setMadeForYouStations] = useState([])
+  console.log('madeForYouStations:', madeForYouStations)
+  const [category, setCategory] = useState(null);
+  
   const [featuredStations, setFeaturedStations] = useState([])
   const [popStations, setPopStations] = useState([])
   const [rockStations, setRockStations] = useState([])
@@ -25,9 +32,31 @@ export function Homepage() {
   const [chillStations, setChillStations] = useState([])
   const [workoutStations, setWorkoutStations] = useState([])
 
+  const [imgHover, setImgHover] = useState(null);
+  console.log('imgHover:', imgHover)
+  
+  const [gradient, setGradient] = useState(null);
+  console.log('gradient:', gradient)
+  const fac = new FastAverageColor
+
   const history = useSelector(state => state.stationModule.history) || []
   const navigate = useNavigate()
 
+  const categories = ['all', 'music', 'podcasts']
+
+  useEffect(() => {
+      fac
+        .getColorAsync(imgHover)
+        .then(color => {
+          const color1 = adjustBrightnessAndSaturation(color.hex, 0.6, 1.8)
+          const color2 = '#121212'
+          setGradient({
+            backgroundImage: `linear-gradient(to bottom, ${color1} 10%, ${color2} 100%)`,
+          })
+        })
+        .catch(err => console.error('Error getting color from image:', err))
+    
+  }, [imgHover])
 
   useEffect(() => {
     const fetchStations = async () => {
@@ -36,22 +65,20 @@ export function Homepage() {
         setStations(fetchedStations)
         setGridStations(fetchedStations.slice(0, 8))
         setFeaturedStations(fetchedStations.slice(0, 6))
-        // setMadeForYouStations(fetchedStations.slice(0, 6))
       } catch (error) {
         console.error('Error fetching stations:', error)
       }
     }
     fetchStations()
 
-    // Fetch featured playlists for multiple genres
     const fetchGenreStations = async () => {
       try {
         dispatch({ type: LOADING_START })
 
         const [pop, rock, latin, jazz, hipHop, rnb, indie, kpop, chill, workout] = await Promise.all([
           SpotifyAPIService.fetchFeaturedPlaylists('pop', 'US'),
-          SpotifyAPIService.fetchFeaturedPlaylists('rock', 'US'),
           SpotifyAPIService.fetchFeaturedPlaylists('latin', 'US'),
+          SpotifyAPIService.fetchFeaturedPlaylists('rock', 'US'),
           SpotifyAPIService.fetchFeaturedPlaylists('jazz', 'US'),
           SpotifyAPIService.fetchFeaturedPlaylists('hip-hop', 'US'),
           SpotifyAPIService.fetchFeaturedPlaylists('r&b', 'US'),
@@ -109,29 +136,31 @@ export function Homepage() {
   }
 
   return (
-    <div className="homepage-container flex flex-column">
+    <div className="homepage-container flex flex-column" >
+      <div className="gradient" style={gradient}></div>
       <section className="top-section">
         <div className="filter-buttons">
-          <button className="filter-btn">All</button>
-          <button className="filter-btn">Music</button>
-          <button className="filter-btn">Podcasts</button>
+          {categories.map((cat, idx) => (<button key={idx} onClick={() => setCategory(cat)} className={`filter-btn ${category === cat ? 'active' : ''}`}>{cat}</button>))}
         </div>
       </section>
 
       <section className="stations-grid-section">
-        <StationList stations={gridStations} type="home-station" />
+        <StationList stations={gridStations} type="home-station" 
+        setImgHover={setImgHover}
+        />
       </section>
 
       <section className="stations-section">
-        <h2>Made For You</h2>
+        <h2>Made For {user ? user?.fullname : 'You'}</h2>
         <StationList
-          stations={madeForYouStations.map(song => ({
-            id: song.spotifyUrl,
-            title: song.title,
-            artist: song.artist,
-            imgUrl: song.imgUrl,
+          stations={madeForYouStations.map(station => ({
+            id: station.spotifyUrl,
+            name: station.name,
+            artist: station.artist,
+            imgUrl: station.imgUrl,
           }))}
           type="search-results"
+          
         />
       </section>
       <section className="stations-section">
