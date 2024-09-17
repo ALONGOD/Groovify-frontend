@@ -30,7 +30,7 @@ export function StationList({ isCollapsed, stations, type, moveStation, setImgHo
 
   return (
     <section className="station-list">
-      <ul>
+      <ul className={type === 'search-results' ? 'flex flex-row' : ''}>
         {stations?.map((station, index) => (
           <StationPreview
             station={station}
@@ -44,6 +44,6 @@ export function StationList({ isCollapsed, stations, type, moveStation, setImgHo
           />
         ))}
       </ul>
-    </section>
+    </section >
   )
 }
