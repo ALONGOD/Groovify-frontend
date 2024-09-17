@@ -1,8 +1,23 @@
 .homepage-container {
+  position: relative;
   padding: 1.25em;
   background-color: #121212;
   color: white;
   gap: em(24px) em(32px);
+
+  .gradient {
+    height: 60vh;
+    transition: 1s ease;
+  }
+  .station-details {
+    display: none;
+  }
+  h2 {
+    font-size: 1.5rem;
+    font-family: 'gotham-medium';
+    font-weight: 900;
+    margin-bottom: 1.3em;
+  }
 
   .top-section {
     display: flex;
@@ -10,19 +25,34 @@
     align-items: center;
 
     .filter-buttons {
+      z-index: 5;
       display: flex;
+      gap: em(10px);
 
       .filter-btn {
+        text-transform: capitalize;
         background-color: #333;
         border: none;
-        padding: 10px 20px;
+        padding: 10px 12px;
         border-radius: 30px;
         color: white;
-        margin: 0 10px;
+        font-family: 'gotham-light';
+        font-weight: 600;
+
+        font-size: 0.875rem;
         cursor: pointer;
+        transition: background-color 200ms, color 200ms;
+        &.active {
+          background-color: white;
+          color: black;
+          &:hover {
+            background-color: rgb(237, 237, 237);
+
+          }
+        }
 
         &:hover {
-          background-color: #555;
+          background-color: rgb(62, 62, 62);
         }
       }
     }
@@ -158,7 +188,7 @@
         grid-auto-rows: em(px-to-em(62px));
         overflow: hidden;
 
-        gap: 0.5em;
+        gap: em(12px);
         height: max-content;
         margin-bottom: 1em;
         min-height: em(62px);
@@ -226,10 +256,10 @@
               align-items: center;
               position: static;
               margin-right: auto;
-
+              
               height: em(35px);
               width: em(35px);
-
+              
               //   font-size: 0.8em;
               svg {
                 font-size: 1.4em;
@@ -244,20 +274,24 @@
       }
     }
   }
-
+  
+  div.play-pause-container.search-results {
+    svg {
+      width: 1em;
+      fill: black;
+    }
+  }
   .stations-section {
     .station-list {
       ul {
         display: grid;
-        grid-template-columns: repeat(8, 1fr);
-        grid-template-rows: repeat(1, px-to-em(240px));
-        gap: 0.5em;
+        grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+        grid-template-rows: repeat(1, minmax(0, 1fr));
         overflow-x: hidden;
-        height: (30vh);
+        height: max-content;
 
         li {
-          background-color: rgba(255, 255, 255, 0.1);
-          padding: 1px;
+          padding: em(12px);
           border-radius: 1px;
           position: relative;
           cursor: pointer;
@@ -266,15 +300,16 @@
           flex-direction: column; // Align content vertically like the playlist cards
           align-items: flex-start; // Align items to the left
           gap: 0.5em;
-          width: 10em;
-          height: 10em;
-          padding-right: 0;
-          padding: 0;
+          // width: 10em;
           overflow: hidden;
+          border-radius: 6px;
+          &:hover {
+
+          }
 
           img {
             width: 100%;
-            height: 10em;
+            height: 100%;
             border-radius: 0.5em;
             object-fit: cover;
             // margin-bottom: 0.5em;
