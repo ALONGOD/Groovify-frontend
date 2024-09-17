@@ -40,16 +40,16 @@ main {
         height: calc($station-list-bar-height + 9em);
     }
     &:has(aside.menu-sidebar:not(.collapsed)):has(aside.details-sidebar.open) {
-        grid-template-columns: 300px 1fr minmax(300px, 20%);
+        grid-template-columns: 400px 1fr minmax(300px, 20%);
     }
     &:has(aside.menu-sidebar.collapsed):has(aside.details-sidebar.open) {
         grid-template-columns: 5.5em 1fr minmax(300px, 20%);
     }
     &:has(aside.menu-sidebar:not(.collapsed)):has(aside.details-sidebar.closed) {
-        grid-template-columns: 300px 1fr 0;
+        grid-template-columns: 400px 1fr 0;
     }
     &:has(aside.menu-sidebar.collapsed):has(aside.details-sidebar.closed) {
-        grid-template-columns: 5.5em 1fr 0;
+        grid-template-columns: 4.5em 1fr 0;
     }
     // @media (max-width: 768px) {
     //     &:has(aside.menu-sidebar:not(.collapsed)):has(aside.details-sidebar.open) {

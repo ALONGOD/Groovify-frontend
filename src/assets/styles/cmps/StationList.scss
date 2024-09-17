@@ -19,14 +19,14 @@
   .search-bar {
     position: relative;
     width: 2.5em;
-    height: 2.5em;
+    height: 2em;
     overflow: hidden;
     transition: width 0.4s ease, height 0.4s ease, border-radius 0.4s ease; // Transition for smooth expansion
     cursor: pointer;
     border-radius: 50%;
 
     &.expanded {
-      width: 70%;
+      width: 55%;
       border-radius: 8px;
       background-color: #242424;
 

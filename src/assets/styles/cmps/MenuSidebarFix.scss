@@ -1,0 +1,144 @@
+aside.menu-sidebar {
+  color: white;
+  background-color: $bg-secondary;
+  border-radius: 8px;
+
+  &.collapsed {
+    .station-list {
+        padding: 0;
+        li.station-preview {
+            padding: 0.7em;
+            .relative {
+                width: 100%;
+
+                img {
+                    width: 100%;
+                }
+            }
+        }
+    }
+    .library-menu {
+      position: relative;
+      display: flex;
+      flex-shrink: 0;
+      justify-content: center;
+      margin-block: 1em;
+      .library-btns {
+        width: em(24px);
+      }
+      .your-library {
+        position: absolute;
+        // translate: -50%, -50;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        h2 {
+          display: none;
+        }
+        svg {
+          margin: 0;
+        }
+      }
+      .plus-btn {
+        display: none;
+      }
+    }
+    .sub-menu {
+      display: none;
+    }
+    .search-bar-container {
+      display: none;
+    }
+  }
+
+  .library-menu {
+    padding: em(13px) em(24px) em(12px);
+    gap: em(8px);
+    margin-bottom: 7px;
+    .your-library {
+      cursor: pointer;
+      color: #b3b3b3;
+      width: max-content;
+      h2 {
+        font-size: 1.05rem;
+        font-family: 'gotham-medium';
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      svg {
+        margin-inline-end: em(12px);
+        width: em(24px);
+        height: em(24px);
+        fill: #b3b3b3;
+      }
+    }
+
+    svg.plus-btn {
+      width: em(38px);
+      height: em(38px);
+      color: #b3b3b3;
+      padding: 0.5em;
+      border-radius: 50%;
+      cursor: pointer;
+      &:hover {
+        color: white;
+        background-color: #1f1f1f;
+      }
+    }
+  }
+
+
+  .sub-menu {
+    padding-inline: 17px;
+    gap: 8px;
+    margin-bottom: 0.5em;
+    button {
+      font-family: 'gotham-light';
+      font-weight: 900;
+      font-size: 0.95rem;
+      padding: em(10px) em(14px);
+      border-radius: 9999px;
+      background-color: hsla(0, 0%, 100%, 0.1);
+      transition: background-color 200ms;
+      &.active {
+        color: black;
+        background-color: #f0f0f0;
+        &:hover {
+          color: black;
+          background-color: #f0f0f0;
+        }
+      }
+      &:hover {
+        background-color: hsla(0, 0%, 100%, 0.14);
+      }
+    }
+  }
+  .station-list {
+    padding-inline: em(10px);
+    
+    .search-bar-container {
+      margin-block: 0.3em 0.5em;
+      padding-inline: em(4px);
+      input {
+        &::placeholder {
+            font-size: 0.95em;
+            font-family: 'gotham-light';
+            font-weight: 900;
+            color: #b3b3b3;
+        }
+    }
+        svg {
+        fill: rgb(184, 184, 184);
+        width: 1.2em;
+        height: 1.2em;
+      }
+    }
+    section.station-list {
+      padding-inline: 0;
+      ul {
+        li {
+        }
+      }
+    }
+  }
+}
