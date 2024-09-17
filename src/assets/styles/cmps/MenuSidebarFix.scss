@@ -23,6 +23,7 @@ aside.menu-sidebar {
       flex-shrink: 0;
       justify-content: center;
       margin-block: 1em;
+      height: em(42px);
       .library-btns {
         width: em(24px);
       }
@@ -32,6 +33,10 @@ aside.menu-sidebar {
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
+
+        &:hover {
+          color: white;
+        }
         h2 {
           display: none;
         }
