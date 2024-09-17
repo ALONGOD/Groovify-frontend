@@ -15,28 +15,37 @@ ul.song-list {
     display: flex;
     flex-direction: column;
     padding: 0;
-    // grid-template-columns: 2em minmax(10em, 30em) minmax(5em, 20em) minmax(5em, 10em) 3em 2em;
+    width: fit-content;
 
-    li {
-      .like-song-container {
-        height: 100%;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: end;
-        margin-right: 2em;
-      }
-    }
-
-    .list-header,
-    li {
-      gap: 1em;
+    // Grid for larger screens
+    li,
+    .list-header {
       display: grid;
       grid-template-columns:
         2em minmax(10em, 50em) minmax(5em, 40em) minmax(5em, 20em)
         minmax(2em, 4em) minmax(2em, 5em);
       padding: 0 0.5em;
+      width: fit-content;
+      gap: 1em;
     }
+
+    // Mobile/tablet adjustments
+    // TABLET:
+    @media (min-width: 768px) {
+      // li,
+      // .list-table {
+      //   grid-template-columns: 2em minmax(10em, 30em) minmax(8em, 20em) minmax(
+      //       5em,
+      //       10em
+      //     );
+      //   gap: 1em;
+      // }
+
+      .grid-item {
+        font-size: 1rem;
+      }
+    }
+
     .idx {
       display: flex;
       justify-content: center;
@@ -47,26 +56,34 @@ ul.song-list {
       height: em(36px);
       margin-block: 0 0.7em;
       border-bottom: 0.5px solid rgb(75, 75, 75);
+
       h4 {
         font-size: 0.9rem;
         font-family: 'gotham-book';
         display: flex;
         justify-content: start;
-        // font-size: 14px;
-        // font-weight: 600;
         color: #bfbfbf;
         margin: 0;
+
         &.idx-title {
           justify-content: center;
         }
       }
+
       .clock-container {
         width: 100%;
+
         .clock {
           width: 2em;
           display: flex;
           justify-content: center;
         }
+      }
+    }
+
+    li {
+      .main-details {
+        // width: inherit;
       }
     }
   }
@@ -131,6 +148,7 @@ ul.song-list {
   li {
     height: em(56px);
     padding-block: 0.5em;
+    grid-auto-flow: column;
     border-radius: $spotify-border-radius;
     &.dragged {
       border-bottom: 2px solid $spotify-green;
@@ -141,6 +159,7 @@ ul.song-list {
     &.active {
       h4.title {
         color: $spotify-green;
+        word-break: break-all;
       }
     }
     & > div {
@@ -159,8 +178,10 @@ ul.song-list {
     h4 {
       white-space: nowrap;
       overflow: hidden;
-      text-overflow: ellipsis;
-      width: 100%;
+      word-break: break-all;
+
+      // text-overflow: ellipsis;
+      // width: 100%;
       margin: 0;
       display: flex;
       font-size: 0.9em;
@@ -172,10 +193,26 @@ ul.song-list {
     }
     .title {
       color: white;
-      width: 13em;
+      // min-width: 3em;
+      // max-width: 10em;
+      overflow-x: hidden;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+
+    .song-details {
+      display: grid;
+      * {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        max-width: 100%;
+      }
+    }
+
+    .artist {
+      // min-width: 1em;
+      // max-width: 10em;
     }
 
     div.duration {
@@ -229,3 +266,28 @@ ul.song-list {
     display: none;
   }
 }
+
+// @media (min-width: 577px) and (max-width: 1024px) {
+//   ul.song-list {
+//     li, .list-header {
+//       //  grid-template-columns: 2em minmax(5em, 50em)  minmax(5em, 20em)
+//       //  minmax(2em, 4em) minmax(2em, 5em);;
+//        grid-template-columns: 2em 10fr 10fr
+//        minmax(2em, 4em) minmax(2em, 5em);;
+//        h4.album {
+//         display: none;
+//        }
+//     }
+//     li {
+//       .main-details {
+//         .song-details {
+//           .title, .artist {
+//             min-width: 5em;
+//             max-width: 10em;
+//           }
+
+//         }
+//       }
+//     }
+//   }
+// }
