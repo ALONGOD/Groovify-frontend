@@ -5,6 +5,8 @@ import { useDispatch } from 'react-redux'
 import { setSearchTerm } from '../store/actions/station.actions.js'
 import { useNavigate } from 'react-router-dom'
 import { FaMicrophone } from 'react-icons/fa'
+import { CiSearch } from 'react-icons/ci'
+import { IoSearchOutline } from 'react-icons/io5'
 
 export function SearchBar({
   searchType = 'youtube',
@@ -143,7 +145,7 @@ export function SearchBar({
       className={`search-bar ${isExpanded ? 'expanded' : ''}`}
       onClick={handleExpand}
     >
-      <FaMagnifyingGlass className='magnifying' />
+      <IoSearchOutline className='magnifying' />
       <input
         type="text"
         name="search"

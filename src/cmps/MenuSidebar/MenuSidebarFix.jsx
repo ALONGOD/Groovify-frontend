@@ -1,26 +1,25 @@
 import { useEffect, useState } from 'react'
-import { MainMenu } from './MainMenu'
-import { LibraryMenu } from './LibraryMenu'
-import { StationList } from './StationList'
-import { userService } from '../services/user/user.service.remote'
 import { useDispatch, useSelector } from 'react-redux'
-import { SET_USER } from '../store/reducers/user.reducer'
 import { useNavigate } from 'react-router'
-import { StationPreview } from './StationPreview'
-import { showErrorMsg } from '../services/event-bus.service'
-import { updateUser } from '../store/actions/backend.user'
-import { socketService } from '../services/socket.service'
-import { SearchBar } from './SearchBar'
+import { SET_USER } from '../../store/reducers/user.reducer'
+import { userService } from '../../services/user/user.service.remote'
+import { socketService } from '../../services/socket.service'
+import { LibraryMenuFix } from './LibraryMenuFix'
+import { SubMenu } from '../SubMenu'
+import { StationList } from '../StationList'
+import { StationPreview } from '../StationPreview'
+import { SearchBar } from '../SearchBar'
 
-export function MenuSidebar() {
+export function MenuSidebarFix() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const user = useSelector(state => state.userModule.user)
-  console.log('user:', user)
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [isBelowThreshold, setIsBelowThreshold] = useState(false)
   const [selected, setSelected] = useState(null)
-  const [filteredStations, setFilteredStations] = useState(user?.likedStations || [])
+  const [filteredStations, setFilteredStations] = useState(
+    user?.likedStations || []
+  )
   const [searchTerm, setSearchTerm] = useState('')
 
   useEffect(() => {
@@ -34,22 +33,19 @@ export function MenuSidebar() {
     }
   }, [])
 
-  useEffect(() => {
-    // Filter stations based on the search term
-    if (searchTerm) {
-      try {
-        const regex = new RegExp(searchTerm, 'i') // 'i' flag makes it case-insensitive
-        const filtered = user?.likedStations.filter(station =>
-          regex.test(station.name)
-        )
-        setFilteredStations(filtered)
-      } catch (err) {
-        console.error('Invalid regular expression:', err)
-      }
-    } else {
-      setFilteredStations(user?.likedStations)
+  async function getUser() {
+    try {
+      const userToSave = await userService.getLoggedinUser()
+      console.log('userToSave:', userToSave)
+      if (!userToSave) navigate('/auth/login')
+      // const userToSave = await userService.getById(user._id)
+      dispatch({ type: SET_USER, user: userToSave })
+      socketService.login({ id: userToSave._id, fullname: userToSave.fullname })
+    } catch (err) {
+      navigate('/auth/login')
+      console.log('Cannot set logged in user', err)
     }
-  }, [searchTerm, user?.likedStations])
+  }
 
   async function getUser() {
     try {
@@ -96,30 +92,31 @@ export function MenuSidebar() {
 
   return (
     <aside
-      className={`menu-sidebar flex flex-column ${isCollapsed ? 'collapsed' : ''
-        }`}
+      className={`menu-sidebar flex flex-column ${
+        isCollapsed ? 'collapsed' : ''
+      }`}
     >
-      <div className="library-menu flex flex-column">
-        <div className="library-icon flex flex-column">
-          <LibraryMenu
-            isCollapsed={isCollapsed}
-            setIsCollapsed={setIsCollapsed}
-            selected={selected}
-            setSelected={setSelected}
-            isBelowThreshold={isBelowThreshold}
+      <LibraryMenuFix
+        isCollapsed={isCollapsed}
+        setIsCollapsed={setIsCollapsed}
+        selected={selected}
+        setSelected={setSelected}
+        isBelowThreshold={isBelowThreshold}
+      />
+      <SubMenu selected={selected} setSelected={setSelected} />
+      <div className="station-list">
+        <div className={`search-bar-container ${isCollapsed ? 'hidden' : ''}`}>
+          <SearchBar
+            searchType={'station'}
+            placeholder={'Search in Playlists'}
+            onSearch={onSearch} // Pass the onSearch function
           />
-
         </div>
-        <div className='station-list'>
-          <div className={`search-bar-container ${isCollapsed ? 'hidden' : ''}`}>
-            <SearchBar
-              searchType={'station'}
-              placeholder={'Search in Playlists'}
-              onSearch={onSearch} // Pass the onSearch function
-            />
-          </div>
-        </div>
-        <StationPreview station={user?.likedSongsStation} type="station-preview" isCollapsed={isCollapsed} />
+        <StationPreview
+          station={user?.likedSongsStation}
+          type="station-preview"
+          isCollapsed={isCollapsed}
+        />
         <StationList
           isCollapsed={isCollapsed}
           stations={filteredStations}
