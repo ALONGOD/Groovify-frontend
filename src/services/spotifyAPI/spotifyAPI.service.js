@@ -159,23 +159,60 @@ async function fetchDetailsFromArtist(id, fetchType) {
   }
 }
 
-async function fetchFeaturedPlaylists() {
+// Cache object to store data
+const cache = {}
+
+// Cache Time-To-Live (TTL) in milliseconds (1 hour)
+const CACHE_TTL = 60 * 60 * 1000
+
+async function fetchFeaturedPlaylists(genre = '', country = 'US') {
+  const cacheKey = `${genre}-${country}`
+
+  // Check if the data is already in cache and is still valid
+  if (cache[cacheKey] && (Date.now() - cache[cacheKey].timestamp < CACHE_TTL)) {
+    console.log(`Returning cached data for ${cacheKey}`)
+    return cache[cacheKey].data
+  }
+
   try {
     const SPOTIFY_TOKEN = await getSpotifyAccessToken()
-    const response = await axios.get(
-      'https://api.spotify.com/v1/browse/featured-playlists',
-      {
-        headers: {
-          Authorization: `Bearer ${SPOTIFY_TOKEN}`,
-        },
+    let url = `https://api.spotify.com/v1/browse/featured-playlists?country=${country}`
+
+    if (genre) {
+      const categories = await fetchBrowseCategories()
+      const category = categories.categories.items.find(cat => cat.name.toLowerCase() === genre.toLowerCase())
+      if (category) {
+        url = `https://api.spotify.com/v1/browse/categories/${category.id}/playlists?country=${country}`
       }
-    )
-    console.log('response.data:', response.data)
-    return response.data
+    }
+
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${SPOTIFY_TOKEN}`,
+      },
+    })
+
+    const stations = response.data.playlists.items.map(playlist => ({
+      id: playlist.id,
+      title: playlist.name,
+      description: playlist.description,
+      imgUrl: playlist.images[0]?.url,
+      spotifyUrl: playlist.external_urls.spotify,
+    }))
+
+    // Save the result in cache with a timestamp
+    cache[cacheKey] = {
+      data: stations,
+      timestamp: Date.now()
+    }
+
+    return stations
   } catch (err) {
-    console.error(err)
+    console.error('Error fetching featured playlists:', err)
+    return []
   }
 }
+
 async function fetchBrowseCategories() {
   try {
     const SPOTIFY_TOKEN = await getSpotifyAccessToken()
