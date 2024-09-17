@@ -18,8 +18,8 @@ export function Homepage() {
   const [gridStations, setGridStations] = useState([])
   const [madeForYouStations, setMadeForYouStations] = useState([])
   console.log('madeForYouStations:', madeForYouStations)
-  const [category, setCategory] = useState(null);
-  
+  const [category, setCategory] = useState('all')
+
   const [featuredStations, setFeaturedStations] = useState([])
   const [popStations, setPopStations] = useState([])
   const [rockStations, setRockStations] = useState([])
@@ -32,12 +32,12 @@ export function Homepage() {
   const [chillStations, setChillStations] = useState([])
   const [workoutStations, setWorkoutStations] = useState([])
 
-  const [imgHover, setImgHover] = useState(null);
+  const [imgHover, setImgHover] = useState(null)
   console.log('imgHover:', imgHover)
-  
-  const [gradient, setGradient] = useState(null);
+
+  const [gradient, setGradient] = useState(null)
   console.log('gradient:', gradient)
-  const fac = new FastAverageColor
+  const fac = new FastAverageColor()
 
   const history = useSelector(state => state.stationModule.history) || []
   const navigate = useNavigate()
@@ -45,17 +45,16 @@ export function Homepage() {
   const categories = ['all', 'music', 'podcasts']
 
   useEffect(() => {
-      fac
-        .getColorAsync(imgHover)
-        .then(color => {
-          const color1 = adjustBrightnessAndSaturation(color.hex, 0.6, 1.8)
-          const color2 = '#121212'
-          setGradient({
-            backgroundImage: `linear-gradient(to bottom, ${color1} 10%, ${color2} 100%)`,
-          })
+    fac
+      .getColorAsync(imgHover)
+      .then(color => {
+        const color1 = adjustBrightnessAndSaturation(color.hex, 0.4, 1.8)
+        const color2 = '#121212'
+        setGradient({
+          backgroundImage: `linear-gradient(to bottom, ${color1} 10%, ${color2} 100%)`,
         })
-        .catch(err => console.error('Error getting color from image:', err))
-    
+      })
+      .catch(err => console.error('Error getting color from image:', err))
   }, [imgHover])
 
   useEffect(() => {
@@ -75,7 +74,18 @@ export function Homepage() {
       try {
         dispatch({ type: LOADING_START })
 
-        const [pop, rock, latin, jazz, hipHop, rnb, indie, kpop, chill, workout] = await Promise.all([
+        const [
+          pop,
+          rock,
+          latin,
+          jazz,
+          hipHop,
+          rnb,
+          indie,
+          kpop,
+          chill,
+          workout,
+        ] = await Promise.all([
           SpotifyAPIService.fetchFeaturedPlaylists('pop', 'US'),
           SpotifyAPIService.fetchFeaturedPlaylists('latin', 'US'),
           SpotifyAPIService.fetchFeaturedPlaylists('rock', 'US'),
@@ -85,7 +95,7 @@ export function Homepage() {
           SpotifyAPIService.fetchFeaturedPlaylists('indie', 'US'),
           SpotifyAPIService.fetchFeaturedPlaylists('k-pop', 'US'),
           SpotifyAPIService.fetchFeaturedPlaylists('chill', 'US'),
-          SpotifyAPIService.fetchFeaturedPlaylists('workout', 'US')
+          SpotifyAPIService.fetchFeaturedPlaylists('workout', 'US'),
         ])
 
         setPopStations(pop)
@@ -125,7 +135,14 @@ export function Homepage() {
         indieStations[5],
       ])
     }
-  }, [popStations, kpopStations, jazzStations, rnbStations, chillStations, indieStations])
+  }, [
+    popStations,
+    kpopStations,
+    jazzStations,
+    rnbStations,
+    chillStations,
+    indieStations,
+  ])
 
   const handleStationClick = stationId => {
     if (stationId) {
@@ -136,17 +153,27 @@ export function Homepage() {
   }
 
   return (
-    <div className="homepage-container flex flex-column" >
+    <div className="homepage-container flex flex-column">
       <div className="gradient" style={gradient}></div>
       <section className="top-section">
         <div className="filter-buttons">
-          {categories.map((cat, idx) => (<button key={idx} onClick={() => setCategory(cat)} className={`filter-btn ${category === cat ? 'active' : ''}`}>{cat}</button>))}
+          {categories.map((cat, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCategory(cat)}
+              className={`filter-btn ${category === cat ? 'active' : ''}`}
+            >
+              {cat}
+            </button>
+          ))}
         </div>
       </section>
 
       <section className="stations-grid-section">
-        <StationList stations={gridStations} type="home-station" 
-        setImgHover={setImgHover}
+        <StationList
+          stations={gridStations}
+          type="home-station"
+          setImgHover={setImgHover}
         />
       </section>
 
@@ -160,26 +187,25 @@ export function Homepage() {
             imgUrl: station.imgUrl,
           }))}
           type="search-results"
-          
         />
       </section>
       <section className="stations-section">
         <h2>Featured Stations</h2>
-        <StationList
-          stations={featuredStations}
-          type="search-results"
-        />
+        <StationList stations={featuredStations} type="search-results" />
       </section>
 
       <section className="stations-section">
         <h2>Pop Playlists</h2>
         <StationList
-          stations={popStations.slice(0, 6).map(playlist => ({
-            id: playlist.spotifyUrl,
-            title: playlist.title,
-            artist: playlist.artist,
-            imgUrl: playlist.imgUrl,
-          }))}
+          stations={popStations.slice(0, 6).map(playlist => {
+            const {name, imgUrl, artist} = playlist
+            return {
+              id: playlist.spotifyUrl,
+              name,
+              artist,
+              imgUrl,
+            }
+          })}
           type="search-results"
         />
       </section>
@@ -188,12 +214,15 @@ export function Homepage() {
       <section className="stations-section">
         <h2>Rock Playlists</h2>
         <StationList
-          stations={rockStations.slice(0, 6).map(playlist => ({
-            id: playlist.spotifyUrl,
-            title: playlist.title,
-            artist: playlist.artist,
-            imgUrl: playlist.imgUrl,
-          }))}
+          stations={rockStations.slice(0, 6).map(playlist => {
+            const {name, imgUrl, artist} = playlist
+            return {
+              id: playlist.spotifyUrl,
+              name,
+              artist,
+              imgUrl,
+            }
+          })}
           type="search-results"
         />
       </section>
@@ -202,12 +231,15 @@ export function Homepage() {
       <section className="stations-section">
         <h2>Latin Playlists</h2>
         <StationList
-          stations={latinStations.slice(0, 6).map(playlist => ({
-            id: playlist.spotifyUrl,
-            title: playlist.title,
-            artist: playlist.artist,
-            imgUrl: playlist.imgUrl,
-          }))}
+          stations={latinStations.slice(0, 6).map(playlist => {
+            const {name, imgUrl, artist} = playlist
+            return {
+              id: playlist.spotifyUrl,
+              name,
+              artist,
+              imgUrl,
+            }
+          })}
           type="search-results"
         />
       </section>
@@ -216,12 +248,15 @@ export function Homepage() {
       <section className="stations-section">
         <h2>Jazz Playlists</h2>
         <StationList
-          stations={jazzStations.slice(0, 6).map(playlist => ({
-            id: playlist.spotifyUrl,
-            title: playlist.title,
-            artist: playlist.artist,
-            imgUrl: playlist.imgUrl,
-          }))}
+          stations={jazzStations.slice(0, 6).map(playlist => {
+            const {name, imgUrl, artist} = playlist
+            return {
+              id: playlist.spotifyUrl,
+              name,
+              artist,
+              imgUrl,
+            }
+          })}
           type="search-results"
         />
       </section>
@@ -230,12 +265,15 @@ export function Homepage() {
       <section className="stations-section">
         <h2>Hip-Hop Playlists</h2>
         <StationList
-          stations={hipHopStations.slice(0, 6).map(playlist => ({
-            id: playlist.spotifyUrl,
-            title: playlist.title,
-            artist: playlist.artist,
-            imgUrl: playlist.imgUrl,
-          }))}
+          stations={hipHopStations.slice(0, 6).map(playlist => {
+            const {name, imgUrl, artist} = playlist
+            return {
+              id: playlist.spotifyUrl,
+              name,
+              artist,
+              imgUrl,
+            }
+          })}
           type="search-results"
         />
       </section>
@@ -256,12 +294,15 @@ export function Homepage() {
       <section className="stations-section">
         <h2>Indie Playlists</h2>
         <StationList
-          stations={indieStations.slice(0, 6).map(playlist => ({
-            id: playlist.spotifyUrl,
-            title: playlist.title,
-            artist: playlist.artist,
-            imgUrl: playlist.imgUrl,
-          }))}
+          stations={indieStations.slice(0, 6).map(playlist => {
+            const {name, imgUrl, artist} = playlist
+            return {
+              id: playlist.spotifyUrl,
+              name,
+              artist,
+              imgUrl,
+            }
+          })}
           type="search-results"
         />
       </section>

@@ -1,12 +1,14 @@
+$--padding-homepage: 1.25em;
+
 .homepage-container {
   position: relative;
-  padding: 1.25em;
+  // padding: 1.25em;
   background-color: #121212;
   color: white;
   gap: em(24px) em(32px);
 
   .gradient {
-    height: 60vh;
+    height: 35vh;
     transition: 1s ease;
   }
   .station-details {
@@ -16,7 +18,7 @@
     font-size: 1.5rem;
     font-family: 'gotham-medium';
     font-weight: 900;
-    margin-bottom: 1.3em;
+    // margin-bottom: 1.3em;
   }
 
   .top-section {
@@ -25,6 +27,8 @@
     align-items: center;
 
     .filter-buttons {
+      padding-top: 1em;
+      padding-inline: $--padding-homepage;
       z-index: 5;
       display: flex;
       gap: em(10px);
@@ -173,13 +177,15 @@
       .no-recently-played {
         color: #b3b3b3;
         text-align: center;
+
         margin-top: 20px;
       }
     }
   }
 
   .stations-grid-section {
-    margin-top: 2em;
+    margin-bottom: 1em;
+    padding-inline: $--padding-homepage;
 
     .station-list {
       ul {
@@ -191,6 +197,7 @@
         gap: em(12px);
         height: max-content;
         margin-bottom: 1em;
+        margin-inline: 0;
         min-height: em(62px);
 
         li {
@@ -229,6 +236,7 @@
             text-overflow: ellipsis;
             max-width: 100%;
             // width: 100%;
+            color: white;
           }
 
           &:hover {
@@ -281,7 +289,12 @@
       fill: black;
     }
   }
-  .stations-section {
+  h2 {
+    position: relative;
+    z-index: 50;
+    padding-inline: $--padding-homepage;
+  }
+  // .stations-section {
     .station-list {
       ul {
         display: grid;
@@ -289,6 +302,7 @@
         grid-template-rows: repeat(1, minmax(0, 1fr));
         overflow-x: hidden;
         height: max-content;
+        margin-inline: em(15px);
 
         li {
           padding: em(12px);
@@ -304,7 +318,11 @@
           overflow: hidden;
           border-radius: 6px;
           &:hover {
-
+            background: hsla(0, 0%, 100%, 0.2);
+          }
+          h3 {
+            font-size: 0.95rem;
+            color: #b8b8b8;
           }
 
           img {
@@ -317,5 +335,5 @@
         }
       }
     }
-  }
+  // }
 }
