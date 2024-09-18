@@ -30,7 +30,7 @@ export function StationPreview({
   const user = useSelector(state => state.userModule.user)
   const { isShuffled } = useSelector(state => state.stationModule.queue)
   const [isDraggingOver, setIsDraggingOver] = useState(false)
-
+  if (!station) return null
   if (station && (station._id || station.id)) {
     station.id = station._id ? station._id : station.id
   } else {
