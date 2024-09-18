@@ -32,12 +32,11 @@ ul.song-list {
     // Mobile/tablet adjustments
     // TABLET:
     @media (max-width: 1024px) {
-      .list-header,
-      li {
-        grid-template-columns: 2em minmax(10em, 30em) minmax(8em, 20em) minmax(2em, 4em) minmax(
-            2em,
-            5em
-          );
+      li,
+      .list-header {
+        grid-template-columns:
+          2em minmax(8em, 20em) minmax(8em, 20em) minmax(2em, 4em)
+          minmax(2em, 5em);
         gap: 1.5em;
       }
       .list-header {
@@ -49,10 +48,52 @@ ul.song-list {
         h4.date {
           display: none;
         }
+        .like-song-container {
+          grid-column: 4;
+        }
+        div.duration {
+          grid-column: 5;
+        }
       }
 
       .grid-item {
         font-size: 1.1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      li,
+      .list-table {
+        grid-template-columns: 1fr 2em;
+        gap: 0.5em;
+      }
+
+      // li {
+      .duration {
+        // display: none;
+      }
+      // }
+      
+      
+      .list-header, li {
+        .idx {
+          display: none;
+        }
+        .album {
+          display: none;
+        }
+        .date {
+          display: none;
+        }
+        .like-song-container {
+          display: none;
+        }
+
+      }
+
+
+      .grid-item {
+        font-size: 0.9rem;
       }
     }
 
@@ -237,7 +278,7 @@ ul.song-list {
         // color: white;
         z-index: 10;
         font-weight: 900;
-        font-size: 2em;
+        font-size: 1em;
         color: white;
         fill: white;
       }
