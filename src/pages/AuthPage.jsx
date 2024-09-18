@@ -50,11 +50,23 @@ export function AuthPage() {
       else user = await userService.signup(credentials)
       socketService.login(user._id)
       console.log(user);
-      
+
       dispatch({ type: SET_USER, user })
       navigate('/')
     } catch (err) {
       console.log('Cannot login or signup', err)
+    }
+  }
+
+  async function handleGuestLogin() {
+    try {
+      const guestCredentials = { username: 'guest', password: 'guest' }
+      const user = await userService.login(guestCredentials)
+      socketService.login(user._id)
+      dispatch({ type: SET_USER, user })
+      navigate('/')
+    } catch (err) {
+      console.log('Cannot login as guest', err)
     }
   }
 
@@ -111,6 +123,7 @@ export function AuthPage() {
           {/* </div> */}
           <button>{isLogin ? 'Login' : 'Sign up'}</button>
         </form>
+        <button className='guest-login-button' onClick={handleGuestLogin}>Continue as Guest</button>
         <p>
           {isLogin ? "Don't have an account?" : 'Already have an account?'}
           <span onClick={toggleIsLogin}>

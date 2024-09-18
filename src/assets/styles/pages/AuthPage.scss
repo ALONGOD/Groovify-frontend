@@ -9,12 +9,11 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background: rgb(50, 50, 50);
-  background: linear-gradient(
-    180deg,
-    rgba(50, 50, 50, 1) 0%,
-    rgba(0, 0, 0, 1) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(50, 50, 50, 1) 0%,
+      rgba(0, 0, 0, 1) 100%);
   z-index: 200;
+
   main {
     max-width: em(734px);
     width: 100%;
@@ -23,6 +22,7 @@
     border-radius: 8px;
     box-shadow: 0 0 20px 6px rgb(0 0 0 / 28%);
     color: white;
+
     .auth-header {
       svg {
         margin-top: em(32px);
@@ -30,6 +30,7 @@
         width: em(36px);
         height: em(36px);
       }
+
       h1 {
         text-align: center;
         margin-top: 0;
@@ -47,10 +48,12 @@
       border-top: 1px solid rgb(41, 41, 41);
       width: 100%;
     }
+
     form {
       width: em(324px);
       margin: 0 auto;
       padding-bottom: em(8px);
+
       label {
         font-size: em(14px);
         font-family: 'gotham-book';
@@ -58,6 +61,7 @@
         margin-top: 0;
         margin-block-end: em(8px);
       }
+
       input {
         padding-block-end: em(8px);
         font-size: 0.875rem;
@@ -79,6 +83,7 @@
         box-shadow: inset 0 0 0 1px #7c7c7c;
         color: #ffffff;
         margin-block: 0 1em;
+
         &:last-of-type {
           margin-bottom: 2em;
         }
@@ -108,18 +113,21 @@
         margin-bottom: em(32px);
         text-transform: none;
         letter-spacing: 0px;
+
         &:hover {
-            background-color: #3be477;
-            transform: scale(1.03);
+          background-color: #3be477;
+          transform: scale(1.03);
         }
       }
     }
+
     p {
       color: #b3b3b3;
       font-size: 1rem;
       font-family: 'gotham-light';
       font-weight: 600;
       text-align: center;
+
       span {
         margin-left: em(8px);
         color: white;
@@ -128,10 +136,34 @@
         text-decoration: underline;
         cursor: pointer;
         transition: color 50ms ease-in-out;
+
         &:hover {
           color: #1ed760;
         }
       }
+    }
+  }
+
+  .guest-login-button {
+    margin-bottom: 1em;
+    background-color: #3b3b3b;
+    color: white;
+    width: em(324px);
+    height: em(48px);
+    border-radius: 9999px;
+    font-size: 1rem;
+    font-family: 'gotham-medium';
+    font-weight: 600;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+
+    &:hover {
+      background-color: #505050;
+      transform: scale(1.03);
     }
   }
 }
