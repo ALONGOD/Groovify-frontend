@@ -33,6 +33,23 @@ export function MenuSidebarFix() {
     }
   }, [])
 
+  useEffect(() => {
+    if (searchTerm) {
+      try {
+        const regex = new RegExp(searchTerm, 'i') 
+        const filtered = user?.likedStations.filter(station =>
+          regex.test(station.name)
+        )
+        setFilteredStations(filtered)
+      } catch (err) {
+        console.error('Invalid regular expression:', err)
+      }
+    } else {
+      setFilteredStations(user?.likedStations)
+    }
+  }, [searchTerm, user?.likedStations])
+  
+
   async function getUser() {
     try {
       const userToSave = await userService.getLoggedinUser()

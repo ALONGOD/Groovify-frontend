@@ -151,7 +151,7 @@ const [{ isOver }, drop] = useDrop(() => ({
       {isListTable && (
         <>
           <h4 className="album">{album ? album : 'Album'}</h4>
-          <h4>{getTimeOfSent(addedAt)}</h4>
+          <h4 className='date'>{getTimeOfSent(addedAt)}</h4>
         </>
       )}
       {displayLikeBtn && <LikeSongBtn song={song} isSongLiked={isSongLiked} />}

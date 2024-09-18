@@ -31,18 +31,28 @@ ul.song-list {
 
     // Mobile/tablet adjustments
     // TABLET:
-    @media (min-width: 768px) {
-      // li,
-      // .list-table {
-      //   grid-template-columns: 2em minmax(10em, 30em) minmax(8em, 20em) minmax(
-      //       5em,
-      //       10em
-      //     );
-      //   gap: 1em;
-      // }
+    @media (max-width: 1024px) {
+      .list-header,
+      li {
+        grid-template-columns: 2em minmax(10em, 30em) minmax(8em, 20em) minmax(2em, 4em) minmax(
+            2em,
+            5em
+          );
+        gap: 1.5em;
+      }
+      .list-header {
+        h4.date {
+          display: none;
+        }
+      }
+      li {
+        h4.date {
+          display: none;
+        }
+      }
 
       .grid-item {
-        font-size: 1rem;
+        font-size: 1.1rem;
       }
     }
 

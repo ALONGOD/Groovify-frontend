@@ -35,7 +35,12 @@ aside.menu-sidebar {
         transform: translate(-50%, -50%);
 
         &:hover {
-          color: white;
+          h2 {
+            color: white;
+          }
+          svg {
+            fill: white;
+          }
         }
         h2 {
           display: none;
