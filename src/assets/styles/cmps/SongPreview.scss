@@ -16,6 +16,7 @@ ul.song-list {
     flex-direction: column;
     padding: 0;
     width: fit-content;
+    // width: 100%;
 
     // Grid for larger screens
     li,
@@ -60,54 +61,80 @@ ul.song-list {
         font-size: 1.1rem;
       }
     }
+  }
 
     @media (max-width: 480px) {
-      li,
-      .list-table {
-        grid-template-columns: 1fr 2em;
+      &.list-table {
+        width: 100%;
+        .list-header {
+          display: none;
+      }
+      li {
+        width: 100%;
+        // display: flex;
+        // justify-content: space-between;
+        // justify-content: stretch;
+        grid-template-columns: 1fr 3em;
         gap: 0.5em;
+        
+        // li {
+          
+        .main-details {
+          grid-column: 1;
+        }
+        // }
+        .list-header {
+          *:not(.clock-container *, .title) {
+            display: none;
+          }
+          .clock-container {
+            grid-column: 2;
+            // height: 1em;
+            // width: 1em;
+          }
+        }
+        
+        div.duration {
+          // display: none;
+          grid-column: 2;
+            margin-right: 2em;
+            justify-content: start;
+          }
+          
+          .idx-title {
+            display: none;
+          }
+          .idx {
+            display: none;
+          }
+          .album {
+            display: none;
+          }
+          .date {
+            display: none;
+          }
+          .like-song-container {
+            display: none;
+          }
+          
+          
+          .grid-item {
+            font-size: 0.9rem;
+          }
+        }
       }
-
-      // li {
-      .duration {
-        // display: none;
-      }
-      // }
       
+      .idx {
+        display: flex;
+        justify-content: center;
+      }
       
-      .list-header, li {
-        .idx {
-          display: none;
-        }
-        .album {
-          display: none;
-        }
-        .date {
-          display: none;
-        }
-        .like-song-container {
-          display: none;
-        }
-
-      }
-
-
-      .grid-item {
-        font-size: 0.9rem;
-      }
-    }
-
-    .idx {
-      display: flex;
-      justify-content: center;
-    }
-
-    .list-header {
-      align-items: center;
+      .list-header {
+        align-items: center;
       height: em(36px);
       margin-block: 0 0.7em;
       border-bottom: 0.5px solid rgb(75, 75, 75);
-
+      
       h4 {
         font-size: 0.9rem;
         font-family: 'gotham-book';
@@ -115,15 +142,15 @@ ul.song-list {
         justify-content: start;
         color: #bfbfbf;
         margin: 0;
-
+        
         &.idx-title {
           justify-content: center;
         }
       }
-
+      
       .clock-container {
         width: 100%;
-
+        
         .clock {
           width: 2em;
           display: flex;
@@ -138,7 +165,7 @@ ul.song-list {
       }
     }
   }
-
+  
   // SEARCH RESULTS
 
   &.search-results {

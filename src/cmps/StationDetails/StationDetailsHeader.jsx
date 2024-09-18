@@ -62,8 +62,8 @@ export function StationDetailsHeader({
         ) : (
           <img src={imgUrl} />
         )}
-        <div className="flex flex-column">
-          <h4>Playlist</h4>
+        <div className="main-details flex flex-column">
+          <h4 className='playlist-label'>Playlist</h4>
           <h1 onClick={toggleEditStation}>{name}</h1>
           {description && (
             <p className="description" onClick={toggleEditStation}>

@@ -15,6 +15,26 @@ export function SongList({ songs, type, station, moveSong }) {
   const songModal = useSelector(state => state.stationModule.modalSong)
   const user = useSelector(state => state.userModule.user)
   const likedSongs = user?.likedSongsStation?.songs
+  const [isMobile, setIsMobile] = useState(false);
+  
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize)
+    handleResize()
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
+  function handleResize() {
+    if (window.innerWidth < 480) {
+      
+      setIsMobile(true)
+    } else {
+      setIsMobile(false)
+    }
+  }
 
   async function onSetSongsInQueue() {
     await setSongsInQueue(songs)
@@ -40,6 +60,7 @@ export function SongList({ songs, type, station, moveSong }) {
             likedSongs={likedSongs}
             onSetSongsInQueue={onSetSongsInQueue}
             moveSong={moveSong}
+            isMobile={isMobile}
           />
         )
       })}

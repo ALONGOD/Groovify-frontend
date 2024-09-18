@@ -16,13 +16,15 @@ import { AuthPage } from './pages/AuthPage.jsx'
 import { UserDetails } from './pages/UserDetails.jsx'
 import { ArtistDetails } from './pages/ArtistDetails.jsx'
 import { MenuSidebarFix } from './cmps/MenuSidebar/MenuSidebarFix.jsx'
+import { DynamicNavbar } from './cmps/MenuSidebar/DynamicNavbar.jsx'
 
 export function RootCmp() {
   return (
     <div className="app" onClick={toggleModal}>
       <AppHeader />
       <div className="content-wrapper">
-        <MenuSidebarFix />
+        {/* <MenuSidebarFix /> */}
+        <DynamicNavbar />
 
         <Routes>
           <Route path="/auth/:authType" element={<AuthPage />} />

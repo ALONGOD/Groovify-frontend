@@ -22,6 +22,8 @@ export function MenuSidebar() {
   const [filteredStations, setFilteredStations] = useState(user?.likedStations || [])
   const [searchTerm, setSearchTerm] = useState('')
 
+  
+
   useEffect(() => {
     getUser()
     // if (!user) navigate('/auth/login')
@@ -70,6 +72,11 @@ export function MenuSidebar() {
       setIsBelowThreshold(true)
     } else {
       setIsBelowThreshold(false)
+    }
+    if (window.innerWidth < 480) {
+      setIsMobile(true)
+    } else {
+      setIsMobile(false)
     }
   }
 

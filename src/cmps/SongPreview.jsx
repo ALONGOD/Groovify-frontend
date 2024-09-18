@@ -14,6 +14,7 @@ import { useDrag } from 'react-dnd'
 import { toggleModal } from '../store/actions/station.actions'
 import { getTimeOfSent } from '../services/util.service'
 import { useDrop } from 'react-dnd'
+import { HiOutlineDotsVertical } from 'react-icons/hi'
 export function SongPreview({
   song,
   idx,
@@ -23,21 +24,21 @@ export function SongPreview({
   likedSongs,
   onSetSongsInQueue,
   moveSong,
+  isMobile,
 }) {
-  
   const dispatch = useDispatch()
   const [onSongHover, setOnSongHover] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
-  
+
   const { addedAt, duration, imgUrl, title, artist, album } = song
   const player = useSelector(state => state.stationModule.player)
   const { currSong, isPlaying } = player
-  
+
   const isListTable = type === 'list-table'
   const isArtistPage = type === 'artist-page'
   const isSongLiked = likedSongs?.some(likedSong => likedSong.id === song.id)
   const displayLikeBtn = onSongHover || isSongLiked
-  const [isHovered, setIsHovered] = useState(false);  
+  const [isHovered, setIsHovered] = useState(false)
 
   const isCurrSong = currSong?.id === song?.id
 
@@ -49,7 +50,7 @@ export function SongPreview({
     }),
   }))
 
-const [{ isOver }, drop] = useDrop(() => ({
+  const [{ isOver }, drop] = useDrop(() => ({
     accept: 'song',
     hover: (item, monitor) => {
       const dragIndex = item.index
@@ -61,10 +62,10 @@ const [{ isOver }, drop] = useDrop(() => ({
       }
       setIsHovered(true)
     },
-    drop: (item) => {
+    drop: item => {
       const dragIndex = item.index
       const hoverIndex = idx
-      
+
       moveSong(dragIndex, hoverIndex)
       setIsHovered(false)
     },
@@ -75,9 +76,9 @@ const [{ isOver }, drop] = useDrop(() => ({
 
   useEffect(() => {
     if (!isOver) {
-      setIsHovered(false); 
+      setIsHovered(false)
     }
-  }, [isOver]);
+  }, [isOver])
 
   function handleMouseLeave() {
     setOnSongHover(false)
@@ -110,7 +111,7 @@ const [{ isOver }, drop] = useDrop(() => ({
 
   return (
     <li
-      ref={(node) => drag(drop(node))}
+      ref={node => drag(drop(node))}
       className={` ${currSong?.id === song?.id ? 'active' : ''}
       ${isHovered ? 'dragged' : ''}`}
       style={{ opacity: isDragging ? 0.5 : 1 }}
@@ -151,17 +152,23 @@ const [{ isOver }, drop] = useDrop(() => ({
       {isListTable && (
         <>
           <h4 className="album">{album ? album : 'Album'}</h4>
-          <h4 className='date'>{getTimeOfSent(addedAt)}</h4>
+          <h4 className="date">{getTimeOfSent(addedAt)}</h4>
         </>
       )}
       {displayLikeBtn && <LikeSongBtn song={song} isSongLiked={isSongLiked} />}
       <div className="duration img-svg relative flex justify-start align-center">
-        <h4>{duration ? duration : '3:30'}</h4>
-        {onSongHover && (
-          <BsThreeDots
-            className="dots"
-            onClick={ev => onLocalToggleModal(ev, song)} // Use local state toggle
-          />
+        {isMobile ? (
+          <HiOutlineDotsVertical onClick={ev => onLocalToggleModal(ev, song)} className='dots'/>
+        ) : (
+          <>
+            <h4>{duration ? duration : '3:30'}</h4>
+            {(onSongHover && !isMobile) && (
+              <BsThreeDots
+                className="dots"
+                onClick={ev => onLocalToggleModal(ev, song)} // Use local state toggle
+              />
+            )}
+          </>
         )}
         {isModalOpen &&
           songModal?.id === song?.id && ( // Check both local and global state
