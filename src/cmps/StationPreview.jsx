@@ -31,7 +31,12 @@ export function StationPreview({
   const { isShuffled } = useSelector(state => state.stationModule.queue)
   const [isDraggingOver, setIsDraggingOver] = useState(false)
 
-  station.id = station?._id ? station?._id : station?.id
+  if (station && (station._id || station.id)) {
+    station.id = station._id ? station._id : station.id
+  } else {
+    console.error('Station is undefined or lacks a valid ID')
+    // return null
+  }
 
   var isStationLikedSongs = user?.likedSongsStation?.id === station?.id
   const isStationPlaying = currStation?.id === station?.id
@@ -102,7 +107,7 @@ export function StationPreview({
     if (setImgHover) setImgHover(imgUrl)
   }
 
-  
+
   if (!station) return null
   return (
     <li
