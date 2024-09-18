@@ -45,7 +45,7 @@ Check out the live **Groovify** project [here](https://groovify-backend-3393.onr
 
 ## 🖥 GitHub Repository
 
-Frontend Repository- [here](https://github.com/ALONGOD/Groovify-frontend).
+Frontend Repository- [here](https://github.com/ALONGOD/Groovify-frontend).  
 Backend Repository- [here](https://github.com/ALONGOD/Groovify-backend)
 
 ## 🙌 Credits
