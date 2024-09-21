@@ -9,7 +9,7 @@
   width: 18em;
   color: hsla(0, 0%, 100%, 0.9);
   z-index: 1000;
-  
+
   &.profileMenu {
     z-index: 150;
     top: em(60px);
@@ -31,11 +31,6 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
-    min-height: em(384px);
-    width: em(524px);
-    gap: 1em;
-    border-radius: 8px;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
     min-height: em(384px);
     width: em(524px);
@@ -275,6 +270,11 @@
     h3 {
       display: flex;
       align-items: center;
+    }
+  }
+  @media (max-width: 480px) {
+    &.editStation {
+      width: em(400px);
     }
   }
 }

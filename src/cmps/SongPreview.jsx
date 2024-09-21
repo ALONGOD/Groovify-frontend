@@ -84,6 +84,10 @@ export function SongPreview({
     setOnSongHover(false)
   }
 
+  function onPlaySongMobile(song) {
+    if (isMobile) playSong(song)
+  }
+
   async function playSong(song) {
     if (onSetSongsInQueue) await onSetSongsInQueue()
     if (station)
@@ -118,6 +122,7 @@ export function SongPreview({
       onMouseEnter={() => setOnSongHover(true)}
       onMouseLeave={handleMouseLeave}
       onDoubleClick={() => playSong(song)}
+      onTouchStart={() => onPlaySongMobile(song)}
     >
       {(isListTable || isArtistPage) && (
         <h4 className="idx relative">

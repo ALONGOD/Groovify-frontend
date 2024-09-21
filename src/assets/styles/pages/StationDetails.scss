@@ -275,19 +275,29 @@
       flex-direction: column;
       align-items:center ;
       justify-content: space-between;
+      // max-height: 25em;
+      min-height: 20em;
+      height: 50em;
+      // max-height: 40em;
+      
       .playlist-label {
         display: none;
       }
       .main-details {
         width: 100%;
+        height: 20em;
         h1 {
           font-size: 1.5em;
           margin-bottom: 0.5em;
         }
         .description {
           margin-bottom: 1em;
+          width: 100%;
+          white-space: nowrap;
+          text-overflow: ellipsis;
         }
         .created-by {
+          margin-bottom: 1em;
           img {
             width: 1.8em;
             height: 1.8em;
@@ -296,25 +306,21 @@
           font-size: 0.6em;
         }
       }
-      .img.relative {
-        width: 10em;
-        height: 10em;
-        .img-container {
-          width: 10em;
-          height: 10em;
-          .hover-container {
-            font-size: 0.8em;
-          }
-
           img {
-            min-width: 10em;
-            max-width: 10em;
-            min-height:10em;
-            max-height:10em;
+            // min-width: 8em;
+            // max-width: 10em;
+            // min-height:8em;
+            // max-height:10em;
+            width: 11.5em;
+            height:11.5em;
             
             
           }
-        }
+    }
+    .station-details-main {
+      height: 100%;
+      ul.song-list {
+        padding-bottom: 5em;
       }
     }
   }

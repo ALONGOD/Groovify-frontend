@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { AppFooterMobile } from "./AppFooterMobile";
 import { MenuSidebarFix } from "./MenuSidebarFix";
+import { useDispatch, useSelector } from "react-redux";
+import { SET_IS_MOBILE } from "../../store/reducers/system.reducer";
 
 export function DynamicNavbar({}) {
-    const [isMobile, setIsMobile] = useState(false);
+  const dispatch = useDispatch()
+    const isMobile = useSelector(state => state.systemModule.isMobile)
     
     useEffect(() => {
       window.addEventListener('resize', handleResize)
@@ -16,9 +19,9 @@ export function DynamicNavbar({}) {
 
     function handleResize() {
         if (window.innerWidth < 480) {
-            setIsMobile(true)
+            dispatch({ type: SET_IS_MOBILE, isMobile: true })
           } else {
-            setIsMobile(false)
+            dispatch({ type: SET_IS_MOBILE, isMobile: false })
           }
     }
 

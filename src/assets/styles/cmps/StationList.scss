@@ -4,7 +4,7 @@
     flex-direction: column;
     // gap: 0.5em;
     margin: 0;
-    height: calc($station-list-bar-height + 2em);
+    height: calc($station-list-bar-height - 1em);
     overflow-y: auto;
   }
 

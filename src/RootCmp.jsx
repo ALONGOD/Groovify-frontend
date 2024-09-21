@@ -17,12 +17,14 @@ import { UserDetails } from './pages/UserDetails.jsx'
 import { ArtistDetails } from './pages/ArtistDetails.jsx'
 import { MenuSidebarFix } from './cmps/MenuSidebar/MenuSidebarFix.jsx'
 import { DynamicNavbar } from './cmps/MenuSidebar/DynamicNavbar.jsx'
+import { useSelector } from 'react-redux'
 
 export function RootCmp() {
+  const isMobile = useSelector(state => state.systemModule.isMobile)
   return (
-    <div className="app" onClick={toggleModal}>
-      <AppHeader />
-      <div className="content-wrapper">
+    <div className={`app ${isMobile ? 'mobile' : ''}`} onClick={toggleModal}>
+      {!isMobile && <AppHeader />}
+      <div className={'content-wrapper'}>
         {/* <MenuSidebarFix /> */}
         <DynamicNavbar />
 

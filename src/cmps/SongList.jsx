@@ -9,32 +9,33 @@ import {
 } from '../store/reducers/station.reducer'
 import { useEffect, useState } from 'react'
 import { onUpdateStation } from '../store/actions/backend.station'
+import { SET_IS_MOBILE } from '../store/reducers/system.reducer'
 
 export function SongList({ songs, type, station, moveSong }) {
   const dispatch = useDispatch()
   const songModal = useSelector(state => state.stationModule.modalSong)
   const user = useSelector(state => state.userModule.user)
   const likedSongs = user?.likedSongsStation?.songs
-  const [isMobile, setIsMobile] = useState(false);
+  const isMobile = useSelector(state => state.systemModule.isMobile)
   
 
-  useEffect(() => {
-    window.addEventListener('resize', handleResize)
-    handleResize()
+  // useEffect(() => {
+  //   window.addEventListener('resize', handleResize)
+  //   handleResize()
 
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [])
+  //   return () => {
+  //     window.removeEventListener('resize', handleResize)
+  //   }
+  // }, [])
 
-  function handleResize() {
-    if (window.innerWidth < 480) {
+  // function handleResize() {
+  //   if (window.innerWidth < 480) {
       
-      setIsMobile(true)
-    } else {
-      setIsMobile(false)
-    }
-  }
+  //     dispatch({ type: SET_IS_MOBILE, isMobile: true })
+  //   } else {
+  //     dispatch({ type: SET_IS_MOBILE, isMobile: false })
+  //   }
+  // }
 
   async function onSetSongsInQueue() {
     await setSongsInQueue(songs)

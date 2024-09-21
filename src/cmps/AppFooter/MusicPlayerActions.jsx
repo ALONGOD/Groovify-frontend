@@ -25,6 +25,7 @@ export function MusicPlayerActions({
   isVolumeMuted,
   toggleVolume,
   playerRef,
+  isMobile
 }) {
   const volumeToSave = isVolumeMuted ? 0 : volume
 
@@ -37,7 +38,7 @@ export function MusicPlayerActions({
   }
 
   return (
-    <div className="other-options flex flex-row align-center">
+    <div className={`${isMobile ? 'mobile' : ''} other-options flex flex-row align-center`}>
       <button onClick={() => onSetDetailsSidebar('partyDetails')}>
         {detailsSidebarMode === 'partyDetails' ? <BiSolidParty className='active'/> :<BiParty /> }
       </button>

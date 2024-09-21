@@ -8,7 +8,7 @@ export function LikeSongBtn({ song }) {
 
     const likedSongs = likedSongsStation ? likedSongsStation.songs : []
 
-    const isSongLiked = likedSongs?.some(likedSong => likedSong.id === song.id)
+    const isSongLiked = likedSongs?.some(likedSong => likedSong?.id === song?.id)
 
     function onAddToLikedSongs() {
         addToLikedSongs(song)

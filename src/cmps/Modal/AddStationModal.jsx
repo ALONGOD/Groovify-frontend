@@ -7,15 +7,15 @@ import { useNavigate } from 'react-router-dom';
 import { addNewStation, saveStation } from '../../store/actions/backend.station.js';
 import { userService } from '../../services/user/user.service.remote.js';
 import { saveStationToLiked } from '../../store/actions/backend.user.js';
+import { ModalAI } from './ModalAI.jsx';
 
 export function AddStationModal() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const user = useSelector((state) => state.userModule.user)
-    const [showAIModal, setShowAIModal] = useState(false); // Manage the AI modal state
-    const [userPrompt, setUserPrompt] = useState(''); // Store the user input
+    const [showAIModal, setShowAIModal] = useState(false);
+    const [userPrompt, setUserPrompt] = useState(''); 
 
-    // Handles adding a new station without AI
     async function onAddNewStation() {
         try {
             const newStation = await addNewStation();
@@ -25,7 +25,6 @@ export function AddStationModal() {
         }
     }
 
-    // Fetch YouTube videos based on Spotify recommendations
     async function getYouTubeSongsFromSpotify(spotifySongs) {
         const batchSize = 5;
         const youtubeSongs = [];
@@ -55,20 +54,15 @@ export function AddStationModal() {
         return youtubeSongs;
     }
 
-    // Handles adding an AI-generated playlist
     async function onAddAIPlaylist() {
         try {
-            // Validate prompt input
             if (!userPrompt) return;
 
-            // Fetch Spotify recommendations based on user input
             const spotifySongs = await SpotifyAPIService.getRecommendedSongs(userPrompt);
             console.log(spotifySongs)
 
-            // Map Spotify songs to YouTube songs (get YouTube IDs)
             const youtubeSongs = await getYouTubeSongsFromSpotify(spotifySongs);
 
-            // Prepare a new station with the YouTube songs
             const newStation = {
                 name: `AI Playlist: ${userPrompt}`,
                 description: `AI generated playlist based on: ${userPrompt}`,
@@ -83,11 +77,10 @@ export function AddStationModal() {
                 likedByUsers: [],
             };
 
-            // Save the new station and navigate to the playlist
             const savedStation = await saveStation(newStation);
             await saveStationToLiked(savedStation);
             navigate(`/station/${savedStation._id}`);
-            setShowAIModal(false); // Close the AI modal
+            setShowAIModal(false); 
         } catch (err) {
             console.error('Failed to add AI playlist:', err);
         }
@@ -109,19 +102,7 @@ export function AddStationModal() {
             </div>
 
             {showAIModal && (
-                <div className="ai-modal-backdrop">
-                    <div className="ai-modal">
-                        <h2>AI Playlist Generator</h2>
-                        <input
-                            type="text"
-                            value={userPrompt}
-                            onChange={(e) => setUserPrompt(e.target.value)}
-                            placeholder="Enter genre or mood"
-                        />
-                        <button onClick={onAddAIPlaylist}>Generate Playlist</button>
-                        <button onClick={() => setShowAIModal(false)}>Cancel</button>
-                    </div>
-                </div>
+                <ModalAI userPrompt={userPrompt} setShowAIModal={setShowAIModal} setUserPrompt={setUserPrompt} onAddAIPlaylist={onAddAIPlaylist}/>
             )}
         </div>
     );

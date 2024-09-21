@@ -13,17 +13,15 @@ export function AppHeader() {
   const navigate = useNavigate()
   const location = useLocation()
   const user = useSelector(state => state.userModule.user)
-//   const isSearchPage = location.pathname.includes('/search')
-//   const isStationDetailsPage = location.pathname.includes('/station')
-//   const modalOpen = useRef(false)
-const [modalOpen, setModalOpen] = useState(false)
+  //   const isSearchPage = location.pathname.includes('/search')
+  //   const isStationDetailsPage = location.pathname.includes('/station')
+  //   const modalOpen = useRef(false)
+  const [modalOpen, setModalOpen] = useState(false)
 
   function onToggleModal() {
     setModalOpen(state => !state)
     // modalOpen.current = true
   }
-
-
 
   //   function navigation(direction) {
   //     navigate(direction)
@@ -72,7 +70,7 @@ const [modalOpen, setModalOpen] = useState(false)
               alt="profile picture"
             />
           </button>
-          {modalOpen && <Modal modalType="profileMenu"/>}
+          {modalOpen && <Modal modalType="profileMenu" />}
         </div>
       </div>
     </header>

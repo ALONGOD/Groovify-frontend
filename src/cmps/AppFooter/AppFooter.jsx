@@ -2,25 +2,14 @@ import { FaCircleCheck } from 'react-icons/fa6'
 import { MusicPlayer } from './MusicPlayer'
 import { useSelector } from 'react-redux'
 import { LikeSongBtn } from '../LikeSongBtn'
+import { MobileFooter } from './MobileFooter';
+import { DesktopFooter } from './DesktopFooter';
 
 export function AppFooter() {
-    const currSong = useSelector(state => state.stationModule.player.currSong)
+  const currSong = useSelector(state => state.stationModule.player.currSong)
+  const isMobile = useSelector(state => state.systemModule.isMobile)
 
-    return (
-        <footer className='app-footer'>
-            <div className='details flex flex-row align-center'>
-                {currSong && (
-                    <>
-                        <img src={currSong?.imgUrl} alt='song-img' />
-                        <div className='flex flex-column'>
-                            <h3>{currSong.title}</h3>
-                            <h4>{currSong.artist}</h4>
-                        </div>
-                        <LikeSongBtn song={currSong} />
-                    </>
-                )}
-            </div>
-            <MusicPlayer currSong={currSong} />
-        </footer>
-    )
+  return (
+      isMobile ? <MobileFooter currSong={currSong}/> : <DesktopFooter currSong={currSong}/>
+  )
 }

@@ -3,7 +3,7 @@
   grid-template-columns: 1fr 2.5fr 1fr;
   justify-content: space-between;
 
-  gap: 1em;
+  // gap: 1em;
   padding-block: 0.5em;
   background-color: black;
   // position: absolute;
@@ -201,4 +201,70 @@
       height: 0.5em;
     }
   }
+}
+
+// MOBILE
+.player.mobile {
+  display: none;
+}
+.other-options.mobile {
+  display: none;
+}
+
+.mobile-footer {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform:translateX( -50%);
+  width: 92%;
+  background-color: rgb(26, 26, 26);
+  opacity: 1;
+  height: 4em;
+  z-index: 50;
+  border-radius: 5px;
+  color: white;
+  padding-inline: 0.5em;
+
+  .song-details {
+    gap: 0.5em;
+    margin-right: 2em;
+    h3 {
+      // margin: 0;
+      margin-top: 0.4em;
+      margin-bottom: 0;
+      font-family: 'gotham-book';
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    h4 {
+      font-size: 0.85em;
+      font-family: 'gotham-light';
+      font-weight: 600;
+      color: rgb(185, 185, 185);
+    }
+    img {
+      width: 2.8em;
+      height: 2.8em;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+  .btns {
+    padding-right: 1em;
+    .like-song-container {
+      width: 2em;
+    height: 2em;
+    svg {
+      width: 1.2em;
+      height: 1.2em;
+      
+    }
+  }
+  .play-pause-btn {
+    position: static;
+    transform: translate(0, 0);
+    width: 1.2em;
+    height: 1.2em;
+  }
+}
 }

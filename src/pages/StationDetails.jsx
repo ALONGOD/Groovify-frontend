@@ -34,6 +34,7 @@ export function StationDetails() {
   const user = useSelector(state => state.userModule.user)
   const station = useSelector(state => state.stationModule.stationDisplay)
   const editOpen = useSelector(state => state.stationModule.editStationModal)
+  const isMobile = useSelector(state => state.systemModule.isMobile)
 
   const [noSongsVisible, setNoSongsVisible] = useState(true)
   const [searchResults, setSearchResults] = useState([])
@@ -194,6 +195,7 @@ export function StationDetails() {
           isStationByUser={isStationByUser}
           isStationLikedSongs={isStationLikedSongs}
           user={user}
+          isMobile={isMobile}
         />
 
         {station?.songs?.length === 0 && noSongsVisible && (

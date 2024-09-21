@@ -32,6 +32,7 @@ export function MusicPlayer({ currSong }) {
   const queue = useSelector(storeState => storeState.stationModule.queue)
   const player = useSelector(storeState => storeState.stationModule.player)
   const user = useSelector(storeState => storeState.userModule.user)
+  const isMobile = useSelector(state => state.systemModule.isMobile)
   const isPlaying = player.isPlaying
   const partyListen = player.partyListen
   // const partyStationId = partyListen.stationId
@@ -67,13 +68,10 @@ export function MusicPlayer({ currSong }) {
   }, [isPlaying])
 
   useEffect(() => {
-    console.log(partyListen.state)
-
     if (partyListen.state) {
       joinParty()
       socketService.on('request-player', ({ room, userId }) => {
         if (userId !== user?._id) {
-          console.log('request-player')
           socketService.emit('send-player', { player, currentTime })
         }
       })
@@ -266,7 +264,7 @@ export function MusicPlayer({ currSong }) {
 
   return (
     <>
-      <div className="player flex flex-column justify-center align-center">
+      <div className={`player flex flex-column justify-center align-center ${isMobile ? 'mobile' : ''}`}>
         <div className="top flex flex-row align-center">
           <ShuffleButton
             setQueueIsShuffled={setQueueIsShuffled}
@@ -309,16 +307,16 @@ export function MusicPlayer({ currSong }) {
           </div>
         </div>
       </div>
-      {currSong && (
-        <MusicPlayerActions
-          volume={volume}
-          setVolume={setVolume}
-          handleVolumeChange={handleVolumeChange}
-          isVolumeMuted={isVolumeMuted}
-          toggleVolume={toggleVolume}
-          playerRef={playerRef}
-        />
-      )}
+
+      <MusicPlayerActions
+        volume={volume}
+        setVolume={setVolume}
+        handleVolumeChange={handleVolumeChange}
+        isVolumeMuted={isVolumeMuted}
+        toggleVolume={toggleVolume}
+        playerRef={playerRef}
+        isMobile={isMobile}
+      />
     </>
   )
 }

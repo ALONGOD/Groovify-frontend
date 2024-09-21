@@ -28,6 +28,7 @@ export function DetailsHeaderActions({
   isStationByUser,
   isStationLikedSongs,
   user,
+  isMobile
 }) {
   const dispatch = useDispatch()
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -103,7 +104,7 @@ export function DetailsHeaderActions({
           {partyListen.state ? 'Exit Party' : 'Play Together'}
         </button>
       </div>
-      {partyListen.state && (
+      {(partyListen.state && !isMobile) && (
         <div className="flex flex-row ">
           {isPlaying ? <EqualizerBar /> : <FaPause className='pause'/>}
           <h3 className="party-active">{isPlaying ? 'Party in session...' : 'Party paused'}</h3>

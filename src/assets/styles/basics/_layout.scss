@@ -10,11 +10,22 @@ main {
 }
 .app {
     display: grid;
-    grid-template-rows: $height-header 1fr $height-footer;
+    grid-template-rows: $height-header 1fr $height-footer ;
     grid-template-columns: 1fr;
     width: calc(100vw - 1em);
     margin: 0;
     padding: 0;
+    &.mobile {
+        height: 100vh;
+        grid-template-rows: 1fr ;
+        .app-footer {
+            grid-row: 2;
+        }
+        .content-wrapper {
+            grid-row: 1;
+            height: 100%;
+        }
+    }
 }
 .app-header {
     grid-row: 1;
@@ -43,7 +54,7 @@ main {
         grid-template-columns: 400px 1fr minmax(300px, 20%);
     }
     &:has(aside.menu-sidebar.collapsed):has(aside.details-sidebar.open) {
-        grid-template-columns: 5.5em 1fr minmax(300px, 20%);
+        grid-template-columns: 4.5em 1fr minmax(300px, 20%);
     }
     &:has(aside.menu-sidebar:not(.collapsed)):has(aside.details-sidebar.closed) {
         grid-template-columns: 400px 1fr 0;
