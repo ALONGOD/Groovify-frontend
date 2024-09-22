@@ -47,6 +47,9 @@
         color: white;
         font-weight: bold;
         margin-bottom: 0.2em;
+        overflow-x: hidden;
+        max-width: 100%;
+        text-overflow: ellipsis;
       }
 
       p {

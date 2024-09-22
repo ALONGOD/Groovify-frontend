@@ -24,6 +24,7 @@ import { SyncButton } from '../svgs/SyncButton'
 import { ShuffleButton } from '../svgs/ShuffleButton'
 import { storageService } from '../../services/async-storage.service'
 import { socketService } from '../../services/socket.service'
+import { showErrorMsg } from '../../services/event-bus.service'
 
 export function MusicPlayer({ currSong }) {
   // const {pathname} = useLocation()
@@ -61,9 +62,13 @@ export function MusicPlayer({ currSong }) {
   }, [currSong, player.currStation, volume])
 
   useEffect(() => {
-    if (playerRef.current) {
-      if (isPlaying) playerRef?.current?.playVideo()
-      else playerRef?.current?.pauseVideo()
+    try {
+      if (playerRef.current) {
+        if (isPlaying) playerRef?.current?.playVideo()
+          else playerRef?.current?.pauseVideo()
+      }
+    } catch (err) {
+      showErrorMsg('Error playing song')    
     }
   }, [isPlaying])
 

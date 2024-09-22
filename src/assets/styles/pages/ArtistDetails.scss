@@ -19,19 +19,19 @@
       margin: 0;
     }
     .verified {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        gap: 0.5em;
-        div {
-          grid-column:1;
-          width: 2em;
-          height: 2em;
-        }
-        h4 {
-          grid-column: 2;
-          grid-row: 1;
-          color: #f0f0f0;
-        }
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.5em;
+      div {
+        grid-column: 1;
+        width: 2em;
+        height: 2em;
+      }
+      h4 {
+        grid-column: 2;
+        grid-row: 1;
+        color: #f0f0f0;
+      }
       svg {
         grid-area: 1;
         width: em(24px);
@@ -58,24 +58,29 @@
     }
     // .popular-songs {
     // }
-    ul.song-list li {
-      display: grid;
-      grid-template-columns: 1em 4fr 2fr 1fr;
-      gap: 1em;
-      padding-inline:0.5em;
-      .idx {
-        grid-column: 1;
-        // padding: 0.5em;
-      }
-      div.main-details {
-        grid-column: 2;
-      }
-      .album {
-        display: none;
-      }
-      .like-song-container {
-        grid-column: 4;
-        justify-content: end;
+    ul.song-list {
+      padding-inline: 0;
+      li {
+        display: grid;
+        grid-template-columns: 2em 4fr 2fr 1fr;
+        gap: 1em;
+        padding-inline: 0;
+        .idx {
+          grid-column: 1;
+          display: flex;
+          justify-content: center;
+          // padding: 0.5em;
+        }
+        div.main-details {
+          grid-column: 2;
+        }
+        .album {
+          display: none;
+        }
+        .like-song-container {
+          grid-column: 4;
+          justify-content: end;
+        }
       }
     }
 
@@ -89,9 +94,8 @@
         overflow: hidden;
         flex-direction: row;
         min-height: 15em;
-        max-height: 15.575em; 
-        max-width: 100%; 
-        
+        max-height: 15.575em;
+        max-width: 100%;
         overflow: hidden;
         .station-preview {
           // width: em(192px);
@@ -103,7 +107,7 @@
           z-index: 0;
           border-radius: 8px;
           position: relative;
-          
+
           .relative img {
             z-index: 10;
             display: block;
