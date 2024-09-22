@@ -46,7 +46,7 @@ export function MusicPlayer({ currSong }) {
   const [currentTime, setCurrentTime] = useState(0)
 
   const [volume, setVolume] = useState(50)
-  
+
   const opts = {
     height: '200',
     width: '200',
@@ -72,24 +72,22 @@ export function MusicPlayer({ currSong }) {
     try {
       if (playerRef.current) {
         if (isPlaying) playerRef?.current?.playVideo()
-          else playerRef?.current?.pauseVideo()
+        else playerRef?.current?.pauseVideo()
       }
     } catch (err) {
-      showErrorMsg('Error playing song')    
+      showErrorMsg('Error playing song')
     }
   }, [isPlaying])
 
   useEffect(() => {
-    if (partyListen.state) {
+    if (partyState) {
       joinParty()
+      socketService.on('sync-player', ({ player, currentTime, userId }) => {
+        syncPlayer(player, currentTime, userId)
+      })
       socketService.on('request-player', ({ room, userId }) => {
         if (userId !== user?._id) {
           socketService.emit('send-player', { player, currentTime })
-        }
-      })
-      socketService.on('sync-player', ({ player, currentTime, userId }) => {
-        if (userId !== user?._id) {
-          syncPlayer(player, currentTime)
         }
       })
     } else {
@@ -98,7 +96,7 @@ export function MusicPlayer({ currSong }) {
       socketService.off('request-player')
       socketService.off('user-joined')
     }
-  }, [partyListen.state])
+  }, [partyState])
 
   function joinParty() {
     socketService.emit('join-party', { stationId })
@@ -115,11 +113,13 @@ export function MusicPlayer({ currSong }) {
     socketService.emit('leave-party', { stationId })
   }
 
-  function syncPlayer(player, currentTime) {
-    dispatch({ type: SET_PLAYER, player })
-    if (currentTime) {
-      playerRef.current.seekTo(currentTime)
-      setCurrentTime(currentTime)
+  function syncPlayer(player, currentTime, userId) {
+    if (userId !== user?._id) {
+      dispatch({ type: SET_PLAYER, player })
+      if (currentTime) {
+        playerRef.current.seekTo(currentTime)
+        setCurrentTime(currentTime)
+      }
     }
   }
 
@@ -139,8 +139,7 @@ export function MusicPlayer({ currSong }) {
       console.log('shuffled', queue.shuffledQueue)
       const nextSong = queue.shuffledQueue[currSongIdx + value]
       if (partyState)
-        socketService.emit('send-player', {
-          player: { ...player, currSong: nextSong },
+        socketService.emit('send-player', { player: { ...player, currSong: nextSong },
           currentTime,
           userId: user?._id,
         })
@@ -215,7 +214,6 @@ export function MusicPlayer({ currSong }) {
           currentTime,
           userId: user?._id,
         })
-      // socketService.emit('send-player', { player, currentTime })
     }
   }
 
@@ -263,7 +261,11 @@ export function MusicPlayer({ currSong }) {
 
   return (
     <>
-      <div className={`player flex flex-column justify-center align-center ${isMobile ? 'mobile' : ''}`}>
+      <div
+        className={`player flex flex-column justify-center align-center ${
+          isMobile ? 'mobile' : ''
+        }`}
+      >
         <div className="top flex flex-row align-center">
           <ShuffleButton
             setQueueIsShuffled={setQueueIsShuffled}
