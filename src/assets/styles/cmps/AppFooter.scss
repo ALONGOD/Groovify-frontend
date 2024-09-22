@@ -1,3 +1,5 @@
+
+
 .app-footer {
   display: flex;
   grid-template-columns: 1fr 2.5fr 1fr;
@@ -213,7 +215,7 @@
 
 .mobile-footer {
   position: fixed;
-  bottom: 10px;
+  bottom: 15px;
   left: 50%;
   transform:translateX( -50%);
   width: 92%;
@@ -230,6 +232,10 @@
     margin-right: 2em;
     h3 {
       // margin: 0;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      max-width: 10em;
       margin-top: 0.4em;
       margin-bottom: 0;
       font-family: 'gotham-book';
