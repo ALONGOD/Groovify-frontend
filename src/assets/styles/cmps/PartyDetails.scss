@@ -121,6 +121,7 @@
           border-radius: $spotify-border-radius;
           width: em(48px);
           height: em(48px);
+          object-fit: cover;
         }
         .duration h4 {
           display: none;
