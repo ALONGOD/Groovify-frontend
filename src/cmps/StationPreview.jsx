@@ -31,6 +31,8 @@ export function StationPreview({
   const { isShuffled } = useSelector(state => state.stationModule.queue)
   const [isDraggingOver, setIsDraggingOver] = useState(false)
 
+  if (!station) return null
+
   if (station && (station._id || station.id)) {
     station.id = station._id ? station._id : station.id
   } else {
@@ -80,7 +82,7 @@ export function StationPreview({
   }, [isOver])
 
   if (!station) return null
-  
+
   async function playOrPauseStation(ev) {
     ev.stopPropagation()
     const stationToPlay = await getStationById(station.id)
