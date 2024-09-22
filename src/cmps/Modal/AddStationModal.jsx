@@ -13,6 +13,7 @@ export function AddStationModal() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const user = useSelector((state) => state.userModule.user)
+    console.log('user:', user)
     const [showAIModal, setShowAIModal] = useState(false);
     const [userPrompt, setUserPrompt] = useState(''); 
 

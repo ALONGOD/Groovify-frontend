@@ -36,7 +36,6 @@ export function MusicPlayer({ currSong }) {
   const isMobile = useSelector(state => state.systemModule.isMobile)
   const isPlaying = player.isPlaying
   const partyListen = player.partyListen
-  // const partyStationId = partyListen.stationId
   const partyState = partyListen.state
   const stationId = partyListen.stationId
 
@@ -47,6 +46,14 @@ export function MusicPlayer({ currSong }) {
   const [currentTime, setCurrentTime] = useState(0)
 
   const [volume, setVolume] = useState(50)
+  
+  const opts = {
+    height: '200',
+    width: '200',
+    playerVars: {
+      autoplay: 1,
+    },
+  }
 
   useEffect(() => {
     if (!currSong) {
@@ -92,18 +99,9 @@ export function MusicPlayer({ currSong }) {
       socketService.off('user-joined')
     }
   }, [partyListen.state])
-  // console.log('partyListen:', partyListen)
-
-  const opts = {
-    height: '200',
-    width: '200',
-    playerVars: {
-      autoplay: 1,
-    },
-  }
 
   function joinParty() {
-    socketService.emit('join-party', { stationId: stationId })
+    socketService.emit('join-party', { stationId })
     dispatch({ type: SET_PARTY_PLAY })
 
     socketService.on('user-joined', user => {
@@ -118,15 +116,11 @@ export function MusicPlayer({ currSong }) {
   }
 
   function syncPlayer(player, currentTime) {
-    console.log('currentTime:', currentTime)
-    console.log('player:', player)
     dispatch({ type: SET_PLAYER, player })
-    // setTimeout(() => {
     if (currentTime) {
       playerRef.current.seekTo(currentTime)
       setCurrentTime(currentTime)
     }
-    // }, 1500);
   }
 
   async function playNextOrPrev(value) {

@@ -27,13 +27,14 @@ export async function query(search) {
 }
 
 export async function getStationById(stationId) {
-  store.dispatch({ type: LOADING_START})
+  // store.dispatch({ type: LOADING_START})
   const station = await stationService.getById(stationId)
-  store.dispatch({ type: LOADING_DONE})
+  // store.dispatch({ type: LOADING_DONE})
   return station
 }
 
 export async function saveStation(station) {
+  console.log('station:', station)
   const savedStation = await stationService.save(station)
 
   const { _id: id, name, creator, imgUrl } = savedStation

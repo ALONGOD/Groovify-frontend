@@ -32,6 +32,7 @@ export function ModalSongOptions({}) {
   )
 
   async function onRemoveSongFromStation() {
+    console.log('stationId:', stationId)
     await removeSongFromStation(stationId)
   }
 
@@ -79,9 +80,9 @@ export function ModalSongOptions({}) {
         <HiOutlineQueueList />
         <h3>Add to queue</h3>
       </div>
-      <div className="row flex flex-row">
+      <div className="row flex flex-row" onClick={onRemoveSongFromStation}>
         <FaRegTrashAlt />
-        <h3 onClick={onRemoveSongFromStation}>Remove from playlist</h3>
+        <h3 >Remove from playlist</h3>
       </div>
     </>
   )
