@@ -6,10 +6,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { SET_USER } from '../../store/reducers/user.reducer'
 import { useNavigate } from 'react-router'
 import { StationPreview } from '../StationPreview'
-import { showErrorMsg } from '../../services/event-bus.service'
 import { updateUser } from '../../store/actions/backend.user'
 import { socketService } from '../../services/socket.service'
 import { SearchBar } from '../SearchBar'
+import { showErrorMsg } from '../../services/event-bus.service'
 
 export function MenuSidebar() {
   const navigate = useNavigate()
@@ -93,7 +93,7 @@ export function MenuSidebar() {
       await updateUser({ ...user, likedStations: updatedStations })
     } catch (err) {
       console.log('Cannot move station', err)
-      showErrorMsg('Failed to move Station')
+      // showErrorMsg('Failed to move Station')
     }
   }
   function onSearch(value) {

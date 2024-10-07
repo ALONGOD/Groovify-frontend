@@ -9,6 +9,8 @@ import { SubMenu } from '../SubMenu'
 import { StationList } from '../StationList'
 import { StationPreview } from '../StationPreview'
 import { SearchBar } from '../SearchBar'
+import { showErrorMsg } from '../../services/event-bus.service'
+import { updateUser } from '../../store/actions/backend.user'
 
 export function MenuSidebarFix() {
   const navigate = useNavigate()
@@ -100,11 +102,15 @@ export function MenuSidebarFix() {
       await updateUser({ ...user, likedStations: updatedStations })
     } catch (err) {
       console.log('Cannot move station', err)
+      dispatch({
+        type: SET_USER,
+        user: { ...user, likedStations: [...user.likedStations] },
+      })
       showErrorMsg('Failed to move Station')
     }
   }
   function onSearch(value) {
-    setSearchTerm(value) // Update search term state
+    setSearchTerm(value)
   }
 
   return (

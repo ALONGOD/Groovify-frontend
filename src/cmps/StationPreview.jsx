@@ -35,9 +35,9 @@ export function StationPreview({
 
   if (station && (station._id || station.id)) {
     station.id = station._id ? station._id : station.id
+    station.creator = station.creator ? station.creator : station.createdBy
   } else {
     console.error('Station is undefined or lacks a valid ID')
-    // return null
   }
 
   var isStationLikedSongs = user?.likedSongsStation?.id === station?.id
@@ -111,6 +111,9 @@ export function StationPreview({
     if (setImgHover) setImgHover(imgUrl)
   }
 
+
+  console.log(station);
+  
 
   if (!station) return null
   return (
