@@ -119,6 +119,7 @@
 
         .playlist-results {
             grid-column: span 2;
+            // height: max-content;
             // margin-top: 8%;
 
             .playlist-container {
@@ -126,6 +127,10 @@
                 gap: 1.2em;
                 /* Reduced gap using em unit */
                 overflow-x: auto;
+            }
+
+            .station-list ul {
+                height: max-content;
             }
 
             .search-results {
