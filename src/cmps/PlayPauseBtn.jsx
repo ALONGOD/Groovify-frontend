@@ -33,7 +33,6 @@ export function PlayPauseBtn({
   }
 
   function playOrPauseSong(ev) {
-    console.log(ev);
     
     ev.stopPropagation()
     if (onTogglePlay) return onTogglePlay(ev)

@@ -121,7 +121,8 @@ export async function updateLikedSongs(station) {
 
 export async function updateUser(user) {
   const userToSave = await userService.update(user)
-  await userService.saveLoggedinUser(userToSave)
+  console.log('saved user:', user);
+  await userService.saveLoggedinUser(user)
 }
 
 

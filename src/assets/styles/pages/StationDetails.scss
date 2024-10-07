@@ -168,6 +168,7 @@
 
 .station-header-actions {
   padding: $station-details-margin;
+  margin-bottom: 1.5em;
   height: em(110px);
   & * {
     cursor: pointer;
@@ -181,7 +182,8 @@
     white-space: nowrap;
   }
 
-  .equalizer, .pause {
+  .equalizer,
+  .pause {
     color: $spotify-green;
     width: 2em;
   }
@@ -193,13 +195,26 @@
       width: em(34px);
       height: em(34px);
     }
-    .play-circle {
-      height: em(70px);
-      width: em(70px);
-      fill: $spotify-green;
+    .play-pause-container.userDetails {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: em(60px);
+      width: em(60px);
+      background-color: $spotify-green;
+      border-radius: 50%;
       &:hover {
-        fill: #3be477;
+        background-color: #3be477;
         scale: 1.04;
+      }
+      svg {
+        fill: black;
+        height: 2em;
+        width: 2em;
+      }
+    }
+    .play-circle {
+      &:hover {
       }
       // path {
       //   height: em(56px);
@@ -211,7 +226,8 @@
       color: $spotify-green;
     }
 
-    .play-together, .exit-party {
+    .play-together,
+    .exit-party {
       background-color: transparent;
       font-family: 'gotham-light';
       font-weight: 600;
@@ -228,7 +244,6 @@
         // font-family: 'gotham-medium';
       }
     }
-
 
     .plus-circle {
       width: em(34px);
@@ -276,13 +291,13 @@
   .station-details {
     .station-details-header {
       flex-direction: column;
-      align-items:center ;
+      align-items: center;
       justify-content: space-between;
       // max-height: 25em;
       min-height: 20em;
       height: 50em;
       // max-height: 40em;
-      
+
       .playlist-label {
         display: none;
       }
@@ -309,16 +324,14 @@
           font-size: 0.6em;
         }
       }
-          img {
-            // min-width: 8em;
-            // max-width: 10em;
-            // min-height:8em;
-            // max-height:10em;
-            width: 11.5em;
-            height:11.5em;
-            
-            
-          }
+      img {
+        // min-width: 8em;
+        // max-width: 10em;
+        // min-height:8em;
+        // max-height:10em;
+        width: 11.5em;
+        height: 11.5em;
+      }
     }
     .station-details-main {
       height: 100%;

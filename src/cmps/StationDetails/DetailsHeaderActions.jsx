@@ -16,10 +16,17 @@ import { IoIosPause } from 'react-icons/io'
 import {
   SET_PARTY_PLAY,
   SET_PARTY_STATION_ID,
+  SET_PLAYER_CURRENT_SONG,
+  SET_PLAYER_CURRENT_STATION,
+  SET_PLAYER_IS_PLAYING,
   TOGGLE_PARTY_PLAY,
 } from '../../store/reducers/station.reducer.js'
 import { socketService } from '../../services/socket.service.js'
 import { FaPause } from 'react-icons/fa6'
+import { PlayPauseBtn } from './../PlayPauseBtn';
+import { getStationById } from '../../store/actions/backend.station.js'
+import { setSongsInQueue } from '../../store/actions/station.actions.js'
+import { SET_DETAILS_SIDEBAR } from '../../store/reducers/system.reducer.js'
 
 export function DetailsHeaderActions({
   toggleEditStation,
@@ -34,8 +41,12 @@ export function DetailsHeaderActions({
   const [isModalOpen, setIsModalOpen] = useState(false)
   const modalRef = useRef(null)
   const player = useSelector(state => state.stationModule.player)
+  const currStation = player.currStation
+  const isShuffled = useSelector(state => state.stationModule.queue.isShuffled)
   const isPlaying = player.isPlaying
   const partyListen = player.partyListen
+
+  station.id = station._id ? station._id : station.id
 
   // Toggle modal visibility
   function toggleModal() {
@@ -58,6 +69,30 @@ export function DetailsHeaderActions({
     }
   }, [modalRef])
 
+  async function playOrPauseStation(ev) {
+    ev.stopPropagation()
+    const stationToPlay = await getStationById(station._id)
+
+    const songs = stationToPlay?.songs
+    let songToPlay
+
+    if (currStation?.id !== station?.id) {
+      const newQueue = await setSongsInQueue(songs)
+
+      dispatch({ type: SET_DETAILS_SIDEBAR, state: 'songDetails' })
+      dispatch({
+        type: SET_PLAYER_CURRENT_STATION,
+        currStation: { id: station.id, name: station.name },
+      })
+      if (isShuffled) songToPlay = newQueue.shuffledQueue[0]
+      else songToPlay = newQueue.songsQueue[0]
+      dispatch({ type: SET_PLAYER_CURRENT_SONG, currSong: songToPlay })
+      dispatch({ type: SET_PLAYER_IS_PLAYING, isPlaying: true })
+    } else {
+      dispatch({ type: SET_PLAYER_IS_PLAYING, isPlaying: !isPlaying })
+    }
+  }
+
   async function handlePlusClick() {
     await saveStationToLiked(station)
   }
@@ -67,7 +102,6 @@ export function DetailsHeaderActions({
   }
 
   function togglePartyPlay() {
-    
     dispatch({ type: TOGGLE_PARTY_PLAY })
     dispatch({ type: SET_PARTY_STATION_ID, stationId: station?._id })
   }
@@ -75,7 +109,7 @@ export function DetailsHeaderActions({
   return (
     <div className="station-header-actions flex flex-row justify-between align-center">
       <div className="btns-container flex flex-row gap-8 align-center">
-        <IoPlayCircle className="play-circle" />
+        <PlayPauseBtn type={'userDetails'} station={station} onTogglePlay={playOrPauseStation}/>
         {!isStationByUser &&
           !isStationLikedSongs &&
           (!isStationLiked ? (

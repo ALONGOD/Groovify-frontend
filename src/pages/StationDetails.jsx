@@ -25,6 +25,7 @@ import { UsersWatching } from '../cmps/StationDetails/UsersWatching.jsx'
 import { userService } from '../services/user/user.service.remote.js'
 import { socketService } from '../services/socket.service.js'
 import { SET_USER } from '../store/reducers/user.reducer.js'
+import { LOADING_DONE, LOADING_START } from '../store/reducers/system.reducer.js'
 
 export function StationDetails() {
   const navigate = useNavigate()
@@ -113,6 +114,7 @@ export function StationDetails() {
 
   async function fetchStationFromService() {
     try {
+      dispatch({ type: LOADING_START })
       if (isStationLikedSongs) {
         return dispatch({
           type: SET_STATION_DISPLAY,
@@ -130,6 +132,8 @@ export function StationDetails() {
     } catch (err) {
       navigate(-1)
       console.error('Failed to fetch station:', err)
+    } finally {
+      dispatch({ type: LOADING_DONE })
     }
   }
 
@@ -173,7 +177,7 @@ export function StationDetails() {
     }
   }
 
-  if (!station) return <h1>Loading...</h1>
+  if (!station) return 
 
   return (
     <section className="station-details flex flex-column">
