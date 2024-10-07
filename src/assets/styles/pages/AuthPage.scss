@@ -9,9 +9,11 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background: rgb(50, 50, 50);
-  background: linear-gradient(180deg,
-      rgba(50, 50, 50, 1) 0%,
-      rgba(0, 0, 0, 1) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(50, 50, 50, 1) 0%,
+    rgba(0, 0, 0, 1) 100%
+  );
   z-index: 200;
 
   main {
@@ -53,6 +55,7 @@
       width: em(324px);
       margin: 0 auto;
       padding-bottom: em(8px);
+      margin-bottom: 1em;
 
       label {
         font-size: em(14px);
@@ -101,6 +104,7 @@
         min-block-size: em(48px);
         padding-block: em(8px);
         padding-inline: em(32px);
+        margin-bottom: 1.3em;
 
         font-size: 1rem;
         font-family: 'gotham-medium';
@@ -109,14 +113,23 @@
         -webkit-tap-highlight-color: transparent;
         background-color: #1ed760;
         color: #000000;
-        transition: 33ms background-color, transform;
-        margin-bottom: em(32px);
+        transition: 100ms background-color, transform;
         text-transform: none;
         letter-spacing: 0px;
 
         &:hover {
           background-color: #3be477;
-          transform: scale(1.03);
+          transform: scale(1.02);
+        }
+      }
+
+      .guest-login-button {
+        background-color: #3b3b3b;
+        color: white;
+        font-family: 'gotham-book';
+        
+        &:hover {
+          background-color: #696969;
         }
       }
     }
@@ -144,26 +157,26 @@
     }
   }
 
-  .guest-login-button {
-    margin-bottom: 1em;
-    background-color: #3b3b3b;
-    color: white;
-    width: em(324px);
-    height: em(48px);
-    border-radius: 9999px;
-    font-size: 1rem;
-    font-family: 'gotham-medium';
-    font-weight: 600;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
+  // .guest-login-button {
+  //   margin-bottom: 1em;
+  //   background-color: #3b3b3b;
+  //   color: white;
+  //   width: 100%;
+  //   height: em(48px);
+  //   border-radius: 9999px;
+  //   font-size: 1rem;
+  //   font-family: 'gotham-medium';
+  //   font-weight: 600;
+  //   text-align: center;
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  //   cursor: pointer;
+  //   transition: background-color 0.3s, transform 0.2s;
 
-    &:hover {
-      background-color: #505050;
-      transform: scale(1.03);
-    }
-  }
+  //   &:hover {
+  //     background-color: #505050;
+  //     transform: scale(1.03);
+  //   }
+  // }
 }

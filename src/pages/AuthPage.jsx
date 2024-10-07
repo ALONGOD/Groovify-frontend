@@ -49,7 +49,7 @@ export function AuthPage() {
       if (isLogin) user = await userService.login({ username, password })
       else user = await userService.signup(credentials)
       socketService.login(user._id)
-      console.log(user);
+      console.log(user)
 
       dispatch({ type: SET_USER, user })
       navigate('/')
@@ -58,7 +58,8 @@ export function AuthPage() {
     }
   }
 
-  async function handleGuestLogin() {
+  async function handleGuestLogin(ev) {
+    ev.preventDefault()
     try {
       const guestCredentials = { username: 'guest', password: 'guest' }
       const user = await userService.login(guestCredentials)
@@ -122,8 +123,10 @@ export function AuthPage() {
           />
           {/* </div> */}
           <button>{isLogin ? 'Login' : 'Sign up'}</button>
+          <button className="guest-login-button" onClick={handleGuestLogin}>
+            Continue as Guest
+          </button>
         </form>
-        <button className='guest-login-button' onClick={handleGuestLogin}>Continue as Guest</button>
         <p>
           {isLogin ? "Don't have an account?" : 'Already have an account?'}
           <span onClick={toggleIsLogin}>
