@@ -7,6 +7,7 @@ export const SpotifyAPIService = {
   fetchFeaturedPlaylists,
   fetchBrowseCategories,
   getRecommendedSongs,
+  fetchSongDetails
 }
 async function getRecommendedSongs(prompt) {
   try {
@@ -91,6 +92,21 @@ async function getSpotifyAccessToken() {
     console.error('Error fetching Spotify access token:', error)
     return null
   }
+}
+
+async function fetchSongDetails(songTitle) {
+  try {
+    const SPOTIFY_TOKEN = await getSpotifyAccessToken()
+    const response = await axios.get(`https://api.spotify.com/v1/search?q=${songTitle}&type=track`, {
+      headers: {
+        Authorization: `Bearer ${SPOTIFY_TOKEN}`,
+      },
+    })
+    return response.data
+  } catch (err) {
+    console.error(err)
+  }
+  
 }
 
 async function fetchDetailsFromArtist(id, fetchType) {
