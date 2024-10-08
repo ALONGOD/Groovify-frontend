@@ -42,24 +42,28 @@ export function QueueDetails() {
         <h2>Queue</h2>
         <DetailsSidebarClose />
       </header>
-      <main className="flex flex-column justify-start">
-        <div className="playing-now">
-          <h2>Currently Playing</h2>
-          {currSong ? (
-            <SongPreview song={currSong} />
-          ) : (
-            <p>No song currently playing</p>
-          )}
-        </div>
-        <div className="playing-next flex flex-column">
-          <h2>{currStation ? `Next From: ${currStation.name}` : 'Up Next:'}</h2>
-          <SongList
-            songs={queueToDisplay}
-            type={'queueDetails'}
-            moveSong={moveSong}
-          />
-        </div>
-      </main>
+      <div className="container">
+        <main className="flex flex-column justify-start">
+          <div className="playing-now">
+            <h2>Currently Playing</h2>
+            {currSong ? (
+              <SongPreview song={currSong} />
+            ) : (
+              <p>No song currently playing</p>
+            )}
+          </div>
+          <div className="playing-next flex flex-column">
+            <h2>
+              {currStation ? `Next From: ${currStation.name}` : 'Up Next:'}
+            </h2>
+            <SongList
+              songs={queueToDisplay}
+              type={'queueDetails'}
+              moveSong={moveSong}
+            />
+          </div>
+        </main>
+      </div>
     </>
   )
 }

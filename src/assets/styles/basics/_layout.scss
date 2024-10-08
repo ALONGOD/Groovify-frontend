@@ -37,24 +37,26 @@ main {
 
 .main-content {
     overflow: hidden;
+    height: calc(100% - $height-header - $height-footer - 1.75em);
 }
+
 .content-wrapper {
     grid-row: 2;
     display: grid;
     gap: 0.5em;
     padding: 0;
-    height: calc(100vh - $height-header - $height-footer); // Adjusted to use renamed variables
+    height: calc(100vh - $height-header - $height-footer ); // Adjusted to use renamed variables
     overflow: hidden;
     background-color: $bg-main;
     
     &:has(aside.menu-sidebar.collapsed) .menu-sidebar .station-list ul {
-        height: calc($station-list-bar-height + 9em);
+        // height: calc($station-list-bar-height + 9em);
     }
     &:has(aside.menu-sidebar:not(.collapsed)):has(aside.details-sidebar.open) {
-        grid-template-columns: 400px 1fr minmax(300px, 20%);
+        grid-template-columns: 400px 1fr minmax(250px, 22%);
     }
     &:has(aside.menu-sidebar.collapsed):has(aside.details-sidebar.open) {
-        grid-template-columns: 4.5em 1fr minmax(300px, 20%);
+        grid-template-columns: 4.5em 1fr minmax(250px, 22%);
     }
     &:has(aside.menu-sidebar:not(.collapsed)):has(aside.details-sidebar.closed) {
         grid-template-columns: 400px 1fr 0;
@@ -82,7 +84,7 @@ main {
     @include component-layout;
     background-color: $bg-secondary;
     overflow-y: auto;
-    height: calc(100%);
+    height: 100%;
 }
 aside.menu-sidebar {
     height: 100%;
@@ -113,7 +115,7 @@ aside.menu-sidebar {
     padding: 1em;
     flex-direction: column;
     display: flex;
-    gap: 1em;
+    
     overflow-y: auto;
     grid-column: 3;
     height: 100%;

@@ -1,18 +1,33 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { LikeSongBtn } from '../LikeSongBtn'
 import { DetailsSidebarClose } from './DetailsSidebarClose'
 import { SpotifyAPIService } from '../../services/spotifyAPI/spotifyAPI.service'
+import { useSelector } from 'react-redux'
+import { SongPreview } from '../SongPreview'
 
 export function SongDetails({ currSong }) {
   const [songDetails, setSongDetails] = useState(null)
   const [artist, setArtist] = useState(null)
+  const [nextSong, setNextSong] = useState(null);
+  
 
-  console.log('songDetails:', songDetails)
-  console.log('artist:', artist)
+  const queue = useSelector(state => state.stationModule.queue)
+  const isShuffled = queue.isShuffled
+  const currQueueSongs = isShuffled ? queue.shuffledQueue : queue.songsQueue
+  console.log('nextSong:', nextSong)
+
+  function getNextSong() {
+    const currSongIdx = currQueueSongs.findIndex(
+      song => song?.id === currSong?.id
+    )
+    return currQueueSongs[currSongIdx + 1]
+  }
 
   useEffect(() => {
     fetchSongDetails()
-  }, [])
+    const song = getNextSong()
+    setNextSong(song)
+  }, [currSong])
 
   async function fetchSongDetails() {
     const results = await SpotifyAPIService.fetchSongDetails(currSong?.title)
@@ -39,7 +54,7 @@ export function SongDetails({ currSong }) {
         imgUrl: artist.images[0].url,
         followers: artist.followers.total,
         genres: artist.genres,
-        popularity: artist.popularity,
+        popularity: artist.followers.total.toLocaleString(),
       }
       setArtist(artistToSave)
     } catch (error) {
@@ -50,24 +65,41 @@ export function SongDetails({ currSong }) {
 
   return (
     <>
-      <header className="details-header">
+      <header className={`details-header`}>
         <h3>{currSong ? currSong.artist : ''}</h3>
         <div className="header-actions flex flex-row gap-3">
           <button className="more-options">…</button>
           <DetailsSidebarClose />
         </div>
       </header>
-      <div className="details-image">
-        <img src={songDetails?.imgUrl} alt="Album Art" />
-      </div>
-      <div className="details-song-info">
-        <div className="song-and-band">
-          <h2>{currSong.title}</h2>
-          <h4>
-            {currSong ? currSong.artist : 'Metro Boomin, A$AP Rocky, Takeoff'}
-          </h4>
+      <div className="container">
+        <div className="details-image">
+          <img src={songDetails?.imgUrl} alt="Song Image" />
         </div>
-        <LikeSongBtn song={currSong} />
+        <div className="details-song-info">
+          <div className="song-and-band">
+            <h2>{currSong?.title}</h2>
+            <h4>{currSong?.artist}</h4>
+          </div>
+          <LikeSongBtn song={currSong} />
+        </div>
+        <div className="artist-details relative">
+          <div className="relative">
+            <h3>About the artist</h3>
+            <img src={artist?.imgUrl} alt="artist image" />
+          </div>
+          <div className="details">
+            <h3>{artist?.name}</h3>
+            <p>{artist?.popularity} Followers</p>
+          </div>
+        </div>
+          <div className="next-in-queue flex flex-column ">
+            <div className="flex flex-row align-center justify-between">
+              <h3>Next in queue</h3>
+              <h4>Open Queue</h4>
+            </div>
+            {nextSong && <SongPreview song={nextSong} type={'queueDetails'}/>}
+          </div>
       </div>
     </>
   )

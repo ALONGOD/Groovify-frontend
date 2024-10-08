@@ -45,6 +45,9 @@ export function DetailsHeaderActions({
   const isShuffled = useSelector(state => state.stationModule.queue.isShuffled)
   const isPlaying = player.isPlaying
   const partyListen = player.partyListen
+  console.log('partyListen:', partyListen.stationId)
+  console.log('currStation:', currStation);
+  
 
   station.id = station._id ? station._id : station.id
 
@@ -105,6 +108,9 @@ export function DetailsHeaderActions({
     dispatch({ type: TOGGLE_PARTY_PLAY })
     dispatch({ type: SET_PARTY_STATION_ID, stationId: station?._id })
   }
+  
+  const isThisPartyStation = (partyListen.stationId === station.id) 
+  const isPartyStationPlaying = isThisPartyStation && isPlaying
 
   return (
     <div className="station-header-actions flex flex-row justify-between align-center">
@@ -133,15 +139,15 @@ export function DetailsHeaderActions({
         </div>
         <button
           onClick={togglePartyPlay}
-          className={partyListen.state ? 'exit-party' : 'play-together'}
+          className={(isThisPartyStation && partyListen.state) ? 'exit-party' : 'play-together'}
         >
-          {partyListen.state ? 'Exit Party' : 'Play Together'}
+          {(isThisPartyStation && partyListen.state) ? 'Exit Party' : 'Play Together'}
         </button>
       </div>
-      {(partyListen.state && !isMobile) && (
+      {(partyListen.state && !isMobile && isThisPartyStation) && (
         <div className="flex flex-row ">
           {isPlaying ? <EqualizerBar /> : <FaPause className='pause'/>}
-          <h3 className="party-active">{isPlaying ? 'Party in session...' : 'Party paused'}</h3>
+          <h3 className="party-active">{(isThisPartyStation && isPlaying) ? 'Party in session...' : 'Party paused'}</h3>
         </div>
       )}
     </div>

@@ -1,22 +1,35 @@
 .details-sidebar {
   @include component-layout;
-  padding: 1em 0.7em;
+  // padding: 1.2em;
   flex-direction: column;
   display: none;
   grid-column: 3;
   overflow-y: auto;
 
-
+  position: relative;
+  margin: 0;
+  padding: 0;
+  // padding-top: 5em;
 
   .app:has(main.open) & {
     display: flex;
   }
 
+  &.scrolled .details-header {
+    box-shadow: 0px 4px 20px 3px rgba(0, 0, 0, 0.961);
+  }
+
   .details-header {
+    z-index: 100;
+    padding: 1.2em;
+    position: sticky;
+    top: 0;
+    background-color: $bg-secondary;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
+    transition: box-shadow 0.3s ease;
+
     .more-options,
     .close-btn {
       display: flex;
@@ -34,9 +47,8 @@
       transition: 0.2s;
     }
 
-    .more-options{
-    transform: translateY(-25%); /* Center align vertically */
-
+    .more-options {
+      transform: translateY(-25%); /* Center align vertically */
     }
 
     .close-btn:hover {
@@ -48,21 +60,29 @@
 
     h3 {
       color: white;
-      font-size: 1.2em;
+      font-size: 1rem;
       margin: 0;
+      font-family: 'gotham-bold';
+      font-weight: 200;
     }
   }
 
+  .container {
+    display: grid;
+    padding: 1.2em;
+    gap: 1.5em;
+  }
   .details-image {
     width: 100%;
-    max-width: 300px;
+    min-height: em(388px);
+    // max-width: 300px;
     aspect-ratio: 1;
-    margin: 0 auto;
+    // margin: 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    border-radius: 0.6em;
+    border-radius: 8px;
 
     img {
       width: 100%;
@@ -76,25 +96,28 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 1em;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
 
     .song-and-band {
       display: flex;
       flex-direction: column;
-      gap: 0.5em;
+      // gap: 0.5em;
+      text-wrap: nowrap;
+      h2 {
+        font-size: 1.5rem;
+        font-family: 'gotham-medium';
+        font-weight: 900;
+        color: white;
+        margin: 0;
+      }
+      h4 {
+        font-family: 'gotham-light';
+        font-weight: 900;
+        color: #b3b3b3;
+      }
     }
-
-    h2 {
-      color: white;
-      font-size: 1.2em;
-      margin: 0;
-    }
-
-    h4 {
-      color: #b3b3b3;
-      font-size: 0.9em;
-      margin: 0;
+    .like-song-btn {
+      width: 1.5em;
+      height: 1.5em;
     }
 
     .add-btn {
@@ -103,6 +126,156 @@
       color: white;
       font-size: 1.5em;
       cursor: pointer;
+    }
+  }
+
+  .artist-details {
+    position: relative;
+    border-radius: 8px;
+    .relative {
+      border-radius: 8px;
+      width: 100%;
+      h3 {
+        position: absolute;
+        padding: 1em;
+        top: 0;
+        left: 0;
+        font-size: 1.1rem;
+        font-family: 'gotham-medium';
+      }
+      img {
+        border-radius: 8px;
+        width: 100%;
+        height: em(433px);
+        object-fit: cover;
+      }
+    }
+    .details {
+      position: absolute;
+      padding: 1em;
+      bottom: 0;
+      left: 0;
+      height: 30%;
+      width: 100%;
+      background-color: rgb(31, 31, 31);
+      border-radius: 0 0 8px 8px;
+      h3 {
+        font-family: 'gotham-medium';
+        font-size: 1rem;
+      }
+      p {
+        font-family: 'gotham-light';
+        font-weight: 900;
+        font-size: 1em;
+        color: #b3b3b3;
+      }
+    }
+  }
+
+  .next-in-queue {
+    border-radius: 8px;
+    height: max-content;
+    background-color: rgb(31, 31, 31);
+    color: white;
+    padding: 0.8em;
+    & > div {
+      margin-bottom: 1em;
+      h3 {
+        font-size: 1em;
+        font-family: 'gotham-book';
+        font-weight: 900;
+      }
+      h4 {
+        font-size: 1em;
+        color: hsla(0, 0%, 100%, .7);
+        transition: 0.1s;
+        cursor: pointer;
+        &:hover {
+          transform:scale(1.04);
+          text-decoration: underline;
+          color: white;
+        }
+      }
+    }
+    h3 {
+      margin: 0;
+    }
+    li {
+      display: grid;
+      align-items: center;
+      gap: 8px 12px;
+      grid-template-columns: 10fr 1fr;
+      width: 100%;
+      height: 4em;
+      border-radius: 6px;
+      padding: 0.5em;
+      margin: 0;
+      transition: background 0.1s;
+      border-radius: $spotify-border-radius;
+
+      &:hover {
+        background-color: rgb(34, 34, 34);
+        .main-details h4.artist {
+          color: #fff;
+        }
+      }
+
+      .duration {
+        grid-column: 2;
+        display: block;
+        width: max-content;
+      }
+
+      .main-details {
+        grid-column: 1;
+        gap: 8px;
+        width: 13em;
+        .song-details {
+          gap: 2px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          width: 10em;
+          .title {
+            margin: 0;
+          }
+          .artist {
+            color: $--text-subdued;
+            width: 100%;
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+
+      h4 {
+        font-weight: 200;
+        //   font-family: 'gotham-light';
+      }
+      &:hover {
+        background-color: hsla(0, 0%, 100%, 0.1);
+      }
+
+      .song-details {
+        .title {
+          font-size: em(16px);
+        }
+        .artist {
+          font-size: em(14px);
+        }
+      }
+      img {
+        border-radius: $spotify-border-radius;
+        width: em(48px);
+        height: em(48px);
+      }
+      .duration h4 {
+        display: none;
+      }
+      .like-song-container {
+        display: none;
+      }
     }
   }
 }
