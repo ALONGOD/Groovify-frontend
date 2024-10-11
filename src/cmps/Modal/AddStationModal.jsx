@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { YouTubeAPIService } from '../../services/youtubeAPI/fetchYoutubeApi.js';
-import { SpotifyAPIService } from '../../services/spotifyAPI/spotifyAPI.service.js';
+import { spotifyAPIService } from '../../services/spotifyAPI/spotifyAPI.service.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { addNewStation, saveStation } from '../../store/actions/backend.station.js';
@@ -59,7 +59,7 @@ export function AddStationModal() {
         try {
             if (!userPrompt) return;
 
-            const spotifySongs = await SpotifyAPIService.getRecommendedSongs(userPrompt);
+            const spotifySongs = await spotifyAPIService.getRecommendedSongs(userPrompt);
             console.log(spotifySongs)
 
             const youtubeSongs = await getYouTubeSongsFromSpotify(spotifySongs);

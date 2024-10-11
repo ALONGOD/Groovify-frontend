@@ -297,11 +297,12 @@ ul.song-list {
         text-overflow: ellipsis;
         max-width: 100%;
       }
-    }
-
-    .artist {
-      // min-width: 1em;
-      // max-width: 10em;
+      .artist {
+        &:hover {
+          color: white;
+          text-decoration: underline;
+        }
+      }
     }
 
     div.duration {

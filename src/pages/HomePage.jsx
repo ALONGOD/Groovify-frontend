@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { PlayPauseBtn } from '../cmps/PlayPauseBtn'
 import { query } from '../store/actions/backend.station'
 import { StationList } from '../cmps/StationList'
-import { SpotifyAPIService } from '../services/spotifyAPI/spotifyAPI.service'
+import { spotifyAPIService } from '../services/spotifyAPI/spotifyAPI.service'
 import { LOADING_DONE, LOADING_START } from '../store/reducers/system.reducer'
 import { FastAverageColor } from 'fast-average-color'
 import { adjustBrightnessAndSaturation } from '../services/util.service'
@@ -86,16 +86,16 @@ export function Homepage() {
           chill,
           workout,
         ] = await Promise.all([
-          SpotifyAPIService.fetchFeaturedPlaylists('pop', 'US'),
-          SpotifyAPIService.fetchFeaturedPlaylists('latin', 'US'),
-          SpotifyAPIService.fetchFeaturedPlaylists('rock', 'US'),
-          SpotifyAPIService.fetchFeaturedPlaylists('jazz', 'US'),
-          SpotifyAPIService.fetchFeaturedPlaylists('hip-hop', 'US'),
-          SpotifyAPIService.fetchFeaturedPlaylists('r&b', 'US'),
-          SpotifyAPIService.fetchFeaturedPlaylists('indie', 'US'),
-          SpotifyAPIService.fetchFeaturedPlaylists('k-pop', 'US'),
-          SpotifyAPIService.fetchFeaturedPlaylists('chill', 'US'),
-          SpotifyAPIService.fetchFeaturedPlaylists('workout', 'US'),
+          spotifyAPIService.fetchFeaturedPlaylists('pop', 'US'),
+          spotifyAPIService.fetchFeaturedPlaylists('latin', 'US'),
+          spotifyAPIService.fetchFeaturedPlaylists('rock', 'US'),
+          spotifyAPIService.fetchFeaturedPlaylists('jazz', 'US'),
+          spotifyAPIService.fetchFeaturedPlaylists('hip-hop', 'US'),
+          spotifyAPIService.fetchFeaturedPlaylists('r&b', 'US'),
+          spotifyAPIService.fetchFeaturedPlaylists('indie', 'US'),
+          spotifyAPIService.fetchFeaturedPlaylists('k-pop', 'US'),
+          spotifyAPIService.fetchFeaturedPlaylists('chill', 'US'),
+          spotifyAPIService.fetchFeaturedPlaylists('workout', 'US'),
         ])
 
         setPopStations(pop)

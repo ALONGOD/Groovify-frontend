@@ -3,7 +3,7 @@ import { SongList } from '../cmps/SongList.jsx';
 import { useParams, useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 import { YouTubeAPIService } from '../services/youtubeAPI/fetchYoutubeApi.js';
-import { SpotifyAPIService } from '../services/spotifyAPI/spotifyAPI.service.js';
+import { spotifyAPIService } from '../services/spotifyAPI/spotifyAPI.service.js';
 import { TopResult } from '../cmps/SearchPage/TopResult.jsx';
 import { stationService } from '../services/station/station.service.local.js';
 import { PlayPauseBtn } from '../cmps/PlayPauseBtn.jsx';
@@ -61,7 +61,7 @@ export function SearchPage() {
 
   async function fetchArtistsFromSpotify(query) {
     try {
-      const results = await SpotifyAPIService.searchArtists(query, 5);
+      const results = await spotifyAPIService.searchArtists(query, 5);
       setArtistResults(results);
       return results;
     } catch (error) {
@@ -76,7 +76,7 @@ export function SearchPage() {
 
   async function fetchCategories() {
     try {
-      const data = await SpotifyAPIService.fetchBrowseCategories();
+      const data = await spotifyAPIService.fetchBrowseCategories();
       setCategories(data.categories.items);
       console.log(data)
     } catch (error) {

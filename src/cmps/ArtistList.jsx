@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router'
-import { SpotifyAPIService } from '../services/spotifyAPI/spotifyAPI.service'
+import { spotifyAPIService } from '../services/spotifyAPI/spotifyAPI.service'
 
 export function ArtistList({ artists }) {
   const navigate = useNavigate()

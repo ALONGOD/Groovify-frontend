@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { LikeSongBtn } from '../LikeSongBtn'
 import { DetailsSidebarClose } from './DetailsSidebarClose'
-import { SpotifyAPIService } from '../../services/spotifyAPI/spotifyAPI.service'
+import { spotifyAPIService } from '../../services/spotifyAPI/spotifyAPI.service'
 import { useDispatch, useSelector } from 'react-redux'
 import { SongPreview } from '../SongPreview'
 import { SET_DETAILS_SIDEBAR } from '../../store/reducers/system.reducer'
@@ -34,7 +34,7 @@ export function SongDetails({ currSong, setIsLoading, isLoading }) {
 
   async function fetchDetails() {
     setIsLoading(true)
-    const results = await SpotifyAPIService.fetchSongDetails(currSong?.title)
+    const results = await spotifyAPIService.searchDetails(currSong?.title, 'track')
     const songToEdit = results.tracks.items[0]
     console.log('songToEdit:', songToEdit)
     const songToSave = {
@@ -49,7 +49,7 @@ export function SongDetails({ currSong, setIsLoading, isLoading }) {
 
   async function fetchArtist(artistId) {
     try {
-      const artist = await SpotifyAPIService.fetchDetailsFromArtist(
+      const artist = await spotifyAPIService.fetchDetailsFromArtist(
         artistId,
         'artist'
       )

@@ -1,5 +1,5 @@
 import { useParams } from 'react-router'
-import { SpotifyAPIService } from '../services/spotifyAPI/spotifyAPI.service'
+import { spotifyAPIService } from '../services/spotifyAPI/spotifyAPI.service'
 import { useEffect, useState } from 'react'
 import { VerifiedBtn } from '../cmps/svgs/VerifiedBtn'
 import { PlayPauseBtn } from '../cmps/PlayPauseBtn'
@@ -33,8 +33,8 @@ export function ArtistDetails() {
 
   async function fetchDetailsFromArtist() {
     dispatch({ type: LOADING_START})
-    const details = await SpotifyAPIService.fetchDetailsFromArtist(artistId, 'artist')
-    const albumsBeforeEdit = await SpotifyAPIService.fetchDetailsFromArtist(artistId, 'albums')
+    const details = await spotifyAPIService.fetchDetailsFromArtist(artistId, 'artist')
+    const albumsBeforeEdit = await spotifyAPIService.fetchDetailsFromArtist(artistId, 'albums')
     const albums = albumsBeforeEdit.items.map(album => {
       const { id, name, artists, images } = album
       console.log('album:', album)
@@ -49,9 +49,9 @@ export function ArtistDetails() {
         imgUrl: images[0].url,
       }
     })
-    const relatedArtists = await SpotifyAPIService.fetchDetailsFromArtist(artistId, 'relatedArtists')
+    const relatedArtists = await spotifyAPIService.fetchDetailsFromArtist(artistId, 'relatedArtists')
     
-    const topTracksBeforeEdit = await SpotifyAPIService.fetchDetailsFromArtist(artistId, 'topTracks')
+    const topTracksBeforeEdit = await spotifyAPIService.fetchDetailsFromArtist(artistId, 'topTracks')
     const topTracks = topTracksBeforeEdit.tracks.map(song => {
       console.log('song:', song)
       const { id, name: title, artists, album, duration_ms } = song

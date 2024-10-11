@@ -15,6 +15,8 @@ import { toggleModal } from '../store/actions/station.actions'
 import { getTimeOfSent } from '../services/util.service'
 import { useDrop } from 'react-dnd'
 import { HiOutlineDotsVertical } from 'react-icons/hi'
+import { spotifyAPIService } from '../services/spotifyAPI/spotifyAPI.service'
+import { useNavigate } from 'react-router'
 export function SongPreview({
   song,
   idx,
@@ -26,6 +28,7 @@ export function SongPreview({
   moveSong,
   isMobile,
 }) {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const [onSongHover, setOnSongHover] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -107,11 +110,16 @@ export function SongPreview({
     toggleModal(song)
   }
 
-  // Toggle the local modal state and dispatch the global modal action
   function onLocalToggleModal(event, song) {
     event.stopPropagation()
     onToggleModal(event, song)
     setIsModalOpen(!isModalOpen)
+  }
+
+  async function navigateToArtist(name) {
+    const res = await spotifyAPIService.searchDetails(name, 'artist')
+    const artist = res.artists.items[0]
+    navigate(`/artist/${artist.id}`)
   }
 
   return (
@@ -152,7 +160,7 @@ export function SongPreview({
         </div>
         <div className="song-details flex flex-column">
           <h4 className="title">{title}</h4>
-          <h4 className="artist">{artist ? artist : 'Artist'}</h4>
+          <h4 className="artist" onClick={() => navigateToArtist(artist)}>{artist ? artist : 'Artist'}</h4>
         </div>
       </div>
       {isListTable && (
