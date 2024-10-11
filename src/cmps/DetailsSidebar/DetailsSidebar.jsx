@@ -4,51 +4,61 @@ import { TOGGLE_DETAILS_SIDEBAR } from '../../store/reducers/system.reducer'
 import { SongDetails } from './SongDetails'
 import { QueueDetails } from './QueueDetails'
 import { PartyDetails } from './PartyDetails'
+import Skeleton from 'react-loading-skeleton'
 
 export function DetailsSidebar() {
-    const currSong = useSelector(state => state.stationModule.player.currSong)
-    const detailsSidebarMode = useSelector(state => state.systemModule.detailsSidebarMode)
-    // console.log('detailsSidebarMode:', detailsSidebarMode)
-    const dispatch = useDispatch()
-    const scrollableRef = useRef(null)
-  
-    const scrollThreshold = 30
-    const [hasShadow, setHasShadow] = useState(false)
+  const currSong = useSelector((state) => state.stationModule.player.currSong)
+  const detailsSidebarMode = useSelector(
+    (state) => state.systemModule.detailsSidebarMode
+  )
+  // console.log('detailsSidebarMode:', detailsSidebarMode)
+  const dispatch = useDispatch()
+  const scrollableRef = useRef(null)
 
-    useEffect(() => {
-        function handleScroll() {
-          console.log('window.scrollY:', window.scrollY)
-          if (scrollableRef.current.scrollTop > scrollThreshold) {
-            setHasShadow(true)
-          } else {
-            setHasShadow(false)
-          }
-        }
-        const scrollableDiv = scrollableRef.current
-        scrollableDiv.addEventListener('scroll', handleScroll)
-        return () => {
-          scrollableDiv.removeEventListener('scroll', handleScroll)
-        }
-      }, [])
+  const [isLoading, setIsLoading] = useState(false)
+  const scrollThreshold = 30
+  const [hasShadow, setHasShadow] = useState(false)
 
-    useEffect(() => {
-        const handleResize = () => {
-            if (window.innerWidth < 900 && detailsSidebarMode) {
-                dispatch({ type: TOGGLE_DETAILS_SIDEBAR })
-            }
-        }
+  useEffect(() => {
+    function handleScroll() {
+      console.log('window.scrollY:', window.scrollY)
+      if (scrollableRef.current.scrollTop > scrollThreshold) {
+        setHasShadow(true)
+      } else {
+        setHasShadow(false)
+      }
+    }
+    const scrollableDiv = scrollableRef.current
+    scrollableDiv.addEventListener('scroll', handleScroll)
+    return () => {
+      scrollableDiv.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
-        window.addEventListener('resize', handleResize)
-        return () => {
-            window.removeEventListener('resize', handleResize)
-        }
-    }, [dispatch, detailsSidebarMode])
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 900 && detailsSidebarMode) {
+        dispatch({ type: TOGGLE_DETAILS_SIDEBAR })
+      }
+    }
 
-    return (
-        <aside className={`details-sidebar relative ${detailsSidebarMode} ${detailsSidebarMode ? 'open' : 'closed'} ${hasShadow ? 'scrolled' : ''}`} ref={scrollableRef}>
-           {detailsSidebarMode === 'songDetails' && <SongDetails currSong={currSong} />}
-           {detailsSidebarMode === 'queueDetails' && <QueueDetails />}
-           {detailsSidebarMode === 'partyDetails' && <PartyDetails />}
-        </aside>
-    )
+    window.addEventListener('resize', handleResize)
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [dispatch, detailsSidebarMode])
+
+  return (
+    <aside
+      className={`details-sidebar relative ${detailsSidebarMode} ${
+        detailsSidebarMode ? 'open' : 'closed'
+      } ${hasShadow ? 'scrolled' : ''}`}
+      ref={scrollableRef}
+    >
+      {detailsSidebarMode === 'songDetails' && (
+        <SongDetails currSong={currSong} setIsLoading={setIsLoading} isLoading={isLoading} />)}
+      {detailsSidebarMode === 'queueDetails' && <QueueDetails />}
+      {detailsSidebarMode === 'partyDetails' && <PartyDetails />}
+    </aside>
+  )
 }

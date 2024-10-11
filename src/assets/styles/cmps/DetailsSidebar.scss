@@ -11,6 +11,10 @@
   padding: 0;
   // padding-top: 5em;
 
+  .loader-container {
+    width: 100%;
+  }
+
   .app:has(main.open) & {
     display: flex;
   }
