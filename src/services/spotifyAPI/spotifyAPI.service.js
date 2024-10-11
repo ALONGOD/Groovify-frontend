@@ -1,13 +1,13 @@
 import axios from 'axios'
 
 // services/spotifyAPI/fetchSpotifyApi.js
-export const SpotifyAPIService = {
+export const spotifyAPIService = {
   searchArtists,
   fetchDetailsFromArtist,
   fetchFeaturedPlaylists,
   fetchBrowseCategories,
   getRecommendedSongs,
-  fetchSongDetails
+  searchDetails
 }
 async function getRecommendedSongs(prompt) {
   try {
@@ -94,10 +94,10 @@ async function getSpotifyAccessToken() {
   }
 }
 
-async function fetchSongDetails(songTitle) {
+async function searchDetails(title, type) {
   try {
     const SPOTIFY_TOKEN = await getSpotifyAccessToken()
-    const response = await axios.get(`https://api.spotify.com/v1/search?q=${songTitle}&type=track`, {
+    const response = await axios.get(`https://api.spotify.com/v1/search?q=${title}&type=${type}`, {
       headers: {
         Authorization: `Bearer ${SPOTIFY_TOKEN}`,
       },
@@ -106,7 +106,6 @@ async function fetchSongDetails(songTitle) {
   } catch (err) {
     console.error(err)
   }
-  
 }
 
 async function fetchDetailsFromArtist(id, fetchType) {
