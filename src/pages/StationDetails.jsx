@@ -153,7 +153,9 @@ export function StationDetails() {
 
   async function moveSong(fromIndex, toIndex) {
     try {
-      if (user._id !== station.createdBy.id) return showErrorMsg('Not allowed')
+      if ((user._id !== station.createdBy.id) && (user?.likedSongsStation.id !== stationId)) {
+        return showErrorMsg('Not allowed')
+      } 
       const updatedSongs = [...station.songs]
       const [movedSong] = updatedSongs.splice(fromIndex, 1)
       updatedSongs.splice(toIndex, 0, movedSong)
