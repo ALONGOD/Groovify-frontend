@@ -26,7 +26,6 @@ export function RootCmp() {
       {!isMobile && <AppHeader />}
       <div className={'content-wrapper'}>
         {/* <MenuSidebarFix /> */}
-        <DynamicNavbar />
 
         <Routes>
           <Route path="/auth/:authType" element={<AuthPage />} />

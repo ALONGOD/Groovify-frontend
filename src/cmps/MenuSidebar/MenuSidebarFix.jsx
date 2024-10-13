@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import { SET_USER } from '../../store/reducers/user.reducer'
 import { userService } from '../../services/user/user.service.remote'
 import { socketService } from '../../services/socket.service'
@@ -12,7 +12,9 @@ import { SearchBar } from '../SearchBar'
 import { showErrorMsg } from '../../services/event-bus.service'
 import { updateUser } from '../../store/actions/backend.user'
 
-export function MenuSidebarFix() {
+export function MenuSidebarFix({stationIdParams}) {
+  const params = useParams()
+
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const user = useSelector(state => state.userModule.user)
@@ -54,9 +56,7 @@ export function MenuSidebarFix() {
   async function getUser() {
     try {
       const userToSave = await userService.getLoggedinUser()
-      console.log('userToSave:', userToSave)
       if (!userToSave) navigate('/auth/login')
-      // const userToSave = await userService.getById(user._id)
       dispatch({ type: SET_USER, user: userToSave })
       socketService.login({ id: userToSave._id, fullname: userToSave.fullname })
     } catch (err) {
@@ -68,7 +68,6 @@ export function MenuSidebarFix() {
   async function getUser() {
     try {
       const userToSave = await userService.getLoggedinUser()
-      console.log('userToSave:', userToSave)
       if (!userToSave) navigate('/auth/login')
       // const userToSave = await userService.getById(user._id)
       dispatch({ type: SET_USER, user: userToSave })
@@ -109,6 +108,8 @@ export function MenuSidebarFix() {
       showErrorMsg('Failed to move Station')
     }
   }
+
+
   function onSearch(value) {
     setSearchTerm(value)
   }
@@ -139,12 +140,14 @@ export function MenuSidebarFix() {
           station={user?.likedSongsStation}
           type="station-preview"
           isCollapsed={isCollapsed}
-        />
+          stationIdParams={stationIdParams}
+          />
         <StationList
           isCollapsed={isCollapsed}
           stations={filteredStations}
           type="station-preview"
           moveStation={moveStation}
+          stationIdParams={stationIdParams}
         />
       </div>
     </aside>

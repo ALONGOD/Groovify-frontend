@@ -5,15 +5,6 @@ import { PlayPauseBtn } from './../PlayPauseBtn'
 import { MusicPlayer } from './MusicPlayer'
 
 export function MobileFooter({ currSong }) {
-  console.log('currSong:', currSong?.imgUrl)
-  // const fac = new FastAverageColor()
-
-  // useEffect(() => {
-  //   fac.getColorAsync(currSong?.imgUrl)
-  //     .then(color => {
-  //         console.log(color)
-  //     })
-  // }, [currSong])
 
   return (
     currSong && (

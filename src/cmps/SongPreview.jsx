@@ -17,6 +17,7 @@ import { useDrop } from 'react-dnd'
 import { HiOutlineDotsVertical } from 'react-icons/hi'
 import { spotifyAPIService } from '../services/spotifyAPI/spotifyAPI.service'
 import { useNavigate } from 'react-router'
+import { SET_DRAG_ACTIVE_DONE, SET_DRAG_ACTIVE_START } from '../store/reducers/system.reducer'
 export function SongPreview({
   song,
   idx,
@@ -33,14 +34,13 @@ export function SongPreview({
   const [onSongHover, setOnSongHover] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  console.log('song:', song)
   const { duration, imgUrl, title, artist, album } = song
-  const player = useSelector(state => state.stationModule.player)
+  const player = useSelector((state) => state.stationModule.player)
   const { currSong, isPlaying } = player
 
   const isListTable = type === 'list-table'
   const isArtistPage = type === 'artist-page'
-  const isSongLiked = likedSongs?.some(likedSong => likedSong.id === song.id)
+  const isSongLiked = likedSongs?.some((likedSong) => likedSong.id === song.id)
   const displayLikeBtn = onSongHover || isSongLiked
   const [isHovered, setIsHovered] = useState(false)
 
@@ -48,41 +48,34 @@ export function SongPreview({
 
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'song',
-    item: { id: song.id, index: idx },
-    collect: monitor => ({
+    item: { song, type, index: idx },
+    collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),
+    end: () => dispatch({type: SET_DRAG_ACTIVE_DONE})
   }))
+  if (isDragging) dispatch({type:SET_DRAG_ACTIVE_START})
 
   const [{ isOver }, drop] = useDrop(() => ({
     accept: 'song',
     hover: (item, monitor) => {
+    },
+    drop: (item) => {
       const dragIndex = item.index
       const hoverIndex = idx
 
-      if (dragIndex === hoverIndex) {
-        setIsHovered(false)
-        return
-      }
-      setIsHovered(true)
+      moveSong(dragIndex, hoverIndex, item.song, item.type)
     },
-    drop: item => {
-      const dragIndex = item.index
-      const hoverIndex = idx
-
-      moveSong(dragIndex, hoverIndex)
-      setIsHovered(false)
-    },
-    collect: monitor => ({
+    collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),
   }))
 
-  useEffect(() => {
-    if (!isOver) {
-      setIsHovered(false)
-    }
-  }, [isOver])
+  // useEffect(() => {
+  //   if (!isOver) {
+  //     setIsHovered(false)
+  //   }
+  // }, [isOver])
 
   function handleMouseLeave() {
     setOnSongHover(false)
@@ -124,9 +117,9 @@ export function SongPreview({
 
   return (
     <li
-      ref={node => drag(drop(node))}
+      ref={(node) => drag(drop(node))}
       className={` ${currSong?.id === song?.id ? 'active' : ''}
-      ${isHovered ? 'dragged' : ''}`}
+      ${isOver ? 'dragged' : ''}`}
       style={{ opacity: isDragging ? 0.5 : 1 }}
       onMouseEnter={() => setOnSongHover(true)}
       onMouseLeave={handleMouseLeave}
@@ -147,7 +140,7 @@ export function SongPreview({
         </h4>
       )}
       <div className="main-details flex flex-row align-center">
-        <div className="relative img-svg">
+        <div className="relative img-svg play-btn-img">
           <img src={imgUrl} alt="song-img" />
           {!isListTable && onSongHover && (
             <PlayPauseBtn
@@ -160,7 +153,9 @@ export function SongPreview({
         </div>
         <div className="song-details flex flex-column">
           <h4 className="title">{title}</h4>
-          <h4 className="artist" onClick={() => navigateToArtist(artist)}>{artist ? artist : 'Artist'}</h4>
+          <h4 className="artist" onClick={() => navigateToArtist(artist)}>
+            {artist ? artist : 'Artist'}
+          </h4>
         </div>
       </div>
       {isListTable && (
@@ -172,14 +167,17 @@ export function SongPreview({
       {displayLikeBtn && <LikeSongBtn song={song} isSongLiked={isSongLiked} />}
       <div className="duration img-svg relative flex justify-start align-center">
         {isMobile ? (
-          <HiOutlineDotsVertical onClick={ev => onLocalToggleModal(ev, song)} className='dots'/>
+          <HiOutlineDotsVertical
+            onClick={(ev) => onLocalToggleModal(ev, song)}
+            className="dots"
+          />
         ) : (
           <>
             <h4>{duration ? duration : '3:30'}</h4>
-            {(onSongHover && !isMobile) && (
+            {onSongHover && !isMobile && (
               <BsThreeDots
                 className="dots"
-                onClick={ev => onLocalToggleModal(ev, song)} // Use local state toggle
+                onClick={(ev) => onLocalToggleModal(ev, song)} // Use local state toggle
               />
             )}
           </>

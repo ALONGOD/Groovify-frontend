@@ -227,6 +227,11 @@ ul.song-list {
     padding-block: 0.5em;
     grid-auto-flow: column;
     border-radius: $spotify-border-radius;
+    .play-btn-img {
+      svg {
+        // display: none;
+      }
+    }
     &.dragged {
       border-bottom: 2px solid $spotify-green;
     }

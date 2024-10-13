@@ -4,7 +4,7 @@ import { MenuSidebarFix } from "./MenuSidebarFix";
 import { useDispatch, useSelector } from "react-redux";
 import { SET_IS_MOBILE } from "../../store/reducers/system.reducer";
 
-export function DynamicNavbar({}) {
+export function DynamicNavbar({stationIdParams}) {
   const dispatch = useDispatch()
     const isMobile = useSelector(state => state.systemModule.isMobile)
     
@@ -26,6 +26,6 @@ export function DynamicNavbar({}) {
     }
 
     if (isMobile) return <AppFooterMobile />
-    return <MenuSidebarFix />
+    return <MenuSidebarFix stationIdParams={stationIdParams}/>
     
     }

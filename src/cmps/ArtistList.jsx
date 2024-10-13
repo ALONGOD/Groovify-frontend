@@ -12,8 +12,7 @@ export function ArtistList({ artists }) {
   return (
     <ul className="artist-list">
       {artists?.map(artist => {
-        console.log('artist:', artist)
-        if (artist.images.length === 0) return null // Correct use of conditional
+        if (artist.images.length === 0) return null 
         return (
           <>
             <li

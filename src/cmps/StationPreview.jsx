@@ -11,7 +11,9 @@ import {
 } from '../store/reducers/station.reducer'
 import { setSongsInQueue } from '../store/actions/station.actions'
 import { SET_DETAILS_SIDEBAR } from '../store/reducers/system.reducer'
-import { getStationById } from '../store/actions/backend.station'
+import { addSongToStation, getStationById } from '../store/actions/backend.station'
+import { addToLikedSongs } from '../store/actions/backend.user'
+import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 
 export function StationPreview({
   station,
@@ -20,16 +22,20 @@ export function StationPreview({
   moveStation,
   type,
   stations,
-  setImgHover
+  setImgHover,
+  stationIdParams
 }) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+  const user = useSelector(state => state.userModule.user)
   const player = useSelector(state => state.stationModule.player)
   const { currStation, isPlaying, currSong } = player
-  const user = useSelector(state => state.userModule.user)
+
   const { isShuffled } = useSelector(state => state.stationModule.queue)
+
   const [isDraggingOver, setIsDraggingOver] = useState(false)
+  const isDragActive = useSelector(state => state.systemModule.isDragActive)
 
   if (!station) return null
 
@@ -42,6 +48,7 @@ export function StationPreview({
 
   var isStationLikedSongs = user?.likedSongsStation?.id === station?.id
   const isStationPlaying = currStation?.id === station?.id
+  const isStationByUser = (station?.creator?.id === user?._id) || (station?.id === user?.likedSongsStation?.id)
 
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'station',
@@ -52,34 +59,26 @@ export function StationPreview({
   }))
 
   const [{ isOver }, drop] = useDrop(() => ({
-    accept: 'station',
+    accept: ['station','song'],
     hover: (item, monitor) => {
-      const dragIndex = stations?.findIndex(s => s.id === item.id)
-      const hoverIndex = stations?.findIndex(s => s.id === station._id)
 
-      if (dragIndex === hoverIndex) {
-        setIsDraggingOver(false)
-        return
-      }
-      setIsDraggingOver(true)
     },
-    drop: item => {
-      const dragIndex = stations?.findIndex(s => s.id === item.id)
-      const hoverIndex = stations?.findIndex(s => s.id === station?.id)
+    drop: (item, monitor) => {
 
-      moveStation(dragIndex, hoverIndex)
-      setIsDraggingOver(false)
+      if (monitor.getItemType() === 'station') {
+        const dragIndex = stations?.findIndex(s => s.id === item.id)
+        const hoverIndex = stations?.findIndex(s => s.id === station?.id)
+        
+        moveStation(dragIndex, hoverIndex)
+      } else if (monitor.getItemType() === 'song') {
+        onAddSongWithDnD(item.song)
+      }
     },
     collect: monitor => ({
       isOver: !!monitor.isOver(),
     }),
   }))
 
-  useEffect(() => {
-    if (!isOver) {
-      setIsDraggingOver(false)
-    }
-  }, [isOver])
 
   if (!station) return null
 
@@ -111,18 +110,27 @@ export function StationPreview({
     if (setImgHover) setImgHover(imgUrl)
   }
 
-
-  console.log(station);
+  function onAddSongWithDnD(song) {
+    try {
+      isStationLikedSongs ? addToLikedSongs(song) : addSongToStation(station.id, song)
+      showSuccessMsg(`Added to ${station.name}!`)
+    } catch (err) {
+      showErrorMsg('Couldn\'t add song')
+    }
+  }
   
 
   if (!station) return null
   return (
     <li
       ref={node => drag(drop(node))}
-      className={`station-preview flex flex-row align-center ${isDraggingOver ? 'dragging' : ''
-        } ${type === 'search-results' ? 'search-results' : ''}`}
+      className={`station-preview flex flex-row align-center 
+        ${isOver ? 'dragging-over' : ''}
+        ${type === 'search-results' ? 'search-results' : ''}
+        ${isDragActive ? (isStationByUser ? 'droppable' : 'undroppable') : ''}
+        ${isDragging ? 'dragging-item' : ''}
+        ${stationIdParams === station.id ? 'watching-station' : ''}`}
       onClick={() => navigate(`/station/${station.id}`)}
-      style={{ opacity: isDragging ? 0.5 : 1 }}
       onMouseEnter={() => setHomeAverageColor(station?.imgUrl)}
     >
       <div className="relative">

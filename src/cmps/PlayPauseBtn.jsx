@@ -51,7 +51,6 @@ export function PlayPauseBtn({
 
   const isGreenBtn = type === 'top-result' || type === 'userDetails' || type === 'search-results' || type === 'home-station'
 
-  // console.log('type:', type)
   if (isGreenBtn) {
     return (
       <div className={`play-pause-container ${type}`} onClick={playOrPauseSong}>

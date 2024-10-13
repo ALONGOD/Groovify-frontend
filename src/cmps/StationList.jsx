@@ -1,15 +1,8 @@
 import { useEffect, useState, useRef } from 'react'
 import { StationPreview } from './StationPreview'
-import { stationService } from '../services/station/station.service.local'
-import { useDispatch, useSelector } from 'react-redux'
-import { SearchBar } from './SearchBar.jsx'
-import { Modal } from './Modal/Modal.jsx'
-import { FaBars } from 'react-icons/fa6'
-import update from 'immutability-helper'
-import { SET_USER } from '../store/reducers/user.reducer.js'
+import { useParams } from 'react-router'
 
-export function StationList({ isCollapsed, stations, type, moveStation, setImgHover }) {
-  const searchTerm = useSelector(state => state.stationModule.searchTerm)
+export function StationList({ isCollapsed, stations, type, moveStation, setImgHover, stationIdParams }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const modalRef = useRef(null)
 
@@ -41,6 +34,7 @@ export function StationList({ isCollapsed, stations, type, moveStation, setImgHo
             moveStation={moveStation}
             type={type}
             setImgHover={setImgHover}
+            stationIdParams={stationIdParams}
           />
         ))}
       </ul>

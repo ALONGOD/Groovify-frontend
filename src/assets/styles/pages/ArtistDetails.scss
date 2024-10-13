@@ -70,6 +70,14 @@
           display: flex;
           justify-content: center;
           // padding: 0.5em;
+          svg {
+            left: 50%;
+          }
+        }
+        .play-btn-img {
+          svg {
+            display: none;
+          }
         }
         div.main-details {
           grid-column: 2;

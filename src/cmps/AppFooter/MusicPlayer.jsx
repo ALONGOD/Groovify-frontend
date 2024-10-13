@@ -71,8 +71,14 @@ export function MusicPlayer({ currSong }) {
   useEffect(() => {
     try {
       if (playerRef.current) {
-        if (isPlaying) playerRef?.current?.playVideo()
-        else playerRef?.current?.pauseVideo()
+        if (isPlaying) {
+          playerRef?.current?.playVideo()
+          if (currSong) document.title = currSong.title
+        }
+        else {
+          playerRef?.current?.pauseVideo()
+          document.title = 'Groovify'
+        }
       }
     } catch (err) {
       showErrorMsg('Error playing song')
@@ -136,7 +142,6 @@ export function MusicPlayer({ currSong }) {
           song => song.id === currSong.id
         )
       }
-      console.log('shuffled', queue.shuffledQueue)
       const nextSong = queue.shuffledQueue[currSongIdx + value]
       if (partyState)
         socketService.emit('send-player', { player: { ...player, currSong: nextSong },
@@ -150,7 +155,6 @@ export function MusicPlayer({ currSong }) {
     }
 
     if (!queue.isShuffled) {
-      console.log(queue.songsQueue)
 
       currSongIdx = queue.songsQueue.findIndex(song => song.id === currSong.id)
       if (queue.songsQueue[currSongIdx + value] === undefined) return
@@ -241,7 +245,6 @@ export function MusicPlayer({ currSong }) {
     const newTime = (clickX / width) * duration
     setCurrentTime(newTime)
     playerRef.current.seekTo(newTime, true)
-    console.log('partyState:', partyState)
     if (partyState)
       socketService.emit('send-player', {
         player,

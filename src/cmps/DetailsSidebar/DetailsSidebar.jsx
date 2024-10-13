@@ -21,7 +21,6 @@ export function DetailsSidebar() {
 
   useEffect(() => {
     function handleScroll() {
-      console.log('window.scrollY:', window.scrollY)
       if (scrollableRef.current.scrollTop > scrollThreshold) {
         setHasShadow(true)
       } else {

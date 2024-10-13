@@ -15,7 +15,6 @@ export function MenuSidebar() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const user = useSelector(state => state.userModule.user)
-  console.log('user:', user)
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [isBelowThreshold, setIsBelowThreshold] = useState(false)
   const [selected, setSelected] = useState(null)
@@ -55,14 +54,12 @@ export function MenuSidebar() {
   async function getUser() {
     try {
       const userToSave = await userService.getLoggedinUser()
-      console.log('userToSave:', userToSave)
       if (!userToSave) navigate('/auth/login')
       // const userToSave = await userService.getById(user._id)
       dispatch({ type: SET_USER, user: userToSave })
       socketService.login({ id: userToSave._id, fullname: userToSave.fullname })
     } catch (err) {
       navigate('/auth/login')
-      console.log('Cannot set logged in user', err)
     }
   }
 

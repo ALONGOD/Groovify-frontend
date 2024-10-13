@@ -88,7 +88,7 @@ export function AuthPage() {
       <main className="flex flex-column justify-center align-center">
         <div className="auth-header flex flex-column align-center">
           <FaSpotify size={30} color="white" />
-          <h1>{isLogin ? 'Login' : 'Sign up'} to Spotify</h1>
+          <h1>{isLogin ? 'Login' : 'Sign up'} to Groovify</h1>
         </div>
         <hr />
         <form className="flex flex-column align-start" onSubmit={handleSubmit}>

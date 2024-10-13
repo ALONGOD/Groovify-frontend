@@ -9,29 +9,38 @@ import {
 
 export function QueueDetails() {
   const dispatch = useDispatch()
-  const queue = useSelector(state => state.stationModule.queue)
+  const queue = useSelector((state) => state.stationModule.queue)
   const isShuffled = queue.isShuffled
   const currQueueSongs = isShuffled ? queue.shuffledQueue : queue.songsQueue
-  console.log('queue.songsQueue:', queue.songsQueue)
-  console.log('queue.shuffledQueue:', queue.shuffledQueue)
-  const player = useSelector(state => state.stationModule.player)
+  const player = useSelector((state) => state.stationModule.player)
   const { currSong, currStation } = player
   //   console.log('currSong:', currSong)
 
   const currSongIdx = currQueueSongs.findIndex(
-    song => song?.id === currSong?.id
+    (song) => song?.id === currSong?.id
   )
   const queueToDisplay = currQueueSongs.slice(currSongIdx + 1)
 
   if (!queue) return <h2>No queue available</h2>
 
-  async function moveSong(fromIndex, toIndex) {
+  async function moveSong(fromIndex, toIndex, songToAdd, type) {
+    const updatedSongs = [...currQueueSongs]
+    var songIdx = updatedSongs.findIndex((song) => {
+      console.log('songToAdd.id:', songToAdd.id)
+      console.log('song.id:', song)
+      return song.id === songToAdd.id
+    })
     fromIndex = currSongIdx + fromIndex + 1
     toIndex = currSongIdx + toIndex + 1
-    if (fromIndex === toIndex) return
-    const updatedSongs = [...currQueueSongs]
-    const [movedSong] = updatedSongs.splice(fromIndex, 1)
-    updatedSongs.splice(toIndex, 0, movedSong)
+
+    console.log('songIdx === fromIndex + 1:', songIdx === fromIndex + 1)
+    if (type === 'list-table') {
+      updatedSongs.splice(toIndex, 0, songToAdd)
+    } else {
+      if (fromIndex === toIndex) return
+      const [movedSong] = updatedSongs.splice(fromIndex, 1)
+      updatedSongs.splice(toIndex, 0, movedSong)
+    }
     if (isShuffled) dispatch({ type: SET_QUEUE_SHUFFLED, songs: updatedSongs })
     else dispatch({ type: SET_QUEUE_SONGS, songs: updatedSongs })
   }

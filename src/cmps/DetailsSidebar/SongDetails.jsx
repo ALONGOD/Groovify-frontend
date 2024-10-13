@@ -17,7 +17,6 @@ export function SongDetails({ currSong, setIsLoading, isLoading }) {
   const queue = useSelector((state) => state.stationModule.queue)
   const isShuffled = queue.isShuffled
   const currQueueSongs = isShuffled ? queue.shuffledQueue : queue.songsQueue
-  console.log('nextSong:', nextSong)
 
   function getNextSong() {
     const currSongIdx = currQueueSongs.findIndex(
@@ -36,7 +35,6 @@ export function SongDetails({ currSong, setIsLoading, isLoading }) {
     setIsLoading(true)
     const results = await spotifyAPIService.searchDetails(currSong?.title, 'track')
     const songToEdit = results.tracks.items[0]
-    console.log('songToEdit:', songToEdit)
     const songToSave = {
       title: songToEdit.name,
       imgUrl: songToEdit.album.images[0].url,
@@ -53,7 +51,6 @@ export function SongDetails({ currSong, setIsLoading, isLoading }) {
         artistId,
         'artist'
       )
-      console.log('artist:', artist)
       const artistToSave = {
         name: artist.name,
         imgUrl: artist.images[0].url,

@@ -16,11 +16,27 @@
 li.station-preview {
     gap: 0.7em;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 8px;
     padding-inline: 0.5em;
     padding-block: 0.6em;
-    &.dragging {
+    transition: 100ms opacity ease;
+    &.watching-station {
+        background-color: #2A2A2A;
+    }
+    &.undroppable {
+        opacity: 0.3;
+    } 
+    &.dragging-item {
+        opacity: 0.5;
+    }
+    &.dragging-over {
+        padding-bottom: calc(0.6em - 2px);
         border-bottom: 2px solid $spotify-green;
+    }
+    &.dragging-over.droppable {
+        padding-inline: calc(0.5em - 2px);
+        padding-block: calc(0.6em - 2px);
+        border: 2px solid $spotify-green;
     }
     &:hover {
         background-color: rgb(33, 33, 33);

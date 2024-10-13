@@ -12,30 +12,10 @@ import { onUpdateStation } from '../store/actions/backend.station'
 import { SET_IS_MOBILE } from '../store/reducers/system.reducer'
 
 export function SongList({ songs, type, station, moveSong }) {
-  const dispatch = useDispatch()
   const songModal = useSelector(state => state.stationModule.modalSong)
   const user = useSelector(state => state.userModule.user)
   const likedSongs = user?.likedSongsStation?.songs
   const isMobile = useSelector(state => state.systemModule.isMobile)
-  
-
-  // useEffect(() => {
-  //   window.addEventListener('resize', handleResize)
-  //   handleResize()
-
-  //   return () => {
-  //     window.removeEventListener('resize', handleResize)
-  //   }
-  // }, [])
-
-  // function handleResize() {
-  //   if (window.innerWidth < 480) {
-      
-  //     dispatch({ type: SET_IS_MOBILE, isMobile: true })
-  //   } else {
-  //     dispatch({ type: SET_IS_MOBILE, isMobile: false })
-  //   }
-  // }
 
   async function onSetSongsInQueue() {
     await setSongsInQueue(songs)
