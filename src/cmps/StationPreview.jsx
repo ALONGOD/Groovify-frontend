@@ -37,13 +37,12 @@ export function StationPreview({
   const [isDraggingOver, setIsDraggingOver] = useState(false)
   const isDragActive = useSelector(state => state.systemModule.isDragActive)
 
-  if (!station) return null
-
   if (station && (station._id || station.id)) {
     station.id = station._id ? station._id : station.id
     station.creator = station.creator ? station.creator : station.createdBy
   } else {
     console.error('Station is undefined or lacks a valid ID')
+    return
   }
 
   var isStationLikedSongs = user?.likedSongsStation?.id === station?.id

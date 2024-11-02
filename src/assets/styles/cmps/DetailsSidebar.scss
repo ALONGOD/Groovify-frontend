@@ -182,6 +182,10 @@
     background-color: rgb(31, 31, 31);
     color: white;
     padding: 0.8em;
+    img {
+      object-fit: cover;
+      object-position: center;
+    }
     & > div {
       margin-bottom: 1em;
       h3 {

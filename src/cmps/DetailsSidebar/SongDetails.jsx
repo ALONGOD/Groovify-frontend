@@ -5,8 +5,6 @@ import { spotifyAPIService } from '../../services/spotifyAPI/spotifyAPI.service'
 import { useDispatch, useSelector } from 'react-redux'
 import { SongPreview } from '../SongPreview'
 import { SET_DETAILS_SIDEBAR } from '../../store/reducers/system.reducer'
-import Skeleton from 'react-loading-skeleton'
-import ContentLoader, { Instagram } from 'react-content-loader'
 
 export function SongDetails({ currSong, setIsLoading, isLoading }) {
   const dispatch = useDispatch()
@@ -80,7 +78,7 @@ export function SongDetails({ currSong, setIsLoading, isLoading }) {
       </header>
       {isLoading ? (
         <div className="loader-container">
-          <ContentLoader
+          {/* <ContentLoader
             speed={1}
             width="100%"
             height="100%"
@@ -93,7 +91,7 @@ export function SongDetails({ currSong, setIsLoading, isLoading }) {
             <rect x="5%" y="53%" rx="10" ry="10" width="50%" height="2.5%" />
 
             <rect x="5%" y="58%" rx="10" ry="10" width="90%" height="40%" />
-          </ContentLoader>
+          </ContentLoader> */}
         </div>
       ) : (
         <>

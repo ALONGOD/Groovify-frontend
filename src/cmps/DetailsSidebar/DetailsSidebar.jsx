@@ -4,7 +4,6 @@ import { TOGGLE_DETAILS_SIDEBAR } from '../../store/reducers/system.reducer'
 import { SongDetails } from './SongDetails'
 import { QueueDetails } from './QueueDetails'
 import { PartyDetails } from './PartyDetails'
-import Skeleton from 'react-loading-skeleton'
 
 export function DetailsSidebar() {
   const currSong = useSelector((state) => state.stationModule.player.currSong)
